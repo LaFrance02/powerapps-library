@@ -1,0 +1,692 @@
+- conRailShellBottomNav:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =If(gblRailShellDark, RGBA(21, 30, 48, 1), RGBA(255, 255, 255, 1))
+      Height: =64
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Visible: =Parent.Width < 768
+      Width: =Parent.Width
+      X: =0
+      Y: =Parent.Height - 64
+    Children:
+      - conRailShellBottomNavLine:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(gblRailShellDark, RGBA(34, 48, 74, 1), RGBA(228, 228, 231, 1))
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+      - imgRailShellBottomTab5Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Height: =18
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(7 = Coalesce(gblRailShellNav, 2), "#3b82f6", If(gblRailShellDark, "#8b99b0", "#71717a")) & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 8c4.97 0 9-1.34 9-3s-4.03-3-9-3-9 1.34-9 3 4.03 3 9 3z M21 12c0 1.66-4 3-9 3s-9-1.34-9-3 M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Width: =18
+            X: =Parent.Width * 4 / 5 + Parent.Width / 10 - 11 + 2
+            Y: =13
+      - lblRailShellBottomTab5Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =If(7 = Coalesce(gblRailShellNav, 2), RGBA(59, 130, 246, 1), If(gblRailShellDark, RGBA(139, 153, 176, 1), RGBA(113, 113, 122, 1)))
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =11
+            Text: ="Reports"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 4 / 5
+            Y: =36
+      - btnRailShellBottomTab5:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =Parent.Height
+            OnSelect: =Set(gblRailShellNav, 7); Set(gblRailShellPage, "Reports")
+            Text: =""
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 4 / 5
+            Y: =0
+      - imgRailShellBottomTab4Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Height: =18
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(6 = Coalesce(gblRailShellNav, 2), "#3b82f6", If(gblRailShellDark, "#8b99b0", "#71717a")) & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Width: =18
+            X: =Parent.Width * 3 / 5 + Parent.Width / 10 - 11 + 2
+            Y: =13
+      - lblRailShellBottomTab4Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =If(6 = Coalesce(gblRailShellNav, 2), RGBA(59, 130, 246, 1), If(gblRailShellDark, RGBA(139, 153, 176, 1), RGBA(113, 113, 122, 1)))
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =11
+            Text: ="People"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 3 / 5
+            Y: =36
+      - btnRailShellBottomTab4:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =Parent.Height
+            OnSelect: =Set(gblRailShellNav, 6); Set(gblRailShellPage, "People")
+            Text: =""
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 3 / 5
+            Y: =0
+      - imgRailShellBottomTab3Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Height: =18
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(4 = Coalesce(gblRailShellNav, 2), "#3b82f6", If(gblRailShellDark, "#8b99b0", "#71717a")) & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Width: =18
+            X: =Parent.Width * 2 / 5 + Parent.Width / 10 - 11 + 2
+            Y: =13
+      - lblRailShellBottomTab3Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =If(4 = Coalesce(gblRailShellNav, 2), RGBA(59, 130, 246, 1), If(gblRailShellDark, RGBA(139, 153, 176, 1), RGBA(113, 113, 122, 1)))
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =11
+            Text: ="Approvals"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 2 / 5
+            Y: =36
+      - btnRailShellBottomTab3:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =Parent.Height
+            OnSelect: =Set(gblRailShellNav, 4); Set(gblRailShellPage, "Approvals")
+            Text: =""
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 2 / 5
+            Y: =0
+      - imgRailShellBottomTab2Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Height: =18
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(3 = Coalesce(gblRailShellNav, 2), "#3b82f6", If(gblRailShellDark, "#8b99b0", "#71717a")) & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Width: =18
+            X: =Parent.Width * 1 / 5 + Parent.Width / 10 - 11 + 2
+            Y: =13
+      - lblRailShellBottomTab2Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =If(3 = Coalesce(gblRailShellNav, 2), RGBA(59, 130, 246, 1), If(gblRailShellDark, RGBA(139, 153, 176, 1), RGBA(113, 113, 122, 1)))
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =11
+            Text: ="Requests"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 1 / 5
+            Y: =36
+      - btnRailShellBottomTab2:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =Parent.Height
+            OnSelect: =Set(gblRailShellNav, 3); Set(gblRailShellPage, "Requests")
+            Text: =""
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 1 / 5
+            Y: =0
+      - imgRailShellBottomTab1Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Height: =18
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(2 = Coalesce(gblRailShellNav, 2), "#3b82f6", If(gblRailShellDark, "#8b99b0", "#71717a")) & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Width: =18
+            X: =Parent.Width * 0 / 5 + Parent.Width / 10 - 11 + 2
+            Y: =13
+      - lblRailShellBottomTab1Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =If(2 = Coalesce(gblRailShellNav, 2), RGBA(59, 130, 246, 1), If(gblRailShellDark, RGBA(139, 153, 176, 1), RGBA(113, 113, 122, 1)))
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =11
+            Text: ="Home"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 0 / 5
+            Y: =36
+      - btnRailShellBottomTab1:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =Parent.Height
+            OnSelect: =Set(gblRailShellNav, 2); Set(gblRailShellPage, "Home")
+            Text: =""
+            Width: =Parent.Width / 5
+            X: =Parent.Width * 0 / 5
+            Y: =0
+- conRailShellContent:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =If(gblRailShellDark, RGBA(11, 18, 32, 1), RGBA(244, 244, 245, 1))
+      Height: =Parent.Height - Self.Y - If(Parent.Width < 768, 64, 0)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Parent.Width - Self.X
+      X: =If(Parent.Width < 768, 0, conRailShellSidebar.Width)
+      Y: =If(Parent.Width < 768, 56, 0)
+    Children:
+      - lblRailShellContentHint:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =If(gblRailShellDark, RGBA(139, 153, 176, 1), RGBA(113, 113, 122, 1))
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Your content goes here"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width
+            X: =0
+            Y: =Parent.Height / 2 + 30
+      - lblRailShellContentPage:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =If(gblRailShellDark, RGBA(230, 234, 242, 1), RGBA(24, 24, 27, 1))
+            Height: =34
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =21
+            Text: =Coalesce(gblRailShellPage, "Home")
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width
+            X: =0
+            Y: =Parent.Height / 2
+      - conRailShellContentIconTile:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 0.12)
+            Height: =48
+            RadiusBottomLeft: =24
+            RadiusBottomRight: =24
+            RadiusTopLeft: =24
+            RadiusTopRight: =24
+            Width: =48
+            X: =(Parent.Width - 48) / 2
+            Y: =Parent.Height / 2 - 60
+          Children:
+            - imgRailShellContentIcon:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =20
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#3b82f6" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 3h7v7H3z M14 3h7v7h-7z M14 14h7v7h-7z M3 14h7v7H3z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =20
+                  X: =14
+                  Y: =14
+- conRailShellPhoneHeader:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =If(gblRailShellDark, RGBA(21, 30, 48, 1), RGBA(255, 255, 255, 1))
+      Height: =56
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Visible: =Parent.Width < 768
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+    Children:
+      - conRailShellPhoneHeaderLine:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(gblRailShellDark, RGBA(34, 48, 74, 1), RGBA(228, 228, 231, 1))
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =55
+      - imgRailShellPhoneTheme:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =22
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl(If(gblRailShellDark, "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#8B99B0' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z'/></svg>", "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#71717A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z'/></svg>"))
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Set(gblRailShellDark, !gblRailShellDark)
+            Tooltip: =If(gblRailShellDark, "Switch to light", "Switch to dark")
+            Width: =22
+            X: =Parent.Width - 36
+            Y: =17
+      - conRailShellPhoneLogo:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 1)
+            Height: =32
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Width: =32
+            X: =16
+            Y: =12
+          Children:
+            - imgRailShellPhoneLogoIcon:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#ffffff" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 3h7v7H3z M14 3h7v7h-7z M14 14h7v7h-7z M3 14h7v7H3z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =16
+                  X: =(Parent.Width - 20) / 2 + 2
+                  Y: =(Parent.Height - 20) / 2 + 2
+      - lblRailShellPhoneTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =If(gblRailShellDark, RGBA(230, 234, 242, 1), RGBA(24, 24, 27, 1))
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =16
+            Text: ="Contoso Ops"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Min(113, Parent.Width - Self.X - 12)
+            X: =58
+            Y: =12
+- conRailShellSidebar:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =If(gblRailShellDark, RGBA(21, 30, 48, 1), RGBA(255, 255, 255, 1))
+      Height: =Parent.Height
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Visible: =Parent.Width >= 768
+      Width: =If(gblRailShellRail, 64, 240)
+      X: =0
+      Y: =0
+    Children:
+      - conRailShellSideLine:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(gblRailShellDark, RGBA(34, 48, 74, 1), RGBA(228, 228, 231, 1))
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =1
+            X: =Parent.Width - 1
+            Y: =0
+      - conRailShellSideAvatar:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 0.12)
+            Height: =32
+            RadiusBottomLeft: =16
+            RadiusBottomRight: =16
+            RadiusTopLeft: =16
+            RadiusTopRight: =16
+            Width: =32
+            X: =16
+            Y: =Parent.Height - 46
+          Children:
+            - lblRailShellSideAvatarInitials:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FontColor: =RGBA(59, 130, 246, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =Upper(Left(User().FullName, 1) & Mid(User().FullName, Find(" ", User().FullName & " ") + 1, 1))
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - lblRailShellSideUserName:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =If(gblRailShellDark, RGBA(230, 234, 242, 1), RGBA(24, 24, 27, 1))
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: =User().FullName
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =!gblRailShellRail
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 70
+            X: =58
+            Y: =Parent.Height - 46 - 2
+      - lblRailShellSideUserMail:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =If(gblRailShellDark, RGBA(139, 153, 176, 1), RGBA(113, 113, 122, 1))
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =11
+            Text: =User().Email
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =!gblRailShellRail
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 70
+            X: =58
+            Y: =Parent.Height - 46 + 15
+      - imgRailShellCollapse:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(gblRailShellDark, "#8b99b0", "#71717a") & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='" & If(gblRailShellRail, "m9 18 6-6-6-6", "m15 18-6-6 6-6") & "'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Set(gblRailShellRail, !gblRailShellRail)
+            Tooltip: =If(gblRailShellRail, "Expand", "Collapse")
+            Width: =16
+            X: =If(gblRailShellRail, 22, 62) + 2
+            Y: =Parent.Height - 90 + 6 + 2
+      - imgRailShellSideTheme:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =22
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl(If(gblRailShellDark, "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#8B99B0' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z'/></svg>", "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#71717A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z'/></svg>"))
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Set(gblRailShellDark, !gblRailShellDark)
+            Tooltip: =If(gblRailShellDark, "Switch to light", "Switch to dark")
+            Width: =22
+            X: =21
+            Y: =If(gblRailShellRail, Parent.Height - 134, Parent.Height - 90) + 5
+      - conRailShellFooterLine:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(gblRailShellDark, RGBA(34, 48, 74, 1), RGBA(228, 228, 231, 1))
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =Parent.Height - If(gblRailShellRail, 140, 96)
+      - galRailShellNav:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height - Self.Y - If(gblRailShellRail, 140, 96)
+            Items: |-
+              =Filter(Table(
+                  {id:1, label:"Main", icon:"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6", header:true},
+                  {id:2, label:"Home", icon:"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z", header:false},
+                  {id:3, label:"Requests", icon:"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6", header:false},
+                  {id:4, label:"Approvals", icon:"M20 6 9 17l-5-5", header:false},
+                  {id:5, label:"Manage", icon:"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6", header:true},
+                  {id:6, label:"People", icon:"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75", header:false},
+                  {id:7, label:"Reports", icon:"M12 8c4.97 0 9-1.34 9-3s-4.03-3-9-3-9 1.34-9 3 4.03 3 9 3z M21 12c0 1.66-4 3-9 3s-9-1.34-9-3 M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5", header:false},
+                  {id:8, label:"Settings", icon:"M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z", header:false}
+              ), !(header && gblRailShellRail))
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =40
+            Width: =Parent.Width - 16
+            X: =8
+            Y: =72
+          Children:
+            - conRailShellNavActive:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(ThisItem.id = Coalesce(gblRailShellNav, 2) && !ThisItem.header, RGBA(59, 130, 246, 0.12), RGBA(0, 0, 0, 0))
+                  Height: =36
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Width: =Parent.TemplateWidth
+                  X: =0
+                  Y: =2
+            - lblRailShellNavHeader:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =If(gblRailShellDark, RGBA(93, 107, 132, 1), RGBA(161, 161, 170, 1))
+                  Height: =40
+                  PaddingBottom: =6
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =11
+                  Text: =Upper(ThisItem.label)
+                  VerticalAlign: =VerticalAlign.Bottom
+                  Visible: =ThisItem.header
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =Parent.TemplateWidth - 24
+                  X: =12
+                  Y: =0
+            - imgRailShellNavIcon:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(ThisItem.id = Coalesce(gblRailShellNav, 2), "#3b82f6", If(gblRailShellDark, "#8b99b0", "#71717a")) & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='" & ThisItem.icon & "'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Visible: =!ThisItem.header
+                  Width: =16
+                  X: =If(gblRailShellRail, (Parent.TemplateWidth - 20) / 2, 12) + 2
+                  Y: =12
+            - lblRailShellNavLabel:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =If(ThisItem.id = Coalesce(gblRailShellNav, 2), RGBA(59, 130, 246, 1), If(gblRailShellDark, RGBA(180, 190, 206, 1), RGBA(63, 63, 70, 1)))
+                  Height: =40
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =ThisItem.label
+                  VerticalAlign: =VerticalAlign.Middle
+                  Visible: =!ThisItem.header && !gblRailShellRail
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =Parent.TemplateWidth - 54
+                  X: =42
+                  Y: =0
+            - btnRailShellNavRow:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =36
+                  OnSelect: =If(!ThisItem.header, Set(gblRailShellNav, ThisItem.id); Set(gblRailShellPage, ThisItem.label))
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+                  X: =0
+                  Y: =2
+      - conRailShellSideLogo:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 1)
+            Height: =32
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Width: =32
+            X: =16
+            Y: =14
+          Children:
+            - imgRailShellSideLogoIcon:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#ffffff" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 3h7v7H3z M14 3h7v7h-7z M14 14h7v7h-7z M3 14h7v7H3z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =16
+                  X: =(Parent.Width - 20) / 2 + 2
+                  Y: =(Parent.Height - 20) / 2 + 2
+      - lblRailShellSideTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =If(gblRailShellDark, RGBA(230, 234, 242, 1), RGBA(24, 24, 27, 1))
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =16
+            Text: ="Contoso Ops"
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =!gblRailShellRail
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Min(113, Parent.Width - Self.X - 12)
+            X: =58
+            Y: =14

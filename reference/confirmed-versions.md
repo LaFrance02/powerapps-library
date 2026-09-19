@@ -29,6 +29,18 @@ Confirmed in **Cryo Dewar Tracking Suite** (Dataverse, full) as of mid-2026:
 | `Rectangle` | 2.3.0 | No corner-radius support — `BorderRadius`, `RadiusTopLeft`, etc. all → PA2108. |
 | `Label` | 2.5.1 | Matches Transfer Log. |
 
+## Seen in examples, not yet paste-tested
+
+Controls that showed up in a PowerLibs example (`examples/powerlibs-collapsible-sidebar-shell.yaml`)
+but have never been confirmed against a real Matt Studio paste. Do not treat these as ground truth
+— they're here so a future paste attempt has a specific thing to verify, not a surprise:
+
+| Control | Version | Note |
+|---|---|---|
+| `Text` | 0.0.51 | Not the same control as the confirmed `Label@2.5.1` — unclear if it's a newer replacement or a parallel modern control. Verify both still work if an app mixes them. |
+| `Image` | 2.2.3 | No prior confirmed entry for this control at all. |
+| `Gallery` variant | `BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0` | Confirmed baseline uses `..._pcfCore` for the same `Gallery@2.15.0` version — two different variant strings for one control version. Watch for a variant-mismatch error if this gets pasted. |
+
 ## Patterns with no Power_Libs equivalent
 
 Don't spend a `search_components` call looking for these — confirmed to not exist in the library,
