@@ -1,0 +1,23 @@
+- btnBadge1:
+    Control: Classic/Button@2.2.0
+    Properties:
+      FocusedBorderThickness: =0
+      BorderStyle: =BorderStyle.None
+      Color: =RGBA(36, 80, 150, 1)
+      DisplayMode: =DisplayMode.View
+      Fill: =ColorFade(Self.Color, 80%)
+      Height: =20
+      HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+      HoverColor: =Self.Color
+      HoverFill: =ColorFade(Self.Fill, -10%)
+      PressedBorderColor: =ColorFade(Self.BorderColor, -40%)
+      PressedFill: =ColorFade(Self.Fill, -20%)
+      RadiusBottomLeft: =3
+      RadiusBottomRight: =3
+      RadiusTopLeft: =3
+      RadiusTopRight: =3
+      Size: =9
+      Text: ="Default"
+      Width: =55
+      X: =100
+      Y: =150

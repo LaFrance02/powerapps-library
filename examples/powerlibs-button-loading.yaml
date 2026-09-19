@@ -1,0 +1,92 @@
+- conLoading:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =If(varLoadingButtonBusy, ColorFade(RGBA(59, 130, 246, 1), 20%), RGBA(59, 130, 246, 1))
+      Height: =40
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      Width: =150
+      X: =40
+      Y: =40
+    Children:
+      - lblLoadingLabel:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: =If(varLoadingButtonBusy, "Saving...", "Save")
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - If(varLoadingButtonBusy, 24, 0)
+            X: =If(varLoadingButtonBusy, 24, 0)
+            Y: =0
+      - imgLoadingSpinner:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =18
+            Image: ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='40' height='40'><circle cx='25' cy='25' r='20' fill='none' stroke='rgba(255,255,255,0.35)' stroke-width='6'/><circle cx='25' cy='25' r='20' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-dasharray='40 86'><animateTransform attributeName='transform' type='rotate' from='0 25 25' to='360 25 25' dur='0.9s' repeatCount='indefinite'/></circle></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Visible: =varLoadingButtonBusy
+            Width: =18
+            X: =14
+            Y: =(Parent.Height - 18) / 2
+      - tmrLoadingReset:
+          Control: Timer@2.1.0
+          Properties:
+            AutoStart: =false
+            Duration: =3000
+            Height: =1
+            OnTimerEnd: |-
+              =// Demo only: switches the button back after 3 s. In your app set varLoadingButtonBusy to false when the Patch is done and delete this timer.
+              UpdateContext({ varLoadingButtonBusy: false })
+            Repeat: =false
+            Start: =varLoadingButtonBusy
+            Visible: =false
+            Width: =1
+            X: =0
+            Y: =0
+      - btnLoading:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =If(varLoadingButtonBusy, DisplayMode.Disabled, DisplayMode.Edit)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(255, 255, 255, 0.12)
+            OnSelect: |-
+              =UpdateContext({ varLoadingButtonBusy: true })
+              // Then your work, for example:
+              // Patch(Orders, Defaults(Orders), { Title: txtTitle.Text });
+              // UpdateContext({ varLoadingButtonBusy: false })
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0.12)
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Text: =""
+            Width: =Parent.Width
+            X: =0
+            Y: =0

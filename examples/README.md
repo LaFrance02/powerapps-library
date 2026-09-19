@@ -30,6 +30,27 @@ is preserved in this file's notes instead, not silently dropped.
 | Animations | `powerlibs-animation-count-up.yaml` | PowerLibs, "Count-up Number" | KPI number that animates 0 → target on open via a 60-frame SVG sequence; replay icon included. | Not yet paste-tested |
 | Animations | `powerlibs-animation-progress-bar.yaml` | PowerLibs, "Progress Bar" | Bar that fills over 3s with an ease-out curve, status text swap, percentage counter, paired `Timer` and Start button. | Not yet paste-tested |
 | Animations | `powerlibs-animation-progress-circle.yaml` | PowerLibs, "Progress Circle" | Ring that sweeps to a value (0–100) over 3s, number + caption in the middle, replay icon. | Not yet paste-tested |
+| Buttons | `powerlibs-button-danger.yaml` | PowerLibs, "Danger Button" | Red icon+label button (delete/remove/cancel), filled. | Not yet paste-tested |
+| Buttons | `powerlibs-button-ghost.yaml` | PowerLibs, "Ghost Button" | Text-only tinted-on-hover button for a third/lesser action row. | Not yet paste-tested |
+| Buttons | `powerlibs-button-link.yaml` | PowerLibs, "Link Button" | A `Label` styled and wired to act like a hyperlink (e.g. "Forgot your password?"). | Not yet paste-tested |
+| Buttons | `powerlibs-button-badge-count.yaml` | PowerLibs, "Badge Button" | Icon+label button with a small numbered count pill (e.g. "Approvals 3"). | Not yet paste-tested |
+| Buttons | `powerlibs-button-back.yaml` | PowerLibs, "Back Button" | Chevron + "Back" wired to `Back()`. | Not yet paste-tested |
+| Buttons | `powerlibs-button-split.yaml` | PowerLibs, "Split Button" | Primary action + chevron that opens a dropdown of related actions (Save / Save and new / Save as draft). | Not yet paste-tested |
+| Buttons | `powerlibs-button-action-bar.yaml` | PowerLibs, "Action Bar" | Bottom-pinned bar with an unsaved-changes hint plus Cancel/Save — meant for the bottom of every edit screen. | Not yet paste-tested |
+| Buttons | `powerlibs-button-primary.yaml` | PowerLibs, "Primary Button" | Bare modern filled brand button — the default button most screens need. | Not yet paste-tested |
+| Buttons | `powerlibs-button-icon.yaml` | PowerLibs, "Icon Button" | Filled icon+label button (e.g. "Add item"). | Not yet paste-tested |
+| Buttons | `powerlibs-button-outline.yaml` | PowerLibs, "Outline Button" | Bare modern outline-appearance button — the default secondary action next to a primary. | Not yet paste-tested |
+| Buttons | `powerlibs-button-loading.yaml` | PowerLibs, "Loading Button" | Button that swaps its label for a spinner + "Saving..." while a variable is true; includes a demo `Timer` to reset it. | Not yet paste-tested — see caution below |
+| Buttons | `powerlibs-button-gradient.yaml` | PowerLibs, "Gradient Button" | Two-color gradient button drawn as an SVG `Image`, no HTML control needed. | Not yet paste-tested |
+| Buttons | `powerlibs-button-raised.yaml` | PowerLibs, "Raised Button" | Primary button with a bold drop shadow for the one action that must stand out. | Not yet paste-tested |
+| Buttons | `powerlibs-button-group.yaml` | PowerLibs, "Button Group" | Three-way segmented control (e.g. List/Board/Calendar) in one outlined track, active segment tinted. | Not yet paste-tested |
+| Avatars | `powerlibs-avatar-user.yaml` | PowerLibs, "User Avatar" | Signed-in user's M365 photo via `User().Image`, falling back to initials from `User().FullName`; optional presence dot. | Not yet paste-tested |
+| Avatars | `powerlibs-avatar-user-chip.yaml` | PowerLibs, "User Chip" | Avatar + live user name in one pill, sized to the name's length. | Not yet paste-tested |
+| Avatars | `powerlibs-avatar-group.yaml` | PowerLibs, "Avatar Group" | Overlapping stack of initials circles (signed-in user live, others literal names) with a "+N" overflow circle. | Not yet paste-tested |
+| Badges | `powerlibs-badge-simple.yaml` | PowerLibs, "Simple Badge" | Self-contained colored status badge — set `Color`/`Text`/`Width` only, Hover/Pressed follow automatically. | Not yet paste-tested |
+| Badges | `powerlibs-badge-border.yaml` | PowerLibs, "Border Badge" | Same self-contained pattern as Simple Badge, plus a border outline. | Not yet paste-tested |
+| Badges | `powerlibs-badge-pills.yaml` | PowerLibs, "Pills Badge" | Same pattern, pill-shaped (fully rounded corners). | Not yet paste-tested — see naming caution below |
+| Badges | `powerlibs-badge-outlined-pills.yaml` | PowerLibs, "Outlined Pills Badge" | Pill-shaped plus a border outline. | Not yet paste-tested — see naming caution below |
 
 ## Notes on the sidebar shell (read before using)
 
@@ -85,3 +106,40 @@ identically to the confirmed pattern.
   embedded into the SVG's `id` attribute, forcing the browser to treat it as a new image and
   replay the animation. If combining several of these in one app, keep each one's counter variable
   name distinct — don't reuse one counter across two different animated components.
+
+## Notes on the button/avatar/badge batch (read before using)
+
+**This batch, unlike the animation batch, genuinely does prefer modern controls where one
+exists** — the source file's own header says "pasted using Modern Controls if that option was
+available," and that mostly holds up: `Primary Button`, `Outline Button`, and both buttons in
+`Action Bar` are bare `Button@0.0.45`. But most of the icon+label and custom-shaped buttons
+(Danger, Ghost, Badge Button, Back, Split, Icon, Loading, Gradient, Button Group) are built as a
+`GroupContainer@1.5.0` + `Image@2.2.3`/`Text@0.0.51` for the visual, with an invisible
+`Classic/Button@2.2.0` layered on top purely as the tap target — see
+`reference/confirmed-versions.md` for why that's not a contradiction (classic is used as a hitbox,
+not for its styling). Full breakdown of every version seen, including the new `GroupContainer@1.3.0`
+mismatch in the avatar components and the one `Classic/Icon@2.5.0` instance in Split Button, is in
+that file now — don't duplicate it here.
+
+**Naming caution:** `powerlibs-badge-simple.yaml`, `powerlibs-badge-pills.yaml`, and
+`powerlibs-badge-outlined-pills.yaml` all use the **identical** control name `btnBadge1` — this is
+copy-paste residue from PowerLibs, not intentional. `powerlibs-badge-border.yaml` got renamed to
+`btnBadge1_1` but the other three didn't. Per `syntax-gotchas.md`'s uniqueness rule, rename these
+before using more than one badge variant on the same screen — Studio will reject (or silently
+misbehave on) a duplicate control name.
+
+**Usage notes worth keeping** (from comments stripped out of the badge/avatar file — the button
+file had none):
+- **User Avatar**: `imgUserAvatarPhoto` shows the signed-in user's M365 photo via `User().Image`
+  with no connector needed; when they have no photo it falls back to initials from
+  `User().FullName`. The presence dot is a static color picked at design time — to make it live,
+  point `conUserAvatarPresence`'s `Fill` at a real status field (e.g. a SharePoint column).
+- **User Chip**: name, initials, and pill width all follow `User().FullName` live, no connector
+  needed.
+- **Avatar Group**: only the first circle is live (the signed-in user via `User().FullName`); the
+  rest are literal names set at design time, with each one's color and initials derived from that
+  name so the same person always renders the same color.
+- **Loading Button**: the included `Timer` (`tmrLoadingReset`) is a **demo only** — it flips
+  `varLoadingButtonBusy` back to `false` after a fixed 3 seconds. In a real screen, delete this
+  timer and set `varLoadingButtonBusy` to `false` yourself once the real `Patch`/`SubmitForm`
+  finishes.

@@ -1,0 +1,12 @@
+- btnOutline:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Outline
+      Height: =40
+      OnSelect: |-
+        =// Put your action here
+        false
+      Text: ="Cancel"
+      Width: =97
+      X: =40
+      Y: =40
