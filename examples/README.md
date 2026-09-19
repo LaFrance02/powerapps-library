@@ -51,6 +51,9 @@ is preserved in this file's notes instead, not silently dropped.
 | Badges | `powerlibs-badge-border.yaml` | PowerLibs, "Border Badge" | Same self-contained pattern as Simple Badge, plus a border outline. | Not yet paste-tested |
 | Badges | `powerlibs-badge-pills.yaml` | PowerLibs, "Pills Badge" | Same pattern, pill-shaped (fully rounded corners). | Not yet paste-tested — see naming caution below |
 | Badges | `powerlibs-badge-outlined-pills.yaml` | PowerLibs, "Outlined Pills Badge" | Pill-shaped plus a border outline. | Not yet paste-tested — see naming caution below |
+| Calendars | `powerlibs-calendar-basic.yaml` | PowerLibs, "Calendar" | Full-screen month-view date picker: nav arrows, weekday header, selected/today indicators, selected-date footer. | Not yet paste-tested — see full-screen caution below |
+| Calendars | `powerlibs-calendar-with-header.yaml` | PowerLibs, "Calendar with Header" | Same calendar, styled with a colored header band (year/month), a today ring instead of a dot, and an event-dot placeholder. | Not yet paste-tested — see full-screen caution below |
+| Calendars | `powerlibs-time-picker.yaml` | PowerLibs, "Time Picker" | Three dropdown selectors (hours/minutes/seconds), each a button that opens a scrollable gallery of values, with a rotating-arrow icon and an HH:MM:SS display. | Not yet paste-tested |
 
 ## Notes on the sidebar shell (read before using)
 
@@ -143,3 +146,41 @@ file had none):
   `varLoadingButtonBusy` back to `false` after a fixed 3 seconds. In a real screen, delete this
   timer and set `varLoadingButtonBusy` to `false` yourself once the real `Patch`/`SubmitForm`
   finishes.
+
+## Notes on the calendar/time-picker batch (read before using)
+
+**These two calendar files are full screens, not children lists — a different shape than
+everything else in this library.** `powerlibs-calendar-basic.yaml` and
+`powerlibs-calendar-with-header.yaml` both start with `Screens: / ScreenCalendar:`, meaning they
+define (or overwrite) an entire screen including its own `OnVisible`. Every other example so far —
+sidebar shell, all buttons, avatars, badges, animations, and this batch's own Time Picker — is a
+flat `- control:` children list meant to paste *into* an existing screen's `Children:`. Don't treat
+these two the same way; pasting a full `Screens:` block where Studio expects a children list (or
+vice versa) will fail or do something unintended. Added the general version of this distinction to
+`syntax-gotchas.md`. Pick **one** of the two Calendar variants for a given screen — they reuse the
+same control names (`conCalendar`, `galWeekday`, `galMonthDay`, `lblDayLabel`, `icoPrevMonth`,
+`icoNextMonth`, `lblSelectedDate`), so they're alternate designs, not composable pieces.
+
+**Dead/unresolved variables in both Calendar files:** `OnSelect` on the prev/next month icons
+references `_minDate` and `_maxDate` (`If(_minDate > _firstDayOfMonth, Set(_minDate, ...))`), but
+neither variable is ever initialized in `OnVisible` or anywhere else in the captured YAML. This
+looks like vestigial logic from a larger PowerLibs component (probably a date-range-restricted
+variant) that got left in. Harmless as-is (comparing a date to a blank variable just won't trigger
+the `Set`), but don't assume `_minDate`/`_maxDate` do anything until you either initialize them
+yourself or strip the dead branches.
+
+**New/unverified syntax:** Time Picker's dropdown buttons carry a `Group: Time Picker` property
+alongside `Control:`/`Properties:` — not the same thing as a `GroupContainer` control, looks like a
+Studio Tree View organizational label. Not confirmed against a real paste; see the new-syntax
+section in `syntax-gotchas.md`.
+
+**Version notes**: this batch adds a brand-new control, `Circle@2.3.0` (used for selected-day/today
+indicators in both calendars), and a *third* distinct `GroupContainer` version — `1.4.0` in Time
+Picker, joining the already-flagged `1.3.0` (avatars) vs. `1.5.0` (baseline/everything else)
+split. Full detail in `confirmed-versions.md` — don't assume any single `GroupContainer` version is
+"the" version going forward, check per-file.
+
+**Style note:** Time Picker's hour/minute/second value lists use `Items: |` (literal block,
+*keeps* trailing newline) where the rest of the library consistently uses `Items: |-` (strips it).
+Probably harmless for a `Table`/array literal, but it's a style inconsistency worth normalizing to
+`|-` if this gets edited before pasting, for consistency with everything else confirmed so far.

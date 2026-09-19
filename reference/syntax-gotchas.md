@@ -68,6 +68,20 @@ Relevant any time a modern control replaces what used to be classic in a given s
   Scan Pattern likely isn't affected since it doesn't use `OnChange` at all, but this hasn't been
   re-tested against a modern `ComboBox`.
 
+## New/unverified syntax seen in examples (not yet confirmed)
+
+- A `Group:` property (e.g. `Group: Time Picker`) appears as a sibling of `Control:`/`Properties:`
+  on several Time Picker controls — distinct from the `GroupContainer` control type. This looks
+  like a Studio Tree View organizational tag (grouping unrelated controls under a label without
+  making them a real container/parent), but that's inferred, not confirmed against the schema or a
+  real paste. Don't assume it's required or safe to omit until tested.
+- `Screens:` can appear as the top-level key of a captured example (a full screen definition:
+  `Screens: / <ScreenName>: / Properties: / Children:`) rather than the usual flat `- control:`
+  children list meant to paste into an existing screen. These are structurally different pastes —
+  a full `Screens:` block creates/replaces an entire screen (and its `OnVisible`), while a flat
+  children list only adds controls to whatever screen is already open in Tree View. Check which
+  shape an example file has before pasting it, they are not interchangeable.
+
 ## Workflow rule (not syntax, but load-bearing)
 
 Always deliver the **complete corrected file**, never an isolated snippet to "insert." Matt works
