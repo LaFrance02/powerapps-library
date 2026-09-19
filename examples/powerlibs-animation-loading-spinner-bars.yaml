@@ -1,0 +1,36 @@
+- conLoadingSpinner:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Height: =64
+      Visible: =true
+      Width: =120
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - imgSpinner:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =40
+            Image: |-
+              ="data:image/svg+xml;utf8, " & EncodeUrl("<svg viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'><rect x='9' y='17' width='6' height='16' rx='3' fill='#3B82F6'><animate attributeName='height' values='16;32;16' dur='1.00s' begin='0.00s' repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1;0.4 0 0.2 1' keyTimes='0;0.5;1'/><animate attributeName='y' values='17;9;17' dur='1.00s' begin='0.00s' repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1;0.4 0 0.2 1' keyTimes='0;0.5;1'/></rect><rect x='19' y='17' width='6' height='16' rx='3' fill='#3B82F6'><animate attributeName='height' values='16;32;16' dur='1.00s' begin='0.12s' repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1;0.4 0 0.2 1' keyTimes='0;0.5;1'/><animate attributeName='y' values='17;9;17' dur='1.00s' begin='0.12s' repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1;0.4 0 0.2 1' keyTimes='0;0.5;1'/></rect><rect x='29' y='17' width='6' height='16' rx='3' fill='#3B82F6'><animate attributeName='height' values='16;32;16' dur='1.00s' begin='0.24s' repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1;0.4 0 0.2 1' keyTimes='0;0.5;1'/><animate attributeName='y' values='17;9;17' dur='1.00s' begin='0.24s' repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1;0.4 0 0.2 1' keyTimes='0;0.5;1'/></rect><rect x='39' y='17' width='6' height='16' rx='3' fill='#3B82F6'><animate attributeName='height' values='16;32;16' dur='1.00s' begin='0.36s' repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1;0.4 0 0.2 1' keyTimes='0;0.5;1'/><animate attributeName='y' values='17;9;17' dur='1.00s' begin='0.36s' repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1;0.4 0 0.2 1' keyTimes='0;0.5;1'/></rect></svg>")
+            Width: =40
+            X: =(Parent.Width - Self.Width) / 2
+            Y: =0
+      - lblSpinnerLabel:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =RGBA(139, 153, 176, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =24
+            Size: =11
+            Text: ="Loading"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width
+            X: =0
+            Y: =40

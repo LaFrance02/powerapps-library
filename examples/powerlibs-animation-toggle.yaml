@@ -1,0 +1,69 @@
+- conAnimatedToggle:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Height: =44
+      Width: =240
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - imgTogglePill:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            Image: |-
+              ="data:image/svg+xml;utf8, " & EncodeUrl(
+                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 44' width='100%' height='100%'>" &
+                "<rect x='0' y='0' width='240' height='44' rx='22' fill='#22304A'/>" &
+                "<rect x='" & If(varToggle, 120, 4) & "' y='4' width='116' height='36' rx='18' fill='#3B82F6'>" &
+                "<animate id='slide" & Coalesce(varToggleCount, 0) & "' attributeName='x' from='" & If(varToggle, 4, 120) & "' to='" & If(varToggle, 120, 4) & "' dur='0.25s' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1' keyTimes='0;1'/>" &
+                "</rect></svg>"
+              )
+            OnSelect: =Set(varToggle, !varToggle); Set(varToggleCount, Coalesce(varToggleCount, 0) + 1)
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+      - lblToggleLeft:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =If(varToggle, RGBA(139, 153, 176, 1), RGBA(255, 255, 255, 1))
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =Parent.Height
+            OnSelect: =Set(varToggle, !varToggle); Set(varToggleCount, Coalesce(varToggleCount, 0) + 1)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Monthly"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =116
+            X: =4
+            Y: =0
+      - lblToggleRight:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =If(varToggle, RGBA(255, 255, 255, 1), RGBA(139, 153, 176, 1))
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =Parent.Height
+            OnSelect: =Set(varToggle, !varToggle); Set(varToggleCount, Coalesce(varToggleCount, 0) + 1)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Yearly"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =116
+            X: =120
+            Y: =0

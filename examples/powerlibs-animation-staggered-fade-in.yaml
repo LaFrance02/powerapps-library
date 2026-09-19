@@ -1,0 +1,77 @@
+- conStaggeredList:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Height: =312
+      Width: =340
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - lblStaggeredTitle:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(230, 234, 242, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =32
+            PaddingLeft: =0
+            Size: =13
+            Text: ="Recent activity"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width - 32
+            X: =0
+            Y: =0
+      - icoStaggeredReplay:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =RGBA(139, 153, 176, 1)
+            FocusedBorderThickness: =0
+            Height: =24
+            HoverColor: =RGBA(230, 234, 242, 1)
+            Icon: =Icon.Reload
+            OnSelect: =Set(varRevealRun, Coalesce(varRevealRun, 0) + 1)
+            PaddingBottom: =4
+            PaddingLeft: =4
+            PaddingRight: =4
+            PaddingTop: =4
+            Tooltip: ="Play again"
+            Width: =24
+            X: =Parent.Width - Self.Width
+            Y: =4
+      - galStaggeredRows:
+          Control: Gallery@2.15.0
+          Variant: Vertical
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =280
+            Items: |-
+              =Table(
+                { Idx: 1, Title: "Order 1042 shipped", Sub: "Just now", Initials: "OR" },
+                { Idx: 2, Title: "Invoice 887 paid", Sub: "4 minutes ago", Initials: "IN" },
+                { Idx: 3, Title: "New customer: Nordic Supply", Sub: "18 minutes ago", Initials: "NS" },
+                { Idx: 4, Title: "Ticket 231 resolved", Sub: "1 hour ago", Initials: "TK" }
+              )
+            ShowScrollbar: =false
+            TemplatePadding: =8
+            TemplateSize: =60
+            Width: =Parent.Width
+            X: =0
+            Y: =32
+          Children:
+            - imgStaggeredRow:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  Height: =Parent.TemplateHeight
+                  Image: |-
+                    ="data:image/svg+xml;utf8, " & EncodeUrl(
+                      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 60' width='100%' height='100%' preserveAspectRatio='xMinYMid meet' font-family='Open Sans, Segoe UI, sans-serif'>" &
+                      "<g id='run" & Coalesce(varRevealRun, 0) & "'" & If(true, " opacity='0' transform='translate(0 16)'>" & "<animate attributeName='opacity' from='0' to='1' begin='" & Text((ThisItem.Idx - 1) * 0.12, "0.000", "en-US") & "s' dur='0.45s' fill='freeze' calcMode='spline' keySplines='0.33 1 0.68 1' keyTimes='0;1'/><animateTransform attributeName='transform' type='translate' from='0 16' to='0 0' begin='" & Text((ThisItem.Idx - 1) * 0.12, "0.000", "en-US") & "s' dur='0.45s' fill='freeze' calcMode='spline' keySplines='0.33 1 0.68 1' keyTimes='0;1'/>", ">") &
+                      "<rect x='0.5' y='0.5' width='339' height='59' rx='10' fill='#151E30' stroke='#22304A'/><circle cx='30' cy='30' r='18' fill='#3B82F6' opacity='0.14'/><text x='30' y='34' text-anchor='middle' font-size='11' font-weight='700' fill='#3B82F6'>" & Substitute(Substitute(ThisItem.Initials, "&", "&amp;"), "<", "&lt;") & "</text><text x='60' y='26' font-size='13' font-weight='600' fill='#E6EAF2'>" & Substitute(Substitute(ThisItem.Title, "&", "&amp;"), "<", "&lt;") & "</text><text x='60' y='44' font-size='11' fill='#8B99B0'>" & Substitute(Substitute(ThisItem.Sub, "&", "&amp;"), "<", "&lt;") & "</text>" &
+                      "</g></svg>"
+                    )
+                  Width: =Parent.TemplateWidth
+                  X: =0
+                  Y: =0

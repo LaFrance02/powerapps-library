@@ -1,0 +1,82 @@
+- conProgressCircle:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Height: =228
+      Width: =200
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - lblCircleValue:
+          Control: Label@2.5.1
+          Properties:
+            Height: =20
+            Text: =65
+            Visible: =false
+            Width: =20
+      - imgCircleRing:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =200
+            Image: |-
+              ="data:image/svg+xml;utf8, " & EncodeUrl(
+                "<svg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>" &
+                "<g id='run" & Coalesce(varCircleRun, 0) & "'>" &
+                "<circle cx='50' cy='50' r='45' stroke='#22304A' stroke-width='10' fill='none' />" &
+                "<circle cx='50' cy='50' r='45' stroke='#3B82F6' stroke-width='10' fill='none' stroke-linecap='round' transform='rotate(-90 50 50)' " &
+                "stroke-dasharray='" & Text(Max(0, Min(100, Value(lblCircleValue.Text))) * 282.7 / 100, "0.00", "en-US") & " 282.7'>" &
+                "<animate attributeName='stroke-dasharray' values='0 282.7; " & Text(Max(0, Min(100, Value(lblCircleValue.Text))) * 282.7 / 100, "0.00", "en-US") & " 282.7' dur='3s' fill='freeze' calcMode='spline' keySplines='0.16 1 0.3 1' keyTimes='0;1' />" &
+                "</circle></g></svg>"
+              )
+            Width: =200
+            X: =0
+            Y: =0
+      - lblCircleNumber:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =RGBA(230, 234, 242, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =60
+            Size: =25
+            Text: =Round(Value(lblCircleValue.Text), 0) & "%"
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =true
+            Width: =140
+            X: =(imgCircleRing.Width - Self.Width) / 2
+            Y: =(imgCircleRing.Height - Self.Height) / 2
+      - lblCircleCaption:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =RGBA(139, 153, 176, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =28
+            Size: =12
+            Text: ="Complete"
+            Visible: =true
+            Width: =Parent.Width
+            X: =0
+            Y: =imgCircleRing.Y + imgCircleRing.Height
+      - icoCircleReplay:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =RGBA(139, 153, 176, 1)
+            FocusedBorderThickness: =0
+            Height: =24
+            HoverColor: =RGBA(230, 234, 242, 1)
+            Icon: =Icon.Reload
+            OnSelect: =Set(varCircleRun, Coalesce(varCircleRun, 0) + 1)
+            PaddingBottom: =4
+            PaddingLeft: =4
+            PaddingRight: =4
+            PaddingTop: =4
+            Tooltip: ="Play again"
+            Width: =24
+            X: =Parent.Width - Self.Width
+            Y: =0

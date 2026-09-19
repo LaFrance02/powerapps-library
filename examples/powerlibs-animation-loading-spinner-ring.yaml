@@ -1,0 +1,36 @@
+- conLoadingSpinner:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Height: =64
+      Visible: =true
+      Width: =120
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - imgSpinner:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =40
+            Image: |-
+              ="data:image/svg+xml;utf8, " & EncodeUrl("<svg viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'><circle cx='25' cy='25' r='20' stroke='#22304A' stroke-width='5' fill='none'/><circle cx='25' cy='25' r='20' stroke='#3B82F6' stroke-width='5' fill='none' stroke-linecap='round' stroke-dasharray='40 86'><animateTransform attributeName='transform' type='rotate' from='0 25 25' to='360 25 25' dur='0.90s' repeatCount='indefinite'/></circle></svg>")
+            Width: =40
+            X: =(Parent.Width - Self.Width) / 2
+            Y: =0
+      - lblSpinnerLabel:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =RGBA(139, 153, 176, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =24
+            Size: =11
+            Text: ="Loading"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width
+            X: =0
+            Y: =40
