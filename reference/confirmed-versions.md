@@ -5,6 +5,31 @@ defaults. Each entry is tagged with the project it was confirmed in and when. **
 control versions drift over time** — treat every entry here as "last known good," and re-verify
 against a fresh paste before trusting it in a new environment or after a long gap.
 
+## Classic vs. modern — this is not a binary choice
+
+Corrected 2026-09-19: an earlier version of the paired skill said to default to Power_Libs'
+*classic* YAML mode because "every confirmed version on file is classic-style." That was wrong.
+Looking at the baseline below, `Button@0.0.45`, `TextInput@0.0.54`, and `ComboBox@0.0.51` are
+already **modern** (Fluent) controls — no `Classic/` prefix, `0.0.x` versioning is the tell.
+`GroupContainer@1.5.0`, `Gallery@2.15.0`, `Label@2.5.1`, `Rectangle@2.3.0`, and `Timer@2.1.0` are
+classic — but not by choice. Per Microsoft's own current guidance (Feb 2026,
+[Overview of modern controls](https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/controls/modern-controls/overview-modern-controls)),
+**Image, Gallery, GroupContainer, Timer, and Rectangle have no modern version at all yet** — classic
+is the only option for those, not a preference. Meanwhile Button, Text (the modern successor to
+Label), TextInput, ComboBox, Dropdown, Checkbox, Toggle, Slider, Radio, DatePicker, TabList, Icon,
+Avatar, Spinner, Link, InfoButton, and Form all have modern versions available, and Microsoft
+explicitly recommends modern for new work (better accessibility, performance, and active
+investment — classic is legacy, still supported, not going anywhere immediate, but not where
+Microsoft is putting effort).
+
+**The actual rule:** use modern for any control family that has one; use classic only for the
+handful that don't yet. Transfer Log and Cryo already do this correctly without it being a
+deliberate decision at the time — don't "fix" their existing `Label@2.5.1` usage, it's
+paste-tested and working, but new text elements in those apps or in any new app going forward
+should default to `Text` (modern) instead of `Label`. There is no scenario where deliberately
+picking pure classic is the better choice going forward; the only real classic-vs-modern decision
+left is per control family, and it's already made by which families have a modern version at all.
+
 When Power_Libs (or anything else) suggests a version or property that conflicts with an entry
 here, this file wins. Power_Libs is for coverage and inspiration, not ground truth on versions.
 

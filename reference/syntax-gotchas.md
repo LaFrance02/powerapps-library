@@ -51,6 +51,23 @@ Apply all of these on every generation pass, regardless of app.
 - `Icons` on `cmpSidebar` must never be set to a blank value — doing so overrides the default icon
   table and breaks all icon rendering.
 
+## Modern control breaking changes (vs. their classic counterparts)
+
+Relevant any time a modern control replaces what used to be classic in a given screen — see
+`confirmed-versions.md`'s classic-vs-modern section for which families this applies to.
+
+- Modern controls take **enum values**, not string literals, for properties like alignment or
+  appearance — e.g. `Align.Left` instead of `"Start"`. Pasting a classic-style string into a
+  modern control's property is a likely source of a new, not-yet-catalogued paste error.
+- `FontColor` → `Color`, `FontSize` → `Size` (already reflected above), `BorderRadius` → separate
+  `RadiusTopLeft`/`RadiusTopRight`/`RadiusBottomLeft`/`RadiusBottomRight` properties.
+- `OnChange` timing shifted on several modern input controls: modern `TextInput` fires on focus-out
+  only (not every keystroke like classic); modern `ComboBox` fires on every selection. If a pattern
+  depends on continuous typing (the Scan Pattern does, via `SearchText` polling rather than
+  `OnChange`), verify it still behaves the same way before assuming a modern swap is safe — the
+  Scan Pattern likely isn't affected since it doesn't use `OnChange` at all, but this hasn't been
+  re-tested against a modern `ComboBox`.
+
 ## Workflow rule (not syntax, but load-bearing)
 
 Always deliver the **complete corrected file**, never an isolated snippet to "insert." Matt works
