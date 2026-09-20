@@ -106,6 +106,34 @@ but have never been confirmed against a real Matt Studio paste. Do not treat the
   ThisItem)`. Because the Timer lives inside the gallery template, each row gets its own countdown —
   a genuine multi-instance, independently-timed toast queue, not a single shared timer.
 
+**Project Management / Inventory Dashboard / Layouts batch (2026-09-19) — new controls/versions:**
+
+| Control | Version | Note |
+|---|---|---|
+| `Classic/DatePicker` | 2.6.0 | New, Basic Project Management App's New Project modal (date fields). Differs from the already-confirmed modern `DatePicker@0.0.46`. |
+| `TextInput` | 0.0.54 | Matches the cross-project baseline exactly (Basic Project Management App's nav search box) — first re-confirmation of the 0.0.54 baseline version inside a PowerLibs example rather than just Transfer Log. |
+| `ModernText` | 1.0.0 | New control, seen in Dashboard Layout and throughout the Inventory Dashboard app — looks like a newer/alternate modern text control distinct from both `Label@2.5.1` and `Text@0.0.51`. Three different "text" controls now exist across the library (`Label@2.5.1`, `Text@0.0.51`, `ModernText@1.0.0`) — unclear which is current/recommended, worth checking Microsoft's docs before standardizing on one. |
+| `ModernButton` | 1.0.0 | New control, Inventory Dashboard's Export button (`Appearance: ButtonAppearance.Outline`, icon support). A second modern button family alongside the already-confirmed `Button@0.0.45`. |
+| `HtmlViewer` | 2.1.0 | New control, used once in Inventory Dashboard as a blur/backdrop layer behind the sidebar drawer — not seen anywhere else in the library. |
+
+**A real, complete .msapp reference app** ("DocRouterFree," supplied 2026-09-19, not yet merged into
+this repo pending Matt's decision) contains real `ComponentDefinitions:` source for 20 named
+components, several of which the Inventory Dashboard example above only *references* by name:
+`cmpKPI`, `cmpBarList`, `cmpMyTable`, `cmpBottomNavigation`, `cmpSidebar`, `Badge`,
+`cmpFloatingActionButton`, plus 13 more not yet seen anywhere else in this library
+(`cmpFileUpload`, `cmpDetFinish`, `cmpDetEditWorkflow`, `cmpSendEmail`, `cmpLoadingSpinner`,
+`cmpAccordionList`, `cmpEnhancedDialog`, `cmpStepper`, `cmpProgressRail`, `cmpDetReroute`,
+`cmpPieChart`, `cmpBreadcrumbs`, `cmpActivityTimeline`). Its `cmpSidebar.pa.yaml` may be the same
+component family as `powerlibs-sidebar-advanced.yaml`'s `cmpSidebar` — worth diffing the two before
+deciding whether to replace or supplement the existing one. Data sources are 100% self-contained
+sample/static data (`CustomGallerySample`, `ComboBoxSample`, both Lorem-ipsum placeholders) — no
+real backend, Dataverse table, or client-specific schema is embedded anywhere in the app, so it's
+safe to mine for reference material. Its own Power Apps App Checker run (`AppCheckerResult.sarif`)
+flagged 15 issues in the real, complete app: 7× `app-CollectingReadOnlyTable`, 5×
+`app-ForAllWithMutation`, 2× `acc-TabIndexShouldBeDefinedForInteractiveControl`, 1×
+`app-IndexedAccessViaCopy` — genuine Microsoft-linter-confirmed gotchas from a real app, a
+different (and arguably stronger) confirmation source than "pasted cleanly in Studio."
+
 **Recurring architectural pattern worth naming:** across the button batch, most custom-shaped buttons (icon+label combos, pill shapes, split buttons) are built as a `GroupContainer` + `Image`/`Text` for the visual, with a fully transparent `Classic/Button@2.2.0` layered on top purely as the tap target (`Fill`/`Color`/`BorderColor` all `RGBA(0,0,0,0)`, real styling lives in the container). Plain single-purpose buttons (Primary, Outline, Action Bar's two buttons, Raised) skip this and use bare modern `Button@0.0.45` directly. So "modern where available" in practice means: modern `Button` for anything a plain button can do, classic `Button` only as an invisible overlay when the visual needs a shape modern `Button` can't produce alone. The four bare `Classic/Button@2.2.0` **badge** components (Simple/Border/Pills/Outlined Pills Badge) are a different case — there the classic button *is* the visible badge, styled entirely through `Self.Color`/`Self.BorderColor` references so one control instance is fully parameterized (set `Color`, `BorderColor`, `Text`, `Width` and the Hover/Pressed states follow automatically). That self-referencing pattern is worth reusing elsewhere.
 
 **Modal shell pattern (confirmed across all 14 Modal-batch examples, identical every time):** modern `Button@0.0.45` trigger → `Classic/Button@2.2.0` full-bleed transparent scrim (`RGBA(11,18,32,0.45)`, dismisses via `UpdateContext({ varShowX: false })`, unless the modal is meant to be non-dismissible by tap-out, in which case the scrim's `OnSelect` is a deliberate `=false`) → a self-sizing `GroupContainer@1.5.0` panel, always centered (`X: =(Parent.Width - Self.Width)/2`, `Y: =(Parent.Height - Self.Height)/2`), with `Height: =<lastVisibleControl>.Y + <lastVisibleControl>.Height + 24` so the panel never needs a hardcoded height. The same shell (scrim + self-sizing centered panel) also appears, with `Rectangle@2.3.0` instead of `Classic/Button@2.2.0` as the scrim, on the Drawer batch's side-panel/bottom-sheet variants, plus a responsive corner-radius formula on the hinge-side corners of right-anchored drawers: `If(Self.Width >= Parent.Width, 0, 16)` (so the drawer loses its rounding when it goes full-width on a phone). Bottom-anchored sheets skip that responsive-radius formula since they're always full-width by design.

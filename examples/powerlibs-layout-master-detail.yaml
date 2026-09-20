@@ -1,0 +1,254 @@
+Screens:
+  scrMasterDetail:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: |-
+        =// Initialize your screen state
+        Set(gViewMode, "table");
+        Set(gSelItemID, 0);
+        UpdateContext({ctxSearch: "", ctxCategory: "All", ctxPanelOpen: false})
+    Children:
+      - cntRoot:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(249, 250, 251, 1)
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width
+          Children:
+            - cntTopBar:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderColor: =RGBA(229, 231, 235, 1)
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =If(App.Width < 640, 56, 72)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =If(App.Width < 640, 8, 12)
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  LayoutMinHeight: =If(App.Width < 640, 52, 60)
+                  PaddingBottom: =8
+                  PaddingLeft: =If(App.Width < 640, 12, 20)
+                  PaddingRight: =If(App.Width < 640, 12, 20)
+                  PaddingTop: =8
+                Children:
+                  - cntTitleGroup:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =1
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =2
+                      Children:
+                        - lblPageTitle:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(17, 24, 39, 1)
+                              Size: =If(App.Width < 640, 18, 22)
+                              Text: ="All Items"
+                              Weight: ='TextCanvas.Weight'.Semibold
+                              Wrap: =false
+                        - lblPageSubtitle:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Size: =11
+                              Text: ="[record count · subtitle]"
+                              Wrap: =false
+                  - cntTopBarActions:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinWidth: =40
+                        Visible: =App.Width >= 1024
+                      Children:
+                        - lblActionPlaceholder_Top:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Size: =11
+                              Text: ="[Export]   [+ Add]"
+                              Width: =160
+            - cntFilterBar:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderColor: =RGBA(229, 231, 235, 1)
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =If(App.Width < 640, 52, 44)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutWrap: =true
+                  PaddingBottom: =6
+                  PaddingLeft: =If(App.Width < 640, 12, 20)
+                  PaddingRight: =If(App.Width < 640, 12, 16)
+                  PaddingTop: =6
+                Children:
+                  - lblSearchPlaceholder:
+                      Control: Text@0.0.51
+                      Properties:
+                        FillPortions: =0
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =30
+                        Size: =11
+                        Text: ="[search input]"
+                        Width: =If(App.Width < 640, 150, 220)
+                  - lblChipsPlaceholder:
+                      Control: Text@0.0.51
+                      Properties:
+                        FillPortions: =1
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Size: =11
+                        Text: ="[category filter chips]"
+                  - lblCountPlaceholder:
+                      Control: Text@0.0.51
+                      Properties:
+                        FillPortions: =0
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Size: =11
+                        Text: ="[count]"
+                        Visible: =App.Width >= 640
+                        Width: =60
+                  - lblViewTogglePlaceholder:
+                      Control: Text@0.0.51
+                      Properties:
+                        FillPortions: =0
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Size: =11
+                        Text: ="[grid / list / table]"
+                        Width: =116
+            - rctDivider:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(229, 231, 235, 1)
+                  Height: =1
+                  LayoutMinHeight: =1
+                  Width: =Parent.Width
+            - cntBody:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  LayoutDirection: =If(App.Width < 640, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  Width: =Parent.Width
+                Children:
+                  - cntListArea:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =1
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        PaddingBottom: =8
+                        PaddingLeft: =If(App.Width < 640, 12, 16)
+                        PaddingRight: =If(App.Width < 640, 12, 16)
+                        PaddingTop: =8
+                      Children:
+                        - lblGalleryPlaceholder:
+                            Control: Text@0.0.51
+                            Properties:
+                              FillPortions: =1
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Size: =11
+                              Text: ="[scrollable gallery — table / list / grid rows]"
+                  - cntDetailPanel:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =If(App.Width < 640, 0, 1)
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =2
+                        LayoutDirection: =LayoutDirection.Vertical
+                        Visible: =App.Width >= 640
+                      Children:
+                        - cntDetailHeader:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =52
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =8
+                              LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                              LayoutMinHeight: =52
+                              PaddingBottom: =8
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =8
+                            Children:
+                              - lblDetailTitle:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    FillPortions: =1
+                                    FontColor: =RGBA(17, 24, 39, 1)
+                                    Size: =16
+                                    Text: ="[detail title]"
+                                    Weight: ='TextCanvas.Weight'.Semibold
+                              - lblBackPlaceholder:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    FontColor: =RGBA(107, 114, 128, 1)
+                                    Size: =11
+                                    Text: ="[close/back]"
+                                    Width: =70
+                        - cntDetailBody:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =1
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutOverflowY: =LayoutOverflow.Scroll
+                              PaddingBottom: =16
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =16
+                            Children:
+                              - lblDetailContentPlaceholder:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    FontColor: =RGBA(107, 114, 128, 1)
+                                    Size: =11
+                                    Text: ="[scrollable detail content area]"
+                        - cntDetailFooter:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(249, 250, 251, 1)
+                              FillPortions: =0
+                              Height: =60
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =8
+                              LayoutJustifyContent: =LayoutJustifyContent.End
+                              LayoutMinHeight: =60
+                              PaddingBottom: =12
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =12
+                            Children:
+                              - lblActionPlaceholder:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    FontColor: =RGBA(107, 114, 128, 1)
+                                    Size: =11
+                                    Text: ="[action buttons]"

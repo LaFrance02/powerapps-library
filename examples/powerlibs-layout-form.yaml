@@ -1,0 +1,241 @@
+Screens:
+  scrForm:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: |-
+        =// Initialize your screen variables here
+        UpdateContext({ctxFormMode: "New"})
+    Children:
+      - cntRoot:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(249, 250, 251, 1)
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width
+          Children:
+            - cntFormHeader:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =If(App.Width < 640, 56, 72)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =If(App.Width < 640, 8, 12)
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  LayoutMinHeight: =If(App.Width < 640, 52, 60)
+                  PaddingBottom: =8
+                  PaddingLeft: =If(App.Width < 640, 12, 24)
+                  PaddingRight: =If(App.Width < 640, 12, 24)
+                  PaddingTop: =8
+                Children:
+                  - lblFormTitle:
+                      Control: Text@0.0.51
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        FontColor: =RGBA(17, 24, 39, 1)
+                        Height: =42
+                        Size: =If(App.Width < 640, 20, 28)
+                        Text: ="New Record"
+                        VerticalAlign: =VerticalAlign.Top
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Wrap: =false
+                  - lblStepIndicator:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Size: =12
+                        Text: ="[step indicator]"
+                        Width: =100
+            - rctDivider:
+                Control: Rectangle@2.3.0
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(229, 231, 235, 1)
+                  Height: =1
+                  LayoutMinHeight: =1
+                  Width: =Parent.Width
+            - cntFormBody:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =If(App.Width < 640, 12, 24)
+                  PaddingLeft: =If(App.Width < 640, 12, 24)
+                  PaddingRight: =If(App.Width < 640, 12, 24)
+                  PaddingTop: =If(App.Width < 640, 12, 24)
+                  Width: =Parent.Width
+                Children:
+                  - cntFieldSection1:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =If(App.Width < 640, 320, 180)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        LayoutMinWidth: =200
+                        LayoutWrap: =true
+                        PaddingBottom: =16
+                        PaddingLeft: =18
+                        PaddingRight: =18
+                        PaddingTop: =16
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Width: =Min(Parent.Width - If(App.Width < 640, 0, 48), 900)
+                      Children:
+                        - lblFieldPlaceholder1a:
+                            Control: Text@0.0.51
+                            Properties:
+                              FillPortions: =1
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Height: =60
+                              LayoutMinWidth: =200
+                              Size: =11
+                              Text: ="[field 1]"
+                        - lblFieldPlaceholder1b:
+                            Control: Text@0.0.51
+                            Properties:
+                              FillPortions: =1
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Height: =60
+                              LayoutMinWidth: =200
+                              Size: =11
+                              Text: ="[field 2]"
+                        - lblFieldPlaceholder1c:
+                            Control: Text@0.0.51
+                            Properties:
+                              FillPortions: =1
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Height: =60
+                              LayoutMinWidth: =200
+                              Size: =11
+                              Text: ="[field 3]"
+                        - lblFieldPlaceholder1d:
+                            Control: Text@0.0.51
+                            Properties:
+                              FillPortions: =1
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Height: =60
+                              LayoutMinWidth: =200
+                              Size: =11
+                              Text: ="[field 4]"
+                  - cntFieldSection2:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =If(App.Width < 640, 320, 180)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        LayoutMinWidth: =200
+                        LayoutWrap: =true
+                        PaddingBottom: =16
+                        PaddingLeft: =18
+                        PaddingRight: =18
+                        PaddingTop: =16
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Width: =Min(Parent.Width - If(App.Width < 640, 0, 48), 900)
+                      Children:
+                        - lblFieldPlaceholder2a:
+                            Control: Text@0.0.51
+                            Properties:
+                              FillPortions: =1
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Height: =60
+                              LayoutMinWidth: =200
+                              Size: =11
+                              Text: ="[field 5]"
+                        - lblFieldPlaceholder2b:
+                            Control: Text@0.0.51
+                            Properties:
+                              FillPortions: =1
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Height: =60
+                              LayoutMinWidth: =200
+                              Size: =11
+                              Text: ="[field 6]"
+                  - cntFieldSection3:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =200
+                        LayoutDirection: =LayoutDirection.Vertical
+                        PaddingBottom: =16
+                        PaddingLeft: =18
+                        PaddingRight: =18
+                        PaddingTop: =16
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Width: =Min(Parent.Width - If(App.Width < 640, 0, 48), 900)
+                      Children:
+                        - lblNotesPlaceholder:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Size: =11
+                              Text: ="[notes / textarea section]"
+            - cntFormFooter:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderColor: =RGBA(229, 231, 235, 1)
+                  BorderThickness: =1
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =68
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =8
+                  LayoutJustifyContent: =LayoutJustifyContent.End
+                  LayoutMinHeight: =68
+                  PaddingBottom: =12
+                  PaddingLeft: =If(App.Width < 640, 12, 24)
+                  PaddingRight: =If(App.Width < 640, 12, 24)
+                  PaddingTop: =12
+                Children:
+                  - lblCancelPlaceholder:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Size: =12
+                        Text: ="[Cancel]"
+                        Width: =60
+                  - lblSubmitPlaceholder:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(37, 99, 235, 1)
+                        Size: =12
+                        Text: ="[Submit]"
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =60

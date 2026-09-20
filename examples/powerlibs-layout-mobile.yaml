@@ -1,0 +1,230 @@
+Screens:
+  scrMobile:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: |-
+        =// Initialize your screen variables here
+        UpdateContext({ctxActiveTab: "home"})
+    Children:
+      - cntRoot:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(249, 250, 251, 1)
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width
+          Children:
+            - cntMobileTopBar:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =48
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =8
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  LayoutMinHeight: =48
+                  PaddingBottom: =6
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  PaddingTop: =6
+                Children:
+                  - lblBrandIcon:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(37, 99, 235, 1)
+                        Size: =14
+                        Text: ="[icon]"
+                        Width: =32
+                  - lblMobileTitle:
+                      Control: Text@0.0.51
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        FontColor: =RGBA(17, 24, 39, 1)
+                        Height: =32
+                        Size: =16
+                        Text: ="App Title"
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Wrap: =false
+                  - lblActionIcon:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Size: =14
+                        Text: ="[action]"
+                        Width: =40
+            - cntMobileContent:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =12
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  PaddingTop: =12
+                Children:
+                  - cntCardSlot1:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =120
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =120
+                        PaddingBottom: =12
+                        PaddingLeft: =14
+                        PaddingRight: =14
+                        PaddingTop: =12
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - lblCardPlaceholder1:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Size: =11
+                              Text: ="[content card 1]"
+                  - cntCardSlot2:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =120
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =120
+                        PaddingBottom: =12
+                        PaddingLeft: =14
+                        PaddingRight: =14
+                        PaddingTop: =12
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - lblCardPlaceholder2:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Size: =11
+                              Text: ="[content card 2]"
+                  - cntCardSlot3:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =120
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =120
+                        PaddingBottom: =12
+                        PaddingLeft: =14
+                        PaddingRight: =14
+                        PaddingTop: =12
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                      Children:
+                        - lblCardPlaceholder3:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(107, 114, 128, 1)
+                              Size: =11
+                              Text: ="[content card 3]"
+                  - cntFabSlot:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =0
+                        Width: =0
+                      Children:
+                        - lblFabPlaceholder:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(37, 99, 235, 1)
+                              Size: =11
+                              Text: ="[FAB]"
+                              Width: =56
+                              X: =Parent.Width - 68
+                              Y: =Parent.Height - 80
+            - cntBottomNav:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderColor: =RGBA(229, 231, 235, 1)
+                  BorderThickness: =1
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =72
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceEvenly
+                  LayoutMinHeight: =72
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                Children:
+                  - lblNavIcon1:
+                      Control: Text@0.0.51
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FontColor: =RGBA(37, 99, 235, 1)
+                        Height: =40
+                        Size: =10
+                        Text: ="[Home]"
+                        TextAlign: =TextAlign.Center
+                        VerticalAlign: =VerticalAlign.Middle
+                        Width: =56
+                  - lblNavIcon2:
+                      Control: Text@0.0.51
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =40
+                        Size: =10
+                        Text: ="[Search]"
+                        TextAlign: =TextAlign.Center
+                        VerticalAlign: =VerticalAlign.Middle
+                        Width: =56
+                  - lblNavIcon3:
+                      Control: Text@0.0.51
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =40
+                        Size: =10
+                        Text: ="[Inbox]"
+                        TextAlign: =TextAlign.Center
+                        VerticalAlign: =VerticalAlign.Middle
+                        Width: =56
+                  - lblNavIcon4:
+                      Control: Text@0.0.51
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =40
+                        Size: =10
+                        Text: ="[Profile]"
+                        TextAlign: =TextAlign.Center
+                        VerticalAlign: =VerticalAlign.Middle
+                        Width: =56

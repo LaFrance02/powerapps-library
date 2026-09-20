@@ -1,0 +1,418 @@
+Screens:
+  scrDashboard:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: |-
+        =// Initialize your screen variables here
+        UpdateContext({ctxLoading: false})
+    Children:
+      - cntRoot:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(249, 250, 251, 1)
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width
+          Children:
+            - cntTopBar:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderColor: =RGBA(229, 231, 235, 1)
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FillPortions: =0
+                  Height: =If(App.Width < 640, 56, 72)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =If(App.Width < 640, 8, 12)
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  LayoutMaxHeight: =If(App.Width < 640, 52, 60)
+                  LayoutMinHeight: =If(App.Width < 640, 52, 60)
+                  PaddingBottom: =8
+                  PaddingLeft: =If(App.Width < 640, 12, 24)
+                  PaddingRight: =If(App.Width < 640, 12, 24)
+                  PaddingTop: =8
+                Children:
+                  - cntTitleGroup:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        FillPortions: =1
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =2
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                      Children:
+                        - lblPageTitle:
+                            Control: ModernText@1.0.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AutoHeight: =true
+                              Color: =RGBA(17, 24, 39, 1)
+                              FontWeight: =FontWeight.Semibold
+                              Size: =If(App.Width < 640, 18, 22)
+                              Text: ="Dashboard"
+                        - lblLastUpdated:
+                            Control: ModernText@1.0.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AutoHeight: =true
+                              Color: =RGBA(107, 114, 128, 1)
+                              Size: =11
+                              Text: ="[last updated · refresh]"
+                  - cntTopBarActions:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =8
+                        LayoutMinWidth: =40
+                        Visible: =App.Width >= 1024
+                      Children:
+                        - lblPlaceholder_TopBarAction:
+                            Control: ModernText@1.0.0
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(107, 114, 128, 1)
+                              FillPortions: =0
+                              LayoutMinWidth: =160
+                              Size: =11
+                              Text: ="[Export]   [Refresh]"
+            - rctDivider:
+                Control: Rectangle@2.3.0
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(229, 231, 235, 1)
+                  Height: =1
+                  LayoutMinHeight: =1
+                  Width: =Parent.Width - If(App.Width < 640, 12, 24)
+            - cntPageGutter:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =If(App.Width < 640, 12, 24)
+                  PaddingLeft: =If(App.Width < 640, 12, 24)
+                  PaddingRight: =If(App.Width < 640, 12, 24)
+                  PaddingTop: =If(App.Width < 640, 12, 24)
+                  Width: =Parent.Width
+                Children:
+                  - lblSectionTitle:
+                      Control: ModernText@1.0.0
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        AutoHeight: =true
+                        Color: =RGBA(75, 85, 99, 1)
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinWidth: =96
+                        Size: =18
+                        Text: ="Section Title"
+                        Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                  - cntKpiRow:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =If(App.Width < 640, 200, 120)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        LayoutWrap: =true
+                        Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                      Children:
+                        - cntKpiSlot1:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              Height: =96
+                              LayoutMinWidth: =140
+                              PaddingBottom: =16
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - lblKpiPlaceholder1:
+                                  Control: ModernText@1.0.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =1
+                                    LayoutMinWidth: =96
+                                    Size: =11
+                                    Text: ="[KPI Card 1]"
+                        - cntKpiSlot2:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              Height: =96
+                              LayoutMinWidth: =140
+                              PaddingBottom: =16
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - lblKpiPlaceholder2:
+                                  Control: ModernText@1.0.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =1
+                                    LayoutMinWidth: =96
+                                    Size: =11
+                                    Text: ="[KPI Card 2]"
+                        - cntKpiSlot3:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              Height: =96
+                              LayoutMinWidth: =140
+                              PaddingBottom: =16
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - lblKpiPlaceholder3:
+                                  Control: ModernText@1.0.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =1
+                                    LayoutMinWidth: =96
+                                    Size: =11
+                                    Text: ="[KPI Card 3]"
+                        - cntKpiSlot4:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              Height: =96
+                              LayoutMinWidth: =140
+                              PaddingBottom: =16
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - lblKpiPlaceholder4:
+                                  Control: ModernText@1.0.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =1
+                                    LayoutMinWidth: =96
+                                    Size: =11
+                                    Text: ="[KPI Card 4]"
+                  - cntChartsRow:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =If(App.Width < 640, 700, 400)
+                        LayoutDirection: =If(App.Width < 640, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                        LayoutGap: =16
+                        Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                      Children:
+                        - cntChartSlotMain:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =3
+                              PaddingBottom: =16
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - lblChartPlaceholder:
+                                  Control: ModernText@1.0.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =1
+                                    LayoutMinWidth: =96
+                                    Size: =11
+                                    Text: ="[Main Chart — e.g. Bar Chart]"
+                        - cntChartSlotSide:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =2
+                              PaddingBottom: =16
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - lblSideChartPlaceholder:
+                                  Control: ModernText@1.0.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =1
+                                    LayoutMinWidth: =96
+                                    Size: =11
+                                    Text: ="[Side Chart — e.g. Pie Chart]"
+                  - cntListsRow:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =If(App.Width < 640, 600, 300)
+                        LayoutDirection: =If(App.Width < 640, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                        LayoutGap: =16
+                        Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                      Children:
+                        - cntListSlot1:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              PaddingBottom: =16
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - lblListPlaceholder1:
+                                  Control: ModernText@1.0.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =1
+                                    LayoutMinWidth: =96
+                                    Size: =11
+                                    Text: ="[List 1 — e.g. Bar List]"
+                        - cntListSlot2:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderThickness: =1
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              PaddingBottom: =16
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =16
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - lblListPlaceholder2:
+                                  Control: ModernText@1.0.0
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =1
+                                    LayoutMinWidth: =96
+                                    Size: =11
+                                    Text: ="[List 2 — e.g. Bar List]"
+                  - cntTableSection:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =500
+                        LayoutDirection: =LayoutDirection.Vertical
+                        PaddingBottom: =16
+                        PaddingLeft: =18
+                        PaddingRight: =18
+                        PaddingTop: =16
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                      Children:
+                        - lblTablePlaceholder:
+                            Control: ModernText@1.0.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AutoHeight: =true
+                              Color: =RGBA(107, 114, 128, 1)
+                              FillPortions: =1
+                              LayoutMinWidth: =96
+                              Size: =11
+                              Text: ="[Table Section — add Chips filter + Data Table here]"

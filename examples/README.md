@@ -120,6 +120,13 @@ is preserved in this file's notes instead, not silently dropped.
 | Data Display | `powerlibs-data-display-bar-chart.yaml` | PowerLibs, "Bar Chart" | Real-control horizontal bar chart (`Gallery` + `GroupContainer` bars), theme-following. Comment stripped, see notes below. | Not yet paste-tested |
 | Data Display | `powerlibs-data-display-empty-state.yaml` | PowerLibs, "Empty State" | Icon + heading + body + CTA for an empty gallery. Comment stripped, see notes below. | Not yet paste-tested |
 | App Examples | `powerlibs-app-basic-approvals.yaml` | PowerLibs, "Basic Approvals App" | A dark-themed approvals dashboard screen (full `Screens:` block): request list, filterable by status, a detail panel, and a New Request modal. | Not yet paste-tested |
+| App Examples | `powerlibs-app-project-management.yaml` | PowerLibs, "Basic Project Management App" | Dark project management dashboard: sidebar nav, top nav bar, team workload cards, activity feed, projects list, stats gallery. | Not yet paste-tested |
+| App Examples | `powerlibs-app-inventory-dashboard.yaml` | PowerLibs, "Basic Inventory Management App Dashboard Landing Page" | Inventory metrics dashboard built entirely from referenced custom components (`cmpKPI`, `cmpBarList`, `cmpMyTable`, `cmpSidebar`, etc.) plus self-seeding demo collections. Bare-`=` defect (10 occurrences), see notes below. | Not yet paste-tested |
+| Layouts | `powerlibs-layout-dashboard.yaml` | PowerLibs, "Dashboard Layout" | Responsive dashboard screen skeleton: app bar, KPI row, charts grid, lists row, table section. Pure containers, no components. | Not yet paste-tested |
+| Layouts | `powerlibs-layout-master-detail.yaml` | PowerLibs, "Master-Detail Layout" | Responsive master-detail skeleton: top bar, filter bar, side-by-side list/detail panels (1:2), sticky detail footer. | Not yet paste-tested |
+| Layouts | `powerlibs-layout-browse.yaml` | PowerLibs, "List / Browse Layout" | Clean browse skeleton: toolbar, collapsible filter chips, scrollable gallery area. | Not yet paste-tested |
+| Layouts | `powerlibs-layout-form.yaml` | PowerLibs, "Form Layout" | Responsive form skeleton: fixed header, scrollable multi-section field grid (`LayoutWrap`), sticky footer. | Not yet paste-tested |
+| Layouts | `powerlibs-layout-mobile.yaml` | PowerLibs, "Mobile-First Layout" | Phone-optimized skeleton: compact top bar, scrollable content cards, FAB, fixed bottom nav. | Not yet paste-tested |
 | Upload & Signature | `powerlibs-upload-photo.yaml` | PowerLibs, "Photo Upload" | Styled upload card around the real `AddMedia` control, tap-to-pick with live preview. Bare-`=` defect, see notes below. | Not yet paste-tested |
 | Upload & Signature | `powerlibs-upload-document.yaml` | PowerLibs, "Document Upload" | Styled dropzone card around the real `Attachments` control, drag-and-drop with brand-colored chips. | Not yet paste-tested |
 | Upload & Signature | `powerlibs-upload-document-compact.yaml` | PowerLibs, "Document Upload Compact" | Form-field-sized variant of Document Upload for a column of input fields. | Not yet paste-tested |
@@ -641,3 +648,53 @@ only], `Classic/Button@2.2.0`, `Label@2.5.1`).
 
 No bare `#` YAML-structural comments needed stripping in Toggles, Tooltips, Toast Notifications,
 Steppers, Speed Dials, or Tabs — none existed in those source files.
+
+## Notes on the Project Management / Inventory Dashboard / Layouts batch (read before using)
+
+**Basic Project Management App** — single, exclusively `GroupContainer@1.5.0` screen (no version
+fragmentation at all in this file), but notable for a real inefficiency: the inline breakpoint
+sub-expression `If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4)`
+appears **128 times**, unrolled inline in `Height`/`Width`/`Size`/`Padding*`/`Visible`/`X`/`Y`/
+`Switch()` formulas, never computed once into a variable and reused — worth simplifying if this
+gets adapted rather than pasted verbatim. All three `Set()` globals (`gblActiveSidebarId`,
+`gblMobileSidebarOpen`, `gblActiveNav`) correctly use the `gbl` prefix, and the two `UpdateContext`
+vars (`varSelectedColor`, `showNewProject`) are correctly context-scoped — no var/Set() mismatch in
+this file. Also introduces `Classic/DatePicker@2.6.0` (New Project modal) and mixes modern
+`TextInput@0.0.54` (nav search) with classic `Classic/TextInput@2.3.2` (modal fields) side by side.
+Uses `Group: NavBar` and `Group: grpNewProject` tags, consistent with the pattern seen elsewhere.
+
+**Basic Inventory Management App Dashboard** is the first example in the library built almost
+entirely from *referenced* custom components rather than raw controls — `cmpSegmentedControl`,
+`Badge`, `cmpKPI`, `cmpStackedBarChart`, `cmpBarList`, `cmpMyTable`, `cmpBottomNavigation`,
+`cmpSidebar`, `cmpFloatingActionButton` — none of which are *defined* in this file, only used
+(`Control: CanvasComponent` + `ComponentName: ...` + custom property bindings). **A separate full
+.msapp reference app supplied the same day contains real `ComponentDefinitions:` source for most of
+these exact component names** (see `reference/confirmed-versions.md` for the note on that — not yet
+merged into this library, pending Matt's decision on how to incorporate it). Confirms the
+`IsEmpty()`-guarded multi-`ClearCollect` self-seeding pattern already documented for Basic
+Approvals App, now across 5 collections (`colKpiAll`, `colMoveAll`, `colMoveLabels`, `colCatAll`,
+`colAlerts`). Introduces `ModernText@1.0.0`, `ModernButton@1.0.0`, and `HtmlViewer@2.1.0` (a blur
+backdrop) — none seen elsewhere in the library before. **Worst bare-`=` defect found yet**: 10
+separate empty-formula properties (`IconColor`, `OnCardClick`, `CharWidths`, `OnRowSelect`,
+`OnViewChange`, `AppNameAccent`, `OnFooterSettings`, `OnHelp`, `OnThemeToggle`, `OnToggle`) —
+preserved as-is per policy. Also shows a *second* variant of the var/Set() scope-mismatch gotcha:
+`_cmpNavIsExpanded`/`_cmpNavSelID` use an `_cmp` prefix (which normally signals component-instance
+state) for real `Set()` app-globals, while `varActiveTab`/`varNavOpen`/`varLoadComplete` use the
+usual `var`-implies-context-scoped prefix for the same thing — only `gblRange`/`gblMetric`/
+`gblAlertFilter`/`gblLastRefresh`/`gblNowTick` and the context-scoped `locRefreshing` get it right.
+
+**Basic Layouts Examples** (5 pure-container screen skeletons: Dashboard, Master-Detail, Browse,
+Form, Mobile-First) are a new category — no components, no demo data, just responsive
+`GroupContainer@1.5.0`/`Variant: AutoLayout` scaffolding meant to be filled in. Two things worth
+flagging: (1) **Dashboard Layout is internally inconsistent with the other four** — it's the only
+one using `ModernText@1.0.0` for its labels, while Master-Detail/Browse/Form/Mobile-First all use
+`Text@0.0.51` instead; (2) every file uses `LayoutOverflowY: =LayoutOverflow.Scroll` on its
+scrollable content container, which **directly contradicts** the existing documented gotcha in
+`syntax-gotchas.md` ("`LayoutOverflowY: Scroll` does not reliably produce visible scrolling — avoid")
+— worth a real paste test to see whether that gotcha still holds or whether these AutoLayout-based
+skeletons behave differently. Naming convention note: Master-Detail Layout uses a third variable
+scoping style — `g`-prefixed for real `Set()` globals (`gViewMode`, `gSelItemID`) and `ctx`-prefixed
+for `UpdateContext()` context vars (`ctxSearch`, `ctxCategory`, `ctxPanelOpen`) — both used
+correctly, just a different prefix convention (`g`/`ctx`) than the `gbl`/`var` convention used
+almost everywhere else in the library. The other four Layout files use plain `ctx`-prefixed
+context vars only (`ctxLoading`, `ctxShowFilter`, `ctxFormMode`, `ctxActiveTab`), no globals.

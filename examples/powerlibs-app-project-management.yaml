@@ -1,0 +1,2396 @@
+Screens:
+  Dashboard:
+    Properties:
+      LoadingSpinnerColor: =RGBA(79, 70, 229, 1)
+      OnVisible: |-
+        =Set(gblActiveSidebarId, 1);
+        Set(gblMobileSidebarOpen, false)
+    Children:
+      - mainRoot:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =Parent.Height - navRoot.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - sidebarRoot.Width
+            X: =sidebarRoot.Width
+            Y: =navRoot.Height
+          Children:
+            - mainTeamWorkloadCard:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(21, 30, 48, 1)
+                  Height: =Parent.Height - mainProjectsCard.Y - mainProjectsCard.Height - If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 16, 28)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  PaddingBottom: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 8)
+                  PaddingLeft: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 20, 14)
+                  PaddingRight: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 20, 14)
+                  PaddingTop: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 10)
+                  RadiusBottomLeft: =16
+                  RadiusBottomRight: =16
+                  RadiusTopLeft: =16
+                  RadiusTopRight: =16
+                  Width: =Parent.Width - If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 16, 32)
+                  X: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 8, 16)
+                  Y: =mainProjectsCard.Y + mainProjectsCard.Height + 12
+                Children:
+                  - mainTeamHeaderRow:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 32, 26)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                      Children:
+                        - mainTeamTitle:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(230, 234, 242, 1)
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Bold
+                              Height: =Parent.Height
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 11)
+                              Text: ="Team Workload"
+                        - mainTeamManageBtn:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              FocusedBorderThickness: =0
+                              Align: =Align.Right
+                              BorderStyle: =BorderStyle.None
+                              Color: =RGBA(79, 70, 229, 1)
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Font: =Font.'Open Sans'
+                              Height: =Parent.Height
+                              HoverColor: =ColorFade(RGBA(79, 70, 229, 1), -20%)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 10, 8)
+                              Text: ="Manage team →"
+                              Width: =100
+                  - mainTeamGallery:
+                      Control: Gallery@2.15.0
+                      Variant: Horizontal
+                      Properties:
+                        Height: =Parent.Height - mainTeamHeaderRow.Height - 8
+                        Items: |
+                          =Table(
+                              { teamInitials: "MS", teamInitialsBg: RGBA(79, 70, 229, 1), teamName: "Marcus", teamDept: "Warehouse", teamActive: 1, teamDone: 1, teamCapacity: 70, teamCapColor: RGBA(34, 197, 94, 1) },
+                              { teamInitials: "ER", teamInitialsBg: RGBA(168, 85, 247, 1), teamName: "Elena", teamDept: "Supply", teamActive: 3, teamDone: 0, teamCapacity: 85, teamCapColor: RGBA(245, 158, 11, 1) },
+                              { teamInitials: "TW", teamInitialsBg: RGBA(16, 185, 129, 1), teamName: "Thomas", teamDept: "Continuous", teamActive: 4, teamDone: 0, teamCapacity: 60, teamCapColor: RGBA(34, 197, 94, 1) },
+                              { teamInitials: "SC", teamInitialsBg: RGBA(34, 197, 94, 1), teamName: "Sarah", teamDept: "IT", teamActive: 2, teamDone: 1, teamCapacity: 75, teamCapColor: RGBA(34, 197, 94, 1) },
+                              { teamInitials: "KM", teamInitialsBg: RGBA(20, 184, 166, 1), teamName: "Klaus", teamDept: "Production", teamActive: 1, teamDone: 1, teamCapacity: 55, teamCapColor: RGBA(34, 197, 94, 1) }
+                          )
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        ShowScrollbar: =false
+                        TemplatePadding: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 4)
+                        TemplateSize: |-
+                          =Switch(
+                              If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4),
+                              1, (Self.Width - Self.TemplatePadding * 3) / 2,
+                              2, (Self.Width - Self.TemplatePadding * 4) / 3,
+                              Max(140, (Self.Width - Self.TemplatePadding * 6) / 5)
+                          )
+                        Width: =Parent.Width
+                      Children:
+                        - mainTeamMemberCard:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(11, 18, 32, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(11, 18, 32, 1)
+                              Height: =Parent.TemplateHeight
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =If(mainTeamGallery.TemplateHeight < 100, 2, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 6, 3))
+                              PaddingBottom: =If(mainTeamGallery.TemplateHeight < 100, 4, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 12, 8))
+                              PaddingLeft: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 10)
+                              PaddingRight: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 10)
+                              PaddingTop: =If(mainTeamGallery.TemplateHeight < 100, 4, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 12, 8))
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - mainTeamMemberInfoRow:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =If(mainTeamGallery.TemplateHeight < 100, 26, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 38, 30))
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - mainTeamMemberAvatar:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =ThisItem.teamInitialsBg
+                                          FillPortions: =0
+                                          Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 34, 26)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =Self.Height / 2
+                                          RadiusBottomRight: =Self.Height / 2
+                                          RadiusTopLeft: =Self.Height / 2
+                                          RadiusTopRight: =Self.Height / 2
+                                          Visible: =mainTeamGallery.TemplateHeight >= 70
+                                          Width: =Self.Height
+                                        Children:
+                                          - mainTeamMemberAvatarLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =RGBA(255, 255, 255, 1)
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =Parent.Height
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 9, 7)
+                                                Text: =ThisItem.teamInitials
+                                                Width: =Parent.Width
+                                    - mainTeamMemberTextGroup:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutJustifyContent: =LayoutJustifyContent.Center
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - mainTeamMemberName:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Color: =RGBA(230, 234, 242, 1)
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 20, 16)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 10, 8)
+                                                Text: =ThisItem.teamName
+                                                Width: =Parent.Width
+                                          - mainTeamMemberDept:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Color: =RGBA(93, 107, 132, 1)
+                                                Font: =Font.'Open Sans'
+                                                Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 16, 14)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 7)
+                                                Text: =ThisItem.teamDept
+                                                Visible: =mainTeamGallery.TemplateHeight >= 100
+                                                Width: =Parent.Width
+                              - mainTeamMemberStatsRow:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Height: =If(mainTeamGallery.TemplateHeight < 100, 0, 40)
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =4
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Visible: =mainTeamGallery.TemplateHeight >= 100
+                                    Width: =Parent.Width
+                                  Children:
+                                    - mainTeamMemberActiveGroup:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =Parent.Height
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutJustifyContent: =LayoutJustifyContent.Center
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - mainTeamMemberActiveValue:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =RGBA(230, 234, 242, 1)
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 24, 18)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 10)
+                                                Text: =Text(ThisItem.teamActive)
+                                                Width: =Parent.Width
+                                          - mainTeamMemberActiveLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =RGBA(93, 107, 132, 1)
+                                                Font: =Font.'Open Sans'
+                                                Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 16, 14)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 7)
+                                                Text: ="Active"
+                                                Width: =Parent.Width
+                                    - mainTeamMemberDoneGroup:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =Parent.Height
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutJustifyContent: =LayoutJustifyContent.Center
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - mainTeamMemberDoneValue:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =RGBA(34, 197, 94, 1)
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 24, 18)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 10)
+                                                Text: =Text(ThisItem.teamDone)
+                                                Width: =Parent.Width
+                                          - mainTeamMemberDoneLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =RGBA(93, 107, 132, 1)
+                                                Font: =Font.'Open Sans'
+                                                Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 16, 14)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 7)
+                                                Text: ="Done"
+                                                Width: =Parent.Width
+                              - mainTeamMemberCapRow:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 28, 24)
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =3
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - mainTeamMemberCapHeaderRow:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 16, 14)
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width
+                                        Children:
+                                          - mainTeamMemberCapLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Color: =RGBA(93, 107, 132, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Open Sans'
+                                                Height: =Parent.Height
+                                                LayoutMinWidth: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 7)
+                                                Text: ="Capacity"
+                                          - mainTeamMemberCapPercent:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Right
+                                                Color: =RGBA(200, 208, 222, 1)
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =Parent.Height
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 7)
+                                                Text: =ThisItem.teamCapacity & "%"
+                                                Width: =40
+                                    - mainTeamMemberCapBarTrack:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(34, 48, 74, 1)
+                                          Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 6, 4)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =3
+                                          RadiusBottomRight: =3
+                                          RadiusTopLeft: =3
+                                          RadiusTopRight: =3
+                                          Width: =Parent.Width
+                                        Children:
+                                          - mainTeamMemberCapBarFill:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: ManualLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                Fill: =ThisItem.teamCapColor
+                                                Height: =Parent.Height
+                                                RadiusBottomLeft: =3
+                                                RadiusBottomRight: =3
+                                                RadiusTopLeft: =3
+                                                RadiusTopRight: =3
+                                                Width: =Parent.Width * ThisItem.teamCapacity / 100
+            - mainActivityCard:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(21, 30, 48, 1)
+                  Height: =mainProjectsCard.Height
+                  LayoutDirection: =LayoutDirection.Vertical
+                  PaddingBottom: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 8)
+                  PaddingLeft: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 20, 14)
+                  PaddingRight: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 20, 14)
+                  PaddingTop: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 10)
+                  RadiusBottomLeft: =16
+                  RadiusBottomRight: =16
+                  RadiusTopLeft: =16
+                  RadiusTopRight: =16
+                  Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 3
+                  Width: =Parent.Width - mainProjectsCard.Width - mainProjectsCard.X - 16 - If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 8, 16)
+                  X: =mainProjectsCard.X + mainProjectsCard.Width + 16
+                  Y: =mainProjectsCard.Y
+                Children:
+                  - mainActivityHeader:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(230, 234, 242, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =If(mainRoot.Height < 600, 26, 32)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 11)
+                        Text: ="Activity Feed"
+                        Width: =Parent.Width
+                  - mainActivityGallery:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        Height: =Parent.Height - mainActivityHeader.Height
+                        Items: |
+                          =Table(
+                              {
+                                  actInitials: "KM",
+                                  actInitialsBg: RGBA(20, 184, 166, 1),
+                                  actUser: "Klaus Müller",
+                                  actAction: "completed task",
+                                  actTarget: "Install robotic welding cell",
+                                  actProject: "New Production Line Setup",
+                                  actTime: "2 hours ago"
+                              },
+                              {
+                                  actInitials: "ER",
+                                  actInitialsBg: RGBA(168, 85, 247, 1),
+                                  actUser: "Elena Rodriguez",
+                                  actAction: "uploaded file to",
+                                  actTarget: "Onboard Tier 1 suppliers",
+                                  actProject: "Supplier Portal Implementation",
+                                  actTime: "3 hours ago"
+                              },
+                              {
+                                  actInitials: "TW",
+                                  actInitialsBg: RGBA(59, 130, 246, 1),
+                                  actUser: "Thomas Weber",
+                                  actAction: "completed subtask",
+                                  actTarget: "Install light modules",
+                                  actProject: "Warehouse Automation Upgrade",
+                                  actTime: "4 hours ago"
+                              },
+                              {
+                                  actInitials: "SC",
+                                  actInitialsBg: RGBA(34, 197, 94, 1),
+                                  actUser: "Sarah Chen",
+                                  actAction: "commented on",
+                                  actTarget: "Complete current state process mapping",
+                                  actProject: "ERP System Migration",
+                                  actTime: "5 hours ago"
+                              },
+                              {
+                                  actInitials: "MS",
+                                  actInitialsBg: RGBA(79, 70, 229, 1),
+                                  actUser: "Marcus Schmidt",
+                                  actAction: "moved task to In Progress",
+                                  actTarget: "Configure WMS pick path optimization",
+                                  actProject: "Warehouse Automation Upgrade",
+                                  actTime: "1 day ago"
+                              },
+                              {
+                                  actInitials: "KM",
+                                  actInitialsBg: RGBA(20, 184, 166, 1),
+                                  actUser: "Klaus Müller",
+                                  actAction: "logged 8 hours on",
+                                  actTarget: "Program welding sequences",
+                                  actProject: "New Production Line Setup",
+                                  actTime: "1 day ago"
+                              }
+                          )
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        ShowScrollbar: =false
+                        TemplatePadding: =2
+                        TemplateSize: =(Self.Height - Self.TemplatePadding * 7) / 6
+                        Width: =Parent.Width
+                      Children:
+                        - mainActivityItemRow:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Height: =Parent.TemplateHeight
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 12, 8)
+                              PaddingBottom: =If(Parent.TemplateHeight < 45, 2, 4)
+                              PaddingTop: =If(Parent.TemplateHeight < 45, 2, 4)
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - mainActivityAvatar:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =ThisItem.actInitialsBg
+                                    FillPortions: =0
+                                    Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 34, 28)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =Self.Height / 2
+                                    RadiusBottomRight: =Self.Height / 2
+                                    RadiusTopLeft: =Self.Height / 2
+                                    RadiusTopRight: =Self.Height / 2
+                                    Visible: =mainActivityGallery.TemplateHeight >= 40
+                                    Width: =Self.Height
+                                  Children:
+                                    - mainActivityAvatarLabel:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Align: =Align.Center
+                                          Color: =RGBA(255, 255, 255, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =Parent.Height
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 9, 7)
+                                          Text: =ThisItem.actInitials
+                                          Width: =Parent.Width
+                              - mainActivityTextGroup:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - mainActivityActionLabel:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =RGBA(200, 208, 222, 1)
+                                          Font: =Font.'Open Sans'
+                                          Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 20, 16)
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 7)
+                                          Text: =ThisItem.actUser & " " & ThisItem.actAction & " " & ThisItem.actTarget
+                                          Width: =Parent.Width
+                                    - mainActivityMetaLabel:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =RGBA(93, 107, 132, 1)
+                                          Font: =Font.'Open Sans'
+                                          Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 16, 14)
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 7, 6)
+                                          Text: =ThisItem.actProject & " • " & ThisItem.actTime
+                                          Visible: =mainActivityGallery.TemplateHeight >= 55
+                                          Width: =Parent.Width
+            - mainProjectsCard:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(21, 30, 48, 1)
+                  Height: =(Parent.Height - mainStatsGallery.Y - mainStatsGallery.Height - If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 16, 28)) / 2
+                  LayoutDirection: =LayoutDirection.Vertical
+                  PaddingBottom: =If(mainRoot.Height < 600, 6, 12)
+                  PaddingLeft: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 1, 12, 2, 16, 20)
+                  PaddingRight: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 1, 12, 2, 16, 20)
+                  PaddingTop: =If(mainRoot.Height < 600, 8, 12)
+                  RadiusBottomLeft: =16
+                  RadiusBottomRight: =16
+                  RadiusTopLeft: =16
+                  RadiusTopRight: =16
+                  Width: |-
+                    =If(
+                        If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2,
+                        Parent.Width - If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 16, 32),
+                        Parent.Width * 0.62 - 24
+                    )
+                  X: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 8, 16)
+                  Y: =mainStatsGallery.Y + mainStatsGallery.Height + If(mainRoot.Height < 600, 6, 12)
+                Children:
+                  - mainProjectsHeaderRow:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =If(mainRoot.Height < 600, 26, 32)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                      Children:
+                        - mainProjectsTitle:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(230, 234, 242, 1)
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Bold
+                              Height: =Parent.Height
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: |-
+                                =If(
+                                    mainRoot.Height < 600, 10,
+                                    If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14,
+                                    If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 12,
+                                    11
+                                )
+                              Text: ="Active Projects"
+                        - mainProjectsViewAllBtn:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              FocusedBorderThickness: =0
+                              Align: =Align.Right
+                              BorderStyle: =BorderStyle.None
+                              Color: =RGBA(79, 70, 229, 1)
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Font: =Font.'Open Sans'
+                              Height: =Parent.Height
+                              HoverColor: =ColorFade(RGBA(79, 70, 229, 1), -20%)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Size: =If(mainRoot.Height < 600, 8, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 10, 8))
+                              Text: ="View all →"
+                              Width: =80
+                  - mainProjectsGallery:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        Height: =Parent.Height - mainProjectsHeaderRow.Height
+                        Items: |
+                          =Table(
+                              {
+                                  projInitial: "W",
+                                  projInitialBg: RGBA(79, 70, 229, 1),
+                                  projName: "Warehouse Automation Upgrade",
+                                  projOwner: "Marcus Schmidt",
+                                  projTasks: 5,
+                                  projProgress: 65,
+                                  projDue: "2024-04-30",
+                                  projBarColor: RGBA(79, 70, 229, 1),
+                                  projMilestone1: "Equipment Procurement",
+                                  projMilestone1Color: RGBA(239, 68, 68, 1),
+                                  projMilestone2: "Installation Complete",
+                                  projMilestone2Color: RGBA(139, 153, 176, 1)
+                              },
+                              {
+                                  projInitial: "S",
+                                  projInitialBg: RGBA(168, 85, 247, 1),
+                                  projName: "Supplier Portal Implementation",
+                                  projOwner: "Elena Rodriguez",
+                                  projTasks: 4,
+                                  projProgress: 40,
+                                  projDue: "2024-05-15",
+                                  projBarColor: RGBA(79, 70, 229, 1),
+                                  projMilestone1: "Vendor Onboarding",
+                                  projMilestone1Color: RGBA(139, 153, 176, 1),
+                                  projMilestone2: "EDI Integration",
+                                  projMilestone2Color: RGBA(139, 153, 176, 1)
+                              },
+                              {
+                                  projInitial: "N",
+                                  projInitialBg: RGBA(20, 184, 166, 1),
+                                  projName: "New Production Line Setup",
+                                  projOwner: "Klaus Müller",
+                                  projTasks: 4,
+                                  projProgress: 55,
+                                  projDue: "2024-05-01",
+                                  projBarColor: RGBA(79, 70, 229, 1),
+                                  projMilestone1: "Equipment Delivery",
+                                  projMilestone1Color: RGBA(239, 68, 68, 1),
+                                  projMilestone2: "Line Commissioning",
+                                  projMilestone2Color: RGBA(139, 153, 176, 1)
+                              }
+                          )
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        ShowScrollbar: =false
+                        TemplatePadding: =4
+                        TemplateSize: =(Self.Height - Self.TemplatePadding * 4) / 3
+                        Width: =Parent.Width
+                      Children:
+                        - mainProjectCardItem:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(11, 18, 32, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(21, 30, 48, 1)
+                              Height: =Parent.TemplateHeight
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =If(Parent.TemplateHeight < 90, 2, If(Parent.TemplateHeight < 120, 4, 8))
+                              PaddingBottom: =If(Parent.TemplateHeight < 90, 4, If(Parent.TemplateHeight < 120, 6, 12))
+                              PaddingLeft: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 10, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 3, 12, 16))
+                              PaddingRight: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 10, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 3, 12, 16))
+                              PaddingTop: =If(Parent.TemplateHeight < 90, 4, If(Parent.TemplateHeight < 120, 6, 12))
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - mainProjectInfoRow:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Height: =If(mainProjectsGallery.TemplateHeight < 90, 26, 36)
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                  Children:
+                                    - mainProjectAvatarCircle:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =ThisItem.projInitialBg
+                                          FillPortions: =0
+                                          Height: =If(mainProjectsGallery.TemplateHeight < 90, 22, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 34, 28))
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =Self.Height / 2
+                                          RadiusBottomRight: =Self.Height / 2
+                                          RadiusTopLeft: =Self.Height / 2
+                                          RadiusTopRight: =Self.Height / 2
+                                          Visible: =mainProjectsGallery.TemplateHeight >= 70
+                                          Width: =Self.Height
+                                        Children:
+                                          - mainProjectAvatarLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                Color: =RGBA(255, 255, 255, 1)
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =Parent.Height
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 12, 10)
+                                                Text: =ThisItem.projInitial
+                                                Width: =Parent.Width
+                                    - mainProjectTextGroup:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =3
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutJustifyContent: =LayoutJustifyContent.Center
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =200
+                                        Children:
+                                          - mainProjectNameLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Color: =RGBA(230, 234, 242, 1)
+                                                FillPortions: =1.5
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                PaddingBottom: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 10, 9)
+                                                Text: =ThisItem.projName
+                                                Width: =Parent.Width
+                                          - mainProjectOwnerLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Color: =RGBA(93, 107, 132, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Open Sans'
+                                                Height: =16
+                                                LayoutMinHeight: =0
+                                                PaddingBottom: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 7)
+                                                Text: =ThisItem.projOwner & " • " & ThisItem.projTasks & " tasks"
+                                                Visible: =mainProjectsGallery.TemplateHeight >= 90
+                                                Width: =Parent.Width
+                                    - mainProjectStatsGroup:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutJustifyContent: =LayoutJustifyContent.Center
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingRight: =5
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, 55, 85)
+                                        Children:
+                                          - mainProjectPercentLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Right
+                                                Color: =RGBA(230, 234, 242, 1)
+                                                FillPortions: =1.5
+                                                Font: =Font.'Open Sans'
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =18
+                                                LayoutMinHeight: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingTop: =0
+                                                Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 10, 8)
+                                                Text: =ThisItem.projProgress & "%"
+                                                Width: =Parent.Width
+                                          - mainProjectDueLabel:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Right
+                                                Color: =RGBA(93, 107, 132, 1)
+                                                FillPortions: =1
+                                                Font: =Font.'Open Sans'
+                                                Height: =14
+                                                LayoutMinHeight: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingTop: =0
+                                                Size: =7
+                                                Text: ="Due " & ThisItem.projDue
+                                                Visible: =mainProjectsGallery.TemplateHeight >= 90
+                                                Width: =Parent.Width
+                              - mainProjectBarTrack:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(34, 48, 74, 1)
+                                    FillPortions: =0.5
+                                    Height: =If(mainProjectsGallery.TemplateHeight < 90, 3, 5)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =3
+                                    RadiusBottomRight: =3
+                                    RadiusTopLeft: =3
+                                    RadiusTopRight: =3
+                                    Width: =Parent.Width
+                                  Children:
+                                    - mainProjectBarFill:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =ThisItem.projBarColor
+                                          Height: =Parent.Height
+                                          RadiusBottomLeft: =3
+                                          RadiusBottomRight: =3
+                                          RadiusTopLeft: =3
+                                          RadiusTopRight: =3
+                                          Width: =Parent.Width * ThisItem.projProgress / 100
+                              - mainProjectMilestonesRow:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Height: =If(mainProjectsGallery.TemplateHeight < 120, 0, 22)
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Visible: =mainProjectsGallery.TemplateHeight >= 120
+                                    Width: =Parent.Width
+                                  Children:
+                                    - mainProjectMilestonesLabel:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =RGBA(93, 107, 132, 1)
+                                          Font: =Font.'Open Sans'
+                                          Height: =Parent.Height
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =8
+                                          Text: ="Milestones:"
+                                          Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 2
+                                          Width: =60
+                                    - mainProjectMilestone1Tag:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: |-
+                                            =If(
+                                                ThisItem.projMilestone1Color = RGBA(139, 153, 176, 1),
+                                                RGBA(34, 48, 74, 1),
+                                                ColorFade(ThisItem.projMilestone1Color, 60%)
+                                            )
+                                          BorderThickness: =1
+                                          Color: =ThisItem.projMilestone1Color
+                                          Fill: |-
+                                            =If(
+                                                ThisItem.projMilestone1Color = RGBA(139, 153, 176, 1),
+                                                RGBA(21, 30, 48, 1),
+                                                ColorFade(ThisItem.projMilestone1Color, 90%)
+                                            )
+                                          FocusedBorderThickness: =1
+                                          Font: =Font.'Open Sans'
+                                          Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 22, 18)
+                                          HoverBorderColor: =Self.BorderColor
+                                          HoverColor: =Self.Color
+                                          HoverFill: =ColorFade(Self.Fill, -5%)
+                                          PressedBorderColor: =Self.BorderColor
+                                          PressedFill: =ColorFade(Self.Fill, -10%)
+                                          Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 7, 6)
+                                          Text: =ThisItem.projMilestone1
+                                          Width: |-
+                                            =If(
+                                                If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1,
+                                                Min(Len(ThisItem.projMilestone1) * 6 + 16, 120),
+                                                Len(ThisItem.projMilestone1) * 6 + 20
+                                            )
+                                    - mainProjectMilestone2Tag:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: |-
+                                            =If(
+                                                ThisItem.projMilestone2Color = RGBA(139, 153, 176, 1),
+                                                RGBA(34, 48, 74, 1),
+                                                ColorFade(ThisItem.projMilestone2Color, 60%)
+                                            )
+                                          BorderThickness: =1
+                                          Color: =ThisItem.projMilestone2Color
+                                          Fill: |-
+                                            =If(
+                                                ThisItem.projMilestone2Color = RGBA(139, 153, 176, 1),
+                                                RGBA(21, 30, 48, 1),
+                                                ColorFade(ThisItem.projMilestone2Color, 90%)
+                                            )
+                                          FocusedBorderThickness: =1
+                                          Font: =Font.'Open Sans'
+                                          Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 22, 18)
+                                          HoverBorderColor: =Self.BorderColor
+                                          HoverColor: =Self.Color
+                                          HoverFill: =ColorFade(Self.Fill, -5%)
+                                          PressedBorderColor: =Self.BorderColor
+                                          PressedFill: =ColorFade(Self.Fill, -10%)
+                                          Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 7, 6)
+                                          Text: =ThisItem.projMilestone2
+                                          Width: |-
+                                            =If(
+                                                If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1,
+                                                Min(Len(ThisItem.projMilestone2) * 6 + 16, 120),
+                                                Len(ThisItem.projMilestone2) * 6 + 20
+                                            )
+            - mainStatsGallery:
+                Control: Gallery@2.15.0
+                Variant: Horizontal
+                Properties:
+                  Height: |-
+                    =If(
+                        mainRoot.Height < 500, 70,
+                        mainRoot.Height < 650, 85,
+                        If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 130,
+                        90
+                    )
+                  Items: |
+                    =Table(
+                        { statIcon: Icon.Folder, statColor: RGBA(59, 130, 246, 1), statValue: "5", statLabel: "Total Projects", statSub: "2 in planning" },
+                        { statIcon: Icon.LightningBolt, statColor: RGBA(139, 92, 246, 1), statValue: "3", statLabel: "Active", statSub: "On track" },
+                        { statIcon: Icon.Items, statColor: RGBA(99, 102, 241, 1), statValue: "14", statLabel: "Total Tasks", statSub: "3 completed" },
+                        { statIcon: Icon.CheckBadge, statColor: RGBA(16, 185, 129, 1), statValue: "3", statLabel: "Completed", statSub: "21% rate" },
+                        { statIcon: Icon.CalendarBlank, statColor: RGBA(14, 165, 233, 1), statValue: "4", statLabel: "Due This Week", statSub: "Stay on track" },
+                        { statIcon: Icon.Warning, statColor: RGBA(245, 158, 11, 1), statValue: "2", statLabel: "Overdue", statSub: "Needs attention" }
+                    )
+                  ShowScrollbar: =false
+                  TemplatePadding: =If(mainRoot.Height < 600, 4, 8)
+                  TemplateSize: |-
+                    =Switch(
+                        If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4),
+                        1, (Self.Width - Self.TemplatePadding * 3) / 2,
+                        2, (Self.Width - Self.TemplatePadding * 4) / 3,
+                        Max(130, (Parent.Width - 80) / 6)
+                    )
+                  Width: =Parent.Width
+                  Y: =mainHeaderRow.Y + mainHeaderRow.Height
+                Children:
+                  - mainStatCard:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(21, 30, 48, 1)
+                        Height: =Parent.TemplateHeight
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =If(mainRoot.Height < 600, 0, 2)
+                        PaddingBottom: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 10, 6)
+                        PaddingLeft: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 10)
+                        PaddingRight: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14, 10)
+                        PaddingTop: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 10, 6)
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - mainStatIcon:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =ThisItem.statColor
+                              FillPortions: =0
+                              Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 18, 14)
+                              Icon: =ThisItem.statIcon
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              Visible: =mainRoot.Height >= 450
+                              Width: =Self.Height
+                        - mainStatValue:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(230, 234, 242, 1)
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Bold
+                              Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 26, 20)
+                              LayoutMinHeight: =0
+                              PaddingBottom: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: |-
+                                =If(
+                                    mainRoot.Height < 600, 10,
+                                    If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14,
+                                    10
+                                )
+                              Text: =ThisItem.statValue
+                              Width: =Parent.Width
+                        - mainStatLabel:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(200, 208, 222, 1)
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 16, 14)
+                              LayoutMinHeight: =0
+                              PaddingBottom: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =If(mainRoot.Height < 600, 7, If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 9, 7))
+                              Text: =ThisItem.statLabel
+                              Width: =Parent.Width
+                        - mainStatSub:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(93, 107, 132, 1)
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              Height: =14
+                              LayoutMinHeight: =0
+                              PaddingBottom: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 8, 7)
+                              Text: =ThisItem.statSub
+                              Visible: =mainRoot.Height >= 600
+                              Width: =Parent.Width
+                  - mainStatCardBtn:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.TemplateHeight
+                        HoverFill: =RGBA(255, 255, 255, 0.06)
+                        PressedFill: =RGBA(255, 255, 255, 0.1)
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Text: =""
+                        Width: =Parent.TemplateWidth
+            - mainHeaderRow:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: |-
+                    =If(
+                        Parent.Height < 500, 40,
+                        Parent.Height < 650, 48,
+                        If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 68,
+                        50
+                    )
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  PaddingLeft: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 1, 12, 2, 16, 24)
+                  PaddingRight: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 1, 12, 2, 16, 24)
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                Children:
+                  - mainHeaderTextGroup:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - mainGreetingLabel:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(230, 234, 242, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Bold
+                              Height: |-
+                                =If(
+                                    mainRoot.Height < 500, 20,
+                                    mainRoot.Height < 650, 24,
+                                    30
+                                )
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: |-
+                                =If(
+                                    mainRoot.Height < 500, 10,
+                                    If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 14,
+                                    If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 2, 12,
+                                    11
+                                )
+                              Text: |-
+                                ="Hello, " & User().FullName & "!"
+                              Width: =Parent.Width
+                        - mainSubtitleLabel:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(93, 107, 132, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =18
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 9, 8)
+                              Text: ="Here's what's happening across your projects today."
+                              Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 2 && mainRoot.Height >= 500
+                              Width: =Parent.Width
+                  - mainNewProjectBtn:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(255, 255, 255, 1)
+                        Fill: =RGBA(79, 70, 229, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =If(mainRoot.Height < 600, 28, 32)
+                        HoverFill: =ColorFade(RGBA(79, 70, 229, 1), -10%)
+                        PressedFill: =ColorFade(RGBA(79, 70, 229, 1), -20%)
+                        OnSelect: |-
+                          =UpdateContext({ showNewProject: true, varSelectedColor: RGBA(59, 130, 246, 1) })
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 10, 9)
+                        Text: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 1, "+", "+ New Project")
+                        Width: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 1, 36, 2, 100, 120)
+      - sidebarRoot:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =Parent.Height - navRoot.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 3
+            Width: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 3, 200, 4, 256, 0)
+            Y: =navRoot.Height
+          Children:
+            - sidebarBudgetCard:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(30, 41, 63, 1)
+                  Height: =110
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =4
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =16
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =sidebarProjectsSection.Y + sidebarProjectsSection.Height
+                Children:
+                  - sidebarBudgetHeaderRow:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =20
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                      Children:
+                        - sidebarBudgetLabel:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(139, 153, 176, 1)
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              Height: =Parent.Height
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 9, 8)
+                              Text: ="Budget Utilization"
+                        - sidebarBudgetPercent:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Right
+                              Color: =RGBA(200, 208, 222, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Bold
+                              Height: =Parent.Height
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 9, 8)
+                              Text: ="62%"
+                              Width: =40
+                  - sidebarBudgetBarTrack:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(34, 48, 74, 1)
+                        FillPortions: =0.3
+                        Height: =8
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Width: =Parent.Width
+                      Children:
+                        - sidebarBudgetBarFill:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(79, 70, 229, 1)
+                              Height: =Parent.Height
+                              Width: =Parent.Width * 0.62
+                  - sidebarBudgetAmount:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(93, 107, 132, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =20
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =4
+                        Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 9, 8)
+                        Text: ="$1.22M of $2.76M allocated"
+                        Width: =Parent.Width - 32
+            - sidebarProjectsSection:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =220
+                  LayoutDirection: =LayoutDirection.Vertical
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =8
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                  Y: =sidebarNavSection.Y + sidebarNavSection.Height
+                Children:
+                  - sidebarProjectsHeader:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(93, 107, 132, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =32
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 9, 8)
+                        Text: ="ACTIVE PROJECTS"
+                        Width: =Parent.Width - 32
+                  - sidebarProjectsGallery:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        Height: =180
+                        Items: |
+                          =Table(
+                              { projName: "Warehouse Upgrade", projColor: RGBA(59, 130, 246, 1), projProgress: 65 },
+                              { projName: "Supplier Portal", projColor: RGBA(168, 85, 247, 1), projProgress: 40 },
+                              { projName: "New Production Line", projColor: RGBA(20, 184, 166, 1), projProgress: 55 },
+                              { projName: "ERP System Migration", projColor: RGBA(249, 115, 22, 1), projProgress: 15 }
+                          )
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        ShowScrollbar: =false
+                        TemplatePadding: =0
+                        TemplateSize: =40
+                        Width: =Parent.Width - 32
+                      Children:
+                        - sidebarProjectItemRow:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Height: =Parent.TemplateHeight - 4
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =Parent.TemplateWidth
+                              Y: =2
+                            Children:
+                              - sidebarProjectDot:
+                                  Control: Circle@2.3.0
+                                  Properties:
+                                    Fill: =ThisItem.projColor
+                                    Height: =10
+                                    Width: =10
+                              - sidebarProjectName:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(200, 208, 222, 1)
+                                    FillPortions: =1
+                                    Font: =Font.'Open Sans'
+                                    Height: =Parent.Height
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 3, 8, 4, 10, 9)
+                                    Text: =ThisItem.projName
+                              - sidebarProjectProgress:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Right
+                                    Color: =RGBA(93, 107, 132, 1)
+                                    Font: =Font.'Open Sans'
+                                    Height: =Parent.Height
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingTop: =0
+                                    Size: =9
+                                    Text: =ThisItem.projProgress & "%"
+                                    Width: =36
+                        - sidebarProjectItemBtn:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              FocusedBorderThickness: =0
+                              BorderStyle: =BorderStyle.None
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight - 4
+                              HoverFill: =RGBA(255, 255, 255, 0.06)
+                              PressedFill: =ColorFade(Self.HoverFill, -20%)
+                              Text: =""
+                              Width: =Parent.TemplateWidth
+                              Y: =2
+            - sidebarNavSection:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =sidebarNavGallery.AllItemsCount * sidebarNavGallery.TemplateHeight + 60
+                  LayoutDirection: =LayoutDirection.Vertical
+                  PaddingTop: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                Children:
+                  - sidebarNavGallery:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        Height: =Parent.Height
+                        Items: |
+                          =Table(
+                              { id: 1, labelText: "Dashboard", itemIcon: Icon.Waffle, screen: App.ActiveScreen, badgeCount: 0 },
+                              { id: 2, labelText: "Projects", itemIcon: Icon.Folder, screen: App.ActiveScreen, badgeCount: 0 },
+                              { id: 3, labelText: "My Tasks", itemIcon: Icon.CheckBadge, screen: App.ActiveScreen, badgeCount: 3 },
+                              { id: 4, labelText: "Team", itemIcon: Icon.People, screen: App.ActiveScreen, badgeCount: 0 },
+                              { id: 5, labelText: "Calendar", itemIcon: Icon.CalendarBlank, screen: App.ActiveScreen, badgeCount: 0 },
+                              { id: 6, labelText: "Reports", itemIcon: Icon.DocumentWithContent, screen: App.ActiveScreen, badgeCount: 0 }
+                          )
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        ShowScrollbar: =false
+                        TemplatePadding: =0
+                        TemplateSize: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 48, 40)
+                        Width: =Parent.Width
+                      Children:
+                        - sidebarNavItemRow:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =If(gblActiveSidebarId = ThisItem.id, RGBA(79, 70, 229, 1), RGBA(0, 0, 0, 0))
+                              Height: =Parent.TemplateHeight - 4
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Width: =Parent.TemplateWidth - 16
+                              X: =Parent.Width/2 - Self.Width/2
+                              Y: =2
+                            Children:
+                              - sidebarNavItemIcon:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    Color: =If(gblActiveSidebarId = ThisItem.id, RGBA(255, 255, 255, 1), RGBA(139, 153, 176, 1))
+                                    FillPortions: =0
+                                    Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 18, 15)
+                                    Icon: =ThisItem.itemIcon
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    Width: =Self.Height
+                              - sidebarNavItemLabel:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =If(gblActiveSidebarId = ThisItem.id, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+                                    FillPortions: =1
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =Parent.Height
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 3, 8, 4, 10, 9)
+                                    Text: =ThisItem.labelText
+                        - sidebarNavItemBtn:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              FocusedBorderThickness: =0
+                              BorderStyle: =BorderStyle.None
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight - 4
+                              HoverFill: =If(gblActiveSidebarId = ThisItem.id, RGBA(0, 0, 0, 0), RGBA(255, 255, 255, 0.06))
+                              OnSelect: |-
+                                =Set(gblActiveSidebarId, ThisItem.id);
+                                If(!IsBlank(ThisItem.screen), Navigate(ThisItem.screen))
+                              PressedFill: =ColorFade(Self.HoverFill, -20%)
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Text: =""
+                              Width: =Parent.TemplateWidth - 16
+                              X: =Parent.Width/2 - Self.Width/2
+                              Y: =2
+      - navRoot:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Group: NavBar
+          Properties:
+            BorderColor: =RGBA(34, 48, 74, 1)
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 1, 48, 4, 64, 50)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - navNotificationGroup:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 36, 30)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =Self.Height
+                  X: =Parent.Width - Self.Width - 16 - navUserProfileImg.Width - 12
+                  Y: =Parent.Height / 2 - Self.Height / 2
+                Children:
+                  - navBellIcon:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        Color: =RGBA(139, 153, 176, 1)
+                        Height: =20
+                        Icon: =Icon.Bell
+                        Width: =20
+                        X: =Parent.Width / 2 - Self.Width / 2
+                        Y: =Parent.Height / 2 - Self.Height / 2
+                  - navBellBadgeCircle:
+                      Control: Circle@2.3.0
+                      Properties:
+                        Fill: =RGBA(239, 68, 68, 1)
+                        Height: =16
+                        Width: =16
+                        X: =Parent.Width - Self.Width - 1
+                        Y: =1
+                  - navBellBadgeLabel:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =16
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =7
+                        Text: ="3"
+                        Width: =16
+                        X: =Parent.Width - Self.Width - 1
+                        Y: =1
+                  - navBellBtn:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.Height
+                        HoverColor: =Self.Color
+                        HoverFill: =ColorFade(Self.Fill, -10%)
+                        PressedFill: =ColorFade(Self.Fill, -20%)
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Text: =""
+                        Width: =Parent.Width
+            - navUserProfileImg:
+                Control: Image@2.2.3
+                Properties:
+                  AccessibleLabel: ="User Profile Picture"
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 36, 30)
+                  Image: =User().Image
+                  ImagePosition: =ImagePosition.Fill
+                  RadiusBottomLeft: =15
+                  RadiusBottomRight: =15
+                  RadiusTopLeft: =15
+                  RadiusTopRight: =15
+                  Width: =Self.Height
+                  X: =Parent.Width - Self.Width - 16
+                  Y: =Parent.Height / 2 - Self.Height / 2
+            - navQuickAddBtn:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(255, 255, 255, 1)
+                  Fill: =RGBA(79, 70, 229, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 30, 26)
+                  HoverFill: =ColorFade(RGBA(79, 70, 229, 1), -10%)
+                  PressedFill: =ColorFade(RGBA(79, 70, 229, 1), -20%)
+                  RadiusBottomLeft: =5
+                  RadiusBottomRight: =5
+                  RadiusTopLeft: =5
+                  RadiusTopRight: =5
+                  Size: =10
+                  Text: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2, "+", "+ Quick Add")
+                  Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 2
+                  Width: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2, 36, 110)
+                  X: =Parent.Width - navUserProfileImg.Width - 16 - navNotificationGroup.Width - 12 - Self.Width - 12
+                  Y: =Parent.Height / 2 - Self.Height / 2
+            - navSearchInput:
+                Control: TextInput@0.0.54
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderRadius: =10
+                  BorderThickness: =0
+                  Fill: =RGBA(11, 18, 32, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 36, 30)
+                  Placeholder: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2, "Search...", "Search tasks, projects, SKUs...")
+                  Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 2
+                  Width: |-
+                    =Switch(
+                        If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4),
+                        2, Min(200, navRoot.Width - 300),
+                        3, Min(280, navRoot.Width - 500),
+                        Min(400, navRoot.Width - 700)
+                    )
+                  X: |-
+                    =If(
+                        If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2,
+                        navLogoGroup.X + navLogoGroup.Width + 12,
+                        Parent.Width / 2 - Self.Width / 2
+                    )
+                  Y: =Parent.Height / 2 - Self.Height / 2
+            - navLogoGroup:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =36
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Switch(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4), 1, 40, 2, 170, 240)
+                  X: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2, 56, 16)
+                  Y: =Parent.Height / 2 - Self.Height / 2
+                Children:
+                  - navLogoImage:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        Height: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 36, 28)
+                        Image: |-
+                          ="data:image/svg+xml," & EncodeUrl(
+                              "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'>
+                                <defs>
+                                  <linearGradient id='logoGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+                                    <stop offset='0%' style='stop-color:#4F46E5'/>
+                                    <stop offset='100%' style='stop-color:#7C3AED'/>
+                                  </linearGradient>
+                                </defs>
+                                <rect width='40' height='40' rx='12' fill='url(#logoGrad)'/>
+                                <path d='M12 12 L20 10 L28 12 L28 22 L20 28 L12 22 Z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/>
+                                <path d='M20 10 L20 28' fill='none' stroke='white' stroke-width='1.5'/>
+                                <path d='M12 16 L28 16' fill='none' stroke='white' stroke-width='1.5'/>
+                              </svg>"
+                          )
+                        RadiusBottomLeft: =Self.Width/2
+                        RadiusBottomRight: =Self.Width/2
+                        RadiusTopLeft: =Self.Width/2
+                        RadiusTopRight: =Self.Width/2
+                        Width: =Self.Height
+                  - navTitleGroup:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =36
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 2
+                        Width: =Parent.Width - navLogoImage.Width
+                      Children:
+                        - navTitle:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(230, 234, 242, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Bold
+                              Height: =20
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =If(If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 4, 11, 10)
+                              Text: ="SupplyHub"
+                              Width: =Parent.Width
+                        - navSubtitle:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(93, 107, 132, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =14
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =8
+                              Text: ="Operations Management"
+                              Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) >= 3
+                              Width: =Parent.Width
+            - navHamburgerBtn:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(139, 153, 176, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Font: =Font.'Open Sans'
+                  HoverFill: =RGBA(11, 18, 32, 1)
+                  OnSelect: =Set(gblMobileSidebarOpen, !gblMobileSidebarOpen)
+                  PressedFill: =RGBA(34, 48, 74, 1)
+                  Size: =16
+                  Text: ="☰"
+                  Visible: =If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2
+                  Width: =40
+                  X: =12
+                  Y: =Parent.Height / 2 - Self.Height / 2
+      - navDropdownOverlay:
+          Control: Classic/Button@2.2.0
+          Group: NavBar
+          Properties:
+            FocusedBorderThickness: =0
+            BorderStyle: =BorderStyle.None
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height
+            HoverBorderColor: =Self.Fill
+            HoverFill: =Self.Fill
+            OnSelect: =Set(gblActiveNav, "")
+            PressedBorderColor: =Self.Fill
+            PressedFill: =Self.Fill
+            Text: =""
+            Visible: =!IsBlank(gblActiveNav)
+            Width: =Parent.Width
+      - recMobileSidebarOverlay:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderStyle: =BorderStyle.None
+            Fill: =RGBA(0, 0, 0, 0.6)
+            Height: =Parent.Height
+            HoverBorderColor: =Self.Fill
+            HoverFill: =Self.Fill
+            OnSelect: =Set(gblMobileSidebarOpen, false)
+            PressedBorderColor: =Self.Fill
+            PressedFill: =Self.Fill
+            Text: =""
+            Visible: =gblMobileSidebarOpen && If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2
+            Width: =Parent.Width
+      - conMobileSidebar:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =16
+            RadiusTopLeft: =0
+            RadiusTopRight: =16
+            Visible: =gblMobileSidebarOpen && If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4) <= 2
+            Width: =280
+          Children:
+            - conMobileSidebarHeader:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =56
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =16
+                  PaddingRight: =12
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                Children:
+                  - lblMobileSidebarTitle:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(230, 234, 242, 1)
+                        FillPortions: =1
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =Parent.Height
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: ="SupplyHub"
+                  - btnMobileSidebarClose:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(139, 153, 176, 1)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Font: =Font.'Open Sans'
+                        Height: =36
+                        HoverFill: =RGBA(11, 18, 32, 1)
+                        OnSelect: =Set(gblMobileSidebarOpen, false)
+                        PressedFill: =RGBA(34, 48, 74, 1)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =14
+                        Text: ="✕"
+                        Width: =36
+            - conMobileSidebarDivider:
+                Control: Rectangle@2.3.0
+                Properties:
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  Width: =Parent.Width
+            - galMobileSidebarNav:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  Height: =Parent.Height - conMobileSidebarHeader.Height - 1
+                  Items: |
+                    =Table(
+                        { id: 1, labelText: "Dashboard", itemIcon: Icon.Waffle, screen: App.ActiveScreen, badgeCount: 0 },
+                        { id: 2, labelText: "Projects", itemIcon: Icon.Folder, screen: App.ActiveScreen, badgeCount: 0 },
+                        { id: 3, labelText: "My Tasks", itemIcon: Icon.CheckBadge, screen: App.ActiveScreen, badgeCount: 3 },
+                        { id: 4, labelText: "Team", itemIcon: Icon.People, screen: App.ActiveScreen, badgeCount: 0 },
+                        { id: 5, labelText: "Calendar", itemIcon: Icon.CalendarBlank, screen: App.ActiveScreen, badgeCount: 0 },
+                        { id: 6, labelText: "Reports", itemIcon: Icon.DocumentWithContent, screen: App.ActiveScreen, badgeCount: 0 }
+                    )
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =48
+                  Width: =Parent.Width
+                Children:
+                  - conMobileNavItemRow:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =If(gblActiveSidebarId = ThisItem.id, RGBA(79, 70, 229, 1), RGBA(0, 0, 0, 0))
+                        Height: =Parent.TemplateHeight - 4
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Width: =Parent.TemplateWidth - 16
+                        X: =8
+                        Y: =2
+                      Children:
+                        - icoMobileNavIcon:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =If(gblActiveSidebarId = ThisItem.id, RGBA(255, 255, 255, 1), RGBA(139, 153, 176, 1))
+                              FillPortions: =0
+                              Height: =18
+                              Icon: =ThisItem.itemIcon
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              Width: =Self.Height
+                        - lblMobileNavLabel:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =If(gblActiveSidebarId = ThisItem.id, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =Parent.Height
+                              LayoutMinWidth: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: =ThisItem.labelText
+                  - btnMobileNavItemClick:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.TemplateHeight - 4
+                        HoverFill: =If(gblActiveSidebarId = ThisItem.id, RGBA(0, 0, 0, 0), RGBA(255, 255, 255, 0.06))
+                        OnSelect: |-
+                          =Set(gblActiveSidebarId, ThisItem.id);
+                          Set(gblMobileSidebarOpen, false);
+                          If(!IsBlank(ThisItem.screen), Navigate(ThisItem.screen))
+                        PressedFill: =ColorFade(Self.HoverFill, -20%)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Text: =""
+                        Width: =Parent.TemplateWidth - 16
+                        X: =8
+                        Y: =2
+      - recNewProjectOverlay:
+          Control: Rectangle@2.3.0
+          Group: grpNewProject
+          Properties:
+            Fill: =RGBA(0, 0, 0, 0.6)
+            Height: =Parent.Height
+            Visible: =showNewProject
+            Width: =Parent.Width
+      - conNewProjectModal:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Group: grpNewProject
+          Properties:
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =680
+            RadiusBottomLeft: =16
+            RadiusBottomRight: =16
+            RadiusTopLeft: =16
+            RadiusTopRight: =16
+            Visible: =showNewProject
+            Width: =Min(460, Parent.Width - 24)
+            X: =Parent.Width / 2 - Self.Width / 2
+            Y: =Parent.Height / 2 - Self.Height / 2
+          Children:
+            - lblNewProjTitle:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =32
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =14
+                  Text: ="New Project"
+                  Width: =Parent.Width - 80
+                  X: =28
+                  Y: =24
+            - btnNewProjClose:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(139, 153, 176, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Font: =Font.'Open Sans'
+                  Height: =32
+                  HoverColor: =RGBA(230, 234, 242, 1)
+                  HoverFill: =ColorFade(RGBA(79, 70, 229, 1), 90%)
+                  OnSelect: |-
+                    =UpdateContext({ showNewProject: false })
+                  PressedFill: =RGBA(34, 48, 74, 1)
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Size: =12
+                  Text: ="✕"
+                  Width: =32
+                  X: =Parent.Width - 56
+                  Y: =24
+            - lblNewProjNameLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Project Name"
+                  Width: =Parent.Width - 56
+                  X: =28
+                  Y: =72
+            - txtNewProjName:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(230, 234, 242, 1)
+                  Default: =""
+                  FocusedBorderColor: =RGBA(79, 70, 229, 1)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  HintText: ="e.g., Assembly Line 8 Installation"
+                  HoverBorderColor: =RGBA(93, 107, 132, 1)
+                  HoverFill: =RGBA(21, 30, 48, 1)
+                  PressedBorderColor: =RGBA(93, 107, 132, 1)
+                  PressedFill: =RGBA(21, 30, 48, 1)
+                  Size: =10
+                  Width: =Parent.Width - 56
+                  X: =28
+                  Y: =98
+            - lblNewProjDescLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Description"
+                  Width: =Parent.Width - 56
+                  X: =28
+                  Y: =150
+            - txtNewProjDesc:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(230, 234, 242, 1)
+                  Default: =""
+                  FocusedBorderColor: =RGBA(79, 70, 229, 1)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  Height: =100
+                  HintText: ="Project scope, objectives..."
+                  HoverBorderColor: =RGBA(93, 107, 132, 1)
+                  HoverFill: =RGBA(21, 30, 48, 1)
+                  Mode: =TextMode.MultiLine
+                  PressedBorderColor: =RGBA(93, 107, 132, 1)
+                  PressedFill: =RGBA(21, 30, 48, 1)
+                  Size: =10
+                  Width: =Parent.Width - 56
+                  X: =28
+                  Y: =176
+            - lblNewProjColorLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Color"
+                  Width: =Parent.Width - 56
+                  X: =28
+                  Y: =290
+            - galNewProjColors:
+                Control: Gallery@2.15.0
+                Variant: Horizontal
+                Properties:
+                  Height: =44
+                  Items: |-
+                    =Table(
+                        { colorVal: RGBA(59, 130, 246, 1) },
+                        { colorVal: RGBA(139, 92, 246, 1) },
+                        { colorVal: RGBA(34, 197, 94, 1) },
+                        { colorVal: RGBA(245, 158, 11, 1) },
+                        { colorVal: RGBA(239, 68, 68, 1) }
+                    )
+                  ShowScrollbar: =false
+                  TemplatePadding: =4
+                  TemplateSize: =48
+                  Width: =260
+                  X: =28
+                  Y: =316
+                Children:
+                  - conNewProjColorCircle:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =If(varSelectedColor = ThisItem.colorVal, RGBA(79, 70, 229, 1), RGBA(0, 0, 0, 0))
+                        BorderThickness: =If(varSelectedColor = ThisItem.colorVal, 2, 0)
+                        DropShadow: =DropShadow.None
+                        Fill: =ThisItem.colorVal
+                        Height: =36
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =40
+                        X: =2
+                  - btnNewProjColorSelect:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =36
+                        HoverFill: =RGBA(255, 255, 255, 0.2)
+                        OnSelect: |-
+                          =UpdateContext({ varSelectedColor: ThisItem.colorVal })
+                        PressedFill: =RGBA(255, 255, 255, 0.3)
+                        Text: =""
+                        Width: =conNewProjColorCircle.Width
+                        X: =conNewProjColorCircle.X
+            - lblNewProjStartLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Start Date"
+                  Width: =190
+                  X: =28
+                  Y: =374
+            - dpNewProjStart:
+                Control: Classic/DatePicker@2.6.0
+                Properties:
+                  FocusedBorderThickness: =1
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  IconFill: =RGBA(93, 107, 132, 1)
+                  Size: =10
+                  Width: =190
+                  X: =28
+                  Y: =400
+            - lblNewProjDueLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Due Date"
+                  Width: =190
+                  X: =Parent.Width - 190 - 28
+                  Y: =374
+            - dpNewProjDue:
+                Control: Classic/DatePicker@2.6.0
+                Properties:
+                  FocusedBorderThickness: =1
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  IconFill: =RGBA(93, 107, 132, 1)
+                  Size: =10
+                  Width: =190
+                  X: =Parent.Width - 190 - 28
+                  Y: =400
+            - lblNewProjBudgetLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Budget"
+                  Width: =Parent.Width - 56
+                  X: =28
+                  Y: =454
+            - txtNewProjBudget:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(230, 234, 242, 1)
+                  Default: =""
+                  FocusedBorderColor: =RGBA(79, 70, 229, 1)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  HintText: ="$0"
+                  HoverBorderColor: =RGBA(93, 107, 132, 1)
+                  HoverFill: =RGBA(21, 30, 48, 1)
+                  PressedBorderColor: =RGBA(93, 107, 132, 1)
+                  PressedFill: =RGBA(21, 30, 48, 1)
+                  Size: =10
+                  Width: =Parent.Width - 56
+                  X: =28
+                  Y: =480
+            - conNewProjSeparator:
+                Control: Rectangle@2.3.0
+                Properties:
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  Width: =Parent.Width
+                  Y: =560
+            - conNewProjButtonRow:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =80
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  LayoutJustifyContent: =LayoutJustifyContent.End
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                  Y: =Parent.Height - 80
+                Children:
+                  - btnNewProjCancel:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(34, 48, 74, 1)
+                        BorderThickness: =1
+                        Color: =RGBA(139, 153, 176, 1)
+                        Fill: =RGBA(21, 30, 48, 1)
+                        FocusedBorderThickness: =1
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =RGBA(93, 107, 132, 1)
+                        HoverColor: =RGBA(230, 234, 242, 1)
+                        HoverFill: =RGBA(30, 41, 63, 1)
+                        LayoutMinWidth: =0
+                        OnSelect: |-
+                          =UpdateContext({ showNewProject: false })
+                        PressedBorderColor: =RGBA(93, 107, 132, 1)
+                        PressedColor: =RGBA(230, 234, 242, 1)
+                        PressedFill: =RGBA(21, 30, 48, 1)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =10
+                        Text: ="Cancel"
+                        Width: =190
+                  - btnNewProjCreate:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(255, 255, 255, 1)
+                        Fill: =RGBA(79, 70, 229, 1)
+                        FocusedBorderThickness: =0
+                        Font: =Font.'Open Sans'
+                        HoverFill: =ColorFade(RGBA(79, 70, 229, 1), -10%)
+                        LayoutMinWidth: =0
+                        OnSelect: |-
+                          =UpdateContext({ showNewProject: false })
+                        PressedFill: =ColorFade(RGBA(79, 70, 229, 1), -20%)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =10
+                        Text: ="Create Project"
+                        Width: =190

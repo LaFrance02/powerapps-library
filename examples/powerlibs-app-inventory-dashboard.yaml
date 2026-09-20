@@ -1,0 +1,1008 @@
+Screens:
+  scrDashboard:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnVisible: |-
+        =// ============================================================
+        //  Inventory Manager Dashboard — demo data + screen state
+        //  Demo collections live here in OnVisible so the screen is
+        //  fully self-contained for copy/paste. The IsEmpty guard seeds
+        //  them once per session, so navigating back is instant.
+        //  Swap each ClearCollect for a Filter against your real data
+        //  source when you wire it up.
+        // ============================================================
+        If(
+            IsEmpty(colKpiAll),
+
+            // ---- KPI cards (one block of 4 per range) ----
+            ClearCollect(colKpiAll,
+                {Range:"7D",  ID:1, Icon:"Box",     Value:1247,  Label:"Total SKUs",  PercentChange:6,    PercentLabel:"vs prev period", IconBg:"#EBF5FF", IconColor:"#3B82F6", isHidden:false},
+                {Range:"7D",  ID:2, Icon:"Dollar",  Value:71200, Label:"Total Value", PercentChange:1.1,  PercentLabel:"vs prev period", IconBg:"#E8F5E9", IconColor:"#22C55E", isHidden:false},
+                {Range:"7D",  ID:3, Icon:"Warning", Value:9,     Label:"Low Stock",   PercentChange:2,    PercentLabel:"vs prev period", IconBg:"#FFF3E0", IconColor:"#F59E0B", isHidden:false},
+                {Range:"7D",  ID:4, Icon:"Folder",  Value:4,     Label:"Locations",   PercentChange:0,    PercentLabel:"stable",         IconBg:"#EBF5FF", IconColor:"#3B82F6", isHidden:false},
+
+                {Range:"30D", ID:1, Icon:"Box",     Value:1247,  Label:"Total SKUs",  PercentChange:12,   PercentLabel:"vs prev period", IconBg:"#EBF5FF", IconColor:"#3B82F6", isHidden:false},
+                {Range:"30D", ID:2, Icon:"Dollar",  Value:284500,Label:"Total Value", PercentChange:3.2,  PercentLabel:"vs prev period", IconBg:"#E8F5E9", IconColor:"#22C55E", isHidden:false},
+                {Range:"30D", ID:3, Icon:"Warning", Value:23,    Label:"Low Stock",   PercentChange:4,    PercentLabel:"vs prev period", IconBg:"#FFF3E0", IconColor:"#F59E0B", isHidden:false},
+                {Range:"30D", ID:4, Icon:"Folder",  Value:4,     Label:"Locations",   PercentChange:0,    PercentLabel:"stable",         IconBg:"#EBF5FF", IconColor:"#3B82F6", isHidden:false},
+
+                {Range:"90D", ID:1, Icon:"Box",     Value:1288,  Label:"Total SKUs",  PercentChange:34,   PercentLabel:"vs prev period", IconBg:"#EBF5FF", IconColor:"#3B82F6", isHidden:false},
+                {Range:"90D", ID:2, Icon:"Dollar",  Value:812000,Label:"Total Value", PercentChange:7.8,  PercentLabel:"vs prev period", IconBg:"#E8F5E9", IconColor:"#22C55E", isHidden:false},
+                {Range:"90D", ID:3, Icon:"Warning", Value:41,    Label:"Low Stock",   PercentChange:9,    PercentLabel:"vs prev period", IconBg:"#FFF3E0", IconColor:"#F59E0B", isHidden:false},
+                {Range:"90D", ID:4, Icon:"Folder",  Value:5,     Label:"Locations",   PercentChange:1,    PercentLabel:"vs prev period", IconBg:"#EBF5FF", IconColor:"#3B82F6", isHidden:false},
+
+                {Range:"YTD", ID:1, Icon:"Box",     Value:1310,    Label:"Total SKUs",  PercentChange:58,   PercentLabel:"vs prev period", IconBg:"#EBF5FF", IconColor:"#3B82F6", isHidden:false},
+                {Range:"YTD", ID:2, Icon:"Dollar",  Value:3180000, Label:"Total Value", PercentChange:14.2, PercentLabel:"vs prev period", IconBg:"#E8F5E9", IconColor:"#22C55E", isHidden:false},
+                {Range:"YTD", ID:3, Icon:"Warning", Value:62,      Label:"Low Stock",   PercentChange:15,   PercentLabel:"vs prev period", IconBg:"#FFF3E0", IconColor:"#F59E0B", isHidden:false},
+                {Range:"YTD", ID:4, Icon:"Folder",  Value:6,       Label:"Locations",   PercentChange:2,    PercentLabel:"vs prev period", IconBg:"#EBF5FF", IconColor:"#3B82F6", isHidden:false}
+            );
+
+            // ---- Stock Movement chart: Label x Series, with both metrics on each row ----
+            ClearCollect(colMoveAll,
+                {Range:"7D", Label:"Mon", Series:"Stock In", UnitVal:120, DollarVal:18}, {Range:"7D", Label:"Mon", Series:"Stock Out", UnitVal:80,  DollarVal:12},
+                {Range:"7D", Label:"Tue", Series:"Stock In", UnitVal:160, DollarVal:24}, {Range:"7D", Label:"Tue", Series:"Stock Out", UnitVal:110, DollarVal:17},
+                {Range:"7D", Label:"Wed", Series:"Stock In", UnitVal:140, DollarVal:21}, {Range:"7D", Label:"Wed", Series:"Stock Out", UnitVal:95,  DollarVal:14},
+                {Range:"7D", Label:"Thu", Series:"Stock In", UnitVal:210, DollarVal:31}, {Range:"7D", Label:"Thu", Series:"Stock Out", UnitVal:140, DollarVal:21},
+
+                {Range:"30D", Label:"Oct", Series:"Stock In", UnitVal:420, DollarVal:64}, {Range:"30D", Label:"Oct", Series:"Stock Out", UnitVal:300, DollarVal:46},
+                {Range:"30D", Label:"Nov", Series:"Stock In", UnitVal:520, DollarVal:78}, {Range:"30D", Label:"Nov", Series:"Stock Out", UnitVal:360, DollarVal:54},
+                {Range:"30D", Label:"Dec", Series:"Stock In", UnitVal:610, DollarVal:92}, {Range:"30D", Label:"Dec", Series:"Stock Out", UnitVal:410, DollarVal:62},
+                {Range:"30D", Label:"Jan", Series:"Stock In", UnitVal:470, DollarVal:71}, {Range:"30D", Label:"Jan", Series:"Stock Out", UnitVal:420, DollarVal:63},
+                {Range:"30D", Label:"Feb", Series:"Stock In", UnitVal:560, DollarVal:84}, {Range:"30D", Label:"Feb", Series:"Stock Out", UnitVal:380, DollarVal:57},
+                {Range:"30D", Label:"Mar", Series:"Stock In", UnitVal:680, DollarVal:102},{Range:"30D", Label:"Mar", Series:"Stock Out", UnitVal:300, DollarVal:45},
+
+                {Range:"90D", Label:"Oct", Series:"Stock In", UnitVal:1240, DollarVal:186}, {Range:"90D", Label:"Oct", Series:"Stock Out", UnitVal:900,  DollarVal:135},
+                {Range:"90D", Label:"Nov", Series:"Stock In", UnitVal:1410, DollarVal:212}, {Range:"90D", Label:"Nov", Series:"Stock Out", UnitVal:1020, DollarVal:153},
+                {Range:"90D", Label:"Dec", Series:"Stock In", UnitVal:1680, DollarVal:252}, {Range:"90D", Label:"Dec", Series:"Stock Out", UnitVal:1180, DollarVal:177},
+                {Range:"90D", Label:"Jan", Series:"Stock In", UnitVal:1320, DollarVal:198}, {Range:"90D", Label:"Jan", Series:"Stock Out", UnitVal:1240, DollarVal:186},
+                {Range:"90D", Label:"Feb", Series:"Stock In", UnitVal:1560, DollarVal:234}, {Range:"90D", Label:"Feb", Series:"Stock Out", UnitVal:1100, DollarVal:165},
+                {Range:"90D", Label:"Mar", Series:"Stock In", UnitVal:1880, DollarVal:282}, {Range:"90D", Label:"Mar", Series:"Stock Out", UnitVal:860,  DollarVal:129},
+
+                {Range:"YTD", Label:"Q1", Series:"Stock In", UnitVal:3800, DollarVal:560}, {Range:"YTD", Label:"Q1", Series:"Stock Out", UnitVal:2900, DollarVal:440},
+                {Range:"YTD", Label:"Q2", Series:"Stock In", UnitVal:4600, DollarVal:690}, {Range:"YTD", Label:"Q2", Series:"Stock Out", UnitVal:3300, DollarVal:510},
+                {Range:"YTD", Label:"Q3", Series:"Stock In", UnitVal:5200, DollarVal:780}, {Range:"YTD", Label:"Q3", Series:"Stock Out", UnitVal:3700, DollarVal:560},
+                {Range:"YTD", Label:"Q4", Series:"Stock In", UnitVal:5900, DollarVal:880}, {Range:"YTD", Label:"Q4", Series:"Stock Out", UnitVal:3100, DollarVal:470}
+            );
+
+            // ---- x-axis label order per range (Sort keeps months/quarters in order) ----
+            ClearCollect(colMoveLabels,
+                {Range:"7D", Label:"Mon", Sort:1}, {Range:"7D", Label:"Tue", Sort:2}, {Range:"7D", Label:"Wed", Sort:3}, {Range:"7D", Label:"Thu", Sort:4},
+                {Range:"30D", Label:"Oct", Sort:1}, {Range:"30D", Label:"Nov", Sort:2}, {Range:"30D", Label:"Dec", Sort:3}, {Range:"30D", Label:"Jan", Sort:4}, {Range:"30D", Label:"Feb", Sort:5}, {Range:"30D", Label:"Mar", Sort:6},
+                {Range:"90D", Label:"Oct", Sort:1}, {Range:"90D", Label:"Nov", Sort:2}, {Range:"90D", Label:"Dec", Sort:3}, {Range:"90D", Label:"Jan", Sort:4}, {Range:"90D", Label:"Feb", Sort:5}, {Range:"90D", Label:"Mar", Sort:6},
+                {Range:"YTD", Label:"Q1", Sort:1}, {Range:"YTD", Label:"Q2", Sort:2}, {Range:"YTD", Label:"Q3", Sort:3}, {Range:"YTD", Label:"Q4", Sort:4}
+            );
+
+            // ---- By Category bar list (ranked by value, sorted by the component) ----
+            ClearCollect(colCatAll,
+                {Range:"7D", Label:"Electronics",        Value:21200, isHidden:false},
+                {Range:"7D", Label:"Hardware & Tools",   Value:15400, isHidden:false},
+                {Range:"7D", Label:"Safety Equipment",   Value:12100, isHidden:false},
+                {Range:"7D", Label:"Packaging Materials",Value:8700,  isHidden:false},
+                {Range:"7D", Label:"Cleaning Supplies",  Value:6000,  isHidden:false},
+                {Range:"7D", Label:"Office Supplies",    Value:4600,  isHidden:false},
+
+                {Range:"30D", Label:"Electronics",        Value:84200, isHidden:false},
+                {Range:"30D", Label:"Hardware & Tools",   Value:61500, isHidden:false},
+                {Range:"30D", Label:"Safety Equipment",   Value:48300, isHidden:false},
+                {Range:"30D", Label:"Packaging Materials",Value:34800, isHidden:false},
+                {Range:"30D", Label:"Cleaning Supplies",  Value:24100, isHidden:false},
+                {Range:"30D", Label:"Office Supplies",    Value:18600, isHidden:false},
+
+                {Range:"90D", Label:"Electronics",        Value:241000, isHidden:false},
+                {Range:"90D", Label:"Hardware & Tools",   Value:176500, isHidden:false},
+                {Range:"90D", Label:"Safety Equipment",   Value:138300, isHidden:false},
+                {Range:"90D", Label:"Packaging Materials",Value:99800,  isHidden:false},
+                {Range:"90D", Label:"Cleaning Supplies",  Value:68100,  isHidden:false},
+                {Range:"90D", Label:"Office Supplies",    Value:53600,  isHidden:false},
+
+                {Range:"YTD", Label:"Electronics",        Value:942000, isHidden:false},
+                {Range:"YTD", Label:"Hardware & Tools",   Value:688000, isHidden:false},
+                {Range:"YTD", Label:"Safety Equipment",   Value:541000, isHidden:false},
+                {Range:"YTD", Label:"Packaging Materials",Value:389000, isHidden:false},
+                {Range:"YTD", Label:"Cleaning Supplies",  Value:266000, isHidden:false},
+                {Range:"YTD", Label:"Office Supplies",    Value:208000, isHidden:false}
+            );
+
+            // ---- Low-stock alerts (table). CompletedSteps = on hand, TotalSteps = reorder level ----
+            ClearCollect(colAlerts,
+                {CaseID:"SKU-204", Title:"Safety Vest (M)",        Status:"Critical",  Progress:"P1", Assignee:"Pro Safety Co", DueDate:Date(2026,6,9),  Priority:"High",   CompletedSteps:3,  TotalSteps:5, Category:"Safety"},
+                {CaseID:"SKU-118", Title:"Nitrile Gloves (L)",     Status:"Critical",  Progress:"P2", Assignee:"MedSupply",     DueDate:Date(2026,6,7),  Priority:"High",   CompletedSteps:1,  TotalSteps:8, Category:"Safety"},
+                {CaseID:"SKU-330", Title:"Label Printer Ribbon",   Status:"Critical",  Progress:"P3", Assignee:"PrintParts",    DueDate:Date(2026,6,10), Priority:"High",   CompletedSteps:3,  TotalSteps:4, Category:"Packaging"},
+                {CaseID:"SKU-051", Title:"Box Cutter Blades",      Status:"Low Stock", Progress:"P4", Assignee:"Hardware Hub",   DueDate:Date(2026,6,18), Priority:"Medium", CompletedSteps:2, TotalSteps:6, Category:"Hardware"},
+                {CaseID:"SKU-077", Title:"Stretch Wrap Roll",      Status:"Low Stock", Progress:"P5", Assignee:"PackRight",      DueDate:Date(2026,6,21), Priority:"Low",    CompletedSteps:7, TotalSteps:8, Category:"Packaging"},
+                {CaseID:"SKU-412", Title:"AA Batteries (48-pack)", Status:"Low Stock", Progress:"P6", Assignee:"VoltLine",       DueDate:Date(2026,6,15), Priority:"Medium", CompletedSteps:9,  TotalSteps:10, Category:"Electronics"}
+            )
+        );
+
+        // ---- screen + nav state ----
+        Set(_cmpNavIsExpanded, true);
+        Set(_cmpNavSelID, 2);
+        Set(varActiveTab, 2);
+        If(IsBlank(gblRange), Set(gblRange, "30D"));
+        If(IsBlank(gblMetric), Set(gblMetric, "units"));
+        If(IsBlank(gblAlertFilter), Set(gblAlertFilter, "all"));
+        If(IsBlank(gblLastRefresh), Set(gblLastRefresh, Now()));
+        If(App.Width >= 1024 && varNavOpen, Set(varNavOpen, false));
+        Set(varLoadComplete, true)
+    Children:
+      - cntRootDsh:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(249, 250, 251, 1)
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            PaddingLeft: =If(App.Width >= 1024, If(_cmpNavIsExpanded, 260, 64), 0)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cntMiddleDsh:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =Parent.Height
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                Children:
+                  - cntRightStackDsh:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                      Children:
+                        - conAppBarDsh:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(229, 231, 235, 1)
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Fill: =If(App.Width < 640, Color.Transparent, RGBA(255, 255, 255, 1))
+                              FillPortions: =0
+                              Height: =If(App.Width < 640, 116, 72)
+                              LayoutAlignItems: =If(App.Width < 640, LayoutAlignItems.Stretch, LayoutAlignItems.Center)
+                              LayoutDirection: =If(App.Width < 640, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                              LayoutGap: =If(App.Width < 640, 8, 12)
+                              LayoutJustifyContent: =If(App.Width < 640, LayoutJustifyContent.Center, LayoutJustifyContent.SpaceBetween)
+                              PaddingBottom: =If(App.Width < 640, 8, 0)
+                              PaddingLeft: =If(App.Width < 640, 12, 24)
+                              PaddingRight: =If(App.Width < 640, 12, 24)
+                              PaddingTop: =If(App.Width < 640, 8, 0)
+                            Children:
+                              - conTitleGroupDsh_1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Height: =If(App.Width < 640, 52, Parent.Height)
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =2
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                  Children:
+                                    - lblDashTitleDsh_1:
+                                        Control: ModernText@1.0.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          AutoHeight: =true
+                                          Color: =RGBA(75, 85, 99, 1)
+                                          FillPortions: =1
+                                          FontWeight: =FontWeight.Bold
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Size: =18
+                                          Text: ="Dashboard"
+                                    - conUpdatedRowDsh:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          Height: =24
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =6
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                        Children:
+                                          - lblDashUpdatedDsh_1:
+                                              Control: ModernText@1.0.0
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =RGBA(107, 114, 128, 1)
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                Size: =12
+                                                Text: |-
+                                                  =With(
+                                                      {mins: DateDiff(gblLastRefresh, Coalesce(gblNowTick, Now()), TimeUnit.Minutes)},
+                                                      If(
+                                                          locRefreshing,
+                                                          "Refreshing…",
+                                                          "Last updated " &
+                                                          Switch(
+                                                              true,
+                                                              mins < 1, "just now",
+                                                              mins = 1, "1 min ago",
+                                                              mins < 60, mins & " min ago",
+                                                              mins < 120, "1 hr ago",
+                                                              mins < 1440, RoundDown(mins / 60, 0) & " hrs ago",
+                                                              Text(gblLastRefresh, "mmm d, h:mm AM/PM")
+                                                          )
+                                                      )
+                                                  )
+                                          - cmpRefreshBadge_1:
+                                              Control: CanvasComponent
+                                              ComponentName: Badge
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                BadgeColor: =RGBA(37, 99, 235, 1)
+                                                BadgeCount: =0
+                                                HasNotifications: =false
+                                                Height: =24
+                                                HoverText: ="Refresh data"
+                                                IconColor: =
+                                                IconSvg: |-
+                                                  ="<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24' fill='none' stroke='" &
+                                                  If(locRefreshing, "#2563EB", "#6B7280") &
+                                                  "' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>" &
+                                                  "<path d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/>" &
+                                                  "<path d='M21 3v5h-5'/>" &
+                                                  "<path d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/>" &
+                                                  "<path d='M3 21v-5h5'/>" &
+                                                  "</svg>"
+                                                OnSelect: |-
+                                                  =If(
+                                                      !locRefreshing,
+                                                      UpdateContext({locRefreshing: true});
+                                                      Notify("Refresh data sources here");
+                                                      Set(gblLastRefresh, Now());
+                                                      UpdateContext({locRefreshing: false})
+                                                  )
+                                                Size: =16
+                                                Theme: ="Light"
+                                                Width: =24
+                              - conAppBarRightDsh:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Height: =If(App.Width < 640, 40, Parent.Height)
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    LayoutJustifyContent: =If(App.Width < 640, LayoutJustifyContent.SpaceBetween, LayoutJustifyContent.End)
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                  Children:
+                                    - cmpRangeSegDsh:
+                                        Control: CanvasComponent
+                                        ComponentName: cmpSegmentedControl
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DefaultValue: ="30D"
+                                          Disabled: =false
+                                          DisplayMode: ="Text"
+                                          EqualWidth: =true
+                                          Height: =If(App.Width < 640, 36, 40)
+                                          IconPosition: ="Left"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnChange: =Set(gblRange, cmpRangeSegDsh.SelectedValue)
+                                          Options: |-
+                                            =Table(
+                                                {Value: "7D",  Label: "7D"},
+                                                {Value: "30D", Label: "30D"},
+                                                {Value: "90D", Label: "90D"},
+                                                {Value: "YTD", Label: "YTD"}
+                                            )
+                                          Size: =If(App.Width < 640, "Small", "Medium")
+                                          Theme: ="Light"
+                                          Width: =If(App.Width < 640, 220, 232)
+                                    - btnExport:
+                                        Control: ModernButton@1.0.0
+                                        Properties:
+                                          Appearance: =ButtonAppearance.Outline
+                                          Color: =RGBA(53, 61, 63, 1)
+                                          Height: =If(App.Width < 640, 36, 40)
+                                          Icon: ="ArrowDownload"
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          RadiusBottomLeft: =10
+                                          RadiusBottomRight: =10
+                                          RadiusTopLeft: =10
+                                          RadiusTopRight: =10
+                                          Text: =If(App.Width < 640, "", "Export")
+                                          Width: =If(App.Width < 640, 44, 120)
+                        - rctDividerDsh:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledFill: =RGBA(161, 159, 157, 1)
+                              Fill: =RGBA(229, 231, 235, 1)
+                              FocusedBorderThickness: =4
+                              Height: =1
+                              HoverFill: =RGBA(229, 231, 235, 1)
+                              LayoutMinHeight: =1
+                              LayoutMinWidth: =16
+                              PressedFill: =RGBA(229, 231, 235, 1)
+                              Width: =Parent.Width - If(App.Width < 640, 12, 24)
+                        - cntPageGutterDsh:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =If(App.Width >= 1024, 16, 8)
+                              LayoutMinHeight: =0
+                              LayoutOverflowY: =LayoutOverflow.Scroll
+                              PaddingBottom: =If(App.Width < 640, 12, 24)
+                              PaddingLeft: =If(App.Width < 640, 12, 24)
+                              PaddingRight: =If(App.Width < 640, 12, 24)
+                              PaddingTop: =If(App.Width < 640, 12, 24)
+                              Width: =Parent.Width
+                            Children:
+                              - conKpiSectionDsh:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =cmpKPIDsh.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =0
+                                    Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                                  Children:
+                                    - cmpKPIDsh:
+                                        Control: CanvasComponent
+                                        ComponentName: cmpKPI
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          AnimationEffect: ="Pop"
+                                          ColumnsLayout: |-
+                                            ={
+                                                Mobile: 2,
+                                                Tablet: 2,
+                                                Desktop: 4,
+                                                MobileBreakpoint: IfError(Index(App.SizeBreakpoints, 1).Value, 640),
+                                                TabletBreakpoint: IfError(Index(App.SizeBreakpoints, 2).Value, 1024),
+                                                DesktopBreakpoint: IfError(Index(App.SizeBreakpoints, 3).Value, 1366)
+                                            }
+                                          Data: =Filter(colKpiAll, Range = gblRange)
+                                          Height: |-
+                                            =With(
+                                                {
+                                                    bp: cmpKPIDsh.ColumnsLayout,
+                                                    w: App.Width,
+                                                    cardCount: CountRows(Filter(cmpKPIDsh.Data, !IfError(isHidden, false)))
+                                                },
+                                                With(
+                                                    {
+                                                        cols: Max(1, If(
+                                                            w < bp.MobileBreakpoint, bp.Mobile,
+                                                            w < bp.TabletBreakpoint, bp.Tablet,
+                                                            bp.Desktop
+                                                        ))
+                                                    },
+                                                    With(
+                                                        {
+                                                            rows: RoundUp(cardCount / cols, 0)
+                                                        },
+                                                        If(
+                                                            Or(cmpKPIDsh.Style = "Compact", cmpKPIDsh.Style = "Minimal"),
+                                                            rows * (96 + cmpKPIDsh.StyleConfig.space.md) + cmpKPIDsh.StyleConfig.space.md,
+                                                            rows * (cmpKPIDsh.StyleConfig.heights.statsCardMax + cmpKPIDsh.StyleConfig.space.lg) + cmpKPIDsh.StyleConfig.space.lg
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                          Icons: |-
+                                            =Table(
+                                                {Name: "Box",     SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='COLOR' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/><polyline points='3.29 7 12 12 20.71 7'/><line x1='12' y1='22' x2='12' y2='12'/></svg>"},
+                                                {Name: "Dollar",  SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='COLOR' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' y1='1' x2='12' y2='23'/><path d='M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'/></svg>"},
+                                                {Name: "Warning", SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='COLOR' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12.01' y2='17'/></svg>"},
+                                                {Name: "Folder",  SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='COLOR' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'/></svg>"}
+                                            )
+                                          IsLoading: =false
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnCardClick: =
+                                          Style: =If(App.Width < 640, "Compact", "Standard")
+                                          StyleConfig: |-
+                                            ={
+                                                colors: {
+                                                    cardBg:        RGBA(255, 255, 255, 1),
+                                                    border:        RGBA(229, 231, 235, 1),
+                                                    text:          RGBA(17, 24, 39, 1),
+                                                    textMuted:     RGBA(107, 114, 128, 1),
+                                                    positive:      ColorValue("#22C55E"),
+                                                    negative:      ColorValue("#EF4444"),
+                                                    neutral:       ColorValue("#9E9E9E"),
+                                                    skeletonBase:  RGBA(229, 231, 235, 1),
+                                                    skeletonShine: RGBA(249, 250, 251, 1)
+                                                },
+                                                space:  {xs: 4, sm: 8, md: 12, lg: 16, xl: 24},
+                                                radius: {md: 8, lg: 12},
+                                                type: {
+                                                    value: {size: 32, sizeCompact: 20},
+                                                    label: {size: 12},
+                                                    body:  {size: 12}
+                                                },
+                                                heights: {statsCardMax: 190},
+                                                abbreviateThreshold: 10000
+                                            }
+                                          Width: =Parent.Width
+                              - conChartsRowDsh:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =If(App.Width < 1024, 736, 360)
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =If(App.Width < 1024, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                                    LayoutGap: =16
+                                    LayoutMinHeight: =0
+                                    Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                                  Children:
+                                    - conChartCardDsh:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          BorderColor: =RGBA(229, 231, 235, 1)
+                                          BorderThickness: =1
+                                          DropShadow: =DropShadow.None
+                                          Fill: =RGBA(255, 255, 255, 1)
+                                          FillPortions: =If(App.Width < 1024, 0, 2)
+                                          Height: =360
+                                          LayoutDirection: =LayoutDirection.Vertical
+                                          LayoutGap: =8
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =16
+                                          PaddingLeft: =16
+                                          PaddingRight: =16
+                                          PaddingTop: =16
+                                          RadiusBottomLeft: =12
+                                          RadiusBottomRight: =12
+                                          RadiusTopLeft: =12
+                                          RadiusTopRight: =12
+                                        Children:
+                                          - conChartHeadDsh:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                FillPortions: =0
+                                                Height: =40
+                                                LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                              Children:
+                                                - conChartTitlesDsh:
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      LayoutDirection: =LayoutDirection.Vertical
+                                                      LayoutJustifyContent: =LayoutJustifyContent.Center
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                    Children:
+                                                      - lblChartTitleDsh:
+                                                          Control: ModernText@1.0.0
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            AutoHeight: =true
+                                                            Color: =RGBA(17, 24, 39, 1)
+                                                            FillPortions: =1
+                                                            FontWeight: =FontWeight.Bold
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            Text: ="Stock Movement"
+                                                      - lblChartSubDsh:
+                                                          Control: ModernText@1.0.0
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            AutoHeight: =true
+                                                            Color: =RGBA(107, 114, 128, 1)
+                                                            FillPortions: =1
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            Size: =12
+                                                            Text: ="Items in vs consumed"
+                                                - cmpMetricSegDsh:
+                                                    Control: CanvasComponent
+                                                    ComponentName: cmpSegmentedControl
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      DefaultValue: ="units"
+                                                      Disabled: =false
+                                                      DisplayMode: ="Text"
+                                                      EqualWidth: =true
+                                                      Height: =32
+                                                      IconPosition: ="Left"
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      OnChange: =Set(gblMetric, cmpMetricSegDsh.SelectedValue)
+                                                      Options: |-
+                                                        =Table(
+                                                            {Value: "units", Label: "Units"},
+                                                            {Value: "value", Label: "Value"}
+                                                        )
+                                                      Size: ="Small"
+                                                      Theme: ="Light"
+                                                      Width: =140
+                                          - cmpStackedBarChartDsh:
+                                              Control: CanvasComponent
+                                              ComponentName: cmpStackedBarChart
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                Animate: =true
+                                                AnimationDuration: =0.8
+                                                ChartData: =AddColumns(Filter(colMoveAll, Range = gblRange), Value, If(gblMetric = "units", UnitVal, DollarVal))
+                                                ChartTitle: ="Stock Movement"
+                                                FillPortions: =1
+                                                Labels: =SortByColumns(Filter(colMoveLabels, Range = gblRange), "Sort")
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                SeriesConfig: |-
+                                                  =Table(
+                                                      {Series: "Stock In",  Color: "#3B82F6"},
+                                                      {Series: "Stock Out", Color: "#CBD5E1"}
+                                                  )
+                                                ShowGrid: =true
+                                                ShowLegend: =true
+                                                ShowTitle: =false
+                                                ShowValues: =false
+                                                Theme: ="Light"
+                                                Width: =Parent.Width
+                                    - cmpBarListDsh:
+                                        Control: CanvasComponent
+                                        ComponentName: cmpBarList
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Data: =Filter(colCatAll, Range = gblRange)
+                                          EmptyMessage: ="No categories in this range"
+                                          FillPortions: =If(App.Width < 1024, 0, 1)
+                                          Height: =360
+                                          IsLoading: =false
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnBarClick: =false
+                                          Palette: |-
+                                            =Table(
+                                                {Color: "378ADD"},
+                                                {Color: "7F77DD"},
+                                                {Color: "1D9E75"},
+                                                {Color: "3B6D11"},
+                                                {Color: "BA7517"},
+                                                {Color: "D4537E"},
+                                                {Color: "888780"}
+                                            )
+                                          ShowRowSubtitle: =false
+                                          StyleConfig: |-
+                                            ={
+                                                light: {
+                                                    cardBg:        ColorValue("#FFFFFF"),
+                                                    border:        ColorValue("#E5E7EB"),
+                                                    title:         ColorValue("#111827"),
+                                                    subtitle:      ColorValue("#6B7280"),
+                                                    label:         ColorValue("#111827"),
+                                                    value:         ColorValue("#111827"),
+                                                    barTrack:      ColorValue("#EEEFF1"),
+                                                    skeletonBase:  ColorValue("#E5E7EB"),
+                                                    skeletonShine: ColorValue("#F3F4F6")
+                                                },
+                                                dark: {
+                                                    cardBg:        ColorValue("#1F2937"),
+                                                    border:        ColorValue("#374151"),
+                                                    title:         ColorValue("#F9FAFB"),
+                                                    subtitle:      ColorValue("#9CA3AF"),
+                                                    label:         ColorValue("#F3F4F6"),
+                                                    value:         ColorValue("#F9FAFB"),
+                                                    barTrack:      ColorValue("#374151"),
+                                                    skeletonBase:  ColorValue("#374151"),
+                                                    skeletonShine: ColorValue("#4B5563")
+                                                },
+                                                space: {
+                                                    cardPadV: 20,
+                                                    cardPadH: 20,
+                                                    barHeight: 6
+                                                },
+                                                type: {
+                                                    title:    14,
+                                                    subtitle: 12,
+                                                    label:    13,
+                                                    value:    13,
+                                                    rowSub:   11
+                                                },
+                                                header: {
+                                                    height: 64
+                                                },
+                                                row: {
+                                                    height:        44,
+                                                    heightWithSub: 60
+                                                },
+                                                radius: {
+                                                    card: 12,
+                                                    bar:   3
+                                                },
+                                                abbreviateThreshold: 1000
+                                            }
+                                          Subtitle: ="Current stock value"
+                                          Theme: ="Light"
+                                          Title: ="By Category"
+                                          ValueFormat: ="Currency"
+                                          Width: =Parent.Width
+                              - conAlertsHeadDsh:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =45
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                    Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                                  Children:
+                                    - lblAlertsHeadDsh:
+                                        Control: ModernText@1.0.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          Color: =RGBA(17, 24, 39, 1)
+                                          FillPortions: =1
+                                          FontWeight: =FontWeight.Bold
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Size: =16
+                                          Text: ="Low Stock Alerts"
+                                    - cmpAlertSegDsh:
+                                        Control: CanvasComponent
+                                        ComponentName: cmpSegmentedControl
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          DefaultValue: ="all"
+                                          Disabled: =false
+                                          DisplayMode: ="Text"
+                                          EqualWidth: =true
+                                          Height: =32
+                                          IconPosition: ="Left"
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnChange: =Set(gblAlertFilter, cmpAlertSegDsh.SelectedValue)
+                                          Options: |-
+                                            =Table(
+                                                {Value: "all",      Label: "All"},
+                                                {Value: "critical", Label: "Critical"},
+                                                {Value: "low",      Label: "Low"}
+                                            )
+                                          Size: ="Small"
+                                          Theme: ="Light"
+                                          Width: =210
+                              - conAlertsCardDsh:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BorderColor: =RGBA(229, 231, 235, 1)
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.None
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMinHeight: =300
+                                    RadiusBottomLeft: =12
+                                    RadiusBottomRight: =12
+                                    RadiusTopLeft: =12
+                                    RadiusTopRight: =12
+                                    Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                                  Children:
+                                    - cmpMyTableDsh:
+                                        Control: CanvasComponent
+                                        ComponentName: cmpMyTable
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          CharWidths: =
+                                          ContextMenuItems: |-
+                                            =Table(
+                                                {ItemKey: "view", ItemDisplayName: "View", ItemIconSvg: "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z'/><circle cx='12' cy='12' r='3'/></svg>", ItemIconColor: "60,60,60,1", ItemEnabled: true, ItemVisible: true},
+                                                {ItemKey: "createpo", ItemDisplayName: "Create PO", ItemIconSvg: "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>", ItemIconColor: "37,99,235,1", ItemEnabled: true, ItemVisible: true},
+                                                {ItemKey: "delete", ItemDisplayName: "Dismiss", ItemIconSvg: "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M3 6h18'/><path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/><path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/></svg>", ItemIconColor: "248,113,113,1", ItemEnabled: true, ItemVisible: true}
+                                            )
+                                          EnableHover: =true
+                                          EnableMenu: =true
+                                          FillPortions: =1
+                                          Height: =Parent.Height
+                                          Items: |-
+                                            =Filter(
+                                                colAlerts,
+                                                gblAlertFilter = "all"
+                                                || (gblAlertFilter = "critical" && Status = "Critical")
+                                                || (gblAlertFilter = "low" && Status = "Low Stock")
+                                            )
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnMenuItemSelect: |-
+                                            =Switch(
+                                                cmpMyTableDsh.SelectedMenuItem.ItemKey,
+                                                "view",
+                                                Notify(
+                                                    "View " & cmpMyTableDsh.SelectedItem.Title,
+                                                    NotificationType.Information
+                                                ),
+                                                "createpo",
+                                                Notify(
+                                                    "Create PO for " & cmpMyTableDsh.SelectedItem.Title,
+                                                    NotificationType.Success
+                                                ),
+                                                "delete",
+                                                Notify(
+                                                    "Dismissed alert for " & cmpMyTableDsh.SelectedItem.Title,
+                                                    NotificationType.Information
+                                                )
+                                            )
+                                          OnRowSelect: =
+                                          OnViewChange: =
+                                          PriorityConfig: |-
+                                            =Table(
+                                                {PriorityKey: "high",    Background: "254,226,226,1", TextColor: "185,28,28,1"},
+                                                {PriorityKey: "medium",  Background: "254,243,199,1", TextColor: "146,64,14,1"},
+                                                {PriorityKey: "low",     Background: "220,252,231,1", TextColor: "22,101,52,1"},
+                                                {PriorityKey: "default", Background: "243,244,246,1", TextColor: "75,85,99,1"}
+                                            )
+                                          ProgressActiveColor: ="2563EB"
+                                          ProgressInactiveColor: ="E2E8F0"
+                                          ShowHeader: =true
+                                          ShowViewToggle: =false
+                                          StatusConfig: |-
+                                            =Table(
+                                                {StatusKey: "critical",  Background: "254,226,226,1", TextColor: "185,28,28,1"},
+                                                {StatusKey: "low stock", Background: "254,243,199,1", TextColor: "146,64,14,1"},
+                                                {StatusKey: "default",   Background: "243,244,246,1", TextColor: "75,85,99,1"}
+                                            )
+                                          ThemeConfig: |-
+                                            ={
+                                                container: {background: "255,255,255,1", border: "229,231,235,1", borderThickness: 1, radius: 12},
+                                                header: {background: "255,255,255,1", border: "229,231,235,1", borderThickness: 2, textColor: "75,85,99,1", fontSize: 11, fontWeight: "Semibold", height: 50},
+                                                row: {background: "255,255,255,1", hoverBackground: "249,250,251,1", borderColor: "229,231,235,1", borderThickness: 1, height: 60},
+                                                card: {background: "255,255,255,1", border: "229,231,235,1", borderThickness: 1, radius: 12, height: 300, gap: 16},
+                                                list: {background: "255,255,255,1", border: "229,231,235,1", divider: "243,244,246,1", text: "17,24,39,1", textMuted: "107,114,128,1", radius: 12},
+                                                text: {primary: "17,24,39,1", secondary: "75,85,99,1", accent: "37,99,235,1", fontFamily: "Segoe UI", fontSizeNormal: 12, fontSizeSmall: 11, fontWeightNormal: "Normal", fontWeightBold: "Semibold"},
+                                                spacing: {paddingLeft: 20, paddingTop: 16, columnGap: 10}
+                                            }
+                                          ViewMode: =If(App.Width < 640, "list", "table")
+                                          Width: =Parent.Width
+                        - cntBottomBarDsh:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =If(App.Width < 640, Color.Transparent, RGBA(229, 231, 235, 1))
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =If(App.Width < 640, Color.Transparent, RGBA(255, 255, 255, 1))
+                              FillPortions: =0
+                              Height: =If(App.Width < 640, 56, 72) + 5
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =3
+                              LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                              LayoutMaxHeight: =If(App.Width < 640, 56, 72)
+                              LayoutMinHeight: =If(App.Width < 640, 56, 72)
+                              PaddingBottom: =12
+                              PaddingTop: =4
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Visible: =App.Width < 640 || App.Width >= 640 && App.Width < 1024
+                            Children:
+                              - cmpBottomNavigationDsh_1:
+                                  Control: CanvasComponent
+                                  ComponentName: cmpBottomNavigation
+                                  Properties:
+                                    ActiveColor: =RGBA(59, 130, 246, 1)
+                                    ActiveColorHex: ="3B82F6"
+                                    ActiveIndicator: ="underline"
+                                    BadgeColor: =RGBA(220, 38, 38, 1)
+                                    Fill: =If(App.Width < 640, Color.Transparent, RGBA(255, 255, 255, 1))
+                                    Height: =Parent.Height - 10
+                                    InactiveColorHex: ="6B7280"
+                                    Items: |-
+                                      =Table(
+                                          {Index: 1, Icon: "home",      Label: "Home",      Badge: 0},
+                                          {Index: 2, Icon: "dashboard", Label: "Dashboard", Badge: 0},
+                                          {Index: 3, Icon: "layers",    Label: "Inventory", Badge: 3},
+                                          {Index: 4, Icon: "file",      Label: "Reports",   Badge: 1},
+                                          {Index: 5, Icon: "settings",  Label: "Settings",  Badge: 0}
+                                      )
+                                    OnSelect: |-
+                                      =Set(varActiveTab, cmpBottomNavigationDsh_1.SelectedItemIndex);
+                                      Switch(
+                                          cmpBottomNavigationDsh_1.SelectedItemIndex,
+                                          1, Notify("Navigate to Home Screen"),
+                                          2, Notify("Navigate to Dashboard Screen"),
+                                          3, Notify("Navigate to Inventory Screen"),
+                                          4, Notify("Navigate to Reports Screen"),
+                                          5, Notify("Navigate to Settings Screen")
+                                      )
+                                    SelectedIndex: =varActiveTab
+                                    ShowLabels: ="always"
+                                    Theme: ="Light"
+                                    Width: =Parent.Width
+      - htmlBackgroundBlurDsh:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            DisabledBorderColor: =RGBA(56, 56, 56, 1)
+            Font: =Font.'Open Sans'
+            Height: =Parent.Height
+            HtmlText: ="<div style='display:block;width:" & Self.Width & "px;height:" & Self.Height - 1 & "px;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);'></div>"
+            OnSelect: =Set(varNavOpen, false)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Visible: =App.Width < 1024 && varNavOpen
+            Width: =Parent.Width
+      - cntLeftNavHostDsh:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height
+            Visible: =App.Width >= 1024 || varNavOpen
+            Width: =If(_cmpNavIsExpanded, 260, 64)
+          Children:
+            - cmpSidebarDsh:
+                Control: CanvasComponent
+                ComponentName: cmpSidebar
+                Properties:
+                  AccentColor: =RGBA(79, 142, 247, 1)
+                  AppLogo: =Blank()
+                  AppName: ="Inventory Manager"
+                  AppNameAccent: =
+                  Expanded: =true
+                  Height: =App.Height
+                  Icons: |-
+                    =Table(
+                        {Name: "Home",      SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>"},
+                        {Name: "Dashboard", SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect width='7' height='9' x='3' y='3' rx='1'/><rect width='7' height='5' x='14' y='3' rx='1'/><rect width='7' height='9' x='14' y='12' rx='1'/><rect width='7' height='5' x='3' y='16' rx='1'/></svg>"},
+                        {Name: "Layers",    SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2L2 7l10 5 10-5-10-5z'/><path d='M2 17l10 5 10-5'/><path d='M2 12l10 5 10-5'/></svg>"},
+                        {Name: "File",      SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><polyline points='14 2 14 8 20 8'/><line x1='16' y1='13' x2='8' y2='13'/><line x1='16' y1='17' x2='8' y2='17'/></svg>"},
+                        {Name: "Settings",  SVG: "<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z'/></svg>"}
+                    )
+                  Items: |-
+                    =Table(
+                        {ID: 1,  Title: "Home",      Icon: "Home",      Letter: "", Badge: 0, BadgeColor: RGBA(0, 0, 0, 0),     BadgeDot: false, IsSection: false, ParentID: -1, Visible: true},
+                        {ID: 2,  Title: "Dashboard", Icon: "Dashboard", Letter: "", Badge: 0, BadgeColor: RGBA(0, 0, 0, 0),     BadgeDot: false, IsSection: false, ParentID: -1, Visible: true},
+                        {ID: 3,  Title: "Inventory", Icon: "Layers",    Letter: "", Badge: 3, BadgeColor: RGBA(239, 68, 68, 1), BadgeDot: false, IsSection: false, ParentID: -1, Visible: true},
+                        {ID: 4,  Title: "Reports",   Icon: "File",      Letter: "", Badge: 1, BadgeColor: RGBA(34, 197, 94, 1), BadgeDot: true,  IsSection: false, ParentID: -1, Visible: true},
+                        {ID: 10, Title: "",          Icon: "",          Letter: "", Badge: 0, BadgeColor: RGBA(0, 0, 0, 0),     BadgeDot: false, IsSection: true,  ParentID: -1, Visible: true},
+                        {ID: 5,  Title: "Settings",  Icon: "Settings",  Letter: "", Badge: 0, BadgeColor: RGBA(0, 0, 0, 0),     BadgeDot: false, IsSection: false, ParentID: -1, Visible: true}
+                    )
+                  OnFooterSettings: =
+                  OnHelp: =
+                  OnNavSelect: |-
+                    =Set(varNavOpen, false);
+                    Switch(
+                        cmpSidebarDsh.SelectedID,
+                        1, Notify("Home coming soon", NotificationType.Information),
+                        2, Navigate(scrDashboard, ScreenTransition.None),
+                        3, Notify("Inventory coming soon", NotificationType.Information),
+                        4, Notify("Reports coming soon", NotificationType.Information),
+                        5, Notify("Settings coming soon", NotificationType.Information)
+                    )
+                  OnThemeToggle: =
+                  OnToggle: =
+                  ShowFooterMenu: =true
+                  ShowHeader: =true
+                  ShowSearch: =false
+                  ShowToggle: =true
+                  ShowUser: =true
+                  Theme: ="Dark"
+                  Width: =If(_cmpNavIsExpanded, 260, 64)
+      - cmpFloatingActionButtonDsh:
+          Control: CanvasComponent
+          ComponentName: cmpFloatingActionButton
+          Properties:
+            Color: =RGBA(37, 99, 235, 1)
+            Disabled: =false
+            Fill: =Color.Transparent
+            Height: |-
+              =With(
+                  {
+                      _fabSize: Switch(cmpFloatingActionButtonDsh.Size, "small", 40, "regular", 56, "large", 72, 56)
+                  },
+                  If(
+                      _fabOpen && CountRows(cmpFloatingActionButtonDsh.SpeedDialItems) > 0,
+                      _fabSize + 12 + CountRows(cmpFloatingActionButtonDsh.SpeedDialItems) * cmpFloatingActionButtonDsh.ItemSize,
+                      _fabSize
+                  )
+              )
+            Icon: ="add"
+            IconColor: ="#FFFFFF"
+            ItemSize: =52
+            Label: ="New Report"
+            OnSelect: =false
+            OnSpeedDialSelect: |-
+              =Switch(
+                  Self.SelectedSpeedDialItem.Label,
+                  "New Item", Notify("Add new item coming soon", NotificationType.Information),
+                  "Export", Notify("Export coming soon", NotificationType.Information)
+              )
+            Size: ="regular"
+            SpeedDialItems: |-
+              =Table(
+                  {Icon: "Plus", Label: "New Item", Color: RGBA(37, 99, 235, 1)},
+                  {Icon: "Download", Label: "Export", Color: RGBA(37, 99, 235, 1)}
+              )
+            Style: ="standard"
+            Theme: ="Light"
+            Visible: =App.Width < 640
+            Width: |-
+              =With(
+                    {
+                        _fabSize: Switch(cmpFloatingActionButtonDsh.Size, "small", 40, "regular", 56, "large", 72, 56),
+                        _maxLabelChars: If(
+                            CountRows(cmpFloatingActionButtonDsh.SpeedDialItems) > 0,
+                            Max(cmpFloatingActionButtonDsh.SpeedDialItems, Len(Label)),
+                            0
+                        ),
+                        _iconSize: Switch(cmpFloatingActionButtonDsh.Size, "small", 20, "regular", 24, "large", 36, 24)
+                    },
+                    If(
+                        _fabOpen && CountRows(cmpFloatingActionButtonDsh.SpeedDialItems) > 0,
+                        Min(Min(_maxLabelChars * 8 + 64, 240) + Switch(cmpFloatingActionButtonDsh.Size, "small", 20, "regular", 28, "large", 36, 28) + 20, App.Width),
+                        If(
+                            cmpFloatingActionButtonDsh.Style = "extended",
+                            16 + _iconSize + 8 + Min(Len(cmpFloatingActionButtonDsh.Label) * 8, 220) + 20,
+                            _fabSize
+                        )
+                    )
+                )
+            X: =Parent.Width - Self.Width - 24
+            Y: =Parent.Height - Self.Height - (24 + 45)
+      - tmrRefreshClock:
+          Control: Timer@2.1.0
+          Properties:
+            AutoStart: =true
+            Duration: =30000
+            OnTimerEnd: =Set(gblNowTick, Now())
+            Repeat: =true
+            Visible: =false

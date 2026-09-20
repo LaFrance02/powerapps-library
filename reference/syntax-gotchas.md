@@ -41,7 +41,13 @@ Apply all of these on every generation pass, regardless of app.
 ## Layout
 
 - `LayoutOverflowY: Scroll` does not reliably produce visible scrolling — avoid, find another
-  layout approach.
+  layout approach. **Contradiction flagged 2026-09-19**: all 5 files in the Basic Layouts Examples
+  batch (Dashboard, Master-Detail, Browse, Form, Mobile-First) use
+  `LayoutOverflowY: =LayoutOverflow.Scroll` on their main scrollable `GroupContainer`/`AutoLayout`
+  content areas as their primary scrolling mechanism — directly at odds with this documented
+  gotcha. Worth a real paste test to see whether AutoLayout containers specifically behave
+  differently than whatever context this gotcha was originally confirmed in, before assuming either
+  the gotcha or these five examples are correct.
 - Inside AutoLayout containers, set `FillPortions: =0` explicitly on any child that must not
   stretch.
 - Inside gallery templates: formula-based X position (e.g. `(Parent.Width - Self.Width) - 20`)
@@ -50,6 +56,14 @@ Apply all of these on every generation pass, regardless of app.
   gallery templates.
 - `Icons` on `cmpSidebar` must never be set to a blank value — doing so overrides the default icon
   table and breaks all icon rendering.
+- **Repeated inline breakpoint sub-expressions are a real verbosity/maintainability smell, not a
+  style choice worth copying.** `powerlibs-app-project-management.yaml` repeats the exact
+  sub-expression `If(navRoot.Width < 640, 1, navRoot.Width < 1024, 2, navRoot.Width < 1600, 3, 4)`
+  **128 times** inline across `Height`/`Width`/`Size`/`Padding*`/`Visible`/`X`/`Y`/`Switch()`
+  formulas, rather than computing the tier once (e.g. into a context variable on `OnVisible` or a
+  hidden sensor control's property) and referencing that everywhere. Preserved as-sourced since
+  it's still valid Power Fx, but flag this pattern for simplification rather than reproducing it
+  verbatim in generated apps.
 
 ## Modern control breaking changes (vs. their classic counterparts)
 
@@ -119,7 +133,13 @@ Relevant any time a modern control replaces what used to be classic in a given s
   control) rather than leaving the property blank. **A third occurrence** was found in
   `powerlibs-upload-photo.yaml` ("Another big example drip" batch, 2026-09-19): `btnPhotoUploadPicker`
   has four bare-`=` properties (`HoverBorderColor`, `HoverFill`, `PressedBorderColor`,
-  `PressedFill`) — same defect class, same "preserve as-is, don't silently fix" treatment.
+  `PressedFill`) — same defect class, same "preserve as-is, don't silently fix" treatment. **A
+  fourth, and by far the worst, occurrence** was found in `powerlibs-app-inventory-dashboard.yaml`
+  (2026-09-19): **10** separate bare-`=` properties across three different referenced components'
+  bindings (`IconColor` on the Badge, `OnCardClick`/`CharWidths`/`OnRowSelect`/`OnViewChange` on
+  `cmpMyTable`/`cmpKPI`, and `AppNameAccent`/`OnFooterSettings`/`OnHelp`/`OnThemeToggle`/`OnToggle`
+  on `cmpSidebar`) — mostly event handlers and a couple of styling properties left genuinely unset
+  in the source rather than deliberately blanked. Same treatment: preserved as-is, not fixed.
 - **`var`/`gbl` variable-name prefixes do not reliably indicate actual Power Fx scope.** Multiple
   examples across the Navigation, Gallery, and Dropdown batches use a `var`-prefixed name (which,
   by convention elsewhere in this library, signals a screen-local context variable created via
@@ -145,6 +165,23 @@ Relevant any time a modern control replaces what used to be classic in a given s
   Notification batch is a third, different variant of the problem: its globals use **no `gbl`
   prefix at all** — `varPowerLibsNotification` is `Set()`-backed despite the `var` name, while
   `ShowHideToast`/`StartTimer` are bare (no prefix) but correctly `UpdateContext()`-scoped.
+  **A third variant, from the Inventory Dashboard example (2026-09-19)**: `_cmpNavIsExpanded` and
+  `_cmpNavSelID` use an `_cmp`-prefix — which elsewhere signals genuinely component-instance-scoped
+  state — for real app-wide `Set()` globals, the same underlying mismatch as `var`/`Set()` just
+  with a different prefix family. The same file's `varActiveTab`/`varNavOpen`/`varLoadComplete` are
+  the ordinary `var`/`Set()` mismatch. Only `gblRange`/`gblMetric`/`gblAlertFilter`/
+  `gblLastRefresh`/`gblNowTick` (all `gbl`-prefixed, all `Set()`-backed) and `locRefreshing` (no
+  prefix, `UpdateContext()`-backed) get the naming right in that same file — so a single file can
+  mix correct and incorrect scoping conventions freely, don't assume consistency within one file
+  either.
+  **A distinct, separate naming convention** shows up in the Basic Layouts Examples batch
+  (2026-09-19): Master-Detail Layout uses `g`-prefixed names for real `Set()` globals (`gViewMode`,
+  `gSelItemID`) and `ctx`-prefixed names for `UpdateContext()` context variables (`ctxSearch`,
+  `ctxCategory`, `ctxPanelOpen`) — both used correctly, just a third prefix family (`g`/`ctx`)
+  alongside the `gbl`/`var` convention used almost everywhere else in this library. The other four
+  Layout files use only `ctx`-prefixed context vars, no globals at all. Bottom line stands
+  regardless of which prefix family a given file happens to use: check the actual `Set()` vs.
+  `UpdateContext()` call, never infer scope from any prefix.
 
 - **Duplicate/colliding control names across sibling example files, not just within one file.**
   New pattern, distinct from the earlier cross-file `cmpSidebar` duplicate (which was the *same*
