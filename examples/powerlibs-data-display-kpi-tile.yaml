@@ -1,0 +1,69 @@
+- conKpiTile:
+    Control: GroupContainer@1.3.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(55, 65, 81, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(31, 41, 55, 1)
+      Height: =104
+      RadiusBottomLeft: =8
+      RadiusBottomRight: =8
+      RadiusTopLeft: =8
+      RadiusTopRight: =8
+      Width: =220
+      X: =40
+      Y: =80
+    Children:
+      - lblKpiCaption:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =16
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingTop: =0
+            Size: =10
+            Text: ="Revenue this month"
+            Width: =188
+            X: =16
+            Y: =16
+      - lblKpiValue:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =34
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingTop: =0
+            Size: =24
+            Text: ="$48,200"
+            Width: =188
+            X: =16
+            Y: =36
+      - icoKpiTrend:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =RGBA(16, 185, 129, 1)
+            Height: =12
+            Icon: =Icon.ArrowUp
+            Width: =12
+            X: =16
+            Y: =74
+      - lblKpiDelta:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(16, 185, 129, 1)
+            Font: =Font.'Open Sans'
+            Height: =16
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingTop: =0
+            Size: =9
+            Text: ="12.5%"
+            Width: =160
+            X: =32
+            Y: =72

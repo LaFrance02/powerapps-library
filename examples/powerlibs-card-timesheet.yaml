@@ -1,0 +1,483 @@
+- conTimesheetCard:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =368
+      RadiusBottomLeft: =16
+      RadiusBottomRight: =16
+      RadiusTopLeft: =16
+      RadiusTopRight: =16
+      Width: =360
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - lblTimesheetWeek:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =28
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =17
+            Text: ="Week 37, 8 to 12 Sep"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =220
+            X: =20
+            Y: =20
+      - conTimesheetStatus:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =22
+            RadiusBottomLeft: =11
+            RadiusBottomRight: =11
+            RadiusTopLeft: =11
+            RadiusTopRight: =11
+            Width: =90
+            X: =Parent.Width - 110
+            Y: =21
+          Children:
+            - lblTimesheetStatusText:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =11
+                  Text: ="Draft"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - lblTimesheetSummary:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="5 entries, 37.5 h of 40 h"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =320
+            X: =20
+            Y: =44
+      - lblTimesheetDay1:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Mon"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =44
+            X: =20
+            Y: =72
+      - lblTimesheetProject1:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(180, 190, 206, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Website Redesign"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =192
+            X: =68
+            Y: =72
+      - lblTimesheetHours1:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="8 h"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =70
+            X: =Parent.Width - 90
+            Y: =72
+      - conTimesheetLine1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =320
+            X: =20
+            Y: =103
+      - lblTimesheetDay2:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Tue"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =44
+            X: =20
+            Y: =104
+      - lblTimesheetProject2:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(180, 190, 206, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Website Redesign"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =192
+            X: =68
+            Y: =104
+      - lblTimesheetHours2:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="7.5 h"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =70
+            X: =Parent.Width - 90
+            Y: =104
+      - conTimesheetLine2:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =320
+            X: =20
+            Y: =135
+      - lblTimesheetDay3:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Wed"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =44
+            X: =20
+            Y: =136
+      - lblTimesheetProject3:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(180, 190, 206, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Helpdesk rollout"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =192
+            X: =68
+            Y: =136
+      - lblTimesheetHours3:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="8 h"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =70
+            X: =Parent.Width - 90
+            Y: =136
+      - conTimesheetLine3:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =320
+            X: =20
+            Y: =167
+      - lblTimesheetDay4:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Thu"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =44
+            X: =20
+            Y: =168
+      - lblTimesheetProject4:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(180, 190, 206, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Helpdesk rollout"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =192
+            X: =68
+            Y: =168
+      - lblTimesheetHours4:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="8 h"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =70
+            X: =Parent.Width - 90
+            Y: =168
+      - conTimesheetLine4:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =320
+            X: =20
+            Y: =199
+      - lblTimesheetDay5:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Fri"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =44
+            X: =20
+            Y: =200
+      - lblTimesheetProject5:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(180, 190, 206, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Internal, training"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =192
+            X: =68
+            Y: =200
+      - lblTimesheetHours5:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="6 h"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =70
+            X: =Parent.Width - 90
+            Y: =200
+      - conTimesheetTotal:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =52
+            RadiusBottomLeft: =12
+            RadiusBottomRight: =12
+            RadiusTopLeft: =12
+            RadiusTopRight: =12
+            Width: =320
+            X: =20
+            Y: =244
+          Children:
+            - lblTimesheetTotalLabel:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =20
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Total"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =120
+                  X: =16
+                  Y: =6
+            - lblTimesheetTotalValue:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.End
+                  FontColor: =RGBA(230, 234, 242, 1)
+                  Height: =31
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =19
+                  Text: ="37.5 h"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =100
+                  X: =Parent.Width - 116
+                  Y: =4
+            - conTimesheetProgress:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(11, 18, 32, 1)
+                  Height: =5
+                  RadiusBottomLeft: =2.5
+                  RadiusBottomRight: =2.5
+                  RadiusTopLeft: =2.5
+                  RadiusTopRight: =2.5
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =36
+                Children:
+                  - conTimesheetProgressFill:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(59, 130, 246, 1)
+                        Height: =Parent.Height
+                        RadiusBottomLeft: =2.5
+                        RadiusBottomRight: =2.5
+                        RadiusTopLeft: =2.5
+                        RadiusTopRight: =2.5
+                        Width: =Parent.Width * Min(100, Max(0, 94)) / 100
+                        X: =0
+                        Y: =0
+      - btnTimesheetButton:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =40
+            OnSelect: =false
+            Text: ="Submit week"
+            Width: =320
+            X: =20
+            Y: =308

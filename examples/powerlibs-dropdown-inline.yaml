@@ -1,0 +1,202 @@
+- btnInlineMenu:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Subtle
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowInlineMenu: !varShowInlineMenu })
+      Text: =Coalesce(varInlineChoice, "Berlin office")
+      Width: =220
+      X: =40
+      Y: =40
+- imgInlineMenuIcon:
+    Control: Image@2.2.3
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      FocusedBorderThickness: =0
+      Height: =16
+      Image: |-
+        ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M2 12h20 M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg>")
+      ImagePosition: =ImagePosition.Fit
+      OnSelect: =Select(btnInlineMenu)
+      Width: =16
+      X: =btnInlineMenu.X + 12 + 2
+      Y: =btnInlineMenu.Y + 10 + 2
+- icoInlineMenuChevron:
+    Control: Classic/Icon@2.5.0
+    Properties:
+      Color: =RGBA(139, 153, 176, 1)
+      FocusedBorderThickness: =0
+      Height: =20
+      Icon: =If(varShowInlineMenu, Icon.ChevronUp, Icon.ChevronDown)
+      OnSelect: =Select(btnInlineMenu)
+      PaddingBottom: =3
+      PaddingLeft: =3
+      PaddingRight: =3
+      PaddingTop: =3
+      Width: =20
+      X: =btnInlineMenu.X + btnInlineMenu.Width - 30
+      Y: =btnInlineMenu.Y + 10
+- btnInlineMenuScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(0, 0, 0, 0)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(0, 0, 0, 0)
+      OnSelect: |-
+        =UpdateContext({ varShowInlineMenu: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(0, 0, 0, 0)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Visible: =varShowInlineMenu
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conInlineMenu:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.Light
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =172
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      Visible: =varShowInlineMenu
+      Width: =240
+      X: =btnInlineMenu.X
+      Y: =btnInlineMenu.Y + btnInlineMenu.Height + 4
+    Children:
+      - btnInlineMenuItem1:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varInlineChoice: "Berlin office", varShowInlineMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =6
+      - lblInlineMenuItem1Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Berlin office"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 36
+            X: =18
+            Y: =6
+      - btnInlineMenuItem2:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varInlineChoice: "Hamburg office", varShowInlineMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =46
+      - lblInlineMenuItem2Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Hamburg office"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 36
+            X: =18
+            Y: =46
+      - btnInlineMenuItem3:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varInlineChoice: "Munich office", varShowInlineMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =86
+      - lblInlineMenuItem3Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Munich office"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 36
+            X: =18
+            Y: =86
+      - btnInlineMenuItem4:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varInlineChoice: "All offices", varShowInlineMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =126
+      - lblInlineMenuItem4Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="All offices"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 36
+            X: =18
+            Y: =126

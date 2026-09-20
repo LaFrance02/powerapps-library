@@ -1,0 +1,419 @@
+- conTable:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =Parent.Height - 80
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =12
+      RadiusTopRight: =12
+      Width: =Parent.Width - 80
+      X: =40
+      Y: =40
+    Children:
+      - lblTableTotal:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(0, 0, 0, 0)
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =11
+            Text: |-
+              =CountRows(Filter(
+                  Table(
+                      {Name:"Max Mustermann", Department:"Finance", Email:"max.mustermann@contoso.com", Status:"Active"},
+                      {Name:"Erika Mustermann", Department:"IT Support", Email:"erika.mustermann@contoso.com", Status:"Away"},
+                      {Name:"Jane Doe", Department:"Operations", Email:"jane.doe@contoso.com", Status:"Active"},
+                      {Name:"Mario Rossi", Department:"Sales", Email:"mario.rossi@contoso.com", Status:"Offline"},
+                      {Name:"Anna Muster", Department:"HR", Email:"anna.muster@contoso.com", Status:"Active"},
+                      {Name:"Jan Jansen", Department:"Logistics", Email:"jan.jansen@contoso.com", Status:"Pending"},
+                      {Name:"Maria Ivanova", Department:"Finance", Email:"maria.ivanova@contoso.com", Status:"Active"},
+                      {Name:"Juan Perez", Department:"Sales", Email:"juan.perez@contoso.com", Status:"Active"}
+                  ),
+                  txtTableSearch.Value in Name || txtTableSearch.Value in Department || txtTableSearch.Value in Email || txtTableSearch.Value in Status
+              ))
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =false
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =10
+            X: =0
+            Y: =0
+      - conTableFooterLine:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =Parent.Height - 56
+      - lblTablePage:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Page " & Coalesce(gblTablePage, 1) & " of " & Max(1, RoundUp(Value(lblTableTotal.Text) / 5, 0)) & "  (" & lblTableTotal.Text & " rows)"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 120
+            X: =16
+            Y: =Parent.Height - 44
+      - imgTablePrev:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m15 18-6-6 6-6'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Set(gblTablePage, Max(1, Coalesce(gblTablePage, 1) - 1))
+            Tooltip: ="Previous page"
+            Width: =16
+            X: =Parent.Width - 84 + 2
+            Y: =Parent.Height - 38 + 2
+      - imgTableNext:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m9 18 6-6-6-6'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Set(gblTablePage, Min(Max(1, RoundUp(Value(lblTableTotal.Text) / 5, 0)), Coalesce(gblTablePage, 1) + 1))
+            Tooltip: ="Next page"
+            Width: =16
+            X: =Parent.Width - 44 + 2
+            Y: =Parent.Height - 38 + 2
+      - galTableRows:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height - Self.Y - 56
+            Items: |-
+              =With({ src: Filter(
+                  Table(
+                      {Name:"Max Mustermann", Department:"Finance", Email:"max.mustermann@contoso.com", Status:"Active"},
+                      {Name:"Erika Mustermann", Department:"IT Support", Email:"erika.mustermann@contoso.com", Status:"Away"},
+                      {Name:"Jane Doe", Department:"Operations", Email:"jane.doe@contoso.com", Status:"Active"},
+                      {Name:"Mario Rossi", Department:"Sales", Email:"mario.rossi@contoso.com", Status:"Offline"},
+                      {Name:"Anna Muster", Department:"HR", Email:"anna.muster@contoso.com", Status:"Active"},
+                      {Name:"Jan Jansen", Department:"Logistics", Email:"jan.jansen@contoso.com", Status:"Pending"},
+                      {Name:"Maria Ivanova", Department:"Finance", Email:"maria.ivanova@contoso.com", Status:"Active"},
+                      {Name:"Juan Perez", Department:"Sales", Email:"juan.perez@contoso.com", Status:"Active"}
+                  ),
+                  txtTableSearch.Value in Name || txtTableSearch.Value in Department || txtTableSearch.Value in Email || txtTableSearch.Value in Status
+              ) },
+                With({ sorted: src },
+                  FirstN(LastN(sorted, CountRows(sorted) - (Coalesce(gblTablePage, 1) - 1) * 5), 5)))
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =48
+            Width: =Parent.Width
+            X: =0
+            Y: =148
+          Children:
+            - conTableRowActive:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(ThisItem.IsSelected, RGBA(59, 130, 246, 0.06), RGBA(0, 0, 0, 0))
+                  Height: =48
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.TemplateWidth
+                  X: =0
+                  Y: =0
+            - btnTableRow:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =Parent.Height
+                  OnSelect: =Select(Parent); Set(gblTableRow, ThisItem)
+                  Text: =""
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+            - conTableCellStatus:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(ThisItem.Status in ["Active", "Done", "Completed", "Approved", "Paid", "Online", "Closed", "Passed"], RGBA(34, 197, 94, 0.14), ThisItem.Status in ["Away", "Pending", "Waiting", "In Progress", "In Review", "Review", "On Hold", "Draft", "Busy"], RGBA(245, 158, 11, 0.16), ThisItem.Status in ["Blocked", "Offline", "Rejected", "Overdue", "Failed", "Cancelled", "Urgent"], RGBA(239, 68, 68, 0.14), RGBA(59, 130, 246, 0.12))
+                  Height: =22
+                  RadiusBottomLeft: =11
+                  RadiusBottomRight: =11
+                  RadiusTopLeft: =11
+                  RadiusTopRight: =11
+                  Width: =84
+                  X: =16 + (Parent.Width - 120) * 0.8571
+                  Y: =13
+                Children:
+                  - lblTableCellStatusText:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        FontColor: =If(ThisItem.Status in ["Active", "Done", "Completed", "Approved", "Paid", "Online", "Closed", "Passed"], RGBA(34, 197, 94, 1), ThisItem.Status in ["Away", "Pending", "Waiting", "In Progress", "In Review", "Review", "On Hold", "Draft", "Busy"], RGBA(245, 158, 11, 1), ThisItem.Status in ["Blocked", "Offline", "Rejected", "Overdue", "Failed", "Cancelled", "Urgent"], RGBA(239, 68, 68, 1), RGBA(59, 130, 246, 1))
+                        Height: =Parent.Height
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =11
+                        Text: =ThisItem.Status
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.Width
+                        X: =0
+                        Y: =0
+            - lblTableCellEmail:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =48
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =ThisItem.Email
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =(Parent.Width - 120) * 0.3571 - 12
+                  X: =16 + (Parent.Width - 120) * 0.5000
+                  Y: =0
+            - lblTableCellDepartment:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =48
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =ThisItem.Department
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =(Parent.Width - 120) * 0.2143 - 12
+                  X: =16 + (Parent.Width - 120) * 0.2857
+                  Y: =0
+            - lblTableCellName:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(230, 234, 242, 1)
+                  Height: =48
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =ThisItem.Name
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =(Parent.Width - 120) * 0.2857 - 12
+                  X: =16
+                  Y: =0
+            - btnTableAction:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =32
+                  OnSelect: |-
+                    =// Put your action here, for example Navigate(EditScreen, ScreenTransition.None, { record: ThisItem })
+                    Select(Parent); Set(gblTableRow, ThisItem)
+                  Text: ="Edit"
+                  Width: =68
+                  X: =Parent.TemplateWidth - 84
+                  Y: =8
+            - conTableRowLine:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =47
+      - lblTableEmpty:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Nothing matches your search"
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =CountRows(galTableRows.AllItems) = 0
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width
+            X: =0
+            Y: =164
+      - conTableHead:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =44
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =104
+          Children:
+            - lblTableHeadStatus:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Status"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =(Parent.Width - 120) * 0.1429 - 12
+                  X: =16 + (Parent.Width - 120) * 0.8571
+                  Y: =0
+            - lblTableHeadEmail:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Email"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =(Parent.Width - 120) * 0.3571 - 12
+                  X: =16 + (Parent.Width - 120) * 0.5000
+                  Y: =0
+            - lblTableHeadDepartment:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Department"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =(Parent.Width - 120) * 0.2143 - 12
+                  X: =16 + (Parent.Width - 120) * 0.2857
+                  Y: =0
+            - lblTableHeadName:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Name"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =(Parent.Width - 120) * 0.2857 - 12
+                  X: =16
+                  Y: =0
+      - txtTableSearch:
+          Control: TextInput@0.0.54
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =36
+            OnChange: =Set(gblTablePage, 1)
+            Placeholder: ="Search..."
+            Width: =Min(320, Parent.Width - 32)
+            X: =16
+            Y: =60
+      - btnTableAdd:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =// Put your action here, for example Navigate(NewRecordScreen)
+              false
+            Text: ="Add"
+            Width: =88
+            X: =Parent.Width - 104
+            Y: =16
+      - lblTableTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =19
+            Text: ="Employees"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 136
+            X: =16
+            Y: =16

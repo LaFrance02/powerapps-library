@@ -1,0 +1,145 @@
+- conSidebar:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(75, 85, 99, 1)
+      BorderStyle: =BorderStyle.None
+      Fill: =RGBA(31, 41, 55, 1)
+      Height: =718
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =60
+      Y: =50
+    Children:
+      - conItems:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            PaddingTop: =20
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - galSidebarItems:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  Height: =Parent.Height
+                  Items: |
+                    =Table(
+                      { id: 2, isHeader: false, labelText: "Home", itemIcon: Icon.Home, screen: App.ActiveScreen }, { id: 3, isHeader: false, labelText: "Dashboard", itemIcon: Icon.Waffle, screen: App.ActiveScreen }, { id: 4, isHeader: false, labelText: "Analytics", itemIcon: Icon.Globe, screen: App.ActiveScreen }, { id: 5, isHeader: true, labelText: "WORKSPACE", itemIcon: Blank(), screen: Blank() }, { id: 6, isHeader: false, labelText: "Teams", itemIcon: Icon.Person, screen: App.ActiveScreen }, { id: 7, isHeader: false, labelText: "Messages", itemIcon: Icon.Message, screen: App.ActiveScreen }, { id: 8, isHeader: false, labelText: "Settings", itemIcon: Icon.Settings, screen: App.ActiveScreen }
+                    )
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =45
+                  Width: =Parent.Width
+                Children:
+                  - lblSectionHeaderDivider:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        FontColor: =RGBA(75, 85, 99, 1)
+                        Height: =Parent.TemplateHeight - 15
+                        Size: =10
+                        Text: ="___"
+                        Visible: =ThisItem.isHeader
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.TemplateWidth
+                        Y: =15
+                  - conClickableItem:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.labelText, RGBA(59, 130, 246, 0.15), RGBA(0, 0, 0, 0))
+                        Height: =Parent.TemplateHeight
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        Visible: =!ThisItem.isHeader
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - icoItem:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.labelText, RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                              Height: =20
+                              Icon: =ThisItem.itemIcon
+                              Width: =20
+                  - btnItemAction:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.TemplateHeight
+                        HoverFill: =RGBA(220, 220, 220, 0.3)
+                        OnSelect: =Set(varActiveSidebarItem, ThisItem.labelText); If(!IsBlank(ThisItem.screen), Navigate(ThisItem.screen))
+                        PressedFill: =RGBA(220, 220, 220, 0.6)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Text: =""
+                        Visible: =!ThisItem.isHeader
+                        Width: =Parent.TemplateWidth
+                        X: =0
+- conNavbar:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(31, 41, 55, 1)
+      Height: =50
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Parent.Width
+    Children:
+      - imgLogo:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(59, 130, 246, 1)
+            Height: =50
+            Width: =40
+            X: =14
+      - lblTitle:
+          Control: Text@0.0.51
+          Properties:
+            Height: =50
+            Size: =12
+            Text: ="My First Project"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =200
+            X: =64
+      - imgUserProfilePicture:
+          Control: Image@2.2.3
+          Properties:
+            AccessibleLabel: ="User Profile Picture"
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =1
+            Height: =35
+            Image: =User().Image
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =25
+            RadiusBottomRight: =25
+            RadiusTopLeft: =25
+            RadiusTopRight: =25
+            Width: =35
+            X: =Parent.Width - Self.Width - 15
+            Y: =7

@@ -1,0 +1,205 @@
+- conSidebar:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Properties:
+      Fill: =RGBA(31, 41, 55, 1)
+      Height: =Parent.Height
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =10
+      RadiusTopLeft: =0
+      RadiusTopRight: =10
+      Width: =If(varSidebar, 220, 60)
+    Children:
+      - conTitle:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =50
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - icoLogo:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0.5
+                  Height: =40
+                  Icon: =Icon.CameraAperture
+                  LayoutMinWidth: =0
+                  PaddingBottom: =10
+                  PaddingLeft: =10
+                  PaddingTop: =10
+            - lblTitle_3:
+                Control: Text@0.0.51
+                Properties:
+                  FillPortions: =1
+                  Height: =Parent.Height
+                  LayoutMinWidth: =0
+                  Size: =Max(10, Min(14, App.Width / 100))
+                  Text: ="My First Project"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Visible: =If(varSidebar, true, false)
+                  Weight: ='TextCanvas.Weight'.Bold
+            - icoCancel:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  AlignInContainer: =AlignInContainer.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0.4
+                  Height: =40
+                  Icon: =If(varSidebar, Icon.Cancel, Icon.Hamburger)
+                  LayoutMinWidth: =If(varSidebar, 0, Parent.Width)
+                  OnSelect: =Set(varSidebar, !varSidebar)
+                  PaddingBottom: =10
+                  PaddingTop: =10
+                  Width: =0
+      - conItems:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height - conUser.Height - conTitle.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            Y: =conTitle.Height
+          Children:
+            - galSidebarItems:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  Height: =Parent.Height
+                  Items: |
+                    =Table(
+                      { id: 1, isHeader: true, labelText: "MAIN", itemIcon: Blank(), screen: Blank() },
+                      { id: 2, isHeader: false, labelText: "Home", itemIcon: Icon.Home, screen: App.ActiveScreen },
+                      { id: 3, isHeader: false, labelText: "Dashboard", itemIcon: Icon.Waffle, screen: App.ActiveScreen },
+                      { id: 4, isHeader: false, labelText: "Analytics", itemIcon: Icon.Globe, screen: App.ActiveScreen },
+                      { id: 5, isHeader: true, labelText: "WORKSPACE", itemIcon: Blank(), screen: Blank() },
+                      { id: 6, isHeader: false, labelText: "Teams", itemIcon: Icon.Person, screen: App.ActiveScreen },
+                      { id: 7, isHeader: false, labelText: "Messages", itemIcon: Icon.Message, screen: App.ActiveScreen },
+                      { id: 8, isHeader: false, labelText: "Settings", itemIcon: Icon.Settings, screen: App.ActiveScreen }
+                    )
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =45
+                  Width: =Parent.Width
+                Children:
+                  - lblSectionHeaderDivider:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        FontColor: =RGBA(156, 163, 175, 1)
+                        Height: =Parent.TemplateHeight - 15
+                        Size: =Max(8, Min(12, App.Width / 120))
+                        Text: ="___"
+                        Visible: =ThisItem.isHeader && !varSidebar
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.TemplateWidth
+                        Y: =15
+                  - lblSectionHeader:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(156, 163, 175, 1)
+                        Height: =Parent.TemplateHeight - 15
+                        PaddingLeft: =20
+                        Size: =Max(8, Min(12, App.Width / 120))
+                        Text: =ThisItem.labelText
+                        VerticalAlign: =VerticalAlign.Middle
+                        Visible: =ThisItem.isHeader && varSidebar
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.TemplateWidth
+                        Y: =15
+                  - conClickableItem:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.labelText, RGBA(59, 130, 246, 0.15), RGBA(0, 0, 0, 0))
+                        Height: =Parent.TemplateHeight
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =If(varSidebar, 10, 0)
+                        LayoutJustifyContent: =If(varSidebar, LayoutJustifyContent.Start, LayoutJustifyContent.Center)
+                        PaddingLeft: =If(varSidebar, 20, 0)
+                        Visible: =!ThisItem.isHeader
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - icoItem:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.labelText, RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                              Height: =20
+                              Icon: =ThisItem.itemIcon
+                              Width: =20
+                        - lblItem:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.labelText, RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                              Height: =Parent.Height
+                              Size: =Max(9, Min(13, App.Width / 110))
+                              Text: =ThisItem.labelText
+                              VerticalAlign: =VerticalAlign.Middle
+                              Visible: =varSidebar
+                              Weight: ='TextCanvas.Weight'.Semibold
+                              Width: =Parent.Width - icoItem.Width - Parent.LayoutGap
+                  - btnItemAction:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.TemplateHeight
+                        HoverFill: =RGBA(220, 220, 220, 0.3)
+                        OnSelect: =Set(varActiveSidebarItem, ThisItem.labelText); If(!IsBlank(ThisItem.screen), Navigate(ThisItem.screen))
+                        PressedFill: =RGBA(220, 220, 220, 0.6)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Text: =""
+                        Visible: =!ThisItem.isHeader
+                        Width: =Parent.TemplateWidth
+                        X: =0
+      - conUser:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =50
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            Y: =Parent.Height - Self.Height
+          Children:
+            - lblName:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FillPortions: =1
+                  Height: =Parent.Height
+                  LayoutMinWidth: =0
+                  Size: =Max(10, Min(14, App.Width / 100))
+                  Text: =User().FullName
+                  VerticalAlign: =VerticalAlign.Middle
+                  Visible: =If(varSidebar, true, false)
+                  Weight: ='TextCanvas.Weight'.Bold

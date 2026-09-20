@@ -1,0 +1,242 @@
+- btnBulkTrigger:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowBulk: true })
+      Text: ="Delete selected"
+      Width: =160
+      X: =40
+      Y: =40
+- btnBulkScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(11, 18, 32, 0.45)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(11, 18, 32, 0.45)
+      OnSelect: |-
+        =UpdateContext({ varShowBulk: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(11, 18, 32, 0.45)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Tooltip: ="Close"
+      Visible: =varShowBulk
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conBulkPanel:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =btnBulkConfirm.Y + btnBulkConfirm.Height + 24
+      RadiusBottomLeft: =14
+      RadiusBottomRight: =14
+      RadiusTopLeft: =14
+      RadiusTopRight: =14
+      Visible: =varShowBulk
+      Width: =Min(420, Parent.Width - 40)
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - conBulkBadge:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(239, 68, 68, 0.14)
+            Height: =64
+            RadiusBottomLeft: =32
+            RadiusBottomRight: =32
+            RadiusTopLeft: =32
+            RadiusTopRight: =32
+            Width: =64
+            X: =(Parent.Width - 64) / 2
+            Y: =28
+          Children:
+            - imgBulkBadgeIcon:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#ef4444" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18 M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6 M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2 M10 11v6 M14 11v6'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =28
+                  X: =18
+                  Y: =18
+      - lblBulkTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: ="Delete 24 selected records?"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =108
+      - lblBulkDescription:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            AutoHeight: =true
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="The selected records are removed from the list. This cannot be undone."
+            VerticalAlign: =VerticalAlign.Top
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblBulkTitle.Y + lblBulkTitle.Height + 6
+      - conBulkList:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =116
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblBulkDescription.Y + lblBulkDescription.Height + 18
+          Children:
+            - lblBulkListRow1:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="ORD-1042 Contoso Ltd"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 28
+                  X: =14
+                  Y: =14
+            - lblBulkListRow2:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="ORD-1043 Fabrikam"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 28
+                  X: =14
+                  Y: =36
+            - lblBulkListRow3:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="ORD-1051 Northwind"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 28
+                  X: =14
+                  Y: =58
+            - lblBulkListRow4:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(93, 107, 132, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="and 21 more"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 28
+                  X: =14
+                  Y: =80
+      - btnBulkCancel:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowBulk: false })
+            Text: ="Cancel"
+            Width: =(Parent.Width - 48 - 12) / 2
+            X: =24
+            Y: =conBulkList.Y + conBulkList.Height + 24
+      - btnBulkConfirm:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(239, 68, 68, 1)
+            Height: =44
+            OnSelect: |-
+              =// For example ForAll(galOrders.SelectedItems As row, Remove(Orders, row)), then close
+              UpdateContext({ varShowBulk: false })
+            Text: ="Delete 24"
+            Width: =(Parent.Width - 48 - 12) / 2
+            X: =btnBulkCancel.X + btnBulkCancel.Width + 12
+            Y: =conBulkList.Y + conBulkList.Height + 24
+      - imgBulkClose:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =14
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: |-
+              =UpdateContext({ varShowBulk: false })
+            Width: =14
+            X: =Parent.Width - 44 + 9
+            Y: =21

@@ -1,0 +1,144 @@
+- btnLookupOverlay:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Transparent
+      Height: =App.Height
+      OnSelect: =Set(varLookupOpen, false)
+      Text: =""
+      Visible: =varLookupOpen
+      Width: =App.Width
+- conSearchableLookup:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =If(varLookupOpen, RGBA(59, 130, 246, 1), RGBA(60, 75, 105, 1))
+      BorderThickness: =1
+      DropShadow: =If(varLookupOpen, DropShadow.Light, DropShadow.None)
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =If(varLookupOpen, 48 + Min(CountRows(Filter(Table({Title:"Project Alpha"}, {Title:"Project Beta"}, {Title:"Project Gamma"}, {Title:"Project Delta"}, {Title:"Project Epsilon"}, {Title:"Marketing Campaign"}), txtLookupSearch.Value in Title)), 10) * 40, 44)
+      Width: =320
+      X: =40
+      Y: =40
+    Children:
+      - conLookupInput:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =40
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =2
+          Children:
+            - imgSearchIcon:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  Color: =RGBA(139, 153, 176, 1)
+                  Height: =20
+                  Icon: =Icon.Search
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  Width: =20
+                  X: =8
+                  Y: =Parent.Height/2 - Self.Height/2
+            - txtLookupSearch:
+                Control: TextInput@0.0.52
+                Properties:
+                  FontColor: =RGBA(230, 234, 242, 1)
+                  Value: =If(!IsBlank(varLookupSelected), varLookupSelected.Title, "")
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.Height
+                  PlaceholderText: ="Type to search..."
+                  OnChange: =Set(varLookupOpen, true)
+                  OnSelect: =Set(varLookupOpen, true)
+                  Size: =11
+                  Width: =Parent.Width - 60
+                  X: =32
+            - btnLookupClear:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Transparent
+                  Height: =24
+                  OnSelect: |-
+                      =Set(varLookupSelected, Blank());
+                      Reset(txtLookupSearch)
+                  Text: ="✕"
+                  Visible: =!IsBlank(varLookupSelected) || Len(txtLookupSearch.Value) > 0
+                  Width: =24
+                  X: =Parent.Width - 52
+                  Y: =Parent.Height/2 - Self.Height/2
+            - imgLookupArrow:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  Color: =RGBA(139, 153, 176, 1)
+                  Height: =20
+                  Icon: =If(varLookupOpen, Icon.ChevronUp, Icon.ChevronDown)
+                  PaddingBottom: =3
+                  PaddingLeft: =3
+                  PaddingRight: =3
+                  PaddingTop: =3
+                  Width: =20
+                  X: =Parent.Width - Self.Width - 8
+                  Y: =Parent.Height/2 - Self.Height/2
+            - btnLookupToggle:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Transparent
+                  Height: =Parent.Height
+                  OnSelect: |-
+                      =Set(varLookupOpen, !varLookupOpen);
+                      Set(varLookupAnimTrigger, Text(Now(), "yyyymmddhhmmssfff"))
+                  Text: =""
+                  Width: =32
+                  X: =Parent.Width - 32
+      - conLookupResults:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =Parent.Height - 48
+            Visible: =varLookupOpen
+            Width: =Parent.Width
+            Y: =48
+          Children:
+            - lblLookupDivider:
+                Control: Text@0.0.51
+                Properties:
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  Text: =""
+                  Width: =Parent.Width - 12
+                  X: =6
+            - galLookupResults:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  Height: =Parent.Height - 4
+                  Items: =FirstN(Filter(Table({Title:"Project Alpha"}, {Title:"Project Beta"}, {Title:"Project Gamma"}, {Title:"Project Delta"}, {Title:"Project Epsilon"}, {Title:"Marketing Campaign"}), txtLookupSearch.Value in Title), 10)
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =40
+                  Width: =Parent.Width
+                  Y: =2
+                Children:
+                  - btnLookupItem:
+                      Control: Button@0.0.45
+                      Properties:
+                        Align: =Align.Left
+                        Appearance: ='ButtonCanvas.Appearance'.Transparent
+                        Height: =32
+                        OnSelect: |-
+                          =Set(varLookupSelected, ThisItem);
+                          Reset(txtLookupSearch);
+                          Set(varLookupOpen, false)
+                        PaddingLeft: =12
+                        Text: =ThisItem.Title
+                        Width: =Parent.TemplateWidth

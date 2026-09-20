@@ -1,0 +1,418 @@
+- btnProfileMenu:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Secondary
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowProfileMenu: !varShowProfileMenu })
+      Text: =User().FullName
+      Width: =220
+      X: =40
+      Y: =40
+- icoProfileMenuChevron:
+    Control: Classic/Icon@2.5.0
+    Properties:
+      Color: =RGBA(139, 153, 176, 1)
+      FocusedBorderThickness: =0
+      Height: =20
+      Icon: =If(varShowProfileMenu, Icon.ChevronUp, Icon.ChevronDown)
+      OnSelect: =Select(btnProfileMenu)
+      PaddingBottom: =3
+      PaddingLeft: =3
+      PaddingRight: =3
+      PaddingTop: =3
+      Width: =20
+      X: =btnProfileMenu.X + btnProfileMenu.Width - 30
+      Y: =btnProfileMenu.Y + 10
+- conProfileMenuAvatar:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(59, 130, 246, 0.12)
+      Height: =28
+      RadiusBottomLeft: =14
+      RadiusBottomRight: =14
+      RadiusTopLeft: =14
+      RadiusTopRight: =14
+      Width: =28
+      X: =btnProfileMenu.X + 6
+      Y: =btnProfileMenu.Y + 6
+    Children:
+      - lblProfileMenuAvatarInitials:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(59, 130, 246, 1)
+            Height: =Parent.Height
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: =Upper(Left(User().FullName, 1) & Mid(User().FullName, Find(" ", User().FullName & " ") + 1, 1))
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+- btnProfileMenuScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(0, 0, 0, 0)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(0, 0, 0, 0)
+      OnSelect: |-
+        =UpdateContext({ varShowProfileMenu: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(0, 0, 0, 0)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Visible: =varShowProfileMenu
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conProfileMenu:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.Light
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =285
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      Visible: =varShowProfileMenu
+      Width: =260
+      X: =btnProfileMenu.X
+      Y: =btnProfileMenu.Y + btnProfileMenu.Height + 4
+    Children:
+      - conProfileMenuHeaderAvatar:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 0.12)
+            Height: =36
+            RadiusBottomLeft: =18
+            RadiusBottomRight: =18
+            RadiusTopLeft: =18
+            RadiusTopRight: =18
+            Width: =36
+            X: =14
+            Y: =16
+          Children:
+            - lblProfileMenuHeaderAvatarInitials:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FontColor: =RGBA(59, 130, 246, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =Upper(Left(User().FullName, 1) & Mid(User().FullName, Find(" ", User().FullName & " ") + 1, 1))
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - lblProfileMenuHeaderName:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =24
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: =User().FullName
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 74
+            X: =60
+            Y: =16
+      - lblProfileMenuHeaderEmail:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: =User().Email
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 74
+            X: =60
+            Y: =34
+      - conProfileMenuHeaderDivider:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - 24
+            X: =12
+            Y: =65
+      - btnProfileMenuItem1:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowProfileMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =70
+      - lblProfileMenuItem1Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="My profile"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =70
+      - imgProfileMenuItem1Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2 M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnProfileMenuItem1)
+            Width: =16
+            X: =18
+            Y: =82
+      - btnProfileMenuItem2:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowProfileMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =110
+      - lblProfileMenuItem2Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="My requests"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =110
+      - imgProfileMenuItem2Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnProfileMenuItem2)
+            Width: =16
+            X: =18
+            Y: =122
+      - btnProfileMenuItem3:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowProfileMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =150
+      - lblProfileMenuItem3Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Settings"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =150
+      - imgProfileMenuItem3Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnProfileMenuItem3)
+            Width: =16
+            X: =18
+            Y: =162
+      - btnProfileMenuItem4:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowProfileMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =190
+      - lblProfileMenuItem4Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Help"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =190
+      - imgProfileMenuItem4Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3 M12 17h.01'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnProfileMenuItem4)
+            Width: =16
+            X: =18
+            Y: =202
+      - conProfileMenuSignOutDivider:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - 24
+            X: =12
+            Y: =234
+      - btnProfileMenuSignOut:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(239, 68, 68, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowProfileMenu: false })
+              // Exit(true) signs the user out
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =239
+      - lblProfileMenuSignOutText:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(239, 68, 68, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Sign out"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =239
+      - imgProfileMenuSignOutIcon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#ef4444" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17l5-5-5-5 M21 12H9'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnProfileMenuSignOut)
+            Width: =16
+            X: =18
+            Y: =251

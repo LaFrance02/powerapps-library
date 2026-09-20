@@ -1,0 +1,517 @@
+- btnOpenDetailDrawer:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowDetailDrawer: true })
+      Text: ="Open claim EXP-1042"
+      Width: =200
+      X: =24
+      Y: =24
+- recDetailDrawerScrim:
+    Control: Rectangle@2.3.0
+    Properties:
+      BorderThickness: =0
+      Fill: =RGBA(11, 18, 32, 0.55)
+      Height: =Parent.Height
+      HoverFill: =RGBA(11, 18, 32, 0.55)
+      OnSelect: |-
+        =UpdateContext({ varShowDetailDrawer: false })
+      PressedFill: =RGBA(11, 18, 32, 0.55)
+      Tooltip: ="Close"
+      Visible: =varShowDetailDrawer
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conDetailDrawer:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =Parent.Height
+      RadiusBottomLeft: =If(Self.Width >= Parent.Width, 0, 16)
+      RadiusBottomRight: =0
+      RadiusTopLeft: =If(Self.Width >= Parent.Width, 0, 16)
+      RadiusTopRight: =0
+      Visible: =varShowDetailDrawer
+      Width: =Min(440, Parent.Width)
+      X: =Parent.Width - Self.Width
+      Y: =0
+    Children:
+      - lblDetailReference:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="EXP-1042"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =160
+            X: =24
+            Y: =22
+      - conDetailStatus:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(245, 158, 11, 0.16)
+            Height: =22
+            RadiusBottomLeft: =11
+            RadiusBottomRight: =11
+            RadiusTopLeft: =11
+            RadiusTopRight: =11
+            Width: =90
+            X: =Parent.Width - 56 - 8 - 90
+            Y: =20
+          Children:
+            - lblDetailStatusText:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FontColor: =RGBA(245, 158, 11, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =11
+                  Text: ="Pending"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - imgDetailDrawerClose:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: |-
+              =UpdateContext({ varShowDetailDrawer: false })
+            Width: =16
+            X: =Parent.Width - 56 + 8
+            Y: =24
+      - lblDetailTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: ="Berlin trade fair travel"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =44
+      - conDetailPerson:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 0.12)
+            Height: =40
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =20
+            RadiusTopLeft: =20
+            RadiusTopRight: =20
+            Width: =40
+            X: =24
+            Y: =88
+          Children:
+            - lblDetailPersonInitials:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FontColor: =RGBA(59, 130, 246, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =15
+                  Text: ="JJ"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - lblDetailPersonName:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =24
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Jan Jansen"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 98
+            X: =74
+            Y: =88
+      - lblDetailPersonSub:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Marketing, submitted 2 days ago"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 98
+            X: =74
+            Y: =108
+      - conDetailRule1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =148
+      - lblDetailRow1Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Amount"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =140
+            X: =24
+            Y: =172
+      - lblDetailRow1Value:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="€1,240.00"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 188
+            X: =164
+            Y: =172
+      - conDetailRow1Line:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =207
+      - lblDetailRow2Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Category"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =140
+            X: =24
+            Y: =208
+      - lblDetailRow2Value:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Travel"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 188
+            X: =164
+            Y: =208
+      - conDetailRow2Line:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =243
+      - lblDetailRow3Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Date"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =140
+            X: =24
+            Y: =244
+      - lblDetailRow3Value:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="14 to 15 Sep 2026"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 188
+            X: =164
+            Y: =244
+      - conDetailRow3Line:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =279
+      - lblDetailRow4Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Cost center"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =140
+            X: =24
+            Y: =280
+      - lblDetailRow4Value:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="MKT-200"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 188
+            X: =164
+            Y: =280
+      - conDetailRow4Line:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =315
+      - lblDetailRow5Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Receipts"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =140
+            X: =24
+            Y: =316
+      - lblDetailRow5Value:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="3 attached"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 188
+            X: =164
+            Y: =316
+      - conDetailNotes:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =Parent.Height - 96 - Self.Y
+            RadiusBottomLeft: =12
+            RadiusBottomRight: =12
+            RadiusTopLeft: =12
+            RadiusTopRight: =12
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =368
+          Children:
+            - lblDetailNotesLabel:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =20
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Notes"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =12
+            - lblDetailNotesText:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =Parent.Height - 44
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="Train tickets, two hotel nights and the stand fee for the fair on 14 and 15 September. Receipts attached."
+                  VerticalAlign: =VerticalAlign.Top
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =32
+      - conDetailDrawerFooterRule:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =Parent.Height - 80
+      - btnDetailDrawerSecondary:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowDetailDrawer: false })
+            Text: ="Reject"
+            Width: =120
+            X: =24
+            Y: =Parent.Height - 62
+      - btnDetailDrawerPrimary:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(34, 197, 94, 1)
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowDetailDrawer: false })
+            Text: ="Approve"
+            Width: =150
+            X: =Parent.Width - 24 - Self.Width
+            Y: =Parent.Height - 62

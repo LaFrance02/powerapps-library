@@ -1,0 +1,254 @@
+- btnPickerOverlay:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Transparent
+      Height: =App.Height
+      OnSelect: =Set(varPickerOpen, false)
+      Text: =""
+      Visible: =varPickerOpen
+      Width: =App.Width
+- conPeoplePicker:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =If(varPickerOpen, RGBA(59, 130, 246, 1), RGBA(60, 75, 105, 1))
+      BorderThickness: =1
+      DropShadow: =If(varPickerOpen, DropShadow.Light, DropShadow.None)
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =If(varPickerOpen, 48 + Min(CountRows(Office365Users.SearchUser({searchTerm:txtPickerSearch.Value, top:8})), 8) * 48, 44)
+      Width: =320
+      X: =40
+      Y: =40
+    Children:
+      - conPickerInput:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =40
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =2
+          Children:
+            - conSelectedChip:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  Visible: =!IsBlank(varPickerSelected) And !varPickerOpen
+                  Width: =Parent.Width
+                Children:
+                  - conSelectedAvatar:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(59, 130, 246, 1)
+                        Height: =26
+                        RadiusBottomLeft: =13
+                        RadiusBottomRight: =13
+                        RadiusTopLeft: =13
+                        RadiusTopRight: =13
+                        Width: =26
+                        X: =4
+                        Y: =Parent.Height/2 - Self.Height/2
+                      Children:
+                        - lblSelectedAvatarLbl:
+                            Control: Text@0.0.51
+                            Properties:
+                              Align: =Align.Center
+                              FontColor: =RGBA(255, 255, 255, 1)
+                              Weight: ='TextCanvas.Weight'.Semibold
+                              Height: =Parent.Height
+                              Size: =8
+                              Text: =Upper(Left(varPickerSelected.DisplayName, 1) & Mid(varPickerSelected.DisplayName, Find(" ", varPickerSelected.DisplayName & " ") + 1, 1))
+                              Width: =Parent.Width
+                  - lblSelectedName:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(230, 234, 242, 1)
+                        Height: =Parent.Height
+                        Size: =11
+                        Text: =varPickerSelected.DisplayName
+                        Width: =Parent.Width - 100
+                        X: =36
+                  - btnSelectedClear:
+                      Control: Button@0.0.45
+                      Properties:
+                        Appearance: ='ButtonCanvas.Appearance'.Transparent
+                        Height: =24
+                        OnSelect: |-
+                          =Set(varPickerSelected, Blank());
+                          Reset(txtPickerSearch);
+                          Set(varPickerOpen, true)
+                        Text: ="✕"
+                        Width: =24
+                        X: =Parent.Width - 52
+                        Y: =Parent.Height/2 - Self.Height/2
+            - imgPickerSearchIcon:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  Color: =RGBA(139, 153, 176, 1)
+                  Height: =20
+                  Icon: =Icon.Search
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  Width: =20
+                  X: =8
+                  Y: =Parent.Height/2 - Self.Height/2
+            - txtPickerSearch:
+                Control: TextInput@0.0.52
+                Properties:
+                  FontColor: =RGBA(230, 234, 242, 1)
+                  Value: =""
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.Height
+                  PlaceholderText: ="Search people..."
+                  OnChange: =Set(varPickerOpen, true)
+                  OnSelect: =Set(varPickerOpen, true)
+                  Size: =11
+                  Visible: =IsBlank(varPickerSelected) Or varPickerOpen
+                  Width: =Parent.Width - 60
+                  X: =32
+            - btnPickerClear:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Transparent
+                  Height: =24
+                  OnSelect: |-
+                    =Set(varPickerSelected, Blank());
+                    Reset(txtPickerSearch)
+                  Text: ="✕"
+                  Visible: =And(IsBlank(varPickerSelected) Or varPickerOpen, Len(txtPickerSearch.Value) > 0)
+                  Width: =24
+                  X: =Parent.Width - 52
+                  Y: =Parent.Height/2 - Self.Height/2
+            - imgPickerArrow:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  Color: =RGBA(139, 153, 176, 1)
+                  Height: =20
+                  Icon: =If(varPickerOpen, Icon.ChevronUp, Icon.ChevronDown)
+                  PaddingBottom: =3
+                  PaddingLeft: =3
+                  PaddingRight: =3
+                  PaddingTop: =3
+                  Width: =20
+                  X: =Parent.Width - Self.Width - 8
+                  Y: =Parent.Height/2 - Self.Height/2
+            - btnPickerToggle:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Transparent
+                  Height: =Parent.Height
+                  OnSelect: |-
+                    =Set(varPickerOpen, !varPickerOpen);
+                    Set(varPickerAnimTrigger, Text(Now(), "yyyymmddhhmmssfff"))
+                  Text: =""
+                  Width: =32
+                  X: =Parent.Width - 32
+      - conPickerResults:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =Parent.Height - 48
+            Visible: =varPickerOpen
+            Width: =Parent.Width
+            Y: =48
+          Children:
+            - lblPickerDivider:
+                Control: Text@0.0.51
+                Properties:
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  Text: =""
+                  Width: =Parent.Width - 12
+                  X: =6
+            - galPickerResults:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  Height: =Parent.Height - 4
+                  Items: =Office365Users.SearchUser({searchTerm:txtPickerSearch.Value, top:8})
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =48
+                  Width: =Parent.Width
+                  Y: =2
+                Children:
+                  - conPickerItem:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.TemplateHeight
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - conPickerAvatar:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(59, 130, 246, 1)
+                              Height: =32
+                              RadiusBottomLeft: =16
+                              RadiusBottomRight: =16
+                              RadiusTopLeft: =16
+                              RadiusTopRight: =16
+                              Width: =32
+                              X: =12
+                              Y: =Parent.Height/2 - Self.Height/2
+                            Children:
+                              - lblPickerAvatarLbl:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    Align: =Align.Center
+                                    FontColor: =RGBA(255, 255, 255, 1)
+                                    Weight: ='TextCanvas.Weight'.Semibold
+                                    Height: =Parent.Height
+                                    Size: =10
+                                    Text: =Upper(Left(ThisItem.DisplayName, 1) & Mid(ThisItem.DisplayName, Find(" ", ThisItem.DisplayName & " ") + 1, 1))
+                                    Width: =Parent.Width
+                        - lblPickerName:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(230, 234, 242, 1)
+                              Weight: ='TextCanvas.Weight'.Semibold
+                              Height: =18
+                              Size: =11
+                              Text: =ThisItem.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =52
+                              Y: =6
+                        - lblPickerDept:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(139, 153, 176, 1)
+                              Height: =16
+                              Size: =9
+                              Text: =ThisItem.Department
+                              Width: =Parent.Width - 60
+                              X: =52
+                              Y: =lblPickerName.Y + lblPickerName.Height
+                        - btnPickerItemSelect:
+                            Control: Button@0.0.45
+                            Properties:
+                              Align: =Align.Left
+                              Appearance: ='ButtonCanvas.Appearance'.Transparent
+                              Height: =Parent.Height
+                              OnSelect: |-
+                                =Set(varPickerSelected, ThisItem);
+                                Reset(txtPickerSearch);
+                                Set(varPickerOpen, false)
+                              Text: =""
+                              Width: =Parent.Width

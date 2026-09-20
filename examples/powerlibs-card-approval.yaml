@@ -1,0 +1,236 @@
+- conApprovalCard:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =292
+      RadiusBottomLeft: =16
+      RadiusBottomRight: =16
+      RadiusTopLeft: =16
+      RadiusTopRight: =16
+      Width: =360
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - conApprovalType:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 0.12)
+            Height: =22
+            RadiusBottomLeft: =11
+            RadiusBottomRight: =11
+            RadiusTopLeft: =11
+            RadiusTopRight: =11
+            Width: =80
+            X: =20
+            Y: =20
+          Children:
+            - lblApprovalTypeText:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FontColor: =RGBA(59, 130, 246, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =11
+                  Text: ="Expense"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - lblApprovalSubmitted:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =22
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Submitted 2 days ago"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =180
+            X: =Parent.Width - 200
+            Y: =20
+      - lblApprovalTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =28
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =17
+            Text: ="Berlin trade fair travel"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =320
+            X: =20
+            Y: =52
+      - conApprovalRequester:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 0.12)
+            Height: =36
+            RadiusBottomLeft: =18
+            RadiusBottomRight: =18
+            RadiusTopLeft: =18
+            RadiusTopRight: =18
+            Width: =36
+            X: =20
+            Y: =84
+          Children:
+            - lblApprovalRequesterInitials:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Center
+                  FontColor: =RGBA(59, 130, 246, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="HY"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - lblApprovalRequesterName:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =24
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Hanako Yamada"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =274
+            X: =66
+            Y: =84
+      - lblApprovalDepartment:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Marketing"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =274
+            X: =66
+            Y: =102
+      - conApprovalAmountBox:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =52
+            RadiusBottomLeft: =12
+            RadiusBottomRight: =12
+            RadiusTopLeft: =12
+            RadiusTopRight: =12
+            Width: =320
+            X: =20
+            Y: =132
+          Children:
+            - lblApprovalAmountLabel:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Amount"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =120
+                  X: =16
+                  Y: =0
+            - lblApprovalAmount:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.End
+                  FontColor: =RGBA(230, 234, 242, 1)
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =21
+                  Text: ="€1,240.00"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =160
+                  X: =Parent.Width - 176
+                  Y: =0
+      - lblApprovalDescription:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(180, 190, 206, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Train tickets, two hotel nights and the stand fee for the fair on 14 and 15 September."
+            VerticalAlign: =VerticalAlign.Top
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =320
+            X: =20
+            Y: =192
+      - btnApprovalReject:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =40
+            OnSelect: =false
+            Text: ="Reject"
+            Width: =156
+            X: =20
+            Y: =232
+      - btnApprovalApprove:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(34, 197, 94, 1)
+            Height: =40
+            OnSelect: =false
+            Text: ="Approve"
+            Width: =156
+            X: =184
+            Y: =232

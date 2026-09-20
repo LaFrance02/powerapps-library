@@ -1,0 +1,272 @@
+- btnInfoTrigger:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowInfo: true })
+      Text: ="What's new"
+      Width: =160
+      X: =40
+      Y: =40
+- btnInfoScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(11, 18, 32, 0.45)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(11, 18, 32, 0.45)
+      OnSelect: |-
+        =UpdateContext({ varShowInfo: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(11, 18, 32, 0.45)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Tooltip: ="Close"
+      Visible: =varShowInfo
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conInfoPanel:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =lblInfoLink.Y + lblInfoLink.Height + 24
+      RadiusBottomLeft: =14
+      RadiusBottomRight: =14
+      RadiusTopLeft: =14
+      RadiusTopRight: =14
+      Visible: =varShowInfo
+      Width: =Min(420, Parent.Width - 40)
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - conInfoBadge:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(59, 130, 246, 0.12)
+            Height: =64
+            RadiusBottomLeft: =32
+            RadiusBottomRight: =32
+            RadiusTopLeft: =32
+            RadiusTopRight: =32
+            Width: =64
+            X: =(Parent.Width - 64) / 2
+            Y: =28
+          Children:
+            - imgInfoBadgeIcon:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#3b82f6" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 16v-4 M12 8h.01'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =28
+                  X: =18
+                  Y: =18
+      - lblInfoTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: ="What is new"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =108
+      - lblInfoDescription:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            AutoHeight: =true
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="The app was updated on Monday. Three things changed:"
+            VerticalAlign: =VerticalAlign.Top
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblInfoTitle.Y + lblInfoTitle.Height + 6
+      - conInfoList:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =94
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblInfoDescription.Y + lblInfoDescription.Height + 18
+          Children:
+            - imgInfoListIcon1:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#22c55e" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =16
+                  X: =14
+                  Y: =17
+            - lblInfoListRow1:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="Approvals can be signed on a phone"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 52
+                  X: =38
+                  Y: =14
+            - imgInfoListIcon2:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#22c55e" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =16
+                  X: =14
+                  Y: =39
+            - lblInfoListRow2:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="Timesheets export to Excel"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 52
+                  X: =38
+                  Y: =36
+            - imgInfoListIcon3:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#22c55e" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =16
+                  X: =14
+                  Y: =61
+            - lblInfoListRow3:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="Faster search in the asset list"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 52
+                  X: =38
+                  Y: =58
+      - btnInfoPrimary:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowInfo: false })
+            Text: ="Got it"
+            Width: =(Parent.Width - 48 - 0) / 1
+            X: =24
+            Y: =conInfoList.Y + conInfoList.Height + 24
+      - lblInfoLink:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =RGBA(59, 130, 246, 1)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =20
+            HoverColor: =RGBA(230, 234, 242, 1)
+            OnSelect: =Launch("https://contoso.sharepoint.com/sites/apps/release-notes")
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =10
+            Text: ="Read the release notes"
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =btnInfoPrimary.Y + btnInfoPrimary.Height + 12
+      - imgInfoClose:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =14
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: |-
+              =UpdateContext({ varShowInfo: false })
+            Width: =14
+            X: =Parent.Width - 44 + 9
+            Y: =21

@@ -1,0 +1,198 @@
+- conGalleryCarousel:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(75, 85, 99, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(31, 41, 55, 1)
+      Height: =280
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =12
+      RadiusTopRight: =12
+      Width: =560
+      X: =40
+      Y: =40
+    Children:
+      - conCarouselAccent:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =Switch(Coalesce(varCarouselIndex, 1), 1, ColorValue("#3B82F6"), 2, ColorValue("#8B5CF6"), 3, ColorValue("#14B8A6"))
+            Height: =Parent.Height
+            RadiusBottomLeft: =12
+            RadiusBottomRight: =0
+            RadiusTopLeft: =12
+            RadiusTopRight: =0
+            Width: =200
+            X: =0
+            Y: =0
+      - lblCarouselSlideNumber:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 0.75)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =60
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =28
+            Text: =Text(Coalesce(varCarouselIndex, 1), "00")
+            Width: =200
+            X: =0
+            Y: =Parent.Height / 2 - 30
+      - lblCarouselTitle:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Left
+            Color: =RGBA(243, 244, 246, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =14
+            Text: |-
+              =Switch(Coalesce(varCarouselIndex, 1), 1, "Ship apps faster", 2, "One design language", 3, "Your brand, everywhere")
+            Width: =Parent.Width - 260
+            X: =228
+            Y: =52
+      - lblCarouselDescription:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Left
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =110
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =9
+            Text: |-
+              =Switch(Coalesce(varCarouselIndex, 1), 1, "Copy-paste ready components mean your team spends its time on business logic, not on rebuilding the same card for the tenth time.", 2, "Every screen pulls from the same library, so the whole app feels like it was built by one careful person.", 3, "Set your primary colour once and every component follows it, in light mode and dark.")
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.Width - 260
+            X: =228
+            Y: =86
+      - btnCarouselPause:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(156, 163, 175, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            Height: =22
+            HoverColor: =RGBA(243, 244, 246, 1)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: =Set(varCarouselPaused, !varCarouselPaused)
+            PressedColor: =RGBA(243, 244, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =6
+            RadiusBottomRight: =6
+            RadiusTopLeft: =6
+            RadiusTopRight: =6
+            Size: =8
+            Text: =If(varCarouselPaused, "Play", "Pause")
+            Width: =60
+            X: =Parent.Width - 76
+            Y: =14
+      - btnCarouselDot1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderStyle: =BorderStyle.None
+            Fill: =If(Coalesce(varCarouselIndex, 1) = 1, RGBA(59, 130, 246, 1), RGBA(75, 85, 99, 1))
+            FocusedBorderThickness: =0
+            Height: =10
+            HoverFill: =Self.Fill
+            OnSelect: =Set(varCarouselIndex, 1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =10
+            X: =228
+            Y: =Parent.Height - 46
+      - btnCarouselDot2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderStyle: =BorderStyle.None
+            Fill: =If(Coalesce(varCarouselIndex, 1) = 2, RGBA(59, 130, 246, 1), RGBA(75, 85, 99, 1))
+            FocusedBorderThickness: =0
+            Height: =10
+            HoverFill: =Self.Fill
+            OnSelect: =Set(varCarouselIndex, 2)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =10
+            X: =246
+            Y: =Parent.Height - 46
+      - btnCarouselDot3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderStyle: =BorderStyle.None
+            Fill: =If(Coalesce(varCarouselIndex, 1) = 3, RGBA(59, 130, 246, 1), RGBA(75, 85, 99, 1))
+            FocusedBorderThickness: =0
+            Height: =10
+            HoverFill: =Self.Fill
+            OnSelect: =Set(varCarouselIndex, 3)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =10
+            X: =264
+            Y: =Parent.Height - 46
+      - icoCarouselPrev:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            FocusedBorderThickness: =0
+            Color: =RGBA(156, 163, 175, 1)
+            Height: =28
+            Icon: =Icon.ChevronLeft
+            OnSelect: =Set(varCarouselIndex, Mod(Coalesce(varCarouselIndex, 1) + 1, 3) + 1)
+            Width: =28
+            X: =Parent.Width - 88
+            Y: =Parent.Height - 55
+      - icoCarouselNext:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            FocusedBorderThickness: =0
+            Color: =RGBA(156, 163, 175, 1)
+            Height: =28
+            Icon: =Icon.ChevronRight
+            OnSelect: =Set(varCarouselIndex, Mod(Coalesce(varCarouselIndex, 1), 3) + 1)
+            Width: =28
+            X: =Parent.Width - 52
+            Y: =Parent.Height - 55
+      - tmrGalleryCarousel:
+          Control: Timer@2.1.0
+          Properties:
+            AutoStart: =true
+            Duration: =4000
+            Height: =40
+            OnTimerEnd: |-
+              =If(!varCarouselPaused,
+                  Set(varCarouselIndex, Mod(Coalesce(varCarouselIndex, 1), 3) + 1)
+              )
+            Repeat: =true
+            Visible: =false
+            Width: =120
+            X: =20
+            Y: =Parent.Height - 50

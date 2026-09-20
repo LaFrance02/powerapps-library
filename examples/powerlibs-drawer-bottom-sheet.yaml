@@ -1,0 +1,233 @@
+- btnOpenBottomSheet:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowBottomSheet: true })
+      Text: ="Log hours"
+      Width: =160
+      X: =24
+      Y: =24
+- recBottomSheetScrim:
+    Control: Rectangle@2.3.0
+    Properties:
+      BorderThickness: =0
+      Fill: =RGBA(11, 18, 32, 0.55)
+      Height: =Parent.Height
+      HoverFill: =RGBA(11, 18, 32, 0.55)
+      OnSelect: |-
+        =UpdateContext({ varShowBottomSheet: false })
+      PressedFill: =RGBA(11, 18, 32, 0.55)
+      Tooltip: ="Close"
+      Visible: =varShowBottomSheet
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conBottomSheet:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =Min(470, Parent.Height - 40)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =20
+      RadiusTopRight: =20
+      Visible: =varShowBottomSheet
+      Width: =Parent.Width
+      X: =0
+      Y: =Parent.Height - Self.Height
+    Children:
+      - conBottomSheetHandle:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(60, 75, 105, 1)
+            Height: =4
+            RadiusBottomLeft: =2
+            RadiusBottomRight: =2
+            RadiusTopLeft: =2
+            RadiusTopRight: =2
+            Width: =40
+            X: =(Parent.Width - 40) / 2
+            Y: =10
+      - lblBottomSheetTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =31
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =19
+            Text: ="Log hours"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 88
+            X: =24
+            Y: =28
+      - lblBottomSheetDescription:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Add time to a project for today."
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 88
+            X: =24
+            Y: =54
+      - imgBottomSheetClose:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: |-
+              =UpdateContext({ varShowBottomSheet: false })
+            Width: =16
+            X: =Parent.Width - 56 + 8
+            Y: =36
+      - lblSheetField1Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Project"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =96
+      - txtSheetField1:
+          Control: DropDown@0.0.45
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =40
+            Items: =["Website Redesign", "Helpdesk rollout", "Internal"]
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =118
+      - lblSheetField2Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Hours"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =174
+      - txtSheetField2:
+          Control: TextInput@0.0.54
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Placeholder: ="8"
+            Value: =""
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =196
+      - lblSheetField3Label:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Note"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =252
+      - txtSheetField3:
+          Control: TextInput@0.0.54
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =96
+            Mode: ='TextInputCanvas.Mode'.Multiline
+            Placeholder: ="What did you work on?"
+            Value: =""
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =274
+      - conBottomSheetFooterRule:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =Parent.Height - 80
+      - btnBottomSheetSecondary:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowBottomSheet: false })
+            Text: ="Cancel"
+            Width: =120
+            X: =24
+            Y: =Parent.Height - 62
+      - btnBottomSheetPrimary:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowBottomSheet: false })
+            Text: ="Save entry"
+            Width: =150
+            X: =Parent.Width - 24 - Self.Width
+            Y: =Parent.Height - 62

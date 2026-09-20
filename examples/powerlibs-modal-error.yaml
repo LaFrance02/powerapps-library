@@ -1,0 +1,225 @@
+- btnErrorTrigger:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowError: true })
+      Text: ="Show error"
+      Width: =160
+      X: =40
+      Y: =40
+- btnErrorScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(11, 18, 32, 0.45)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(11, 18, 32, 0.45)
+      OnSelect: |-
+        =UpdateContext({ varShowError: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(11, 18, 32, 0.45)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Tooltip: ="Close"
+      Visible: =varShowError
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conErrorPanel:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =btnErrorBack.Y + btnErrorBack.Height + 24
+      RadiusBottomLeft: =14
+      RadiusBottomRight: =14
+      RadiusTopLeft: =14
+      RadiusTopRight: =14
+      Visible: =varShowError
+      Width: =Min(420, Parent.Width - 40)
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - conErrorBadge:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(239, 68, 68, 0.14)
+            Height: =64
+            RadiusBottomLeft: =32
+            RadiusBottomRight: =32
+            RadiusTopLeft: =32
+            RadiusTopRight: =32
+            Width: =64
+            X: =(Parent.Width - 64) / 2
+            Y: =28
+          Children:
+            - imgErrorBadgeIcon:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#ef4444" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =28
+                  X: =18
+                  Y: =18
+      - lblErrorTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: ="Something went wrong"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =108
+      - lblErrorDescription:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            AutoHeight: =true
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="We could not save your changes. Check your connection and try again, or contact support if it keeps happening."
+            VerticalAlign: =VerticalAlign.Top
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblErrorTitle.Y + lblErrorTitle.Height + 6
+      - conErrorDetails:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(239, 68, 68, 0.14)
+            Height: =90
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblErrorDescription.Y + lblErrorDescription.Height + 18
+          Children:
+            - lblErrorDetailsCaption:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(93, 107, 132, 1)
+                  Height: =18
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =11
+                  Text: =Upper("Error details")
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =Parent.Width - 28
+                  X: =14
+                  Y: =10
+            - lblErrorDetailsRow1:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(239, 68, 68, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="The server did not answer within 30 seconds."
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 28
+                  X: =14
+                  Y: =32
+            - lblErrorDetailsRow2:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(93, 107, 132, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="ERR_CONNECTION_TIMEOUT"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 28
+                  X: =14
+                  Y: =54
+      - btnErrorRetry:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =44
+            OnSelect: |-
+              =// Run the action again here, then close
+              UpdateContext({ varShowError: false })
+            Text: ="Try again"
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =conErrorDetails.Y + conErrorDetails.Height + 24
+      - btnErrorBack:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowError: false })
+            Text: ="Go back"
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =conErrorDetails.Y + conErrorDetails.Height + 78
+      - imgErrorClose:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =14
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: |-
+              =UpdateContext({ varShowError: false })
+            Width: =14
+            X: =Parent.Width - 44 + 9
+            Y: =21

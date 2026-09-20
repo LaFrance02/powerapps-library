@@ -1,0 +1,266 @@
+- btnNavMenu:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Secondary
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowNavMenu: !varShowNavMenu })
+      Text: =Coalesce(varNavChoice, "Go to")
+      Width: =240
+      X: =40
+      Y: =40
+- imgNavMenuIcon:
+    Control: Image@2.2.3
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      FocusedBorderThickness: =0
+      Height: =16
+      Image: |-
+        ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 3h7v7H3z M14 3h7v7h-7z M14 14h7v7h-7z M3 14h7v7H3z'/></svg>")
+      ImagePosition: =ImagePosition.Fit
+      OnSelect: =Select(btnNavMenu)
+      Width: =16
+      X: =btnNavMenu.X + 12 + 2
+      Y: =btnNavMenu.Y + 10 + 2
+- icoNavMenuChevron:
+    Control: Classic/Icon@2.5.0
+    Properties:
+      Color: =RGBA(139, 153, 176, 1)
+      FocusedBorderThickness: =0
+      Height: =20
+      Icon: =If(varShowNavMenu, Icon.ChevronUp, Icon.ChevronDown)
+      OnSelect: =Select(btnNavMenu)
+      PaddingBottom: =3
+      PaddingLeft: =3
+      PaddingRight: =3
+      PaddingTop: =3
+      Width: =20
+      X: =btnNavMenu.X + btnNavMenu.Width - 30
+      Y: =btnNavMenu.Y + 10
+- btnNavMenuScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(0, 0, 0, 0)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(0, 0, 0, 0)
+      OnSelect: |-
+        =UpdateContext({ varShowNavMenu: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(0, 0, 0, 0)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Visible: =varShowNavMenu
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conNavMenu:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.Light
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =172
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      Visible: =varShowNavMenu
+      Width: =btnNavMenu.Width
+      X: =btnNavMenu.X
+      Y: =btnNavMenu.Y + btnNavMenu.Height + 4
+    Children:
+      - btnNavMenuItem1:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varNavChoice: "Dashboard", varShowNavMenu: false })
+              // Navigate(DashboardScreen)
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =6
+      - lblNavMenuItem1Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Dashboard"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =6
+      - imgNavMenuItem1Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnNavMenuItem1)
+            Width: =16
+            X: =18
+            Y: =18
+      - btnNavMenuItem2:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varNavChoice: "Requests", varShowNavMenu: false })
+              // Navigate(RequestsScreen)
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =46
+      - lblNavMenuItem2Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Requests"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =46
+      - imgNavMenuItem2Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnNavMenuItem2)
+            Width: =16
+            X: =18
+            Y: =58
+      - btnNavMenuItem3:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varNavChoice: "Team", varShowNavMenu: false })
+              // Navigate(TeamScreen)
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =86
+      - lblNavMenuItem3Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Team"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =86
+      - imgNavMenuItem3Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnNavMenuItem3)
+            Width: =16
+            X: =18
+            Y: =98
+      - btnNavMenuItem4:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varNavChoice: "Settings", varShowNavMenu: false })
+              // Navigate(SettingsScreen)
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =126
+      - lblNavMenuItem4Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Settings"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =126
+      - imgNavMenuItem4Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnNavMenuItem4)
+            Width: =16
+            X: =18
+            Y: =138

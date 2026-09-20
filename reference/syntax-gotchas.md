@@ -74,13 +74,48 @@ Relevant any time a modern control replaces what used to be classic in a given s
   on several Time Picker controls — distinct from the `GroupContainer` control type. This looks
   like a Studio Tree View organizational tag (grouping unrelated controls under a label without
   making them a real container/parent), but that's inferred, not confirmed against the schema or a
-  real paste. Don't assume it's required or safe to omit until tested.
+  real paste. Don't assume it's required or safe to omit until tested. **Update from the Navigation
+  batch:** the pattern now looks clearer — `Group:` shows up specifically on a navbar's root
+  container plus every dropdown/overlay panel that must sit as a structural *sibling* (not nested
+  child) of that navbar so it can render outside the navbar's own clipping bounds, tagging them as
+  logically related in Studio's outline despite not being parent/child. Seen with two different
+  group-name values (`Group: NavBar`, `Group: MinimalMegaNavBar`) in the Mega Menu Navbar / Minimal
+  Mega Menu Navbar examples specifically for this reason — still not confirmed against a real
+  paste, but the "just a Tree View label, no runtime effect" theory is looking more solid.
 - `Screens:` can appear as the top-level key of a captured example (a full screen definition:
   `Screens: / <ScreenName>: / Properties: / Children:`) rather than the usual flat `- control:`
   children list meant to paste into an existing screen. These are structurally different pastes —
   a full `Screens:` block creates/replaces an entire screen (and its `OnVisible`), while a flat
   children list only adds controls to whatever screen is already open in Tree View. Check which
   shape an example file has before pasting it, they are not interchangeable.
+- **A third top-level shape**: `ComponentDefinitions:` (seen in `powerlibs-sidebar-advanced.yaml`,
+  the "Advanced Sidebar" `cmpSidebar`) — `ComponentDefinitions: / <ComponentName>: / DefinitionType:
+  CanvasComponent, AccessAppScope: true (optional), CustomProperties: {...}, Properties: {...},
+  Children: [...]`. This is a real, importable Component definition (Studio's Components → New
+  component → Import from code), not a children-list fragment or a screen. `CustomProperties`
+  entries are typed via `PropertyKind: Input | Output | Event`. When `AccessAppScope: true` is
+  present, the component reads/writes named app-scoped variables directly (bypassing its own
+  declared custom properties) — every consuming screen must initialize those variables on
+  `OnVisible` or the component starts in an undefined state. None of this is confirmed against a
+  real paste yet.
+- **Bare `=` (empty formula) as a property value**: seen in `powerlibs-nav-mega-menu.yaml` on four
+  controls' `HoverBorderColor`/`PressedBorderColor` (e.g. `HoverBorderColor: =` with nothing
+  following). A lone `=` is a reserved YAML 1.1 indicator, so this fails strict `yaml.safe_load`
+  (PyYAML) with a constructor error. Unconfirmed whether Power Apps Studio's own (non-standard)
+  YAML importer tolerates this or rejects it the same way — don't assume either way without a real
+  paste test. If it turns out to be a real defect, the fix is straightforward: fill in the omitted
+  value explicitly (e.g. `=RGBA(0,0,0,0)`, matching every other Border/Fill property on the same
+  control) rather than leaving the property blank.
+- **`var`/`gbl` variable-name prefixes do not reliably indicate actual Power Fx scope.** Multiple
+  examples across the Navigation, Gallery, and Dropdown batches use a `var`-prefixed name (which,
+  by convention elsewhere in this library, signals a screen-local context variable created via
+  `UpdateContext()`) for a variable that is actually created via `Set()` — i.e., a real **global**,
+  app-wide in scope. Sibling examples solving the identical problem sometimes get this right (a
+  `gbl`-prefixed name backing a real `Set()` global) and sometimes don't (a `var`-prefixed name
+  backing the same `Set()` call) — see `examples/README.md`'s Navigation/Gallery/Dropdown batch
+  notes for the specific file-by-file breakdown. **Do not infer a variable's actual scope from its
+  name prefix when generating or reviewing Power Fx — check whether the initializing call is
+  `Set()` (global) or `UpdateContext()` (context/local) directly.**
 
 ## Workflow rule (not syntax, but load-bearing)
 

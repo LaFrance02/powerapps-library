@@ -1,0 +1,218 @@
+- btnUnsavedTrigger:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowUnsaved: true })
+      Text: ="Leave page"
+      Width: =160
+      X: =40
+      Y: =40
+- btnUnsavedScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(11, 18, 32, 0.45)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(11, 18, 32, 0.45)
+      OnSelect: |-
+        =UpdateContext({ varShowUnsaved: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(11, 18, 32, 0.45)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Tooltip: ="Close"
+      Visible: =varShowUnsaved
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conUnsavedPanel:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =btnUnsavedStay.Y + btnUnsavedStay.Height + 24
+      RadiusBottomLeft: =14
+      RadiusBottomRight: =14
+      RadiusTopLeft: =14
+      RadiusTopRight: =14
+      Visible: =varShowUnsaved
+      Width: =Min(420, Parent.Width - 40)
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - conUnsavedBadge:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(245, 158, 11, 0.16)
+            Height: =64
+            RadiusBottomLeft: =32
+            RadiusBottomRight: =32
+            RadiusTopLeft: =32
+            RadiusTopRight: =32
+            Width: =64
+            X: =(Parent.Width - 64) / 2
+            Y: =28
+          Children:
+            - imgUnsavedBadgeIcon:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#f59e0b" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z M12 9v4 M12 17h.01'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =28
+                  X: =18
+                  Y: =18
+      - lblUnsavedTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: ="Unsaved changes"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =108
+      - lblUnsavedDescription:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            AutoHeight: =true
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="You changed this record and did not save. What do you want to do?"
+            VerticalAlign: =VerticalAlign.Top
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblUnsavedTitle.Y + lblUnsavedTitle.Height + 6
+      - conUnsavedDetails:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(245, 158, 11, 0.16)
+            Height: =50
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblUnsavedDescription.Y + lblUnsavedDescription.Height + 18
+          Children:
+            - imgUnsavedDetailsIcon1:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#f59e0b" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =16
+                  X: =14
+                  Y: =17
+            - lblUnsavedDetailsRow1:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: |-
+                    ="3 fields changed: Name, Email, Phone"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.Width - 52
+                  X: =38
+                  Y: =14
+      - btnUnsavedSave:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =44
+            OnSelect: |-
+              =// For example SubmitForm(frmEdit); Back(), then close
+              UpdateContext({ varShowUnsaved: false })
+            Text: ="Save and leave"
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =conUnsavedDetails.Y + conUnsavedDetails.Height + 24
+      - btnUnsavedDiscard:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(239, 68, 68, 1)
+            Height: =44
+            OnSelect: |-
+              =// For example ResetForm(frmEdit); Back(), then close
+              UpdateContext({ varShowUnsaved: false })
+            Text: ="Discard and leave"
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =conUnsavedDetails.Y + conUnsavedDetails.Height + 78
+      - btnUnsavedStay:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowUnsaved: false })
+            Text: ="Stay on page"
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =conUnsavedDetails.Y + conUnsavedDetails.Height + 132
+      - imgUnsavedClose:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =14
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: |-
+              =UpdateContext({ varShowUnsaved: false })
+            Width: =14
+            X: =Parent.Width - 44 + 9
+            Y: =21

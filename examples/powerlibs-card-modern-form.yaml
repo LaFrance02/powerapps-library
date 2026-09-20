@@ -1,0 +1,112 @@
+- conModalItems:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(31, 41, 55, 1)
+      Height: =470
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      X: =Parent.Width/2 - Self.Width/2
+      Y: =Parent.Height/2 - Self.Height/2
+    Children:
+      - lblTitle:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =30
+            Size: =16
+            Text: ="New Form"
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width * 0.9
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =20
+      - lblInput1:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =27
+            Size: =10
+            Text: ="Title"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width * 0.9
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =lblTitle.Y + lblTitle.Height + 20
+      - txtInput1:
+          Control: TextInput@0.0.54
+          Properties:
+            Placeholder: ="Type here.."
+            Width: =lblInput1.Width
+            X: =lblInput1.X
+            Y: =lblInput1.Y + lblInput1.Height
+      - lblInput2:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =27
+            Size: =10
+            Text: ="Title 2"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width * 0.9
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =lblInput1.Y + lblInput1.Height + txtInput1.Height + 20
+      - txtInput2:
+          Control: TextInput@0.0.54
+          Properties:
+            Placeholder: ="Type here.."
+            Width: =lblInput2.Width
+            X: =lblInput2.X
+            Y: =lblInput2.Y + lblInput2.Height
+      - lblDatePicker3:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =27
+            Size: =10
+            Text: ="Date"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width * 0.9
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =lblInput2.Y + lblInput2.Height + txtInput2.Height + 20
+      - conDate3:
+          Control: DatePicker@0.0.46
+          Properties:
+            Width: =lblDatePicker3.Width
+            X: =lblDatePicker3.X
+            Y: =lblDatePicker3.Y + lblDatePicker3.Height
+      - lblDropdown4:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =27
+            Size: =10
+            Text: ="Dropdown"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width * 0.9
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =lblDatePicker3.Y + lblDatePicker3.Height + conDate3.Height + 20
+      - conDropdown4:
+          Control: DropDown@0.0.45
+          Properties:
+            Items: =["1", "2", "3", "4", "5"]
+            Width: =lblDropdown4.Width
+            X: =lblDropdown4.X
+            Y: =lblDropdown4.Y + lblDropdown4.Height
+      - btnCancel:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Secondary
+            Text: ="Cancel"
+            Width: =80
+            X: =btnSubmit.X - Self.Width - 20
+            Y: =Parent.Height - Self.Height - 20
+      - btnSubmit:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            Text: ="Submit"
+            Width: =80
+            X: =Parent.Width - Self.Width - 20
+            Y: =Parent.Height - Self.Height - 20

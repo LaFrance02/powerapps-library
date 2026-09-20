@@ -1,0 +1,246 @@
+- conCardList:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =Parent.Height - 80
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Parent.Width - 80
+      X: =40
+      Y: =40
+    Children:
+      - galCardListCards:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height - Self.Y
+            Items: |-
+              =Filter(
+                  Table(
+                      {name:"Warehouse app rollout", subtitle:"Jane Doe", status:"In Progress", priority:"High", due:"12 Sep"},
+                      {name:"Expense policy update", subtitle:"Max Mustermann", status:"Review", priority:"Medium", due:"19 Sep"},
+                      {name:"Helpdesk migration", subtitle:"Erika Mustermann", status:"Blocked", priority:"High", due:"30 Sep"},
+                      {name:"Onboarding checklist", subtitle:"Anna Muster", status:"Done", priority:"Low", due:"2 Sep"},
+                      {name:"Fleet inspection forms", subtitle:"Jan Jansen", status:"Pending", priority:"Medium", due:"8 Oct"}
+                  ),
+                  txtCardListSearch.Value in name || txtCardListSearch.Value in subtitle || txtCardListSearch.Value in status
+              )
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =84
+            Width: =Parent.Width
+            X: =0
+            Y: =92
+          Children:
+            - conCardListCard:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(21, 30, 48, 1)
+                  Height: =76
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Parent.TemplateWidth
+                  X: =0
+                  Y: =0
+                Children:
+                  - lblCardListCardTitle:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Start
+                        FontColor: =RGBA(230, 234, 242, 1)
+                        Height: =24
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =15
+                        Text: =ThisItem.name
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.Width - 276
+                        X: =16
+                        Y: =14
+                  - lblCardListCardSub:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Start
+                        FontColor: =RGBA(139, 153, 176, 1)
+                        Height: =20
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: =ThisItem.subtitle
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Regular
+                        Width: =Parent.Width - 276
+                        X: =16
+                        Y: =36
+                  - conCardListCardStatus:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =If(ThisItem.status in ["Active", "Done", "Completed", "Approved", "Paid", "Online", "Closed", "Passed"], RGBA(34, 197, 94, 0.14), ThisItem.status in ["Away", "Pending", "Waiting", "In Progress", "In Review", "Review", "On Hold", "Draft", "Busy"], RGBA(245, 158, 11, 0.16), ThisItem.status in ["Blocked", "Offline", "Rejected", "Overdue", "Failed", "Cancelled", "Urgent"], RGBA(239, 68, 68, 0.14), RGBA(59, 130, 246, 0.12))
+                        Height: =22
+                        RadiusBottomLeft: =11
+                        RadiusBottomRight: =11
+                        RadiusTopLeft: =11
+                        RadiusTopRight: =11
+                        Width: =84
+                        X: =Parent.Width - 260
+                        Y: =27
+                      Children:
+                        - lblCardListCardStatusText:
+                            Control: Text@0.0.51
+                            Properties:
+                              Align: ='TextCanvas.Align'.Center
+                              FontColor: =If(ThisItem.status in ["Active", "Done", "Completed", "Approved", "Paid", "Online", "Closed", "Passed"], RGBA(34, 197, 94, 1), ThisItem.status in ["Away", "Pending", "Waiting", "In Progress", "In Review", "Review", "On Hold", "Draft", "Busy"], RGBA(245, 158, 11, 1), ThisItem.status in ["Blocked", "Offline", "Rejected", "Overdue", "Failed", "Cancelled", "Urgent"], RGBA(239, 68, 68, 1), RGBA(59, 130, 246, 1))
+                              Height: =Parent.Height
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: =ThisItem.status
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                  - conCardListCardPriority:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =Switch(ThisItem.priority, "High", RGBA(239, 68, 68, 0.14), "Medium", RGBA(245, 158, 11, 0.16), "Low", RGBA(34, 197, 94, 0.14), RGBA(59, 130, 246, 0.12))
+                        Height: =22
+                        RadiusBottomLeft: =11
+                        RadiusBottomRight: =11
+                        RadiusTopLeft: =11
+                        RadiusTopRight: =11
+                        Width: =72
+                        X: =Parent.Width - 168
+                        Y: =27
+                      Children:
+                        - lblCardListCardPriorityText:
+                            Control: Text@0.0.51
+                            Properties:
+                              Align: ='TextCanvas.Align'.Center
+                              FontColor: =Switch(ThisItem.priority, "High", RGBA(239, 68, 68, 1), "Medium", RGBA(245, 158, 11, 1), "Low", RGBA(34, 197, 94, 1), RGBA(59, 130, 246, 1))
+                              Height: =Parent.Height
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: =ThisItem.priority
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                  - lblCardListCardDue:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.End
+                        FontColor: =RGBA(139, 153, 176, 1)
+                        Height: =Parent.Height
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: =ThisItem.due
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Regular
+                        Width: =64
+                        X: =Parent.Width - 88
+                        Y: =0
+            - btnCardListCard:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =76
+                  OnSelect: =Select(Parent); Set(gblCardListRow, ThisItem)
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+                  X: =0
+                  Y: =0
+      - lblCardListEmpty:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Nothing matches your search"
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =CountRows(galCardListCards.AllItems) = 0
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width
+            X: =0
+            Y: =116
+      - txtCardListSearch:
+          Control: TextInput@0.0.54
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =36
+            Placeholder: ="Search..."
+            Width: =Min(320, Parent.Width)
+            X: =0
+            Y: =44
+      - lblCardListTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =19
+            Text: ="Projects"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 120
+            X: =0
+            Y: =0
+      - lblCardListCount:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: =CountRows(galCardListCards.AllItems) & " of 5"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =120
+            X: =Parent.Width - 120
+            Y: =0

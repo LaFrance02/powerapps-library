@@ -1,0 +1,828 @@
+- conNavbarDropdown:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Group: NavBar
+    Properties:
+      Fill: =RGBA(30, 41, 56, 1)
+      Height: =56
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Parent.Width
+    Children:
+      - conNavLogo:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =56
+            Width: =160
+            X: =16
+          Children:
+            - imgNavLogo:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =32
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl(
+                        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+                          <defs>
+                            <linearGradient id='logoGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+                              <stop offset='0%' style='stop-color:#3B82F6'/>
+                              <stop offset='100%' style='stop-color:#3B82F6CC'/>
+                            </linearGradient>
+                          </defs>
+                          <rect width='32' height='32' rx='8' fill='url(#logoGrad)'/>
+                          <text x='16' y='21' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold' font-size='14'>PO</text>
+                        </svg>"
+                    )
+                  Width: =32
+                  Y: =Parent.Height/2 - Self.Height/2
+            - lblNavTitle:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =32
+                  PaddingLeft: =8
+                  Size: =12
+                  Text: ="PowerLibs"
+                  Width: =100
+                  X: =36
+                  Y: =Parent.Height/2 - Self.Height/2
+      - conNavItems:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =56
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =4
+            PaddingLeft: =8
+            PaddingRight: =8
+            Width: =496
+            X: =Parent.Width/2 - Self.Width/2
+          Children:
+            - conNavProducts:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =124
+                  Width: =124
+                Children:
+                  - btnNavProducts:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        Align: =Align.Left
+                        BorderStyle: =BorderStyle.None
+                        Color: =If(varActiveNav = "Products", RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                        Fill: =If(varActiveNav = "Products", RGBA(30, 58, 138, 0.3), RGBA(0, 0, 0, 0))
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =If(varActiveNav = "Products", RGBA(30, 58, 138, 0.3), RGBA(55, 65, 81, 1))
+                        OnSelect: |-
+                          =Set(varActiveNav, If(varActiveNav = "Products", "", "Products"));
+                          Set(varAnimProducts, Text(Now(), "yyyymmddhhmmssfff"))
+                        PaddingLeft: =15
+                        PressedBorderColor: =ColorFade(Self.BorderColor, -40%)
+                        PressedFill: =RGBA(75, 85, 99, 1)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =10
+                        Text: ="Projects"
+                        Width: =Parent.Width
+                        Y: =Parent.Height/2 - Self.Height/2
+                  - imgArrowProducts:
+                      Control: Image@2.2.3
+                      Properties:
+                        Height: =12
+                        Image: |-
+                          ="data:image/svg+xml," & EncodeUrl(
+                              "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                <style>
+                                  .arrowProducts_" & varAnimProducts & " {
+                                    stroke: " & If(varActiveNav = "Products", "#60A5FA", "#9CA3AF") & ";
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                    fill: none;
+                                    transform-origin: center;
+                                    animation-name: rotateArrowProducts_" & varAnimProducts & ";
+                                    animation-duration: " & If(IsBlank(varAnimProducts), "0ms", "300ms") & ";
+                                    animation-fill-mode: both;
+                                  }
+                                  @keyframes rotateArrowProducts_" & varAnimProducts & " {
+                                    " & If(varActiveNav = "Products", "0%", "100%") & " {
+                                      transform: rotate(0deg);
+                                    }
+                                    " & If(varActiveNav = "Products", "100%", "0%") & " {
+                                      transform: rotate(180deg);
+                                    }
+                                  }
+                                </style>
+                                <path class='arrowProducts_" & varAnimProducts & "' d='m6 9 6 6 6-6' />
+                              </svg>"
+                          )
+                        Width: =12
+                        X: =Parent.Width - Self.Width - 12
+                        Y: =Parent.Height/2 - Self.Height/2
+            - conNavSolutions:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =100
+                  Width: =100
+                Children:
+                  - btnNavSolutions:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        Align: =Align.Left
+                        BorderStyle: =BorderStyle.None
+                        Color: =If(varActiveNav = "Solutions", RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                        Fill: =If(varActiveNav = "Solutions", RGBA(30, 58, 138, 0.3), RGBA(0, 0, 0, 0))
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =If(varActiveNav = "Solutions", RGBA(30, 58, 138, 0.3), RGBA(55, 65, 81, 1))
+                        OnSelect: |-
+                          =Set(varActiveNav, If(varActiveNav = "Solutions", "", "Solutions"));
+                          Set(varAnimSolutions, Text(Now(), "yyyymmddhhmmssfff"))
+                        PaddingLeft: =15
+                        PressedBorderColor: =ColorFade(Self.BorderColor, -40%)
+                        PressedFill: =RGBA(75, 85, 99, 1)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =10
+                        Text: ="Teams"
+                        Width: =Parent.Width
+                        Y: =Parent.Height/2 - Self.Height/2
+                  - imgArrowSolutions:
+                      Control: Image@2.2.3
+                      Properties:
+                        Height: =12
+                        Image: |-
+                          ="data:image/svg+xml," & EncodeUrl(
+                              "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                <style>
+                                  .arrowSolutions_" & varAnimSolutions & " {
+                                    stroke: " & If(varActiveNav = "Solutions", "#60A5FA", "#9CA3AF") & ";
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                    fill: none;
+                                    transform-origin: center;
+                                    animation-name: rotateArrowSolutions_" & varAnimSolutions & ";
+                                    animation-duration: " & If(IsBlank(varAnimSolutions), "0ms", "300ms") & ";
+                                    animation-fill-mode: both;
+                                  }
+                                  @keyframes rotateArrowSolutions_" & varAnimSolutions & " {
+                                    " & If(varActiveNav = "Solutions", "0%", "100%") & " {
+                                      transform: rotate(0deg);
+                                    }
+                                    " & If(varActiveNav = "Solutions", "100%", "0%") & " {
+                                      transform: rotate(180deg);
+                                    }
+                                  }
+                                </style>
+                                <path class='arrowSolutions_" & varAnimSolutions & "' d='m6 9 6 6 6-6' />
+                              </svg>"
+                          )
+                        Width: =12
+                        X: =Parent.Width - Self.Width - 12
+                        Y: =Parent.Height/2 - Self.Height/2
+            - conNavResources:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =116
+                  Width: =116
+                Children:
+                  - btnNavResources:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        Align: =Align.Left
+                        BorderStyle: =BorderStyle.None
+                        Color: =If(varActiveNav = "Resources", RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                        Fill: =If(varActiveNav = "Resources", RGBA(30, 58, 138, 0.3), RGBA(0, 0, 0, 0))
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =If(varActiveNav = "Resources", RGBA(30, 58, 138, 0.3), RGBA(55, 65, 81, 1))
+                        OnSelect: |-
+                          =Set(varActiveNav, If(varActiveNav = "Resources", "", "Resources"));
+                          Set(varAnimResources, Text(Now(), "yyyymmddhhmmssfff"))
+                        PaddingLeft: =15
+                        PressedBorderColor: =ColorFade(Self.BorderColor, -40%)
+                        PressedFill: =RGBA(75, 85, 99, 1)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =10
+                        Text: ="Reports"
+                        Width: =Parent.Width
+                        Y: =Parent.Height/2 - Self.Height/2
+                  - imgArrowResources:
+                      Control: Image@2.2.3
+                      Properties:
+                        Height: =12
+                        Image: |-
+                          ="data:image/svg+xml," & EncodeUrl(
+                              "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                <style>
+                                  .arrowResources_" & varAnimResources & " {
+                                    stroke: " & If(varActiveNav = "Resources", "#60A5FA", "#9CA3AF") & ";
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                    fill: none;
+                                    transform-origin: center;
+                                    animation-name: rotateArrowResources_" & varAnimResources & ";
+                                    animation-duration: " & If(IsBlank(varAnimResources), "0ms", "300ms") & ";
+                                    animation-fill-mode: both;
+                                  }
+                                  @keyframes rotateArrowResources_" & varAnimResources & " {
+                                    " & If(varActiveNav = "Resources", "0%", "100%") & " {
+                                      transform: rotate(0deg);
+                                    }
+                                    " & If(varActiveNav = "Resources", "100%", "0%") & " {
+                                      transform: rotate(180deg);
+                                    }
+                                  }
+                                </style>
+                                <path class='arrowResources_" & varAnimResources & "' d='m6 9 6 6 6-6' />
+                              </svg>"
+                          )
+                        Width: =12
+                        X: =Parent.Width - Self.Width - 12
+                        Y: =Parent.Height/2 - Self.Height/2
+            - conNavPricing:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =124
+                  Width: =124
+                Children:
+                  - btnNavPricing:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        Align: =Align.Left
+                        BorderStyle: =BorderStyle.None
+                        Color: =If(varActiveNav = "Pricing", RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                        Fill: =If(varActiveNav = "Pricing", RGBA(30, 58, 138, 0.3), RGBA(0, 0, 0, 0))
+                        Font: =Font.'Open Sans'
+                        HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =If(varActiveNav = "Pricing", RGBA(30, 58, 138, 0.3), RGBA(55, 65, 81, 1))
+                        OnSelect: |-
+                          =Set(varActiveNav, If(varActiveNav = "Pricing", "", "Pricing"));
+                          Set(varAnimPricing, Text(Now(), "yyyymmddhhmmssfff"))
+                        PaddingLeft: =15
+                        PressedBorderColor: =ColorFade(Self.BorderColor, -40%)
+                        PressedFill: =RGBA(75, 85, 99, 1)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =10
+                        Text: ="Settings"
+                        Width: =Parent.Width
+                        Y: =Parent.Height/2 - Self.Height/2
+                  - imgArrowPricing:
+                      Control: Image@2.2.3
+                      Properties:
+                        Height: =12
+                        Image: |-
+                          ="data:image/svg+xml," & EncodeUrl(
+                              "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                <style>
+                                  .arrowPricing_" & varAnimPricing & " {
+                                    stroke: " & If(varActiveNav = "Pricing", "#60A5FA", "#9CA3AF") & ";
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                    fill: none;
+                                    transform-origin: center;
+                                    animation-name: rotateArrowPricing_" & varAnimPricing & ";
+                                    animation-duration: " & If(IsBlank(varAnimPricing), "0ms", "300ms") & ";
+                                    animation-fill-mode: both;
+                                  }
+                                  @keyframes rotateArrowPricing_" & varAnimPricing & " {
+                                    " & If(varActiveNav = "Pricing", "0%", "100%") & " {
+                                      transform: rotate(0deg);
+                                    }
+                                    " & If(varActiveNav = "Pricing", "100%", "0%") & " {
+                                      transform: rotate(180deg);
+                                    }
+                                  }
+                                </style>
+                                <path class='arrowPricing_" & varAnimPricing & "' d='m6 9 6 6 6-6' />
+                              </svg>"
+                          )
+                        Width: =12
+                        X: =Parent.Width - Self.Width - 12
+                        Y: =Parent.Height/2 - Self.Height/2
+      - btnNavCTA:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(59, 130, 246, 1)
+            Font: =Font.'Open Sans'
+            Height: =36
+            HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+            HoverColor: =Self.Color
+            HoverFill: =ColorFade(RGBA(59, 130, 246, 1), -10%)
+            PressedBorderColor: =ColorFade(Self.BorderColor, -40%)
+            PressedFill: =ColorFade(RGBA(59, 130, 246, 1), -20%)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =10
+            Text: ="+ New Task"
+            Width: =100
+            X: =Parent.Width - Self.Width - 70
+            Y: =Parent.Height/2 - Self.Height/2
+      - imgNavUserProfile:
+          Control: Image@2.2.3
+          Properties:
+            AccessibleLabel: ="User Profile Picture"
+            BorderColor: =RGBA(75, 85, 99, 1)
+            BorderThickness: =2
+            Height: =36
+            Image: =User().Image
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =18
+            RadiusBottomRight: =18
+            RadiusTopLeft: =18
+            RadiusTopRight: =18
+            Width: =36
+            X: =Parent.Width - Self.Width - 16
+            Y: =Parent.Height/2 - Self.Height/2
+- btnDropdownOverlay:
+    Control: Classic/Button@2.2.0
+    Group: NavBar
+    Properties:
+      FocusedBorderThickness: =0
+      BorderStyle: =BorderStyle.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =Parent.Height
+      HoverBorderColor: =Self.Fill
+      HoverFill: =Self.Fill
+      OnSelect: =Set(varActiveNav, "")
+      PressedBorderColor: =Self.Fill
+      PressedFill: =Self.Fill
+      Text: =""
+      Visible: =!IsBlank(varActiveNav)
+      Width: =Parent.Width
+- conDropdownProducts:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Group: NavBar
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(31, 41, 55, 1)
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Visible: =varActiveNav = "Products"
+      Width: =Parent.Width
+      Y: =56
+    Children:
+      - galProductsItems:
+          Control: Gallery@2.15.0
+          Variant: Horizontal
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =160
+            Items: |-
+              =[
+                {icon: "📋", label: "All Projects", desc: "View all active projects"},
+                {icon: "⭐", label: "My Projects", desc: "Projects assigned to you"},
+                {icon: "📅", label: "Timeline", desc: "Gantt chart & milestones"},
+                {icon: "✅", label: "Task Board", desc: "Kanban-style task view"}
+              ]
+            ShowScrollbar: =false
+            TemplatePadding: =8
+            TemplateSize: =200
+            Width: =Parent.Width - 100
+            X: =50
+            Y: =20
+          Children:
+            - btnProductsItem:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  Align: =Align.Left
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(55, 65, 81, 1)
+                  Height: =Parent.TemplateHeight
+                  HoverFill: =RGBA(30, 58, 138, 0.3)
+                  PressedFill: =RGBA(30, 58, 138, 0.5)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+            - lblProductsIcon:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Height: =48
+                  Size: =24
+                  Text: =ThisItem.icon
+                  Width: =48
+                  X: =16
+                  Y: =16
+            - lblProductsLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingLeft: =20
+                  Size: =11
+                  Text: =ThisItem.label
+                  Width: =200
+                  Y: =70
+            - lblProductsDesc:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(156, 163, 175, 1)
+                  DisplayMode: =DisplayMode.View
+                  Font: =Font.'Open Sans'
+                  PaddingLeft: =20
+                  Size: =9
+                  Text: =ThisItem.desc
+                  Width: =200
+                  Y: =94
+            - btnProductsItemOverlay:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  Align: =Align.Left
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(0, 0, 0, 0)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.TemplateHeight
+                  HoverBorderColor: =
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  PressedBorderColor: =
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+- conDropdownSolutions:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Group: NavBar
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(31, 41, 55, 1)
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Visible: =varActiveNav = "Solutions"
+      Width: =Parent.Width
+      Y: =56
+    Children:
+      - galSolutionsItems:
+          Control: Gallery@2.15.0
+          Variant: Horizontal
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =160
+            Items: |-
+              =[
+                {icon: "👥", label: "All Teams", desc: "Browse all departments"},
+                {icon: "🏠", label: "My Team", desc: "Your team members"},
+                {icon: "📊", label: "Workload", desc: "Team capacity overview"},
+                {icon: "💬", label: "Discussions", desc: "Team conversations"}
+              ]
+            ShowScrollbar: =false
+            TemplatePadding: =8
+            TemplateSize: =200
+            Width: =Parent.Width - 100
+            X: =50
+            Y: =20
+          Children:
+            - btnSolutionsItem:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  Align: =Align.Left
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(55, 65, 81, 1)
+                  Height: =Parent.TemplateHeight
+                  HoverFill: =RGBA(30, 58, 138, 0.3)
+                  PressedFill: =RGBA(30, 58, 138, 0.5)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+            - lblSolutionsIcon:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Height: =48
+                  Size: =24
+                  Text: =ThisItem.icon
+                  Width: =48
+                  X: =16
+                  Y: =16
+            - lblSolutionsLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingLeft: =20
+                  Size: =11
+                  Text: =ThisItem.label
+                  Width: =200
+                  Y: =70
+            - lblSolutionsDesc:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(156, 163, 175, 1)
+                  DisplayMode: =DisplayMode.View
+                  Font: =Font.'Open Sans'
+                  PaddingLeft: =20
+                  Size: =9
+                  Text: =ThisItem.desc
+                  Width: =200
+                  Y: =94
+            - btnSolutionsItemOverlay:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  Align: =Align.Left
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(0, 0, 0, 0)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.TemplateHeight
+                  HoverBorderColor: =
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  PressedBorderColor: =
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+- conDropdownResources:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Group: NavBar
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(31, 41, 55, 1)
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Visible: =varActiveNav = "Resources"
+      Width: =Parent.Width
+      Y: =56
+    Children:
+      - galResourcesItems:
+          Control: Gallery@2.15.0
+          Variant: Horizontal
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =160
+            Items: |-
+              =[
+                {icon: "📈", label: "Dashboard", desc: "KPIs & metrics overview"},
+                {icon: "📑", label: "Weekly Report", desc: "Progress summaries"},
+                {icon: "💰", label: "Budget", desc: "Cost tracking & forecast"},
+                {icon: "📁", label: "Export", desc: "Download reports"}
+              ]
+            ShowScrollbar: =false
+            TemplatePadding: =8
+            TemplateSize: =200
+            Width: =Parent.Width - 100
+            X: =50
+            Y: =20
+          Children:
+            - btnResourcesItem:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  Align: =Align.Left
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(55, 65, 81, 1)
+                  Height: =Parent.TemplateHeight
+                  HoverFill: =RGBA(30, 58, 138, 0.3)
+                  PressedFill: =RGBA(30, 58, 138, 0.5)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+            - lblResourcesIcon:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Height: =48
+                  Size: =24
+                  Text: =ThisItem.icon
+                  Width: =48
+                  X: =16
+                  Y: =16
+            - lblResourcesLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingLeft: =20
+                  Size: =11
+                  Text: =ThisItem.label
+                  Width: =200
+                  Y: =70
+            - lblResourcesDesc:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(156, 163, 175, 1)
+                  DisplayMode: =DisplayMode.View
+                  Font: =Font.'Open Sans'
+                  PaddingLeft: =20
+                  Size: =9
+                  Text: =ThisItem.desc
+                  Width: =200
+                  Y: =94
+            - btnResourcesItemOverlay:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  Align: =Align.Left
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(0, 0, 0, 0)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.TemplateHeight
+                  HoverBorderColor: =
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  PressedBorderColor: =
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+- conDropdownPricing:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Group: NavBar
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(31, 41, 55, 1)
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Visible: =varActiveNav = "Pricing"
+      Width: =Parent.Width
+      Y: =56
+    Children:
+      - galPricingItems:
+          Control: Gallery@2.15.0
+          Variant: Horizontal
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =160
+            Items: |-
+              =[
+                {icon: "👤", label: "My Profile", desc: "Account & preferences"},
+                {icon: "🔔", label: "Notifications", desc: "Alerts & reminders"},
+                {icon: "🔗", label: "Integrations", desc: "Connected services"},
+                {icon: "🛡️", label: "Admin", desc: "System configuration"}
+              ]
+            ShowScrollbar: =false
+            TemplatePadding: =8
+            TemplateSize: =200
+            Width: =Parent.Width - 100
+            X: =50
+            Y: =20
+          Children:
+            - btnPricingItem:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  Align: =Align.Left
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(55, 65, 81, 1)
+                  Height: =Parent.TemplateHeight
+                  HoverFill: =RGBA(30, 58, 138, 0.3)
+                  PressedFill: =RGBA(30, 58, 138, 0.5)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+            - lblPricingIcon:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Height: =48
+                  Size: =24
+                  Text: =ThisItem.icon
+                  Width: =48
+                  X: =16
+                  Y: =16
+            - lblPricingLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  PaddingLeft: =20
+                  Size: =11
+                  Text: =ThisItem.label
+                  Width: =200
+                  Y: =70
+            - lblPricingDesc:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(156, 163, 175, 1)
+                  DisplayMode: =DisplayMode.View
+                  Font: =Font.'Open Sans'
+                  PaddingLeft: =20
+                  Size: =9
+                  Text: =ThisItem.desc
+                  Width: =200
+                  Y: =94
+            - btnPricingItemOverlay:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  Align: =Align.Left
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(0, 0, 0, 0)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.TemplateHeight
+                  HoverBorderColor: =
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  PressedBorderColor: =
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Text: =""
+                  Width: =Parent.TemplateWidth

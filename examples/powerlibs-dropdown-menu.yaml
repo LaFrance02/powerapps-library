@@ -1,0 +1,261 @@
+- btnDropdownMenu:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Secondary
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowDropdownMenu: !varShowDropdownMenu })
+      Text: ="Actions"
+      Width: =240
+      X: =40
+      Y: =40
+- icoDropdownMenuChevron:
+    Control: Classic/Icon@2.5.0
+    Properties:
+      Color: =RGBA(139, 153, 176, 1)
+      FocusedBorderThickness: =0
+      Height: =20
+      Icon: =If(varShowDropdownMenu, Icon.ChevronUp, Icon.ChevronDown)
+      OnSelect: =Select(btnDropdownMenu)
+      PaddingBottom: =3
+      PaddingLeft: =3
+      PaddingRight: =3
+      PaddingTop: =3
+      Width: =20
+      X: =btnDropdownMenu.X + btnDropdownMenu.Width - 30
+      Y: =btnDropdownMenu.Y + 10
+- btnDropdownMenuScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(0, 0, 0, 0)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(0, 0, 0, 0)
+      OnSelect: |-
+        =UpdateContext({ varShowDropdownMenu: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(0, 0, 0, 0)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Visible: =varShowDropdownMenu
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conDropdownMenu:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.Light
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =181
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      Visible: =varShowDropdownMenu
+      Width: =btnDropdownMenu.Width
+      X: =btnDropdownMenu.X
+      Y: =btnDropdownMenu.Y + btnDropdownMenu.Height + 4
+    Children:
+      - btnDropdownMenuItem1:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowDropdownMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =6
+      - lblDropdownMenuItem1Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Edit"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =6
+      - imgDropdownMenuItem1Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnDropdownMenuItem1)
+            Width: =16
+            X: =18
+            Y: =18
+      - btnDropdownMenuItem2:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowDropdownMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =46
+      - lblDropdownMenuItem2Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Duplicate"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =46
+      - imgDropdownMenuItem2Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 9h11a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1z M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnDropdownMenuItem2)
+            Width: =16
+            X: =18
+            Y: =58
+      - btnDropdownMenuItem3:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowDropdownMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =86
+      - lblDropdownMenuItem3Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Share"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =86
+      - imgDropdownMenuItem3Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8 M16 6l-4-4-4 4 M12 2v13'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnDropdownMenuItem3)
+            Width: =16
+            X: =18
+            Y: =98
+      - conDropdownMenuDivider:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - 24
+            X: =12
+            Y: =130
+      - btnDropdownMenuItem4:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Subtle
+            BasePaletteColor: =RGBA(239, 68, 68, 1)
+            Height: =40
+            OnSelect: |-
+              =UpdateContext({ varShowDropdownMenu: false })
+            Text: =""
+            Width: =Parent.Width - 12
+            X: =6
+            Y: =135
+      - lblDropdownMenuItem4Text:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(239, 68, 68, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Delete"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 60
+            X: =40
+            Y: =135
+      - imgDropdownMenuItem4Icon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#ef4444" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18 M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6 M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2 M10 11v6 M14 11v6'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Select(btnDropdownMenuItem4)
+            Width: =16
+            X: =18
+            Y: =147

@@ -1,0 +1,181 @@
+- conAnimatedSidebar:
+    Control: GroupContainer@1.3.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(209, 213, 219, 1)
+      BorderStyle: =BorderStyle.None
+      Fill: =RGBA(249, 250, 251, 1)
+      Height: =Parent.Height
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =45
+    Children:
+      - imgAnimatedSidebar:
+          Control: Image@2.2.3
+          Properties:
+            FocusedBorderThickness: =0
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height
+            Image: |-
+              "=With(\n    {\n        w: Parent.Width,\n        h: Parent.Height,\n        state: If(IsBlank(varSidebarState), 1, varSidebarState),\n        itemH: 50,\n        startY: 0\n    },\n    With(\n        {\n            pos1: startY,\n            pos2: startY + itemH,\n            pos3: startY + itemH * 2,\n            pos4: startY + itemH * 3 + 20,\n            pos5: startY + itemH * 4 + 20,\n            pos6: startY + itemH * 5 + 20,\n            currentY: Switch(state, 1, startY, 2, startY + itemH, 3, startY + itemH * 2, 4, startY + itemH * 3 + 20, 5, startY + itemH * 4 + 20, 6, startY + itemH * 5 + 20),\n            prevY: If(varSidebarPrev = \"\", Switch(state, 1, startY, 2, startY + itemH, 3, startY + itemH * 2, 4, startY + itemH * 3 + 20, 5, startY + itemH * 4 + 20, 6, startY + itemH * 5 + 20), varSidebarPrev)\n        },\n        \"data:image/svg+xml;utf8, \" & EncodeUrl(\n            \"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 \" & w & \" \" & h & \"' width='100%' height='100%'>\" &\n            \n            /* Light Grey Background */\n            \"<rect x='0' y='0' width='\" & w & \"' height='\" & h & \"' fill='#F9FAFB'/>\" &\n            \n            /* Animated SQUARE selection indicator with rounded corners */\n            \"<rect x='\" & (w / 2 - 18) & \"' y='\" & (currentY + itemH / 2 - 18) & \"' width='36' height='36' rx='8' fill='#3B82F6'>\" &\n            \"<animate id='anim\" & varSidebarCount & \"' attributeName='y' from='\" & (prevY + itemH / 2 - 18) & \"' to='\" & (currentY + itemH / 2 - 18) & \"' dur='0.3s' fill='freeze' calcMode='spline' keySplines='0.4 0 0.2 1'/>\" &\n            \"</rect>\" &\n            \n            /* Transform coordinates to center each icon at (w/2, posN + itemH/2) with scale factor */\n            With({\n                scale: 0.85,\n                cx1: w/2, cy1: pos1 + itemH/2,\n                cx2: w/2, cy2: pos2 + itemH/2,\n                cx3: w/2, cy3: pos3 + itemH/2,\n                cx4: w/2, cy4: pos4 + itemH/2,\n                cx5: w/2, cy5: pos5 + itemH/2,\n                cx6: w/2, cy6: pos6 + itemH/2\n            },\n            \n            /* House Icon (centered and scaled) */\n            \"<g transform='translate(\" & (cx1 - 12*scale) & \",\" & (cy1 - 12*scale) & \") scale(\" & scale & \")'>\" &\n            \"<path d='M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8' fill='none' stroke='\" & If(state = 1, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 1, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"<path d='M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' fill='none' stroke='\" & If(state = 1, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 1, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"</g>\" &\n\n            /* Layout-Dashboard Icon (centered and scaled) */\n            \"<g transform='translate(\" & (cx2 - 12*scale) & \",\" & (cy2 - 12*scale) & \") scale(\" & scale & \")'>\" &\n            \"<rect width='7' height='9' x='3' y='3' rx='1' fill='none' stroke='\" & If(state = 2, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 2, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</rect>\" &\n            \"<rect width='7' height='5' x='14' y='3' rx='1' fill='none' stroke='\" & If(state = 2, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 2, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</rect>\" &\n            \"<rect width='7' height='9' x='14' y='12' rx='1' fill='none' stroke='\" & If(state = 2, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 2, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</rect>\" &\n            \"<rect width='7' height='5' x='3' y='16' rx='1' fill='none' stroke='\" & If(state = 2, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 2, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</rect>\" &\n            \"</g>\" &\n\n            /* Chart-Bar Icon (centered and scaled) */\n            \"<g transform='translate(\" & (cx3 - 12*scale) & \",\" & (cy3 - 12*scale) & \") scale(\" & scale & \")'>\" &\n            \"<path d='M3 3v16a2 2 0 0 0 2 2h16' fill='none' stroke='\" & If(state = 3, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 3, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"<path d='M7 16h8' fill='none' stroke='\" & If(state = 3, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 3, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"<path d='M7 11h12' fill='none' stroke='\" & If(state = 3, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 3, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"<path d='M7 6h3' fill='none' stroke='\" & If(state = 3, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 3, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"</g>\" &\n\n            /* Divider */\n            \"<line x1='\" & (w/2 - 15) & \"' y1='\" & (pos3 + itemH + 10) & \"' x2='\" & (w/2 + 15) & \"' y2='\" & (pos3 + itemH + 10) & \"' stroke='#D1D5DB' stroke-width='2' stroke-dasharray='3,3'/>\" &\n\n            /* Users Icon (centered and scaled) */\n            \"<g transform='translate(\" & (cx4 - 12*scale) & \",\" & (cy4 - 12*scale) & \") scale(\" & scale & \")'>\" &\n            \"<path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' fill='none' stroke='\" & If(state = 4, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 4, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"<circle cx='9' cy='7' r='4' fill='none' stroke='\" & If(state = 4, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 4, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</circle>\" &\n            \"<path d='M22 21v-2a4 4 0 0 0-3-3.87' fill='none' stroke='\" & If(state = 4, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 4, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"<path d='M16 3.13a4 4 0 0 1 0 7.75' fill='none' stroke='\" & If(state = 4, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 4, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"</g>\" &\n\n            /* Messages-Square Icon (centered and scaled) */\n            \"<g transform='translate(\" & (cx5 - 12*scale) & \",\" & (cy5 - 12*scale) & \") scale(\" & scale & \")'>\" &\n            \"<path d='M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z' fill='none' stroke='\" & If(state = 5, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 5, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"<path d='M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1' fill='none' stroke='\" & If(state = 5, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 5, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"</g>\" &\n\n            /* Settings Icon (centered and scaled) */\n            \"<g transform='translate(\" & (cx6 - 12*scale) & \",\" & (cy6 - 12*scale) & \") scale(\" & scale & \")'>\" &\n            \"<path d='M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z' fill='none' stroke='\" & If(state = 6, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 6, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</path>\" &\n            \"<circle cx='12' cy='12' r='3' fill='none' stroke='\" & If(state = 6, \"#FFFFFF\", \"#4B5563\") & \"' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>\" &\n            If(state = 6, \"<animate attributeName='stroke' from='#4B5563' to='#FFFFFF' dur='0.3s' fill='freeze'/>\", \"\") &\n            \"</circle>\" &\n            \"</g>\" &\n            \n            \"\" /* Closer */\n            ) &\n            \"</svg>\"\n        )\n    )\n)"
+            OnSelect: =
+            Width: =Parent.Width
+
+      - btnSidebarItem1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            HoverBorderColor: =
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(220, 220, 220, 0.1)
+            OnSelect: =Set(varSidebarPrev, Switch(If(IsBlank(varSidebarState), 1, varSidebarState), 1, Text(0), 2, Text(50), 3, Text(100), 4, Text(170), 5, Text(220), 6, Text(270))); Set(varSidebarState, 1); Set(varSidebarCount, varSidebarCount + 1)
+            PressedBorderColor: =
+            PressedColor: =
+            PressedFill: =RGBA(220, 220, 220, 0.2)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =
+            Width: =Parent.Width
+            Y: =0
+      - btnSidebarItem2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            HoverBorderColor: =
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(220, 220, 220, 0.1)
+            OnSelect: =Set(varSidebarPrev, Switch(If(IsBlank(varSidebarState), 1, varSidebarState), 1, Text(0), 2, Text(50), 3, Text(100), 4, Text(170), 5, Text(220), 6, Text(270))); Set(varSidebarState, 2); Set(varSidebarCount, varSidebarCount + 1)
+            PressedBorderColor: =
+            PressedColor: =
+            PressedFill: =RGBA(220, 220, 220, 0.2)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =
+            Width: =Parent.Width
+            Y: =50
+      - btnSidebarItem3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            HoverBorderColor: =
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(220, 220, 220, 0.1)
+            OnSelect: =Set(varSidebarPrev, Switch(If(IsBlank(varSidebarState), 1, varSidebarState), 1, Text(0), 2, Text(50), 3, Text(100), 4, Text(170), 5, Text(220), 6, Text(270))); Set(varSidebarState, 3); Set(varSidebarCount, varSidebarCount + 1)
+            PressedBorderColor: =
+            PressedColor: =
+            PressedFill: =RGBA(220, 220, 220, 0.2)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =
+            Width: =Parent.Width
+            Y: =100
+      - btnSidebarItem4:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            HoverBorderColor: =
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(220, 220, 220, 0.1)
+            OnSelect: =Set(varSidebarPrev, Switch(If(IsBlank(varSidebarState), 1, varSidebarState), 1, Text(0), 2, Text(50), 3, Text(100), 4, Text(170), 5, Text(220), 6, Text(270))); Set(varSidebarState, 4); Set(varSidebarCount, varSidebarCount + 1)
+            PressedBorderColor: =
+            PressedColor: =
+            PressedFill: =RGBA(220, 220, 220, 0.2)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =
+            Width: =Parent.Width
+            Y: =170
+      - btnSidebarItem5:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            HoverBorderColor: =
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(220, 220, 220, 0.1)
+            OnSelect: =Set(varSidebarPrev, Switch(If(IsBlank(varSidebarState), 1, varSidebarState), 1, Text(0), 2, Text(50), 3, Text(100), 4, Text(170), 5, Text(220), 6, Text(270))); Set(varSidebarState, 5); Set(varSidebarCount, varSidebarCount + 1)
+            PressedBorderColor: =
+            PressedColor: =
+            PressedFill: =RGBA(220, 220, 220, 0.2)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =
+            Width: =Parent.Width
+            Y: =220
+      - btnSidebarItem6:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            HoverBorderColor: =
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(220, 220, 220, 0.1)
+            OnSelect: =Set(varSidebarPrev, Switch(If(IsBlank(varSidebarState), 1, varSidebarState), 1, Text(0), 2, Text(50), 3, Text(100), 4, Text(170), 5, Text(220), 6, Text(270))); Set(varSidebarState, 6); Set(varSidebarCount, varSidebarCount + 1)
+            PressedBorderColor: =
+            PressedColor: =
+            PressedFill: =RGBA(220, 220, 220, 0.2)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =
+            Width: =Parent.Width
+            Y: =270

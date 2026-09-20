@@ -1,0 +1,658 @@
+- conSidebarDropdown:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(31, 41, 55, 0.9)
+      Height: =Parent.Height - 32
+      RadiusBottomLeft: =20
+      RadiusBottomRight: =20
+      RadiusTopLeft: =20
+      RadiusTopRight: =20
+      Width: =260
+      X: =16
+      Y: =16
+    Children:
+      - conSidebarTitle:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =72
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =12
+            PaddingLeft: =24
+            Width: =Parent.Width
+          Children:
+            - conLogoCircle:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(99, 102, 241, 1)
+                  Height: =28
+                  LayoutMaxHeight: =28
+                  LayoutMaxWidth: =28
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Width: =28
+                Children:
+                  - icoLogo:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        Color: =RGBA(255, 255, 255, 1)
+                        Height: =14
+                        Icon: =Icon.Waypoint
+                        Width: =14
+                        X: =Parent.Width/2 - Self.Width/2
+                        Y: =Parent.Height/2 - Self.Height/2
+            - lblSidebarTitle:
+                Control: Text@0.0.51
+                Properties:
+                  Height: =Parent.Height
+                  Size: =16
+                  Text: ="Workspace"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+      - conSidebarItems:
+          Control: GroupContainer@1.4.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height - conSidebarTitle.Height - conSidebarUser.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =4
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =8
+            Width: =Parent.Width
+            Y: =conSidebarTitle.Height
+          Children:
+            - conMAINMENUHeader:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =44
+                  LayoutMinHeight: =44
+                  LayoutMinWidth: =0
+                  Width: =Parent.Width - 24
+                Children:
+                  - lblMAINMENUHeader:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(99, 102, 241, 1)
+                        Height: =Parent.Height/2
+                        PaddingLeft: =20
+                        Size: =9
+                        Text: ="MAIN MENU"
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.Width - 40
+                        Y: =Parent.Height/2 - Self.Height/2
+                  - imgArrowMAINMENU:
+                      Control: Image@2.2.3
+                      Properties:
+                        Height: =20
+                        Image: |-
+                          ="data:image/svg+xml," & EncodeUrl(
+                              "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                <style>
+                                  .arrowMAINMENU_" & varAnimMAINMENU & " {
+                                    stroke: #6366F1;
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                    fill: none;
+                                    transform-origin: center;
+                                    animation-name: rotateArrowMAINMENU_" & varAnimMAINMENU & ";
+                                    animation-duration: " & If(IsBlank(varAnimMAINMENU), "0ms", "300ms") & ";
+                                    animation-fill-mode: both;
+                                    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+                                  }
+                                  @keyframes rotateArrowMAINMENU_" & varAnimMAINMENU & " {
+                                    " & If(varExpandMAINMENU, "0%", "100%") & " {
+                                      transform: rotate(0deg);
+                                    }
+                                    " & If(varExpandMAINMENU, "100%", "0%") & " {
+                                      transform: rotate(180deg);
+                                    }
+                                  }
+                                </style>
+                                <path class='arrowMAINMENU_" & varAnimMAINMENU & "' d='m6 9 6 6 6-6' />
+                              </svg>"
+                          )
+                        Width: =20
+                        X: =Parent.Width - Self.Width - 16
+                        Y: =Parent.Height/2 - Self.Height/2
+                  - btnMAINMENUHeaderClick:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.Height
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        OnSelect: |-
+                          =Set(varExpandMAINMENU, !varExpandMAINMENU);
+                          Set(varAnimMAINMENU, Text(Now(), "yyyymmddhhmmssfff"))
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Text: =""
+                        Width: =Parent.Width
+            - galMAINMENUItems:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  FillPortions: =0
+                  Height: =If(varExpandMAINMENU, 144, 0)
+                  Items: |-
+                    =[
+                      {id: 1, label: "Home", icon: Icon.Home},
+                          {id: 2, label: "Dashboard", icon: Icon.Waffle},
+                          {id: 3, label: "Analytics", icon: Icon.TrendingHashtag}
+                    ]
+                  LayoutMinHeight: =If(varExpandMAINMENU, 144, 0)
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =48
+                  Visible: =varExpandMAINMENU
+                  Width: =Parent.Width - 24
+                Children:
+                  - conMAINMENUItemRow:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.TemplateHeight
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =14
+                        PaddingLeft: =16
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - icoMAINMENUItem:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =RGBA(99, 102, 241, 1)
+                              Height: =20
+                              Icon: =ThisItem.icon
+                              Width: =20
+                        - lblMAINMENUItem:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.label, RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                              Height: =Parent.Height
+                              Size: =11
+                              Text: =ThisItem.label
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                  - btnMAINMENUItemClick:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.label, RGBA(59, 130, 246, 0.15), RGBA(0, 0, 0, 0))
+                        Height: =Parent.TemplateHeight - 4
+                        HoverFill: =RGBA(255, 255, 255, 0.05)
+                        OnSelect: =Set(varActiveSidebarItem, ThisItem.label)
+                        PressedFill: =RGBA(255, 255, 255, 0.1)
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Text: =""
+                        Width: =Parent.TemplateWidth
+                        Y: =2
+            - conWORKSPACEHeader:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =44
+                  LayoutMinHeight: =44
+                  LayoutMinWidth: =0
+                  Width: =Parent.Width - 24
+                Children:
+                  - lblWORKSPACEHeader:
+                      Control: Text@0.0.51
+                      Properties:
+                        FontColor: =RGBA(99, 102, 241, 1)
+                        Height: =Parent.Height/2
+                        PaddingLeft: =20
+                        Size: =9
+                        Text: ="WORKSPACE"
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.Width - 40
+                        Y: =Parent.Height/2 - Self.Height/2
+                  - imgArrowWORKSPACE:
+                      Control: Image@2.2.3
+                      Properties:
+                        Height: =20
+                        Image: |-
+                          ="data:image/svg+xml," & EncodeUrl(
+                              "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                <style>
+                                  .arrowWORKSPACE_" & varAnimWORKSPACE & " {
+                                    stroke: #6366F1;
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                    fill: none;
+                                    transform-origin: center;
+                                    animation-name: rotateArrowWORKSPACE_" & varAnimWORKSPACE & ";
+                                    animation-duration: " & If(IsBlank(varAnimWORKSPACE), "0ms", "300ms") & ";
+                                    animation-fill-mode: both;
+                                    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+                                  }
+                                  @keyframes rotateArrowWORKSPACE_" & varAnimWORKSPACE & " {
+                                    " & If(varExpandWORKSPACE, "0%", "100%") & " {
+                                      transform: rotate(0deg);
+                                    }
+                                    " & If(varExpandWORKSPACE, "100%", "0%") & " {
+                                      transform: rotate(180deg);
+                                    }
+                                  }
+                                </style>
+                                <path class='arrowWORKSPACE_" & varAnimWORKSPACE & "' d='m6 9 6 6 6-6' />
+                              </svg>"
+                          )
+                        Width: =20
+                        X: =Parent.Width - Self.Width - 16
+                        Y: =Parent.Height/2 - Self.Height/2
+                  - btnWORKSPACEHeaderClick:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =Parent.Height
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        OnSelect: |-
+                          =Set(varExpandWORKSPACE, !varExpandWORKSPACE);
+                          Set(varAnimWORKSPACE, Text(Now(), "yyyymmddhhmmssfff"))
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Text: =""
+                        Width: =Parent.Width
+            - galWORKSPACEItems:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  FillPortions: =0
+                  Height: =If(varExpandWORKSPACE, 144, 0)
+                  Items: |-
+                    =[
+                      {id: 1, label: "Teams", icon: Icon.People},
+                          {id: 2, label: "Messages", icon: Icon.Message},
+                          {id: 3, label: "Settings", icon: Icon.Settings}
+                    ]
+                  LayoutMinHeight: =If(varExpandWORKSPACE, 144, 0)
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =48
+                  Visible: =varExpandWORKSPACE
+                  Width: =Parent.Width - 24
+                Children:
+                  - conWORKSPACEItemRow:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.TemplateHeight
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =14
+                        PaddingLeft: =16
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - icoWORKSPACEItem:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =RGBA(99, 102, 241, 1)
+                              Height: =20
+                              Icon: =ThisItem.icon
+                              Width: =20
+                        - lblWORKSPACEItem:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.label, RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                              Height: =Parent.Height
+                              Size: =11
+                              Text: =ThisItem.label
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                  - btnWORKSPACEItemClick:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =If(Coalesce(varActiveSidebarItem, "Home") = ThisItem.label, RGBA(59, 130, 246, 0.15), RGBA(0, 0, 0, 0))
+                        Height: =Parent.TemplateHeight - 4
+                        HoverFill: =RGBA(255, 255, 255, 0.05)
+                        OnSelect: =Set(varActiveSidebarItem, ThisItem.label)
+                        PressedFill: =RGBA(255, 255, 255, 0.1)
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Text: =""
+                        Width: =Parent.TemplateWidth
+                        Y: =2
+            - conDivider:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =24
+                  LayoutMinHeight: =24
+                  LayoutMinWidth: =0
+                  Width: =Parent.Width - 24
+                Children:
+                  - conDividerLine:
+                      Control: GroupContainer@1.4.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(55, 65, 81, 1)
+                        Height: =1
+                        Width: =Parent.Width - 32
+                        X: =16
+                        Y: =Parent.Height/2
+            - conFavorites:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =48
+                  LayoutMinHeight: =48
+                  LayoutMinWidth: =0
+                  Width: =Parent.Width - 24
+                Children:
+                  - conFavoritesContent:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =14
+                        PaddingLeft: =16
+                        Width: =Parent.Width
+                      Children:
+                        - icoFavorites:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =RGBA(99, 102, 241, 1)
+                              Height: =20
+                              Icon: =Icon.Heart
+                              Width: =20
+                        - lblFavorites:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =If(Coalesce(varActiveSidebarItem, "Home") = "Favorites", RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                              Height: =Parent.Height
+                              Size: =11
+                              Text: ="Favorites"
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                  - btnFavoritesClick:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =If(Coalesce(varActiveSidebarItem, "Home") = "Favorites", RGBA(59, 130, 246, 0.15), RGBA(0, 0, 0, 0))
+                        Height: =Parent.Height - 4
+                        HoverFill: =RGBA(255, 255, 255, 0.05)
+                        OnSelect: =Set(varActiveSidebarItem, "Favorites")
+                        PressedFill: =RGBA(255, 255, 255, 0.1)
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Text: =""
+                        Width: =Parent.TemplateWidth
+                        Y: =2
+            - conNotifications:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =48
+                  LayoutMinHeight: =48
+                  LayoutMinWidth: =0
+                  Width: =Parent.Width - 24
+                Children:
+                  - conNotificationsContent:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =14
+                        PaddingLeft: =16
+                        Width: =Parent.Width
+                      Children:
+                        - icoNotifications:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =RGBA(99, 102, 241, 1)
+                              Height: =20
+                              Icon: =Icon.Bell
+                              Width: =20
+                        - lblNotifications:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =If(Coalesce(varActiveSidebarItem, "Home") = "Notifications", RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                              Height: =Parent.Height
+                              Size: =11
+                              Text: ="Notifications"
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                  - conNotificationsBadge:
+                      Control: GroupContainer@1.4.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(239, 68, 68, 1)
+                        Height: =20
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =20
+                        X: =Parent.Width - Self.Width - 16
+                        Y: =Parent.Height/2 - Self.Height/2
+                      Children:
+                        - lblNotificationsCount:
+                            Control: Text@0.0.51
+                            Properties:
+                              Align: ='TextCanvas.Align'.Center
+                              FontColor: =RGBA(255, 255, 255, 1)
+                              Height: =Parent.Height
+                              Size: =8
+                              Text: ="3"
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Bold
+                              Width: =Parent.Width
+                  - btnNotificationsClick:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =If(Coalesce(varActiveSidebarItem, "Home") = "Notifications", RGBA(59, 130, 246, 0.15), RGBA(0, 0, 0, 0))
+                        Height: =Parent.Height - 4
+                        HoverFill: =RGBA(255, 255, 255, 0.05)
+                        OnSelect: =Set(varActiveSidebarItem, "Notifications")
+                        PressedFill: =RGBA(255, 255, 255, 0.1)
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Text: =""
+                        Width: =Parent.Width
+                        Y: =2
+            - conHelpSupport:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =48
+                  LayoutMinHeight: =48
+                  LayoutMinWidth: =0
+                  Width: =Parent.Width - 24
+                Children:
+                  - conHelpSupportContent:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =14
+                        PaddingLeft: =16
+                        Width: =Parent.Width
+                      Children:
+                        - icoHelpSupport:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =RGBA(99, 102, 241, 1)
+                              Height: =20
+                              Icon: =Icon.Help
+                              Width: =20
+                        - lblHelpSupport:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =If(Coalesce(varActiveSidebarItem, "Home") = "Help & Support", RGBA(59, 130, 246, 1), RGBA(209, 213, 219, 1))
+                              Height: =Parent.Height
+                              Size: =11
+                              Text: ="Help & Support"
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                  - btnHelpSupportClick:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Fill: =If(Coalesce(varActiveSidebarItem, "Home") = "Help & Support", RGBA(59, 130, 246, 0.15), RGBA(0, 0, 0, 0))
+                        Height: =Parent.Height - 4
+                        HoverFill: =RGBA(255, 255, 255, 0.05)
+                        OnSelect: =Set(varActiveSidebarItem, "Help & Support")
+                        PressedFill: =RGBA(255, 255, 255, 0.1)
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Text: =""
+                        Width: =Parent.Width
+                        Y: =2
+            - conSpacer:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  Width: =Parent.Width - 24
+      - conSidebarUser:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(99, 102, 241, 0.12)
+            Height: =72
+            RadiusBottomLeft: =16
+            RadiusBottomRight: =16
+            RadiusTopLeft: =16
+            RadiusTopRight: =16
+            Width: =Parent.Width - 24
+            X: =12
+            Y: =Parent.Height - Self.Height - 12
+          Children:
+            - conUserContent:
+                Control: GroupContainer@1.4.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  PaddingLeft: =16
+                  Width: =Parent.Width
+                Children:
+                  - imgSidebarUser:
+                      Control: Image@2.2.3
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(255, 255, 255, 1)
+                        BorderThickness: =3
+                        Height: =44
+                        Image: =User().Image
+                        ImagePosition: =ImagePosition.Fill
+                        RadiusBottomLeft: =22
+                        RadiusBottomRight: =22
+                        RadiusTopLeft: =22
+                        RadiusTopRight: =22
+                        Width: =44
+                  - conUserInfo:
+                      Control: GroupContainer@1.4.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Width: =140
+                      Children:
+                        - lblSidebarUserName:
+                            Control: Text@0.0.51
+                            Properties:
+                              Height: =22
+                              Size: =11
+                              Text: =User().FullName
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                        - lblSidebarUserRole:
+                            Control: Text@0.0.51
+                            Properties:
+                              FontColor: =RGBA(99, 102, 241, 1)
+                              Height: =18
+                              Size: =9
+                              Text: ="Premium Member"
+                              VerticalAlign: =VerticalAlign.Middle
+            - btnUserClick:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.Height
+                  HoverFill: =RGBA(99, 102, 241, 0.05)
+                  PressedFill: =RGBA(99, 102, 241, 0.1)
+                  RadiusBottomLeft: =16
+                  RadiusBottomRight: =16
+                  RadiusTopLeft: =16
+                  RadiusTopRight: =16
+                  Text: =""
+                  Width: =Parent.Width

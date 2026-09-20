@@ -1,0 +1,158 @@
+- btnProgressTrigger:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varProgressModalPercent: 65 }); UpdateContext({ varShowProgress: true })
+        // Demo: opens at 65 percent. In your app set varProgressModalPercent as the work progresses and close the modal when it is done
+      Text: ="Start upload"
+      Width: =160
+      X: =40
+      Y: =40
+- btnProgressScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(11, 18, 32, 0.45)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(11, 18, 32, 0.45)
+      OnSelect: =false
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(11, 18, 32, 0.45)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Visible: =varShowProgress
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conProgressPanel:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =btnProgressCancel.Y + btnProgressCancel.Height + 24
+      RadiusBottomLeft: =14
+      RadiusBottomRight: =14
+      RadiusTopLeft: =14
+      RadiusTopRight: =14
+      Visible: =varShowProgress
+      Width: =Min(400, Parent.Width - 40)
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - imgProgressSpinner:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =64
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='64' height='64'><circle cx='25' cy='25' r='20' fill='none' stroke='#22304A' stroke-width='5'/><circle cx='25' cy='25' r='20' fill='none' stroke='#3B82F6' stroke-width='5' stroke-linecap='round' stroke-dasharray='40 86'><animateTransform attributeName='transform' type='rotate' from='0 25 25' to='360 25 25' dur='0.9s' repeatCount='indefinite'/></circle></svg>")
+            Width: =64
+            X: =(Parent.Width - 64) / 2
+            Y: =28
+      - lblProgressTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: ="Saving your changes"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =108
+      - lblProgressDescription:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            AutoHeight: =true
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Uploading 3 photos. Do not close the app."
+            VerticalAlign: =VerticalAlign.Top
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblProgressTitle.Y + lblProgressTitle.Height + 6
+      - conProgressBar:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =10
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblProgressDescription.Y + lblProgressDescription.Height + 20
+          Children:
+            - conProgressBarFill:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(59, 130, 246, 1)
+                  Height: =10
+                  RadiusBottomLeft: =5
+                  RadiusBottomRight: =5
+                  RadiusTopLeft: =5
+                  RadiusTopRight: =5
+                  Width: =Parent.Width * Min(100, Max(0, Coalesce(varProgressModalPercent, 0))) / 100
+                  X: =0
+                  Y: =0
+      - lblProgressPercent:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: =Text(Round(Coalesce(varProgressModalPercent, 0), 0)) & "%"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =conProgressBar.Y + conProgressBar.Height + 8
+      - btnProgressCancel:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowProgress: false })
+            Text: ="Cancel"
+            Width: =(Parent.Width - 48 - 0) / 1
+            X: =24
+            Y: =lblProgressPercent.Y + lblProgressPercent.Height + 24

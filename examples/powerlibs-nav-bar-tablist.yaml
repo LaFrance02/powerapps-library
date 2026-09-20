@@ -1,0 +1,123 @@
+- conNavbar:
+    Control: GroupContainer@1.3.0
+    Variant: ManualLayout
+    Properties:
+      Fill: =RGBA(30, 41, 56, 1)
+      Height: =50
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Parent.Width
+    Children:
+      - lblTitle:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(55, 65, 81, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =50
+            PaddingLeft: =10
+            Text: ="Project Name"
+            X: =54
+      - conTab:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Fill: =Color.White
+            Height: =40
+            LayoutDirection: =LayoutDirection.Horizontal
+            Width: =600
+            X: =(Parent.Width - Self.Width)/2
+            Y: =(Parent.Height - Self.Height)/2
+          Children:
+            - galTabs:
+                Control: Gallery@2.15.0
+                Variant: Horizontal
+                Properties:
+                  Height: =Parent.Height
+                  Items: |-
+                    =[
+                      {id: 1, label: "Traffic"},
+                      {id: 2, label: "Content"},
+                      {id: 3, label: "Speed"},
+                      {id: 4, label: "Monetization"}
+                    ]
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =galTabs.Width/galTabs.AllItemsCount
+                  Width: =Parent.Width
+                Children:
+                  - conGal:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.TemplateHeight
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.TemplateWidth
+                      Children:
+                        - btnTab:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              FocusedBorderThickness: =0
+                              BorderStyle: =BorderStyle.None
+                              Color: =If(IsBlank(selectedTab) && ThisItem.id = 1, RGBA(59, 130, 246, 1), If(selectedTab = ThisItem.id, RGBA(59, 130, 246, 1), RGBA(156, 163, 175, 1)))
+                              Fill: =Color.Transparent
+                              Height: =Parent.Height
+                              HoverBorderColor: =Color.Transparent
+                              HoverColor: =RGBA(59, 130, 246, 1)
+                              HoverFill: =RGBA(249, 250, 251, 1)
+                              OnSelect: |-
+                                =UpdateContext({selectedTab: ThisItem.id})
+                              PressedBorderColor: =Color.Transparent
+                              PressedFill: =RGBA(243, 244, 246, 1)
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Size: =11
+                              Text: =ThisItem.label
+                              Width: =Parent.Width
+                        - conIndicator:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              Fill: =If(IsBlank(selectedTab) && ThisItem.id = 1, RGBA(59, 130, 246, 1), If(selectedTab = ThisItem.id, RGBA(59, 130, 246, 1), Color.Transparent))
+                              Height: =3
+                              Width: =btnTab.Width
+                              X: =btnTab.Width/2 - Self.Width/2
+                              Y: =Parent.Height - Self.Height
+      - imgLogo:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(59, 130, 246, 1)
+            Height: =50
+            Image: =SampleImage
+            Width: =40
+            X: =14
+      - imgUserProfilePicture:
+          Control: Image@2.2.3
+          Properties:
+            AccessibleLabel: ="User Profile Picture"
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =1
+            Height: =35
+            Image: =User().Image
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =25
+            RadiusBottomRight: =25
+            RadiusTopLeft: =25
+            RadiusTopRight: =25
+            Width: =35
+            X: =Parent.Width - Self.Width - 15
+            Y: =7

@@ -1,0 +1,241 @@
+- btnFeedbackTrigger:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowFeedback: true })
+      Text: ="Rate this app"
+      Width: =160
+      X: =40
+      Y: =40
+- btnFeedbackScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(11, 18, 32, 0.45)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(11, 18, 32, 0.45)
+      OnSelect: |-
+        =UpdateContext({ varShowFeedback: false })
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(11, 18, 32, 0.45)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Tooltip: ="Close"
+      Visible: =varShowFeedback
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conFeedbackPanel:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =btnFeedbackSubmit.Y + btnFeedbackSubmit.Height + 24
+      RadiusBottomLeft: =14
+      RadiusBottomRight: =14
+      RadiusTopLeft: =14
+      RadiusTopRight: =14
+      Visible: =varShowFeedback
+      Width: =Min(420, Parent.Width - 40)
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - lblFeedbackTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: ="How did it go?"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =28
+      - lblFeedbackDescription:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            AutoHeight: =true
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="One tap helps us make the app better."
+            VerticalAlign: =VerticalAlign.Top
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =lblFeedbackTitle.Y + lblFeedbackTitle.Height + 6
+      - conFeedbackStars:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =44
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =220
+            X: =(Parent.Width - 220) / 2
+            Y: =lblFeedbackDescription.Y + lblFeedbackDescription.Height + 18
+          Children:
+            - imgFeedbackStar1:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  FocusedBorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(Coalesce(varFeedbackRating, 0) >= 1, "#f59e0b", "#5d6b84") & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  OnSelect: |-
+                    =UpdateContext({ varFeedbackRating: 1 })
+                  Width: =28
+                  X: =8
+                  Y: =8
+            - imgFeedbackStar2:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  FocusedBorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(Coalesce(varFeedbackRating, 0) >= 2, "#f59e0b", "#5d6b84") & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  OnSelect: |-
+                    =UpdateContext({ varFeedbackRating: 2 })
+                  Width: =28
+                  X: =52
+                  Y: =8
+            - imgFeedbackStar3:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  FocusedBorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(Coalesce(varFeedbackRating, 0) >= 3, "#f59e0b", "#5d6b84") & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  OnSelect: |-
+                    =UpdateContext({ varFeedbackRating: 3 })
+                  Width: =28
+                  X: =96
+                  Y: =8
+            - imgFeedbackStar4:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  FocusedBorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(Coalesce(varFeedbackRating, 0) >= 4, "#f59e0b", "#5d6b84") & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  OnSelect: |-
+                    =UpdateContext({ varFeedbackRating: 4 })
+                  Width: =28
+                  X: =140
+                  Y: =8
+            - imgFeedbackStar5:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  FocusedBorderThickness: =0
+                  Height: =28
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & If(Coalesce(varFeedbackRating, 0) >= 5, "#f59e0b", "#5d6b84") & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  OnSelect: |-
+                    =UpdateContext({ varFeedbackRating: 5 })
+                  Width: =28
+                  X: =184
+                  Y: =8
+      - txtFeedbackText:
+          Control: TextInput@0.0.54
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =96
+            Mode: ='TextInputCanvas.Mode'.Multiline
+            Placeholder: ="Anything we should know?"
+            Value: =""
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =conFeedbackStars.Y + conFeedbackStars.Height + 16
+      - btnFeedbackSkip:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varFeedbackRating: 0 }); UpdateContext({ varShowFeedback: false })
+            Text: ="Skip"
+            Width: =(Parent.Width - 48 - 12) / 2
+            X: =24
+            Y: =txtFeedbackText.Y + txtFeedbackText.Height + 24
+      - btnFeedbackSubmit:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varFeedbackComment: txtFeedbackText.Value });
+              // varFeedbackRating and varFeedbackComment hold the answer, for example Patch(Feedback, Defaults(Feedback), { Stars: varFeedbackRating, Note: varFeedbackComment })
+              UpdateContext({ varShowFeedback: false })
+            Text: ="Send feedback"
+            Width: =(Parent.Width - 48 - 12) / 2
+            X: =btnFeedbackSkip.X + btnFeedbackSkip.Width + 12
+            Y: =txtFeedbackText.Y + txtFeedbackText.Height + 24
+      - imgFeedbackClose:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =14
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: |-
+              =UpdateContext({ varShowFeedback: false })
+            Width: =14
+            X: =Parent.Width - 44 + 9
+            Y: =21

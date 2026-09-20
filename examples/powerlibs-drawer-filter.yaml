@@ -1,0 +1,326 @@
+- btnOpenFilterDrawer:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Primary
+      BasePaletteColor: =RGBA(59, 130, 246, 1)
+      Height: =40
+      OnSelect: |-
+        =UpdateContext({ varShowFilterDrawer: true })
+      Text: ="Filters"
+      Width: =140
+      X: =24
+      Y: =24
+- recFilterDrawerScrim:
+    Control: Rectangle@2.3.0
+    Properties:
+      BorderThickness: =0
+      Fill: =RGBA(11, 18, 32, 0.55)
+      Height: =Parent.Height
+      HoverFill: =RGBA(11, 18, 32, 0.55)
+      OnSelect: |-
+        =UpdateContext({ varShowFilterDrawer: false })
+      PressedFill: =RGBA(11, 18, 32, 0.55)
+      Tooltip: ="Close"
+      Visible: =varShowFilterDrawer
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conFilterDrawer:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =Parent.Height
+      RadiusBottomLeft: =If(Self.Width >= Parent.Width, 0, 16)
+      RadiusBottomRight: =0
+      RadiusTopLeft: =If(Self.Width >= Parent.Width, 0, 16)
+      RadiusTopRight: =0
+      Visible: =varShowFilterDrawer
+      Width: =Min(400, Parent.Width)
+      X: =Parent.Width - Self.Width
+      Y: =0
+    Children:
+      - lblFilterDrawerTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =31
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =19
+            Text: ="Filters"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 88
+            X: =24
+            Y: =20
+      - imgFilterDrawerClose:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18 M6 6l12 12'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: |-
+              =UpdateContext({ varShowFilterDrawer: false })
+            Width: =16
+            X: =Parent.Width - 56 + 8
+            Y: =28
+      - lblFilterCount:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =21
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: =If(CountRows(colFilterStatus) + CountRows(colFilterPriority) = 0, "No filters set", CountRows(colFilterStatus) + CountRows(colFilterPriority) & " active")
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 88
+            X: =24
+            Y: =46
+      - conFilterHeaderRule:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =80
+      - lblFilterStatusLabel:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Status"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =96
+      - btnFilterStatus1:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: =If(!IsBlank(LookUp(colFilterStatus, value = "Open")), 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Secondary)
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =If(!IsBlank(LookUp(colFilterStatus, value = "Open")), RemoveIf(colFilterStatus, value = "Open"), Collect(colFilterStatus, { value: "Open" }))
+            Text: ="Open"
+            Width: =64
+            X: =24
+            Y: =118
+      - btnFilterStatus2:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: =If(!IsBlank(LookUp(colFilterStatus, value = "In progress")), 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Secondary)
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =If(!IsBlank(LookUp(colFilterStatus, value = "In progress")), RemoveIf(colFilterStatus, value = "In progress"), Collect(colFilterStatus, { value: "In progress" }))
+            Text: ="In progress"
+            Width: =116
+            X: =96
+            Y: =118
+      - btnFilterStatus3:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: =If(!IsBlank(LookUp(colFilterStatus, value = "Waiting")), 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Secondary)
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =If(!IsBlank(LookUp(colFilterStatus, value = "Waiting")), RemoveIf(colFilterStatus, value = "Waiting"), Collect(colFilterStatus, { value: "Waiting" }))
+            Text: ="Waiting"
+            Width: =84
+            X: =220
+            Y: =118
+      - btnFilterStatus4:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: =If(!IsBlank(LookUp(colFilterStatus, value = "Done")), 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Secondary)
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =If(!IsBlank(LookUp(colFilterStatus, value = "Done")), RemoveIf(colFilterStatus, value = "Done"), Collect(colFilterStatus, { value: "Done" }))
+            Text: ="Done"
+            Width: =64
+            X: =312
+            Y: =118
+      - lblFilterPriorityLabel:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Priority"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =172
+      - btnFilterPriority1:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: =If(!IsBlank(LookUp(colFilterPriority, value = "High")), 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Secondary)
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =If(!IsBlank(LookUp(colFilterPriority, value = "High")), RemoveIf(colFilterPriority, value = "High"), Collect(colFilterPriority, { value: "High" }))
+            Text: ="High"
+            Width: =64
+            X: =24
+            Y: =194
+      - btnFilterPriority2:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: =If(!IsBlank(LookUp(colFilterPriority, value = "Medium")), 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Secondary)
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =If(!IsBlank(LookUp(colFilterPriority, value = "Medium")), RemoveIf(colFilterPriority, value = "Medium"), Collect(colFilterPriority, { value: "Medium" }))
+            Text: ="Medium"
+            Width: =76
+            X: =96
+            Y: =194
+      - btnFilterPriority3:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: =If(!IsBlank(LookUp(colFilterPriority, value = "Low")), 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Secondary)
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =If(!IsBlank(LookUp(colFilterPriority, value = "Low")), RemoveIf(colFilterPriority, value = "Low"), Collect(colFilterPriority, { value: "Low" }))
+            Text: ="Low"
+            Width: =64
+            X: =180
+            Y: =194
+      - lblFilterOwnerLabel:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Owner"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =248
+      - txtFilterOwner:
+          Control: DropDown@0.0.45
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =40
+            Items: =["Anyone", "Me", "Kari Nordmann", "Hans Muster", "Anna Muster"]
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =270
+      - lblFilterDateLabel:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =20
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Created between"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =326
+      - txtFilterFrom:
+          Control: DatePicker@0.0.46
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =40
+            Width: =(Parent.Width - 48 - 12) / 2
+            X: =24
+            Y: =348
+      - txtFilterTo:
+          Control: DatePicker@0.0.46
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =40
+            Width: =(Parent.Width - 48 - 12) / 2
+            X: =24 + (Parent.Width - 48 - 12) / 2 + 12
+            Y: =348
+      - conFilterDrawerFooterRule:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =Parent.Height - 80
+      - btnFilterDrawerSecondary:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Outline
+            Height: =44
+            OnSelect: =Clear(colFilterStatus); Clear(colFilterPriority); Reset(txtFilterOwner); Reset(txtFilterFrom); Reset(txtFilterTo)
+            Text: ="Reset"
+            Width: =120
+            X: =24
+            Y: =Parent.Height - 62
+      - btnFilterDrawerPrimary:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =44
+            OnSelect: |-
+              =UpdateContext({ varShowFilterDrawer: false })
+            Text: ="Apply filters"
+            Width: =150
+            X: =Parent.Width - 24 - Self.Width
+            Y: =Parent.Height - 62

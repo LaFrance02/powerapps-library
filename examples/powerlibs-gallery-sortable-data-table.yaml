@@ -1,0 +1,519 @@
+- conSortTable:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =Parent.Height - 80
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =12
+      RadiusTopRight: =12
+      Width: =Parent.Width - 80
+      X: =40
+      Y: =40
+    Children:
+      - lblSortTableTotal:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(0, 0, 0, 0)
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =11
+            Text: |-
+              =CountRows(Filter(
+                  Table(
+                      {Name:"Max Mustermann", Department:"Finance", Email:"max.mustermann@contoso.com", Status:"Active"},
+                      {Name:"Erika Mustermann", Department:"IT Support", Email:"erika.mustermann@contoso.com", Status:"Away"},
+                      {Name:"Jane Doe", Department:"Operations", Email:"jane.doe@contoso.com", Status:"Active"},
+                      {Name:"Mario Rossi", Department:"Sales", Email:"mario.rossi@contoso.com", Status:"Offline"},
+                      {Name:"Anna Muster", Department:"HR", Email:"anna.muster@contoso.com", Status:"Active"},
+                      {Name:"Jan Jansen", Department:"Logistics", Email:"jan.jansen@contoso.com", Status:"Pending"},
+                      {Name:"Maria Ivanova", Department:"Finance", Email:"maria.ivanova@contoso.com", Status:"Active"},
+                      {Name:"Juan Perez", Department:"Sales", Email:"juan.perez@contoso.com", Status:"Active"}
+                  ),
+                  txtSortTableSearch.Value in Name || txtSortTableSearch.Value in Department || txtSortTableSearch.Value in Email || txtSortTableSearch.Value in Status
+              ))
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =false
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =10
+            X: =0
+            Y: =0
+      - conSortTableFooterLine:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =Parent.Height - 56
+      - lblSortTablePage:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: ="Page " & Coalesce(gblSortTablePage, 1) & " of " & Max(1, RoundUp(Value(lblSortTableTotal.Text) / 5, 0)) & "  (" & lblSortTableTotal.Text & " rows)"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width - 120
+            X: =16
+            Y: =Parent.Height - 44
+      - imgSortTablePrev:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m15 18-6-6 6-6'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Set(gblSortTablePage, Max(1, Coalesce(gblSortTablePage, 1) - 1))
+            Tooltip: ="Previous page"
+            Width: =16
+            X: =Parent.Width - 84 + 2
+            Y: =Parent.Height - 38 + 2
+      - imgSortTableNext:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            FocusedBorderThickness: =0
+            Height: =16
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#8b99b0" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m9 18 6-6-6-6'/></svg>")
+            ImagePosition: =ImagePosition.Fit
+            OnSelect: =Set(gblSortTablePage, Min(Max(1, RoundUp(Value(lblSortTableTotal.Text) / 5, 0)), Coalesce(gblSortTablePage, 1) + 1))
+            Tooltip: ="Next page"
+            Width: =16
+            X: =Parent.Width - 44 + 2
+            Y: =Parent.Height - 38 + 2
+      - galSortTableRows:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height - Self.Y - 56
+            Items: |-
+              =With({ src: Filter(
+                  Table(
+                      {Name:"Max Mustermann", Department:"Finance", Email:"max.mustermann@contoso.com", Status:"Active"},
+                      {Name:"Erika Mustermann", Department:"IT Support", Email:"erika.mustermann@contoso.com", Status:"Away"},
+                      {Name:"Jane Doe", Department:"Operations", Email:"jane.doe@contoso.com", Status:"Active"},
+                      {Name:"Mario Rossi", Department:"Sales", Email:"mario.rossi@contoso.com", Status:"Offline"},
+                      {Name:"Anna Muster", Department:"HR", Email:"anna.muster@contoso.com", Status:"Active"},
+                      {Name:"Jan Jansen", Department:"Logistics", Email:"jan.jansen@contoso.com", Status:"Pending"},
+                      {Name:"Maria Ivanova", Department:"Finance", Email:"maria.ivanova@contoso.com", Status:"Active"},
+                      {Name:"Juan Perez", Department:"Sales", Email:"juan.perez@contoso.com", Status:"Active"}
+                  ),
+                  txtSortTableSearch.Value in Name || txtSortTableSearch.Value in Department || txtSortTableSearch.Value in Email || txtSortTableSearch.Value in Status
+              ) },
+                With({ sorted: If(IsBlank(gblSortTableSort), src, SortByColumns(src, gblSortTableSort, If(gblSortTableAsc, SortOrder.Ascending, SortOrder.Descending))) },
+                  FirstN(LastN(sorted, CountRows(sorted) - (Coalesce(gblSortTablePage, 1) - 1) * 5), 5)))
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =48
+            Width: =Parent.Width
+            X: =0
+            Y: =148
+          Children:
+            - conSortTableRowActive:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(ThisItem.IsSelected, RGBA(59, 130, 246, 0.06), RGBA(0, 0, 0, 0))
+                  Height: =48
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.TemplateWidth
+                  X: =0
+                  Y: =0
+            - btnSortTableRow:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =Parent.Height
+                  OnSelect: =Select(Parent); Set(gblSortTableRow, ThisItem)
+                  Text: =""
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+            - conSortTableCellStatus:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(ThisItem.Status in ["Active", "Done", "Completed", "Approved", "Paid", "Online", "Closed", "Passed"], RGBA(34, 197, 94, 0.14), ThisItem.Status in ["Away", "Pending", "Waiting", "In Progress", "In Review", "Review", "On Hold", "Draft", "Busy"], RGBA(245, 158, 11, 0.16), ThisItem.Status in ["Blocked", "Offline", "Rejected", "Overdue", "Failed", "Cancelled", "Urgent"], RGBA(239, 68, 68, 0.14), RGBA(59, 130, 246, 0.12))
+                  Height: =22
+                  RadiusBottomLeft: =11
+                  RadiusBottomRight: =11
+                  RadiusTopLeft: =11
+                  RadiusTopRight: =11
+                  Width: =84
+                  X: =16 + (Parent.Width - 120) * 0.8571
+                  Y: =13
+                Children:
+                  - lblSortTableCellStatusText:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        FontColor: =If(ThisItem.Status in ["Active", "Done", "Completed", "Approved", "Paid", "Online", "Closed", "Passed"], RGBA(34, 197, 94, 1), ThisItem.Status in ["Away", "Pending", "Waiting", "In Progress", "In Review", "Review", "On Hold", "Draft", "Busy"], RGBA(245, 158, 11, 1), ThisItem.Status in ["Blocked", "Offline", "Rejected", "Overdue", "Failed", "Cancelled", "Urgent"], RGBA(239, 68, 68, 1), RGBA(59, 130, 246, 1))
+                        Height: =Parent.Height
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =11
+                        Text: =ThisItem.Status
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.Width
+                        X: =0
+                        Y: =0
+            - lblSortTableCellEmail:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =48
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =ThisItem.Email
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =(Parent.Width - 120) * 0.3571 - 12
+                  X: =16 + (Parent.Width - 120) * 0.5000
+                  Y: =0
+            - lblSortTableCellDepartment:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(180, 190, 206, 1)
+                  Height: =48
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =ThisItem.Department
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =(Parent.Width - 120) * 0.2143 - 12
+                  X: =16 + (Parent.Width - 120) * 0.2857
+                  Y: =0
+            - lblSortTableCellName:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(230, 234, 242, 1)
+                  Height: =48
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =ThisItem.Name
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =(Parent.Width - 120) * 0.2857 - 12
+                  X: =16
+                  Y: =0
+            - btnSortTableAction:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =32
+                  OnSelect: |-
+                    =// Put your action here, for example Navigate(EditScreen, ScreenTransition.None, { record: ThisItem })
+                    Select(Parent); Set(gblSortTableRow, ThisItem)
+                  Text: ="Edit"
+                  Width: =68
+                  X: =Parent.TemplateWidth - 84
+                  Y: =8
+            - conSortTableRowLine:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =47
+      - lblSortTableEmpty:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Center
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =40
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: ="Nothing matches your search"
+            VerticalAlign: =VerticalAlign.Middle
+            Visible: =CountRows(galSortTableRows.AllItems) = 0
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =Parent.Width
+            X: =0
+            Y: =164
+      - conSortTableHead:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(11, 18, 32, 1)
+            Height: =44
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =104
+          Children:
+            - lblSortTableHeadStatus:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =If(gblSortTableSort = "Status", RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Status"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =(Parent.Width - 120) * 0.1429 - 12
+                  X: =16 + (Parent.Width - 120) * 0.8571
+                  Y: =0
+            - imgSortTableSortStatus:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#3b82f6" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='" & If(gblSortTableAsc, "m18 15-6-6-6 6", "m6 9 6 6 6-6") & "'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Visible: =gblSortTableSort = "Status"
+                  Width: =16
+                  X: =16 + (Parent.Width - 120) * 0.8571 + (Parent.Width - 120) * 0.1429 - 12 - 16 + 2
+                  Y: =14
+            - btnSortTableSortStatus:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =36
+                  OnSelect: =If(gblSortTableSort = "Status", Set(gblSortTableAsc, !gblSortTableAsc), Set(gblSortTableSort, "Status"); Set(gblSortTableAsc, true)); Set(gblSortTablePage, 1)
+                  Text: =""
+                  Width: =(Parent.Width - 120) * 0.1429 - 12 + 8
+                  X: =16 + (Parent.Width - 120) * 0.8571 - 8
+                  Y: =4
+            - lblSortTableHeadEmail:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =If(gblSortTableSort = "Email", RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Email"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =(Parent.Width - 120) * 0.3571 - 12
+                  X: =16 + (Parent.Width - 120) * 0.5000
+                  Y: =0
+            - imgSortTableSortEmail:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#3b82f6" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='" & If(gblSortTableAsc, "m18 15-6-6-6 6", "m6 9 6 6 6-6") & "'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Visible: =gblSortTableSort = "Email"
+                  Width: =16
+                  X: =16 + (Parent.Width - 120) * 0.5000 + (Parent.Width - 120) * 0.3571 - 12 - 16 + 2
+                  Y: =14
+            - btnSortTableSortEmail:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =36
+                  OnSelect: =If(gblSortTableSort = "Email", Set(gblSortTableAsc, !gblSortTableAsc), Set(gblSortTableSort, "Email"); Set(gblSortTableAsc, true)); Set(gblSortTablePage, 1)
+                  Text: =""
+                  Width: =(Parent.Width - 120) * 0.3571 - 12 + 8
+                  X: =16 + (Parent.Width - 120) * 0.5000 - 8
+                  Y: =4
+            - lblSortTableHeadDepartment:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =If(gblSortTableSort = "Department", RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Department"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =(Parent.Width - 120) * 0.2143 - 12
+                  X: =16 + (Parent.Width - 120) * 0.2857
+                  Y: =0
+            - imgSortTableSortDepartment:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#3b82f6" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='" & If(gblSortTableAsc, "m18 15-6-6-6 6", "m6 9 6 6 6-6") & "'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Visible: =gblSortTableSort = "Department"
+                  Width: =16
+                  X: =16 + (Parent.Width - 120) * 0.2857 + (Parent.Width - 120) * 0.2143 - 12 - 16 + 2
+                  Y: =14
+            - btnSortTableSortDepartment:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =36
+                  OnSelect: =If(gblSortTableSort = "Department", Set(gblSortTableAsc, !gblSortTableAsc), Set(gblSortTableSort, "Department"); Set(gblSortTableAsc, true)); Set(gblSortTablePage, 1)
+                  Text: =""
+                  Width: =(Parent.Width - 120) * 0.2143 - 12 + 8
+                  X: =16 + (Parent.Width - 120) * 0.2857 - 8
+                  Y: =4
+            - lblSortTableHeadName:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =If(gblSortTableSort = "Name", RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="Name"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Bold
+                  Width: =(Parent.Width - 120) * 0.2857 - 12
+                  X: =16
+                  Y: =0
+            - imgSortTableSortName:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Height: =16
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#3b82f6" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='" & If(gblSortTableAsc, "m18 15-6-6-6 6", "m6 9 6 6 6-6") & "'/></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Visible: =gblSortTableSort = "Name"
+                  Width: =16
+                  X: =16 + (Parent.Width - 120) * 0.2857 - 12 - 16 + 2
+                  Y: =14
+            - btnSortTableSortName:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =36
+                  OnSelect: =If(gblSortTableSort = "Name", Set(gblSortTableAsc, !gblSortTableAsc), Set(gblSortTableSort, "Name"); Set(gblSortTableAsc, true)); Set(gblSortTablePage, 1)
+                  Text: =""
+                  Width: =(Parent.Width - 120) * 0.2857 - 12 + 8
+                  X: =16 - 8
+                  Y: =4
+      - txtSortTableSearch:
+          Control: TextInput@0.0.54
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            Fill: =RGBA(21, 30, 48, 1)
+            Font: =Font.'Open Sans'
+            Height: =36
+            OnChange: =Set(gblSortTablePage, 1)
+            Placeholder: ="Search..."
+            Width: =Min(320, Parent.Width - 32)
+            X: =16
+            Y: =60
+      - btnSortTableAdd:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            BasePaletteColor: =RGBA(59, 130, 246, 1)
+            Height: =36
+            OnSelect: |-
+              =// Put your action here, for example Navigate(NewRecordScreen)
+              false
+            Text: ="Add"
+            Width: =88
+            X: =Parent.Width - 104
+            Y: =16
+      - lblSortTableTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =36
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =19
+            Text: ="Employees"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 136
+            X: =16
+            Y: =16

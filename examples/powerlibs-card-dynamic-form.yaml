@@ -1,0 +1,93 @@
+- conFormCardContainer:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(30, 41, 56, 1)
+      Height: =btnCancel.Y + btnCancel.Height + 20
+      RadiusBottomLeft: =15
+      RadiusBottomRight: =15
+      RadiusTopLeft: =15
+      RadiusTopRight: =15
+      Width: =387
+      X: =(Parent.Width - Self.Width) / 2
+      Y: =(Parent.Height - Self.Height) / 2
+    Children:
+      - lblTitle:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(255, 255, 255, 1)
+            Height: =27
+            Text: ="Deploy to production"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width * 0.9
+            X: =Parent.Width * 0.05
+            Y: =20
+      - lblTitle2:
+          Control: Text@0.0.51
+          Properties:
+            FontColor: =RGBA(156, 163, 175, 1)
+            Height: =28
+            Size: =10
+            Text: ="This will publish your changes live to all users"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width * 0.9
+            X: =Parent.Width * 0.05
+            Y: =lblTitle.Y + lblTitle.Height
+      - galFormFields:
+          Control: Gallery@2.15.0
+          Variant: Vertical
+          Properties:
+            Height: =galFormFields.AllItemsCount * (galFormFields.TemplateHeight + 10)
+            Items: |
+              =Table(
+                { id: 1, labelText: "Project name", hintText: "My awesome project" },
+                { id: 2, labelText: "Environment", hintText: "Production" }
+              )
+            ShowScrollbar: =false
+            TemplateSize: =80
+            Width: =Parent.Width * 0.9
+            X: =Parent.Width * 0.05
+            Y: =lblTitle2.Y + lblTitle2.Height + 10
+          Children:
+            - lblFieldLabel:
+                Control: Text@0.0.51
+                Properties:
+                  FontColor: =RGBA(243, 244, 246, 1)
+                  Height: =22
+                  Size: =10
+                  Text: =ThisItem.labelText
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =Parent.TemplateWidth
+                  Y: =5
+            - txtFieldValue:
+                Control: TextInput@0.0.54
+                Properties:
+                  Height: =35
+                  OnChange: |
+                    =RemoveIf(colFormValues, id = ThisItem.id);
+                    Collect(colFormValues, { id: ThisItem.id, value: Self.Value });
+                  Placeholder: =ThisItem.hintText
+                  Value: =LookUp(colFormValues, id = ThisItem.id).value
+                  Width: =Parent.TemplateWidth
+                  Y: =lblFieldLabel.Y + lblFieldLabel.Height + 4
+      - btnDeploy:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Primary
+            Height: =31
+            Text: ="Deploy"
+            Width: =(Parent.Width * 0.9 - 10) / 2
+            X: =Parent.Width * 0.05
+            Y: =galFormFields.Y + galFormFields.Height + 20
+      - btnCancel:
+          Control: Button@0.0.45
+          Properties:
+            Appearance: ='ButtonCanvas.Appearance'.Secondary
+            Height: =31
+            Text: ="Cancel"
+            Width: =(Parent.Width * 0.9 - 10) / 2
+            X: =btnDeploy.X + btnDeploy.Width + 10
+            Y: =galFormFields.Y + galFormFields.Height + 20

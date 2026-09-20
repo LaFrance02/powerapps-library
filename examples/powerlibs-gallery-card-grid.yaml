@@ -1,0 +1,207 @@
+- conGrid:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =Parent.Height - 80
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Parent.Width - 80
+      X: =40
+      Y: =40
+    Children:
+      - galGridCards:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height - Self.Y
+            Items: |-
+              =    Table(
+                      {name:"Requests", subtitle:"12 open", status:"Active", icon:"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6"},
+                      {name:"Approvals", subtitle:"3 waiting for you", status:"Pending", icon:"M20 6 9 17l-5-5"},
+                      {name:"People", subtitle:"48 in your team", status:"Active", icon:"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75"},
+                      {name:"Reports", subtitle:"Updated this morning", status:"Active", icon:"M12 8c4.97 0 9-1.34 9-3s-4.03-3-9-3-9 1.34-9 3 4.03 3 9 3z M21 12c0 1.66-4 3-9 3s-9-1.34-9-3 M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"},
+                      {name:"Assets", subtitle:"2 overdue returns", status:"Overdue", icon:"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z M7.5 7.5h.01"},
+                      {name:"Settings", subtitle:"Roles and access", status:"Active", icon:"M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"}
+                  )
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =128
+            Width: =Parent.Width + 12
+            WrapCount: =If(Parent.Width < 560, 1, If(Parent.Width < 900, 2, 3))
+            X: =0
+            Y: =44
+          Children:
+            - conGridCard:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(21, 30, 48, 1)
+                  Height: =116
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =Parent.TemplateWidth - 12
+                  X: =0
+                  Y: =0
+                Children:
+                  - conGridCardTile:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(59, 130, 246, 0.12)
+                        Height: =40
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =40
+                        X: =16
+                        Y: =16
+                      Children:
+                        - imgGridCardIcon:
+                            Control: Image@2.2.3
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =0
+                              Height: =16
+                              Image: |-
+                                ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#3b82f6" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='" & ThisItem.icon & "'/></svg>")
+                              ImagePosition: =ImagePosition.Fit
+                              Width: =16
+                              X: =12
+                              Y: =12
+                  - lblGridCardTitle:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Start
+                        FontColor: =RGBA(230, 234, 242, 1)
+                        Height: =24
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =15
+                        Text: =ThisItem.name
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Width: =Parent.Width - 116
+                        X: =68
+                        Y: =16
+                  - lblGridCardSub:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Start
+                        FontColor: =RGBA(139, 153, 176, 1)
+                        Height: =20
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: =ThisItem.subtitle
+                        VerticalAlign: =VerticalAlign.Middle
+                        Weight: ='TextCanvas.Weight'.Regular
+                        Width: =Parent.Width - 92
+                        X: =68
+                        Y: =38
+                  - conGridCardStatus:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =If(ThisItem.status in ["Active", "Done", "Completed", "Approved", "Paid", "Online", "Closed", "Passed"], RGBA(34, 197, 94, 0.14), ThisItem.status in ["Away", "Pending", "Waiting", "In Progress", "In Review", "Review", "On Hold", "Draft", "Busy"], RGBA(245, 158, 11, 0.16), ThisItem.status in ["Blocked", "Offline", "Rejected", "Overdue", "Failed", "Cancelled", "Urgent"], RGBA(239, 68, 68, 0.14), RGBA(59, 130, 246, 0.12))
+                        Height: =22
+                        RadiusBottomLeft: =11
+                        RadiusBottomRight: =11
+                        RadiusTopLeft: =11
+                        RadiusTopRight: =11
+                        Width: =84
+                        X: =16
+                        Y: =78
+                      Children:
+                        - lblGridCardStatusText:
+                            Control: Text@0.0.51
+                            Properties:
+                              Align: ='TextCanvas.Align'.Center
+                              FontColor: =If(ThisItem.status in ["Active", "Done", "Completed", "Approved", "Paid", "Online", "Closed", "Passed"], RGBA(34, 197, 94, 1), ThisItem.status in ["Away", "Pending", "Waiting", "In Progress", "In Review", "Review", "On Hold", "Draft", "Busy"], RGBA(245, 158, 11, 1), ThisItem.status in ["Blocked", "Offline", "Rejected", "Overdue", "Failed", "Cancelled", "Urgent"], RGBA(239, 68, 68, 1), RGBA(59, 130, 246, 1))
+                              Height: =Parent.Height
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =11
+                              Text: =ThisItem.status
+                              VerticalAlign: =VerticalAlign.Middle
+                              Weight: ='TextCanvas.Weight'.Semibold
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
+                  - imgGridCardChevron:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Height: =16
+                        Image: |-
+                          ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" & "#5d6b84" & "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m9 18 6-6-6-6'/></svg>")
+                        ImagePosition: =ImagePosition.Fit
+                        Width: =16
+                        X: =Parent.Width - 36 + 2
+                        Y: =20
+            - btnGridCard:
+                Control: Button@0.0.45
+                Properties:
+                  Appearance: ='ButtonCanvas.Appearance'.Subtle
+                  BasePaletteColor: =RGBA(59, 130, 246, 1)
+                  Height: =116
+                  OnSelect: =Select(Parent); Set(gblGridRow, ThisItem)
+                  Text: =""
+                  Width: =Parent.TemplateWidth - 12
+                  X: =0
+                  Y: =0
+      - lblGridTitle:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =19
+            Text: ="Workspaces"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 120
+            X: =0
+            Y: =0
+      - lblGridCount:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.End
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =32
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: =CountRows(galGridCards.AllItems) & " items"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Regular
+            Width: =120
+            X: =Parent.Width - 120
+            Y: =0
