@@ -127,6 +127,35 @@ is preserved in this file's notes instead, not silently dropped.
 | Layouts | `powerlibs-layout-browse.yaml` | PowerLibs, "List / Browse Layout" | Clean browse skeleton: toolbar, collapsible filter chips, scrollable gallery area. | Not yet paste-tested |
 | Layouts | `powerlibs-layout-form.yaml` | PowerLibs, "Form Layout" | Responsive form skeleton: fixed header, scrollable multi-section field grid (`LayoutWrap`), sticky footer. | Not yet paste-tested |
 | Layouts | `powerlibs-layout-mobile.yaml` | PowerLibs, "Mobile-First Layout" | Phone-optimized skeleton: compact top bar, scrollable content cards, FAB, fixed bottom nav. | Not yet paste-tested |
+| DocRouterFree (full app) | `msapp-docrouterfree-app.yaml` | DocRouterFree.msapp, `Src/App.pa.yaml` | App-level source: `App:` top-level shape (new 4th shape, see `confirmed-versions.md`), `OnStart`, and a full Named-Formula design-token system (`nfColor`/`nfSpace`/`nfRadius`/`nfSize`/`nfIsDark`/`nfIsDesktop`/`nfIsMobile`, badge-color presets). | Real Studio export — not paste-tested by Matt |
+| DocRouterFree (full app) | `msapp-docrouterfree-screen-home.yaml` | DocRouterFree.msapp, `Src/Home.pa.yaml` | Home/landing screen. Bare-`=` defect (8 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-screen-my-tasks.yaml` | DocRouterFree.msapp, `Src/MyTasks.pa.yaml` | "My Tasks" list screen. Bare-`=` defect (7 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-screen-new-request.yaml` | DocRouterFree.msapp, `Src/NewRequest.pa.yaml` | New request/document intake form screen. Largest screen in the app (2492 lines). | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-screen-all-requests.yaml` | DocRouterFree.msapp, `Src/AllRequests.pa.yaml` | Full requests list/table screen. Bare-`=` defect (8 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-screen-details.yaml` | DocRouterFree.msapp, `Src/Details.pa.yaml` | Request detail screen — hosts the edit-workflow/finish/reroute components. Largest single file in the library (4098 lines). Bare-`=` defect (8 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-screen-reports.yaml` | DocRouterFree.msapp, `Src/Reports.pa.yaml` | Reporting screen, hosts `cmpPieChart`. Bare-`=` defect (3 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-screen-settings.yaml` | DocRouterFree.msapp, `Src/Settings.pa.yaml` | App settings screen (theme toggle, etc.). | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-screen-help.yaml` | DocRouterFree.msapp, `Src/Help.pa.yaml` | Help/support screen. Bare-`=` defect (7 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-kpi.yaml` | DocRouterFree.msapp, `Components/cmpKPI.pa.yaml` | Real importable `ComponentDefinitions:` source for the KPI-card component already referenced (but not defined) by `powerlibs-app-inventory-dashboard.yaml`. Bare-`=` defect (10 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-sidebar.yaml` | DocRouterFree.msapp, `Components/cmpSidebar.pa.yaml` | Real `ComponentDefinitions:` source for `cmpSidebar` — a later/hardened revision of `powerlibs-sidebar-advanced.yaml`'s sidebar, same 20 custom properties plus accessibility hardening (`AccessibleLabel`, `TabIndex`, `FocusedBorderThickness: =0.5`), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-badge.yaml` | DocRouterFree.msapp, `Components/Badge.pa.yaml` | Real `ComponentDefinitions:` source for the `Badge` component referenced (not defined) in the Inventory Dashboard. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-accordion-list.yaml` | DocRouterFree.msapp, `Components/cmpAccordionList.pa.yaml` | Collapsible accordion/list component. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-activity-timeline.yaml` | DocRouterFree.msapp, `Components/cmpActivityTimeline.pa.yaml` | Vertical activity/audit-log timeline component. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-bar-list.yaml` | DocRouterFree.msapp, `Components/cmpBarList.pa.yaml` | Real `ComponentDefinitions:` source for `cmpBarList`, referenced (not defined) in the Inventory Dashboard. Bare-`=` defect (7 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-bottom-navigation.yaml` | DocRouterFree.msapp, `Components/cmpBottomNavigation.pa.yaml` | Real `ComponentDefinitions:` source for `cmpBottomNavigation`, referenced (not defined) in the Inventory Dashboard. Bare-`=` defect (2 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-breadcrumbs.yaml` | DocRouterFree.msapp, `Components/cmpBreadcrumbs.pa.yaml` | Breadcrumb navigation trail component. **Worst bare-`=` defect in the library** (58 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-det-edit-workflow.yaml` | DocRouterFree.msapp, `Components/cmpDetEditWorkflow.pa.yaml` | Large detail-screen edit/workflow component (2918 lines) — approval/routing workflow editor used on the Details screen. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-det-finish.yaml` | DocRouterFree.msapp, `Components/cmpDetFinish.pa.yaml` | "Finish"/complete-request action panel for the Details screen. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-det-reroute.yaml` | DocRouterFree.msapp, `Components/cmpDetReroute.pa.yaml` | "Reroute" (reassign) action panel for the Details screen. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-enhanced-dialog.yaml` | DocRouterFree.msapp, `Components/cmpEnhancedDialog.pa.yaml` | Generic modal/dialog wrapper component (confirm/alert-style). Bare-`=` defect (10 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-file-upload.yaml` | DocRouterFree.msapp, `Components/cmpFileUpload.pa.yaml` | Real file/attachment upload component with drag-and-drop and preview, distinct from and more complete than `powerlibs-upload-document.yaml`. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-floating-action-button.yaml` | DocRouterFree.msapp, `Components/cmpFloatingActionButton.pa.yaml` | Real `ComponentDefinitions:` source for `cmpFloatingActionButton`, referenced (not defined) in the Inventory Dashboard. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-loading-spinner.yaml` | DocRouterFree.msapp, `Components/cmpLoadingSpinner.pa.yaml` | Small reusable loading-spinner component (111 lines, smallest in the batch). | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-my-table.yaml` | DocRouterFree.msapp, `Components/cmpMyTable.pa.yaml` | Real `ComponentDefinitions:` source for `cmpMyTable`, referenced (not defined) in the Inventory Dashboard. Bare-`=` defect (11 occurrences), see notes below. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-pie-chart.yaml` | DocRouterFree.msapp, `Components/cmpPieChart.pa.yaml` | SVG-based pie/donut chart component, used on the Reports screen. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-progress-rail.yaml` | DocRouterFree.msapp, `Components/cmpProgressRail.pa.yaml` | Multi-step progress-rail/status indicator component (distinct pattern from the Steppers batch). | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-send-email.yaml` | DocRouterFree.msapp, `Components/cmpSendEmail.pa.yaml` | Email-composition/send panel component (1453 lines) — real working `Office365Outlook`-style send flow, not a demo stub. | Real Studio export |
+| DocRouterFree (full app) | `msapp-docrouterfree-component-stepper.yaml` | DocRouterFree.msapp, `Components/cmpStepper.pa.yaml` | Compact reusable stepper component, a componentized counterpart to the raw-control Steppers batch. | Real Studio export |
 | Upload & Signature | `powerlibs-upload-photo.yaml` | PowerLibs, "Photo Upload" | Styled upload card around the real `AddMedia` control, tap-to-pick with live preview. Bare-`=` defect, see notes below. | Not yet paste-tested |
 | Upload & Signature | `powerlibs-upload-document.yaml` | PowerLibs, "Document Upload" | Styled dropzone card around the real `Attachments` control, drag-and-drop with brand-colored chips. | Not yet paste-tested |
 | Upload & Signature | `powerlibs-upload-document-compact.yaml` | PowerLibs, "Document Upload Compact" | Form-field-sized variant of Document Upload for a column of input fields. | Not yet paste-tested |
@@ -698,3 +727,66 @@ for `UpdateContext()` context vars (`ctxSearch`, `ctxCategory`, `ctxPanelOpen`) 
 correctly, just a different prefix convention (`g`/`ctx`) than the `gbl`/`var` convention used
 almost everywhere else in the library. The other four Layout files use plain `ctx`-prefixed
 context vars only (`ctxLoading`, `ctxShowFilter`, `ctxFormMode`, `ctxActiveTab`), no globals.
+
+## Notes on the DocRouterFree.msapp extraction (read before using)
+
+29 files extracted from a real, working `.msapp` (a genuine Power Apps Studio export, not a
+PowerLibs drip) supplied by Matt as "a good reference for a more full app." Unlike every other file
+in this library, these are **real Studio-exported source**, not paste-tested-by-Matt PowerLibs
+snippets — treat them as higher-trust for syntax/structure (they're a working shipped app) but they
+still haven't been round-tripped through Matt's own Studio, so status is marked "Real Studio
+export" rather than either "Not yet paste-tested" or "Confirmed."
+
+**Why this matters for the library:** this is the first source that shows what several
+already-referenced-but-undefined custom components actually contain. The Inventory Dashboard file
+(`powerlibs-app-inventory-dashboard.yaml`) references `cmpKPI`, `cmpBarList`, `cmpMyTable`,
+`cmpSidebar`, `cmpBottomNavigation`, `cmpFloatingActionButton`, and `Badge` by name only
+(`Control: CanvasComponent` + `ComponentName:`) without defining them. This msapp supplies real,
+importable `ComponentDefinitions:` source for every one of those names — confirmed by matching
+component names and, for `cmpSidebar`, by a full property-by-property diff (see below).
+
+**New 4th top-level YAML shape confirmed** — `App:`. Previously the library had three documented
+top-level shapes (a flat `- control:` children list, a full `Screens:` block, and
+`ComponentDefinitions:`). `msapp-docrouterfree-app.yaml` (from `Src/App.pa.yaml`) is a fourth:
+`App:` with nested `Properties:`/`Formulas:`/`OnStart:`. See `reference/confirmed-versions.md` for
+the updated shape count.
+
+**Named Formulas / design-token system** — `App.pa.yaml`'s `Formulas:` block is not `OnStart`
+code; it's a set of declarative, parameterless Power Fx **Named Formulas** (App > Formulas in
+Studio), which cannot contain `Patch`/`Collect`/`ClearCollect`/`Set`/`Navigate`/`Notify`/any
+behavior function. This app uses them to build a full design-token theming system: `nfColor(...)`,
+`nfSpace(...)`, `nfRadius(...)`, `nfSize(...)`, `nfIsDark`, `nfIsDesktop`/`nfIsMobile`, and a set of
+badge-color presets, plus dozens of app-specific computed aggregates. This is a real, working
+pattern for two problems already flagged elsewhere in this library: hardcoded RGBA duplication
+across files, and the 128×-repeated inline breakpoint formula in
+`powerlibs-app-project-management.yaml`. Worth studying as a template for how the generation Skill
+should structure theming/breakpoints in apps it builds, rather than inlining values everywhere.
+
+**cmpSidebar version diff (accessibility hardening)** — diffing `msapp-docrouterfree-component-
+sidebar.yaml` against the earlier `powerlibs-sidebar-advanced.yaml` shows they're the same
+component (identical 20 custom properties) at two different points in its life. The msapp version
+is later/hardened: it adds `AccessibleLabel="..."`, `TabIndex: =0`, and
+`FocusedBorderThickness: =0.5` (vs. `=0` in the older version) on interactive controls throughout.
+This lines up exactly with a real finding in the msapp's own `AppCheckerResult.sarif` (Microsoft's
+Power Apps Checker/linter output against this app),
+`acc-TabIndexShouldBeDefinedForInteractiveControl` — 2 occurrences remained unfixed even in this
+newer version. **Recommended best practice for generated apps**: give every interactive control an
+`AccessibleLabel`, `TabIndex: =0`, and `FocusedBorderThickness: =0.5` (not `0`) — a real accessibility
+pattern from a shipped app, not a guess.
+
+**Bare-`=` defect — confidence upgraded to "confirmed genuine Studio export behavior."** Prior to
+this batch, the library had 4 files with empty (`PropertyName: =` with nothing after the `=`)
+formula values, all PowerLibs-drip-sourced, so it was plausible this was an authoring/paste quirk
+specific to however PowerLibs generates its drip text. This msapp batch adds **139 more
+occurrences across 12 of the 29 files** (`Home`, `MyTasks`, `AllRequests`, `Details`, `Reports`,
+`Help`, `cmpKPI`, `cmpBarList`, `cmpBottomNavigation`, `cmpBreadcrumbs` [58 alone — worst in the
+library], `cmpEnhancedDialog`, `cmpMyTable`) — and these files come straight from a real Studio
+`.msapp` zip, not a drip. This confirms the bare-`=` pattern is genuine native Power Apps Studio
+export behavior (Studio evidently emits an empty formula value for certain unset/default
+properties on export), not a PowerLibs-specific artifact. All instances preserved as-is per
+established policy — do not "fix" these when reusing the files, they reflect real Studio output.
+
+No components were modified, renamed, or "fixed" during extraction — all 29 files are extracted
+byte-for-byte from `Src/*.pa.yaml` inside the `.msapp` zip, with only the always-identical 8-line
+Studio boilerplate warning-comment header stripped (present verbatim at the top of every source
+file in the zip) and the top-level key (`App:`/`Screens:`/`ComponentDefinitions:`) kept.

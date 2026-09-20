@@ -140,6 +140,18 @@ Relevant any time a modern control replaces what used to be classic in a given s
   `cmpMyTable`/`cmpKPI`, and `AppNameAccent`/`OnFooterSettings`/`OnHelp`/`OnThemeToggle`/`OnToggle`
   on `cmpSidebar`) — mostly event handlers and a couple of styling properties left genuinely unset
   in the source rather than deliberately blanked. Same treatment: preserved as-is, not fixed.
+  **Confidence upgraded to "confirmed genuine Studio export behavior" (2026-09-19):** all four
+  occurrences above came from PowerLibs drip text, leaving open the possibility this was an
+  authoring/paste-generation quirk specific to PowerLibs rather than something Studio itself does.
+  The DocRouterFree `.msapp` — a real Power Apps Studio export, unzipped and extracted directly,
+  not drip text — adds **139 more bare-`=` occurrences across 12 of its 29 extracted files**
+  (`Home`, `MyTasks`, `AllRequests`, `Details`, `Reports`, `Help`, `cmpKPI`, `cmpBarList`,
+  `cmpBottomNavigation`, `cmpBreadcrumbs` [58 alone — worst in the library by far],
+  `cmpEnhancedDialog`, `cmpMyTable`). Since this app was never touched by PowerLibs, this confirms
+  the bare-`=` pattern is genuine native Power Apps Studio export behavior — Studio itself emits an
+  empty formula value for certain unset/default properties on export — not a PowerLibs-specific
+  artifact. Continue preserving these as-is when reusing any file that has them; do not "fix" them
+  into a filled-in value, since that would no longer match what Studio actually produces.
 - **`var`/`gbl` variable-name prefixes do not reliably indicate actual Power Fx scope.** Multiple
   examples across the Navigation, Gallery, and Dropdown batches use a `var`-prefixed name (which,
   by convention elsewhere in this library, signals a screen-local context variable created via
@@ -193,6 +205,21 @@ Relevant any time a modern control replaces what used to be classic in a given s
   the same screen will collide on every one of those names. Preserved as-sourced in all three files
   (no silent renaming) per this library's policy — rename one set of controls before pasting a
   second variant alongside the first on the same screen.
+
+## Accessibility best practice (confirmed from a real shipped app's own version history)
+
+- **Give every interactive control `AccessibleLabel`, `TabIndex: =0`, and
+  `FocusedBorderThickness: =0.5`** (not `0`). Confirmed 2026-09-19 by diffing two real revisions of
+  the same component: `powerlibs-sidebar-advanced.yaml`'s `cmpSidebar` (earlier) vs.
+  `msapp-docrouterfree-component-sidebar.yaml`'s `cmpSidebar` (later, from a real shipped
+  `.msapp`) — identical 20 custom properties, but the later version adds `AccessibleLabel="..."`,
+  `TabIndex: =0`, and bumps `FocusedBorderThickness` from `=0` to `=0.5` on interactive controls
+  throughout. This lines up exactly with a real finding in that app's own
+  `AppCheckerResult.sarif` (Microsoft's Power Apps Checker/linter run against the shipped app):
+  `acc-TabIndexShouldBeDefinedForInteractiveControl` (2 occurrences remained even in the newer,
+  hardened version — so this is a real, still-imperfect fix in production, not a hypothetical).
+  When generating new controls or reviewing existing ones for the paired Skill, default to setting
+  all three on anything clickable/focusable rather than leaving them at Studio's bare defaults.
 
 ## Workflow rule (not syntax, but load-bearing)
 

@@ -116,23 +116,41 @@ but have never been confirmed against a real Matt Studio paste. Do not treat the
 | `ModernButton` | 1.0.0 | New control, Inventory Dashboard's Export button (`Appearance: ButtonAppearance.Outline`, icon support). A second modern button family alongside the already-confirmed `Button@0.0.45`. |
 | `HtmlViewer` | 2.1.0 | New control, used once in Inventory Dashboard as a blur/backdrop layer behind the sidebar drawer — not seen anywhere else in the library. |
 
-**A real, complete .msapp reference app** ("DocRouterFree," supplied 2026-09-19, not yet merged into
-this repo pending Matt's decision) contains real `ComponentDefinitions:` source for 20 named
-components, several of which the Inventory Dashboard example above only *references* by name:
-`cmpKPI`, `cmpBarList`, `cmpMyTable`, `cmpBottomNavigation`, `cmpSidebar`, `Badge`,
-`cmpFloatingActionButton`, plus 13 more not yet seen anywhere else in this library
+**A real, complete .msapp reference app** ("DocRouterFree," supplied 2026-09-19, extracted and
+merged into `examples/` on Matt's explicit go-ahead) supplied real `ComponentDefinitions:` source
+for 20 named components, several of which the Inventory Dashboard example above only *references*
+by name: `cmpKPI`, `cmpBarList`, `cmpMyTable`, `cmpBottomNavigation`, `cmpSidebar`, `Badge`,
+`cmpFloatingActionButton`, plus 13 more not previously seen anywhere else in this library
 (`cmpFileUpload`, `cmpDetFinish`, `cmpDetEditWorkflow`, `cmpSendEmail`, `cmpLoadingSpinner`,
 `cmpAccordionList`, `cmpEnhancedDialog`, `cmpStepper`, `cmpProgressRail`, `cmpDetReroute`,
-`cmpPieChart`, `cmpBreadcrumbs`, `cmpActivityTimeline`). Its `cmpSidebar.pa.yaml` may be the same
-component family as `powerlibs-sidebar-advanced.yaml`'s `cmpSidebar` — worth diffing the two before
-deciding whether to replace or supplement the existing one. Data sources are 100% self-contained
-sample/static data (`CustomGallerySample`, `ComboBoxSample`, both Lorem-ipsum placeholders) — no
-real backend, Dataverse table, or client-specific schema is embedded anywhere in the app, so it's
-safe to mine for reference material. Its own Power Apps App Checker run (`AppCheckerResult.sarif`)
-flagged 15 issues in the real, complete app: 7× `app-CollectingReadOnlyTable`, 5×
-`app-ForAllWithMutation`, 2× `acc-TabIndexShouldBeDefinedForInteractiveControl`, 1×
-`app-IndexedAccessViaCopy` — genuine Microsoft-linter-confirmed gotchas from a real app, a
-different (and arguably stronger) confirmation source than "pasted cleanly in Studio."
+`cmpPieChart`, `cmpBreadcrumbs`, `cmpActivityTimeline`). Its `cmpSidebar.pa.yaml` **is confirmed
+(via full property-by-property diff) to be a later revision of the same component family** as
+`powerlibs-sidebar-advanced.yaml`'s `cmpSidebar` — identical 20 custom properties, but the msapp
+version adds accessibility hardening throughout: `AccessibleLabel="..."`, `TabIndex: =0`, and
+`FocusedBorderThickness: =0.5` (vs. `=0` in the older version) on interactive controls. This lines
+up directly with a real finding in the app's own `AppCheckerResult.sarif`,
+`acc-TabIndexShouldBeDefinedForInteractiveControl` (2 occurrences left even in this newer version).
+**Recommended for generated apps**: give every interactive control `AccessibleLabel`,
+`TabIndex: =0`, and `FocusedBorderThickness: =0.5` — a real pattern pulled from a shipped app's own
+version history, not a guess. Data sources are 100% self-contained sample/static data
+(`CustomGallerySample`, `ComboBoxSample`, both Lorem-ipsum placeholders) — no real backend,
+Dataverse table, or client-specific schema is embedded anywhere in the app, so it was safe to mine
+for reference material. Its own Power Apps App Checker run (`AppCheckerResult.sarif`) flagged 15
+issues in the real, complete app: 7× `app-CollectingReadOnlyTable`, 5× `app-ForAllWithMutation`,
+2× `acc-TabIndexShouldBeDefinedForInteractiveControl`, 1× `app-IndexedAccessViaCopy` — genuine
+Microsoft-linter-confirmed gotchas from a real app, a different (and arguably stronger)
+confirmation source than "pasted cleanly in Studio."
+
+**Named Formulas / design-token architecture** — `msapp-docrouterfree-app.yaml` (the app's
+`App.pa.yaml`, see the new 4th top-level shape below) uses App > Formulas (Named Formulas:
+declarative, parameterless, cannot contain `Patch`/`Collect`/`ClearCollect`/`Set`/`Navigate`/
+`Notify`/any behavior function) to build a complete design-token system: `nfColor(...)`,
+`nfSpace(...)`, `nfRadius(...)`, `nfSize(...)`, `nfIsDark`, `nfIsDesktop`/`nfIsMobile`, and
+badge-color presets, plus dozens of app-specific computed aggregates. This is a real answer to two
+problems already flagged elsewhere in this library — hardcoded RGBA duplicated across files, and
+the 128×-repeated inline breakpoint formula in `powerlibs-app-project-management.yaml` — and is
+worth using as the template for how the paired generation Skill structures theming/breakpoints in
+apps it builds, rather than inlining raw values screen-by-screen.
 
 **Recurring architectural pattern worth naming:** across the button batch, most custom-shaped buttons (icon+label combos, pill shapes, split buttons) are built as a `GroupContainer` + `Image`/`Text` for the visual, with a fully transparent `Classic/Button@2.2.0` layered on top purely as the tap target (`Fill`/`Color`/`BorderColor` all `RGBA(0,0,0,0)`, real styling lives in the container). Plain single-purpose buttons (Primary, Outline, Action Bar's two buttons, Raised) skip this and use bare modern `Button@0.0.45` directly. So "modern where available" in practice means: modern `Button` for anything a plain button can do, classic `Button` only as an invisible overlay when the visual needs a shape modern `Button` can't produce alone. The four bare `Classic/Button@2.2.0` **badge** components (Simple/Border/Pills/Outlined Pills Badge) are a different case — there the classic button *is* the visible badge, styled entirely through `Self.Color`/`Self.BorderColor` references so one control instance is fully parameterized (set `Color`, `BorderColor`, `Text`, `Width` and the Hover/Pressed states follow automatically). That self-referencing pattern is worth reusing elsewhere.
 
@@ -141,6 +159,16 @@ different (and arguably stronger) confirmation source than "pasted cleanly in St
 **Shimmer/skeleton loading pattern** (Data Display batch — Skeleton Card/List/Text): a hidden `Timer@2.1.0` (`Visible: false`, `AutoStart`, `Repeat`) whose `.Value`/`.Duration` are fed straight into a `GroupContainer.Fill`'s alpha channel via `Sin(Pi() * Timer.Value / Timer.Duration)` (e.g. `RGBA(55,65,81, 0.35 + 0.45 * Sin(...))`), producing a pulsing-opacity shimmer with no SVG/CSS involved at all — a much simpler mechanism than the SVG-keyframe-replay pattern used elsewhere in the Animation batch.
 
 **`ComponentDefinitions:` — a third top-level YAML shape**, seen in `powerlibs-sidebar-advanced.yaml` (the "Advanced Sidebar" / `cmpSidebar`). Structure: `ComponentDefinitions: → <Name>: → DefinitionType: CanvasComponent, AccessAppScope: true, CustomProperties: {...}, Properties: {...}, Children: [...]`, with `CustomProperties` entries typed `PropertyKind: Input | Output | Event`. This is distinct from both the flat `- control:` children-list shape (everything else in the library except the two full-screen Calendar files) and the full `Screens:` block shape (the two Calendar files) — a real Component definition ready to paste into Studio's Components pane, not a paste-into-existing-screen fragment. `AccessAppScope: true` means the component reads/writes app-scoped variables directly (here: `_cmpNavIsExpanded`, `_cmpNavSelID`, `_cmpNavFooterMenu`, plus collection `colNavExpanded`) rather than only through its own declared custom properties — anything using this component must initialize all of those on the consuming screen's `OnVisible`.
+
+**`App:` — a fourth top-level YAML shape**, confirmed 2026-09-19 from the DocRouterFree msapp's own
+`Src/App.pa.yaml` (`msapp-docrouterfree-app.yaml` in `examples/`). Structure: `App: → Properties:
+{...}, Formulas: {...}, OnStart: =...`. This is genuine Studio export for the App object itself
+(the thing that owns `OnStart`, app-level `Formulas`/Named Formulas, and app-level `Properties`
+like `StartScreen`) — distinct from all three shapes above, which are screen- or
+component-scoped. So the library now has four confirmed top-level shapes: flat `- control:`
+children-list (paste into an existing screen — most common), full `Screens:` block (create/replace
+a whole screen), `ComponentDefinitions:` (a real importable Canvas Component), and `App:` (the App
+object's own properties, Named Formulas, and OnStart).
 
 ## Patterns with no Power_Libs equivalent
 
