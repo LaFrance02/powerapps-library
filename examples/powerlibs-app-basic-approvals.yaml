@@ -1,0 +1,1004 @@
+Screens:
+  ApprovalsMyRequests:
+    Properties:
+      Fill: =RGBA(11, 18, 32, 1)
+      LoadingSpinnerColor: =RGBA(79, 70, 229, 1)
+      OnVisible: |-
+        =If(IsEmpty(gblApRequests),
+            ClearCollect(gblApRequests,
+                { Id: 201, Title: "Standing desk", Type: "Purchase", TypeColor: RGBA(168, 85, 247, 1), Requester: "Mara S.", Initials: "MS", Amount: "€680", Reason: "Ergonomic recommendation from the company doctor.", Submitted: "12 Aug", Status: "rejected", Approver: "Lars B.", Decided: "14 Aug", Comment: "Facilities has a pool of desks, ask them first.", Mine: true, ForMe: false },
+                { Id: 202, Title: "Three days off before Christmas", Type: "Time off", TypeColor: RGBA(59, 130, 246, 1), Requester: "Mara S.", Initials: "MS", Amount: "", Reason: "22 to 24 December.", Submitted: "20 Aug", Status: "approved", Approver: "Lars B.", Decided: "21 Aug", Comment: "", Mine: true, ForMe: false },
+                { Id: 203, Title: "Training: Power Fx advanced", Type: "Expense", TypeColor: RGBA(245, 158, 11, 1), Requester: "Mara S.", Initials: "MS", Amount: "€490", Reason: "Online course, two half days.", Submitted: "26 Aug", Status: "approved", Approver: "Lars B.", Decided: "27 Aug", Comment: "Go for it.", Mine: true, ForMe: false },
+                { Id: 204, Title: "Team offsite in Hamburg", Type: "Expense", TypeColor: RGBA(245, 158, 11, 1), Requester: "Elena Rodriguez", Initials: "ER", Amount: "€3,200", Reason: "Two days, eight people, hotel and travel.", Submitted: "28 Aug", Status: "rejected", Approver: "You", Decided: "29 Aug", Comment: "Move it to Q4, the Q3 budget is used up.", Mine: false, ForMe: true },
+                { Id: 205, Title: "Cleaning service contract renewal", Type: "Contract", TypeColor: RGBA(236, 72, 153, 1), Requester: "Klaus Müller", Initials: "KM", Amount: "€12,000", Reason: "Same terms as last year, twelve months, cancellable quarterly.", Submitted: "1 Sep", Status: "approved", Approver: "You", Decided: "2 Sep", Comment: "Approved, budget line 4410.", Mine: false, ForMe: true },
+                { Id: 206, Title: "Parking spot in the underground garage", Type: "Access", TypeColor: RGBA(20, 184, 166, 1), Requester: "Paul Weber", Initials: "PW", Amount: "", Reason: "From October I commute by car twice a week for the customer visits.", Submitted: "2 Sep", Status: "pending", Approver: "You", Decided: "", Comment: "", Mine: false, ForMe: true },
+                { Id: 207, Title: "Home office monitor", Type: "Purchase", TypeColor: RGBA(168, 85, 247, 1), Requester: "Mara S.", Initials: "MS", Amount: "€310", Reason: "27 inch, replaces the 2019 one that flickers.", Submitted: "3 Sep", Status: "pending", Approver: "Lars B.", Decided: "", Comment: "", Mine: true, ForMe: false },
+                { Id: 208, Title: "SAP FI read access", Type: "Access", TypeColor: RGBA(20, 184, 166, 1), Requester: "Sarah Chen", Initials: "SC", Amount: "", Reason: "Needed for the month-end reconciliation, read only.", Submitted: "Yesterday", Status: "pending", Approver: "You", Decided: "", Comment: "", Mine: false, ForMe: true },
+                { Id: 209, Title: "Conference ticket, Power Platform Summit", Type: "Expense", TypeColor: RGBA(245, 158, 11, 1), Requester: "Tom Becker", Initials: "TB", Amount: "€890", Reason: "Two days in Vienna, talks on Dataverse and Copilot Studio. I will share notes with the team.", Submitted: "Yesterday", Status: "pending", Approver: "You", Decided: "", Comment: "", Mine: false, ForMe: true },
+                { Id: 210, Title: "Replacement phone, screen cracked", Type: "Purchase", TypeColor: RGBA(168, 85, 247, 1), Requester: "Nina Hoffmann", Initials: "NH", Amount: "€520", Reason: "Dropped it on the stairs, the display is unusable. Same model as before.", Submitted: "Yesterday", Status: "pending", Approver: "You", Decided: "", Comment: "", Mine: false, ForMe: true },
+                { Id: 211, Title: "Laptop for the new hire", Type: "Purchase", TypeColor: RGBA(168, 85, 247, 1), Requester: "Jana Weber", Initials: "JW", Amount: "€1,450", Reason: "Dell Latitude 5450 for Nina, who starts on Monday. Same model as the rest of the team.", Submitted: "Today", Status: "pending", Approver: "You", Decided: "", Comment: "", Mine: false, ForMe: true },
+                { Id: 212, Title: "Two weeks vacation in October", Type: "Time off", TypeColor: RGBA(59, 130, 246, 1), Requester: "Marcus Schmidt", Initials: "MS", Amount: "", Reason: "14 to 25 October. Handover to Jana is done and the on-call rota is covered.", Submitted: "Today", Status: "pending", Approver: "You", Decided: "", Comment: "", Mine: false, ForMe: true }
+            )
+        );
+        UpdateContext({ varFilter: "all", varShowNew: false, varShowDetail: false });
+        UpdateContext({ varSel: First(Sort(Filter(gblApRequests, Mine), Id, SortOrder.Descending)) })
+    Children:
+      - arqScreenWidth:
+          Control: Rectangle@2.3.0
+          Properties:
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =0
+            Visible: =false
+            Width: =Parent.Width
+      - arqRail:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(8, 13, 24, 1)
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =52
+          Children:
+            - arqRailLogo:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(79, 70, 229, 1)
+                  Height: =32
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Width: =32
+                  X: =10
+                  Y: =12
+                Children:
+                  - arqRailLogoIcon:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        Color: =RGBA(255, 255, 255, 1)
+                        Height: =18
+                        Icon: =Icon.CheckBadge
+                        Width: =18
+                        X: =7
+                        Y: =7
+            - arqRailNavGallery:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =136
+                  Items: |-
+                    =Table(
+                        { railId: 1, railIcon: Icon.DocumentWithContent, railScreen: App.ActiveScreen },
+                        { railId: 2, railIcon: Icon.Tray, railScreen: App.ActiveScreen },
+                        { railId: 3, railIcon: Icon.Clock, railScreen: App.ActiveScreen }
+                    )
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =44
+                  Width: =40
+                  X: =6
+                  Y: =56
+                Children:
+                  - arqRailItemBg:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =If(ThisItem.railId = 1, RGBA(255, 255, 255, 0.14), RGBA(0, 0, 0, 0))
+                        Height: =36
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Width: =40
+                        Y: =2
+                  - arqRailItemIcon:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        Color: =If(ThisItem.railId = 1, RGBA(255, 255, 255, 1), RGBA(124, 139, 161, 1))
+                        Height: =16
+                        Icon: =ThisItem.railIcon
+                        Width: =16
+                        X: =12
+                        Y: =12
+                  - arqRailItemBtn:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =0
+                        Height: =36
+                        HoverFill: =RGBA(255, 255, 255, 0.08)
+                        OnSelect: |-
+                          =If(!IsBlank(ThisItem.railScreen), Navigate(ThisItem.railScreen))
+                        PressedFill: =RGBA(255, 255, 255, 0.12)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Text: =""
+                        Width: =40
+                        Y: =2
+            - arqRailAvatar:
+                Control: Circle@2.3.0
+                Properties:
+                  Fill: =RGBA(51, 65, 85, 1)
+                  Height: =32
+                  Width: =32
+                  X: =10
+                  Y: =Parent.Height - 44
+            - arqRailAvatarLabel:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =32
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =7
+                  Text: ="MS"
+                  Width: =32
+                  X: =10
+                  Y: =Parent.Height - 44
+      - arqListPanel:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width - 52 - If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) >= 3, 300, 0)
+            X: =52
+          Children:
+            - arqTitle:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =24
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: ="My requests"
+                  Width: =Parent.Width - 44 - arqNewBtn.Width
+                  Wrap: =false
+                  X: =16
+                  Y: =16
+            - arqSub:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(93, 107, 132, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =16
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: ="What you asked for, and where it stands"
+                  Width: =Parent.Width - 44 - arqNewBtn.Width
+                  Wrap: =false
+                  X: =16
+                  Y: =40
+            - arqNewBtn:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 1)
+                  Fill: =RGBA(79, 70, 229, 1)
+                  FocusedBorderThickness: =0
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =28
+                  HoverFill: =ColorFade(RGBA(79, 70, 229, 1), -10%)
+                  OnSelect: |-
+                    =UpdateContext({ varShowNew: true })
+                  PressedFill: =ColorFade(RGBA(79, 70, 229, 1), -20%)
+                  RadiusBottomLeft: =6
+                  RadiusBottomRight: =6
+                  RadiusTopLeft: =6
+                  RadiusTopRight: =6
+                  Size: =8
+                  Text: =If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) <= 1, "+ New", "+ New request")
+                  Width: =If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) <= 1, 64, 112)
+                  X: =Parent.Width - 16 - Self.Width
+                  Y: =18
+            - arqFilterChips:
+                Control: Gallery@2.15.0
+                Variant: Horizontal
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =36
+                  Items: |-
+                    =Table(
+                        { filterKey: "all", filterLabel: "All" },
+                        { filterKey: "pending", filterLabel: "Waiting" },
+                        { filterKey: "approved", filterLabel: "Approved" },
+                        { filterKey: "rejected", filterLabel: "Rejected" }
+                    )
+                  ShowScrollbar: =false
+                  TemplatePadding: =6
+                  TemplateSize: =(Self.Width - Self.TemplatePadding * 5) / 4
+                  Width: =If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) <= 1, Parent.Width - 32, 380)
+                  X: =16
+                  Y: =64
+                Children:
+                  - arqFilterChipBtn:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =If(varFilter = ThisItem.filterKey, RGBA(255, 255, 255, 1), RGBA(139, 153, 176, 1))
+                        Fill: =If(varFilter = ThisItem.filterKey, RGBA(79, 70, 229, 1), RGBA(21, 30, 48, 1))
+                        FocusedBorderThickness: =0
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =28
+                        HoverFill: =If(varFilter = ThisItem.filterKey, RGBA(79, 70, 229, 1), RGBA(79, 70, 229, 0.1))
+                        OnSelect: |-
+                          =UpdateContext({ varFilter: ThisItem.filterKey })
+                        PressedFill: =RGBA(79, 70, 229, 0.1)
+                        RadiusBottomLeft: =14
+                        RadiusBottomRight: =14
+                        RadiusTopLeft: =14
+                        RadiusTopRight: =14
+                        Size: =8
+                        Text: =ThisItem.filterLabel
+                        Width: =Parent.TemplateWidth
+                        Y: =4
+            - arqList:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.Height - 116
+                  Items: =Sort(Filter(gblApRequests, Mine && (varFilter = "all" || Status = varFilter)), Id, SortOrder.Descending)
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =72
+                  Width: =Parent.Width - 8
+                  X: =4
+                  Y: =108
+                Children:
+                  - arqRowCard:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =If(ThisItem.Id = varSel.Id, RGBA(79, 70, 229, 1), RGBA(34, 48, 74, 1))
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(21, 30, 48, 1)
+                        Height: =Parent.TemplateHeight - 8
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.TemplateWidth - 24
+                        X: =12
+                        Y: =4
+                  - arqRowType:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Color: =ThisItem.TypeColor
+                        DisabledColor: =ThisItem.TypeColor
+                        DisabledFill: =ColorFade(ThisItem.TypeColor, -70%)
+                        DisplayMode: =DisplayMode.Disabled
+                        Fill: =ColorFade(ThisItem.TypeColor, -70%)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =18
+                        RadiusBottomLeft: =9
+                        RadiusBottomRight: =9
+                        RadiusTopLeft: =9
+                        RadiusTopRight: =9
+                        Size: =6
+                        Text: =ThisItem.Type
+                        Width: =60
+                        X: =24
+                        Y: =14
+                  - arqRowTitle:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(230, 234, 242, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =18
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =9
+                        Text: =ThisItem.Title
+                        Width: =Parent.TemplateWidth - 92 - If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) <= 1, 104, 140)
+                        Wrap: =false
+                        X: =92
+                        Y: =12
+                  - arqRowMeta:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(93, 107, 132, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =16
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =7
+                        Text: |-
+                          =If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) <= 1,
+                              If(ThisItem.Amount = "", "", ThisItem.Amount & " · ") & ThisItem.Submitted,
+                              "Submitted " & ThisItem.Submitted & " · Approver " & ThisItem.Approver
+                          )
+                        Width: =Parent.TemplateWidth - 92 - If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) <= 1, 104, 140)
+                        Wrap: =false
+                        X: =92
+                        Y: =32
+                  - arqRowMetaLine2:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(93, 107, 132, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =14
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =7
+                        Text: ="Approver " & ThisItem.Approver
+                        Visible: =If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) <= 1
+                        Width: =Parent.TemplateWidth - 188
+                        Wrap: =false
+                        X: =92
+                        Y: =48
+                  - arqRowStatus:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        FocusedBorderThickness: =0
+                        BorderStyle: =BorderStyle.None
+                        Color: =Switch(ThisItem.Status, "pending", RGBA(245, 158, 11, 1), "approved", RGBA(34, 197, 94, 1), RGBA(239, 68, 68, 1))
+                        DisabledColor: =Switch(ThisItem.Status, "pending", RGBA(245, 158, 11, 1), "approved", RGBA(34, 197, 94, 1), RGBA(239, 68, 68, 1))
+                        DisabledFill: =Switch(ThisItem.Status, "pending", RGBA(245, 158, 11, 0.22), "approved", RGBA(34, 197, 94, 0.22), RGBA(239, 68, 68, 0.22))
+                        DisplayMode: =DisplayMode.Disabled
+                        Fill: =Switch(ThisItem.Status, "pending", RGBA(245, 158, 11, 0.22), "approved", RGBA(34, 197, 94, 0.22), RGBA(239, 68, 68, 0.22))
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =18
+                        RadiusBottomLeft: =9
+                        RadiusBottomRight: =9
+                        RadiusTopLeft: =9
+                        RadiusTopRight: =9
+                        Size: =6
+                        Text: =Switch(ThisItem.Status, "pending", "Waiting", "approved", "Approved", "Rejected")
+                        Width: =68
+                        X: =Parent.TemplateWidth - 24 - 8 - 68
+                        Y: =14
+                  - arqRowAmount:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Right
+                        Color: =RGBA(230, 234, 242, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =18
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =9
+                        Text: =ThisItem.Amount
+                        Visible: =If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) >= 2
+                        Width: =100
+                        X: =Parent.TemplateWidth - 24 - 8 - 100
+                        Y: =36
+                  - arqRowBtn:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =0
+                        Height: =Parent.TemplateHeight - 8
+                        HoverFill: =RGBA(79, 70, 229, 0.1)
+                        OnSelect: |-
+                          =UpdateContext({ varSel: ThisItem, varShowDetail: true })
+                        PressedFill: =RGBA(79, 70, 229, 0.1)
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Text: =""
+                        Width: =Parent.TemplateWidth - 24
+                        X: =12
+                        Y: =4
+            - arqEmpty:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(93, 107, 132, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =40
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =9
+                  Text: ="Nothing here yet. Your requests will show up in this list."
+                  Visible: =CountRows(arqList.AllItems) = 0
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =140
+      - arqDetailPanel:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) >= 3 || varShowDetail
+            Width: =If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) >= 3, 300, Parent.Width - 52)
+            X: =If(If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) >= 3, Parent.Width - 300, 52)
+          Children:
+            - arqDetailBorder:
+                Control: Rectangle@2.3.0
+                Properties:
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =Parent.Height
+                  Width: =1
+            - arqDetailClose:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(139, 153, 176, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =0
+                  Font: =Font.'Open Sans'
+                  Height: =28
+                  HoverFill: =RGBA(79, 70, 229, 0.1)
+                  OnSelect: |-
+                    =UpdateContext({ varShowDetail: false })
+                  PressedFill: =RGBA(79, 70, 229, 0.1)
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Size: =12
+                  Text: ="✕"
+                  Visible: =If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) <= 2
+                  Width: =28
+                  X: =Parent.Width - 40
+                  Y: =10
+            - arqDetailStatus:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  BorderStyle: =BorderStyle.None
+                  Color: =Switch(varSel.Status, "pending", RGBA(245, 158, 11, 1), "approved", RGBA(34, 197, 94, 1), RGBA(239, 68, 68, 1))
+                  DisabledColor: =Switch(varSel.Status, "pending", RGBA(245, 158, 11, 1), "approved", RGBA(34, 197, 94, 1), RGBA(239, 68, 68, 1))
+                  DisabledFill: =Switch(varSel.Status, "pending", RGBA(245, 158, 11, 0.22), "approved", RGBA(34, 197, 94, 0.22), RGBA(239, 68, 68, 0.22))
+                  DisplayMode: =DisplayMode.Disabled
+                  Fill: =Switch(varSel.Status, "pending", RGBA(245, 158, 11, 0.22), "approved", RGBA(34, 197, 94, 0.22), RGBA(239, 68, 68, 0.22))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =18
+                  RadiusBottomLeft: =9
+                  RadiusBottomRight: =9
+                  RadiusTopLeft: =9
+                  RadiusTopRight: =9
+                  Size: =7
+                  Text: =Switch(varSel.Status, "pending", "Waiting", "approved", "Approved", "Rejected")
+                  Width: =68
+                  X: =16
+                  Y: =14
+            - arqDetailType:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  FocusedBorderThickness: =0
+                  BorderStyle: =BorderStyle.None
+                  Color: =varSel.TypeColor
+                  DisabledColor: =varSel.TypeColor
+                  DisabledFill: =ColorFade(varSel.TypeColor, -70%)
+                  DisplayMode: =DisplayMode.Disabled
+                  Fill: =ColorFade(varSel.TypeColor, -70%)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =18
+                  RadiusBottomLeft: =9
+                  RadiusBottomRight: =9
+                  RadiusTopLeft: =9
+                  RadiusTopRight: =9
+                  Size: =7
+                  Text: =varSel.Type
+                  Width: =64
+                  X: =90
+                  Y: =14
+            - arqDetailId:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Right
+                  Color: =RGBA(93, 107, 132, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =18
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =7
+                  Text: ="#" & varSel.Id
+                  Visible: =If(arqScreenWidth.Width < 640, 1, arqScreenWidth.Width < 1024, 2, arqScreenWidth.Width < 1600, 3, 4) >= 3
+                  Width: =50
+                  X: =Parent.Width - 66
+                  Y: =14
+            - arqDetailTitle:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =44
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: =varSel.Title
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =40
+            - arqDetailDivider1:
+                Control: Rectangle@2.3.0
+                Properties:
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =90
+            - arqPropsGallery:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  Height: =120
+                  Items: |-
+                    =Table(
+                        { propKey: "Type", propVal: varSel.Type },
+                        { propKey: "Amount", propVal: If(varSel.Amount = "", "No amount", varSel.Amount) },
+                        { propKey: "Submitted", propVal: varSel.Submitted },
+                        { propKey: "Approver", propVal: varSel.Approver },
+                        { propKey: "Decided", propVal: If(varSel.Decided = "", "Not yet", varSel.Decided) }
+                    )
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =24
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =98
+                Children:
+                  - arqPropKey:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(93, 107, 132, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =24
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =8
+                        Text: =ThisItem.propKey
+                        Width: =Parent.TemplateWidth / 2
+                  - arqPropVal:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Right
+                        Color: =RGBA(230, 234, 242, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =8
+                        Text: =ThisItem.propVal
+                        Width: =Parent.TemplateWidth / 2
+                        X: =Parent.TemplateWidth / 2
+            - arqDetailDivider2:
+                Control: Rectangle@2.3.0
+                Properties:
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =226
+            - arqReasonHeader:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(93, 107, 132, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =14
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =7
+                  Text: ="REASON"
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =236
+            - arqReasonText:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(139, 153, 176, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =76
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: =varSel.Reason
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =254
+            - arqCommentHeader:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(93, 107, 132, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =14
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =7
+                  Text: ="APPROVER COMMENT"
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =336
+            - arqCommentText:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =If(varSel.Comment = "", RGBA(93, 107, 132, 1), RGBA(139, 153, 176, 1))
+                  Font: =Font.'Open Sans'
+                  Height: =Parent.Height - 412
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: |-
+                    =If(varSel.Comment <> "", varSel.Comment,
+                        varSel.Status = "pending", "Waiting for " & varSel.Approver & ".",
+                        "No comment.")
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =354
+            - arqWithdrawBtn:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderStyle: =BorderStyle.Solid
+                  BorderThickness: =1
+                  Color: =RGBA(239, 68, 68, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =30
+                  HoverBorderColor: =RGBA(239, 68, 68, 1)
+                  HoverFill: =RGBA(239, 68, 68, 0.22)
+                  OnSelect: |-
+                    =RemoveIf(gblApRequests, Id = varSel.Id);
+                    UpdateContext({ varSel: First(Sort(Filter(gblApRequests, Mine), Id, SortOrder.Descending)), varShowDetail: false })
+                  PressedFill: =RGBA(239, 68, 68, 0.22)
+                  RadiusBottomLeft: =6
+                  RadiusBottomRight: =6
+                  RadiusTopLeft: =6
+                  RadiusTopRight: =6
+                  Size: =8
+                  Text: ="Withdraw request"
+                  Visible: =varSel.Status = "pending"
+                  Width: =Parent.Width - 32
+                  X: =16
+                  Y: =Parent.Height - 46
+      - arqScrim:
+          Control: Rectangle@2.3.0
+          Properties:
+            Fill: =RGBA(15, 23, 42, 0.45)
+            Height: =Parent.Height
+            OnSelect: |-
+              =UpdateContext({ varShowNew: false })
+            Visible: =varShowNew
+            Width: =Parent.Width
+      - arqNewModal:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =Min(470, Parent.Height - 24)
+            RadiusBottomLeft: =16
+            RadiusBottomRight: =16
+            RadiusTopLeft: =16
+            RadiusTopRight: =16
+            Visible: =varShowNew
+            Width: =Min(440, Parent.Width - 24)
+            X: =Parent.Width / 2 - Self.Width / 2
+            Y: =Parent.Height / 2 - Self.Height / 2
+          Children:
+            - arqNewTitle:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =28
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="New request"
+                  Width: =Parent.Width - 48
+                  X: =24
+                  Y: =20
+            - arqLblTitle:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =20
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: ="What do you need?"
+                  Width: =Parent.Width - 48
+                  X: =24
+                  Y: =60
+            - arqTxtTitle:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(230, 234, 242, 1)
+                  Default: =""
+                  Fill: =RGBA(11, 18, 32, 1)
+                  FocusedBorderColor: =RGBA(79, 70, 229, 1)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  HoverBorderColor: =RGBA(93, 107, 132, 1)
+                  HoverFill: =RGBA(11, 18, 32, 1)
+                  PressedBorderColor: =RGBA(93, 107, 132, 1)
+                  PressedFill: =RGBA(11, 18, 32, 1)
+                  Size: =9
+                  HintText: ="e.g. Laptop for the new hire"
+                  Height: =36
+                  Width: =Parent.Width - 48
+                  X: =24
+                  Y: =82
+            - arqLblType:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =20
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: ="Type"
+                  Width: =(Parent.Width - 60) / 2
+                  X: =24
+                  Y: =128
+            - arqDdType:
+                Control: Classic/DropDown@2.3.1
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  ChevronBackground: =RGBA(79, 70, 229, 1)
+                  ChevronFill: =RGBA(255, 255, 255, 1)
+                  ChevronHoverBackground: =ColorFade(Self.ChevronBackground, -5%)
+                  ChevronHoverFill: =Self.ChevronFill
+                  Color: =RGBA(230, 234, 242, 1)
+                  Default: ="Purchase"
+                  Fill: =RGBA(11, 18, 32, 1)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  Height: =36
+                  HoverColor: =Self.Color
+                  HoverFill: =RGBA(11, 18, 32, 1)
+                  Items: =["Time off", "Purchase", "Expense", "Access", "Contract"]
+                  PressedColor: =Self.Color
+                  PressedFill: =Self.Fill
+                  SelectionColor: =RGBA(255, 255, 255, 1)
+                  SelectionFill: =RGBA(79, 70, 229, 1)
+                  Size: =9
+                  Width: =(Parent.Width - 60) / 2
+                  X: =24
+                  Y: =150
+            - arqLblAmount:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =20
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: ="Amount (optional)"
+                  Width: =(Parent.Width - 60) / 2
+                  X: =36 + (Parent.Width - 60) / 2
+                  Y: =128
+            - arqTxtAmount:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(230, 234, 242, 1)
+                  Default: =""
+                  Fill: =RGBA(11, 18, 32, 1)
+                  FocusedBorderColor: =RGBA(79, 70, 229, 1)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  HoverBorderColor: =RGBA(93, 107, 132, 1)
+                  HoverFill: =RGBA(11, 18, 32, 1)
+                  PressedBorderColor: =RGBA(93, 107, 132, 1)
+                  PressedFill: =RGBA(11, 18, 32, 1)
+                  Size: =9
+                  HintText: ="e.g. €450"
+                  Height: =36
+                  Width: =(Parent.Width - 60) / 2
+                  X: =36 + (Parent.Width - 60) / 2
+                  Y: =150
+            - arqLblReason:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(230, 234, 242, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =20
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: ="Why?"
+                  Width: =Parent.Width - 48
+                  X: =24
+                  Y: =196
+            - arqTxtReason:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(230, 234, 242, 1)
+                  Default: =""
+                  Fill: =RGBA(11, 18, 32, 1)
+                  FocusedBorderColor: =RGBA(79, 70, 229, 1)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  HoverBorderColor: =RGBA(93, 107, 132, 1)
+                  HoverFill: =RGBA(11, 18, 32, 1)
+                  PressedBorderColor: =RGBA(93, 107, 132, 1)
+                  PressedFill: =RGBA(11, 18, 32, 1)
+                  Size: =9
+                  HintText: ="One or two sentences help the approver decide."
+                  Height: =Parent.Height - 292
+                  Mode: =TextMode.MultiLine
+                  Width: =Parent.Width - 48
+                  X: =24
+                  Y: =218
+            - arqCancelBtn:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(34, 48, 74, 1)
+                  BorderStyle: =BorderStyle.Solid
+                  BorderThickness: =1
+                  Color: =RGBA(139, 153, 176, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =1
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =36
+                  HoverBorderColor: =RGBA(93, 107, 132, 1)
+                  HoverFill: =RGBA(11, 18, 32, 1)
+                  OnSelect: |-
+                    =UpdateContext({ varShowNew: false });
+                    Reset(arqTxtTitle); Reset(arqTxtAmount); Reset(arqTxtReason); Reset(arqDdType)
+                  PressedFill: =RGBA(11, 18, 32, 1)
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Size: =9
+                  Text: ="Cancel"
+                  Width: =(Parent.Width - 60) / 2
+                  X: =24
+                  Y: =Parent.Height - 56
+            - arqSubmitBtn:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledColor: =RGBA(93, 107, 132, 1)
+                  DisabledFill: =RGBA(11, 18, 32, 1)
+                  DisplayMode: =If(IsBlank(Trim(arqTxtTitle.Text)), DisplayMode.Disabled, DisplayMode.Edit)
+                  Fill: =RGBA(79, 70, 229, 1)
+                  FocusedBorderThickness: =0
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =36
+                  HoverFill: =ColorFade(RGBA(79, 70, 229, 1), -10%)
+                  OnSelect: |-
+                    =With({ nextId: If(IsEmpty(gblApRequests), 201, Max(gblApRequests, Id) + 1), pickedType: arqDdType.Selected.Value },
+                        Collect(gblApRequests, {
+                            Id: nextId,
+                            Title: Trim(arqTxtTitle.Text),
+                            Type: pickedType,
+                            TypeColor: Switch(pickedType, "Time off", RGBA(59, 130, 246, 1), "Purchase", RGBA(168, 85, 247, 1), "Expense", RGBA(245, 158, 11, 1), "Access", RGBA(20, 184, 166, 1), RGBA(236, 72, 153, 1)),
+                            Requester: "Mara S.",
+                            Initials: "MS",
+                            Amount: Trim(arqTxtAmount.Text),
+                            Reason: Trim(arqTxtReason.Text),
+                            Submitted: "Today",
+                            Status: "pending",
+                            Approver: "Lars B.",
+                            Decided: "",
+                            Comment: "",
+                            Mine: true,
+                            ForMe: false
+                        });
+                        UpdateContext({ varSel: LookUp(gblApRequests, Id = nextId), varFilter: "all", varShowNew: false })
+                    );
+                    Reset(arqTxtTitle); Reset(arqTxtAmount); Reset(arqTxtReason); Reset(arqDdType)
+                  PressedFill: =ColorFade(RGBA(79, 70, 229, 1), -20%)
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Size: =9
+                  Text: ="Submit request"
+                  Width: =(Parent.Width - 60) / 2
+                  X: =36 + (Parent.Width - 60) / 2
+                  Y: =Parent.Height - 56

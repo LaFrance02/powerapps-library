@@ -1,0 +1,81 @@
+- btnNotification:
+    Control: Classic/Button@2.2.0
+    Properties:
+      FocusedBorderThickness: =0
+      BorderStyle: =BorderStyle.None
+      Color: =RGBA(255, 255, 255, 1)
+      Fill: =RGBA(59, 130, 246, 1)
+      Height: =32
+      HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+      HoverColor: =Self.Color
+      HoverFill: =ColorFade(Self.Fill, -10%)
+      OnSelect: =Set(varPowerLibsNotification, true)
+      PressedBorderColor: =ColorFade(Self.BorderColor, -40%)
+      PressedFill: =ColorFade(Self.Fill, -20%)
+      RadiusBottomLeft: =5
+      RadiusBottomRight: =5
+      RadiusTopLeft: =5
+      RadiusTopRight: =5
+      Size: =11
+      Text: ="Press for Notification"
+      X: =855
+      Y: =145
+- conNotification:
+    Control: GroupContainer@1.3.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(30, 41, 56, 1)
+      Height: =66
+      Visible: =varPowerLibsNotification
+      Width: =317
+      X: =Parent.Width - Self.Width - 20
+      Y: =20
+    Children:
+      - lblSecondary:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(116, 116, 116, 1)
+            Font: =Font.'Open Sans'
+            Height: =27
+            Size: =9
+            Text: ="Anyone with a link can now view this file."
+            Width: =Parent.Width - icoCheckmark.Width - 20
+            X: =40
+            Y: =35
+      - lblPrimary:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =25
+            Size: =10
+            Text: ="Successfully saved!"
+            Width: =Parent.Width - icoCheckmark.Width - 20
+            X: =40
+            Y: =9
+      - icoCancel:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            FocusedBorderThickness: =0
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(202, 202, 202, 1)
+            Height: =12
+            Icon: =Icon.Cancel
+            OnSelect: =Set(varPowerLibsNotification, false)
+            Width: =12
+            X: =Parent.Width - Self.Width - 16
+            Y: =16
+      - icoCheckmark:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(113, 237, 175, 1)
+            DisplayMode: =DisplayMode.View
+            Height: =20
+            Icon: =Icon.CheckBadge
+            Width: =20
+            X: =15
+            Y: =12

@@ -1,0 +1,110 @@
+- btnDeleteItem:
+    Control: Classic/Button@2.2.0
+    Group: grpDelete
+    Properties:
+      BorderColor: =RGBA(239, 68, 68, 1)
+      BorderThickness: =1
+      Color: =RGBA(239, 68, 68, 1)
+      Fill: =RGBA(31, 41, 55, 1)
+      FocusedBorderThickness: =1
+      Height: =32
+      HoverBorderColor: =RGBA(220, 38, 38, 1)
+      HoverColor: =RGBA(220, 38, 38, 1)
+      HoverFill: =RGBA(254, 226, 226, 0.1)
+      OnSelect: |-
+        =UpdateContext({varConfirmVisible: true})
+      PressedBorderColor: =RGBA(185, 28, 28, 1)
+      PressedColor: =RGBA(185, 28, 28, 1)
+      PressedFill: =RGBA(31, 41, 55, 1)
+      RadiusBottomLeft: =6
+      RadiusBottomRight: =6
+      RadiusTopLeft: =6
+      RadiusTopRight: =6
+      Size: =10
+      Text: ="Delete"
+      Visible: =!varConfirmVisible
+      Width: =80
+      X: =80
+      Y: =490
+- conConfirmPopover:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Group: grpDelete
+    Properties:
+      BorderColor: =RGBA(239, 68, 68, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(31, 41, 55, 1)
+      Height: =36
+      RadiusBottomLeft: =6
+      RadiusBottomRight: =6
+      RadiusTopLeft: =6
+      RadiusTopRight: =6
+      Visible: =varConfirmVisible
+      Width: =220
+      X: =80
+      Y: =488
+    Children:
+      - lblConfirmText:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(229, 231, 235, 1)
+            Font: =Font.'Open Sans'
+            Height: =36
+            Size: =9
+            Text: ="Are you sure?"
+            Width: =80
+            X: =8
+      - btnConfirmYes:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(239, 68, 68, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(239, 68, 68, 1)
+            FocusedBorderThickness: =0
+            Height: =24
+            HoverBorderColor: =RGBA(220, 38, 38, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(220, 38, 38, 1)
+            OnSelect: |-
+              =UpdateContext({varConfirmVisible: false});
+              Notify("Item deleted", NotificationType.Success)
+            PressedBorderColor: =RGBA(185, 28, 28, 1)
+            PressedFill: =RGBA(185, 28, 28, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =9
+            Text: ="Delete"
+            Width: =55
+            X: =96
+            Y: =6
+      - btnConfirmCancel:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(55, 65, 81, 1)
+            BorderThickness: =1
+            Color: =RGBA(209, 213, 219, 1)
+            Fill: =RGBA(31, 41, 55, 1)
+            FocusedBorderThickness: =1
+            Height: =24
+            HoverBorderColor: =RGBA(55, 65, 81, 1)
+            HoverColor: =RGBA(229, 231, 235, 1)
+            HoverFill: =RGBA(55, 65, 81, 1)
+            OnSelect: |-
+              =UpdateContext({varConfirmVisible: false})
+            PressedBorderColor: =RGBA(55, 65, 81, 1)
+            PressedColor: =RGBA(229, 231, 235, 1)
+            PressedFill: =RGBA(31, 41, 55, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =9
+            Text: ="Cancel"
+            Width: =55
+            X: =157
+            Y: =6

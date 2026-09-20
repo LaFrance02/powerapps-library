@@ -1,0 +1,187 @@
+- conSideTabs:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =220
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =200
+      X: =40
+      Y: =40
+    Children:
+      - imgSideTabsIndicator:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =220
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 220' preserveAspectRatio='none'><g id='r" & Coalesce(varSideTabsRun, "0") & "'><rect x='0' width='200' height='44' rx='8' fill='#1a2a48'><animate attributeName='y' from='" & Text((Coalesce(varSideTabsPrev, 1) - 1) * 44) & "' to='" & Text((Coalesce(varSideTabs, 1) - 1) * 44) & "' dur='" & If(IsBlank(varSideTabsRun), "1ms", "220ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></rect><rect x='0' width='3' height='28' rx='1.5' fill='#3B82F6'><animate attributeName='y' from='" & Text((Coalesce(varSideTabsPrev, 1) - 1) * 44 + 8) & "' to='" & Text((Coalesce(varSideTabs, 1) - 1) * 44 + 8) & "' dur='" & If(IsBlank(varSideTabsRun), "1ms", "220ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></rect></g></svg>")
+            ImagePosition: =ImagePosition.Stretch
+            Width: =200
+            X: =0
+            Y: =0
+      - btnSideTabsTab1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varSideTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(180, 190, 206, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =44
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varSideTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varSideTabsPrev: Coalesce(varSideTabs, 1), varSideTabs: 1, varSideTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =16
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="General"
+            Width: =200
+            X: =0
+            Y: =0
+      - btnSideTabsTab2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varSideTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(180, 190, 206, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =44
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varSideTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varSideTabsPrev: Coalesce(varSideTabs, 1), varSideTabs: 2, varSideTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =16
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Notifications"
+            Width: =200
+            X: =0
+            Y: =44
+      - btnSideTabsTab3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varSideTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(180, 190, 206, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =44
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varSideTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varSideTabsPrev: Coalesce(varSideTabs, 1), varSideTabs: 3, varSideTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =16
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Security"
+            Width: =200
+            X: =0
+            Y: =88
+      - btnSideTabsTab4:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varSideTabs, 1) = 4, RGBA(59, 130, 246, 1), RGBA(180, 190, 206, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =44
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varSideTabs, 1) = 4, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varSideTabsPrev: Coalesce(varSideTabs, 1), varSideTabs: 4, varSideTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =16
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Billing"
+            Width: =200
+            X: =0
+            Y: =132
+      - btnSideTabsTab5:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varSideTabs, 1) = 5, RGBA(59, 130, 246, 1), RGBA(180, 190, 206, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =44
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varSideTabs, 1) = 5, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varSideTabsPrev: Coalesce(varSideTabs, 1), varSideTabs: 5, varSideTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =16
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Team"
+            Width: =200
+            X: =0
+            Y: =176

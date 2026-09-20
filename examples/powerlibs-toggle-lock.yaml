@@ -1,0 +1,67 @@
+- conToggleLock:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =30
+      Width: =153
+      X: =40
+      Y: =40
+    Children:
+      - imgToggleLockSwitch:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =30
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 30' width='112' height='60'><g id='r" & Coalesce(varToggleLockRun, "0") & "'><rect width='56' height='30' rx='15' fill='" & If(varToggleLock, "#3B82F6", "#3C4B69") & "'><animate attributeName='fill' from='" & If(varToggleLock, "#3C4B69", "#3B82F6") & "' to='" & If(varToggleLock, "#3B82F6", "#3C4B69") & "' dur='" & If(IsBlank(varToggleLockRun), "1ms", "180ms") & "' fill='freeze'/></rect><g><animateTransform attributeName='transform' type='translate' from='" & If(varToggleLock, "15", "41") & " 0' to='" & If(varToggleLock, "41", "15") & " 0' dur='" & If(IsBlank(varToggleLockRun), "1ms", "180ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/><circle cx='0' cy='15' r='13' fill='white'/><rect x='-6.435000000000001' y='14.415' width='12.870000000000003' height='9.945' rx='1.5' fill='" & If(varToggleLock, "#3B82F6", "#3C4B69") & "'/><path d='M-4.095 14.415 v-4.095 a4.095 4.095 0 0 1 8.19 0 v" & If(varToggleLock, "4.095", "1.4040000000000001") & "' fill='none' stroke='" & If(varToggleLock, "#3B82F6", "#3C4B69") & "' stroke-width='1.8' stroke-linecap='round'/></g></g></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Width: =56
+            X: =0
+            Y: =0
+      - lblToggleLockLabel:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =Parent.Height
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Lock record"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =85
+            X: =68
+            Y: =0
+      - btnToggleLock:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varToggleLock: !varToggleLock, varToggleLockRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =12
+            RadiusBottomRight: =12
+            RadiusTopLeft: =12
+            RadiusTopRight: =12
+            Text: =""
+            Tooltip: ="Lock record"
+            Width: =Parent.Width
+            X: =0
+            Y: =0

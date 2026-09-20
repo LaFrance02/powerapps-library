@@ -1,0 +1,377 @@
+- conChecklistSection:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Properties:
+      Fill: =RGBA(30, 41, 56, 1)
+      FillPortions: =0
+      Height: =380
+      LayoutMinHeight: =0
+      LayoutMinWidth: =0
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =12
+      RadiusTopRight: =12
+      Width: =Parent.Width - 80
+    Children:
+      - lblCheckTitle:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(243, 244, 246, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =28
+            Size: =12
+            Text: ="Checklist Progress"
+            Width: =300
+            X: =20
+            Y: =16
+      - lblCheckPercent:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Right
+            Color: =RGBA(59, 130, 246, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =28
+            Size: =10
+            Text: =Min(varCheckCount, 5) & " / 5 tasks"
+            X: =Parent.Width - 170
+            Y: =16
+      - conCheckTrack:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(75, 85, 99, 1)
+            Height: =8
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =52
+      - conCheckFill:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Fill: =If(varCheckCount >= 5, RGBA(34, 197, 94, 1), RGBA(59, 130, 246, 1))
+            Height: =8
+            Width: =Max(0, (Parent.Width - 40) * Min(varCheckCount, 5) / 5)
+            X: =20
+            Y: =52
+      - conCheck1:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =40
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =74
+          Children:
+            - conCheck1Box:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(varCheckCount >= 1, RGBA(34, 197, 94, 1), RGBA(75, 85, 99, 1))
+                  Height: =24
+                  RadiusBottomLeft: =6
+                  RadiusBottomRight: =6
+                  RadiusTopLeft: =6
+                  RadiusTopRight: =6
+                  Width: =24
+                  Y: =8
+                Children:
+                  - lblCheck1Mark:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =Parent.Height
+                        Size: =9
+                        Text: =If(varCheckCount >= 1, "✓", "")
+                        Width: =Parent.Width
+            - lblCheck1Text:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =If(varCheckCount >= 1, RGBA(156, 163, 175, 1), RGBA(243, 244, 246, 1))
+                  Font: =Font.'Open Sans'
+                  Height: =24
+                  Size: =10
+                  Text: ="Create project repository"
+                  Width: =Parent.Width - 40
+                  X: =34
+                  Y: =8
+      - conCheck2:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =40
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =114
+          Children:
+            - conCheck2Box:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(varCheckCount >= 2, RGBA(34, 197, 94, 1), RGBA(75, 85, 99, 1))
+                  Height: =24
+                  RadiusBottomLeft: =6
+                  RadiusBottomRight: =6
+                  RadiusTopLeft: =6
+                  RadiusTopRight: =6
+                  Width: =24
+                  Y: =8
+                Children:
+                  - lblCheck2Mark:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =Parent.Height
+                        Size: =9
+                        Text: =If(varCheckCount >= 2, "✓", "")
+                        Width: =Parent.Width
+            - lblCheck2Text:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =If(varCheckCount >= 2, RGBA(156, 163, 175, 1), RGBA(243, 244, 246, 1))
+                  Font: =Font.'Open Sans'
+                  Height: =24
+                  Size: =10
+                  Text: ="Set up CI/CD pipeline"
+                  Width: =Parent.Width - 40
+                  X: =34
+                  Y: =8
+      - conCheck3:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =40
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =154
+          Children:
+            - conCheck3Box:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(varCheckCount >= 3, RGBA(34, 197, 94, 1), RGBA(75, 85, 99, 1))
+                  Height: =24
+                  RadiusBottomLeft: =6
+                  RadiusBottomRight: =6
+                  RadiusTopLeft: =6
+                  RadiusTopRight: =6
+                  Width: =24
+                  Y: =8
+                Children:
+                  - lblCheck3Mark:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =Parent.Height
+                        Size: =9
+                        Text: =If(varCheckCount >= 3, "✓", "")
+                        Width: =Parent.Width
+            - lblCheck3Text:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =If(varCheckCount >= 3, RGBA(156, 163, 175, 1), RGBA(243, 244, 246, 1))
+                  Font: =Font.'Open Sans'
+                  Height: =24
+                  Size: =10
+                  Text: ="Write unit tests"
+                  Width: =Parent.Width - 40
+                  X: =34
+                  Y: =8
+      - conCheck4:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =40
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =194
+          Children:
+            - conCheck4Box:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(varCheckCount >= 4, RGBA(34, 197, 94, 1), RGBA(75, 85, 99, 1))
+                  Height: =24
+                  RadiusBottomLeft: =6
+                  RadiusBottomRight: =6
+                  RadiusTopLeft: =6
+                  RadiusTopRight: =6
+                  Width: =24
+                  Y: =8
+                Children:
+                  - lblCheck4Mark:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =Parent.Height
+                        Size: =9
+                        Text: =If(varCheckCount >= 4, "✓", "")
+                        Width: =Parent.Width
+            - lblCheck4Text:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =If(varCheckCount >= 4, RGBA(156, 163, 175, 1), RGBA(243, 244, 246, 1))
+                  Font: =Font.'Open Sans'
+                  Height: =24
+                  Size: =10
+                  Text: ="Code review & QA testing"
+                  Width: =Parent.Width - 40
+                  X: =34
+                  Y: =8
+      - conCheck5:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =40
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =234
+          Children:
+            - conCheck5Box:
+                Control: GroupContainer@1.4.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =If(varCheckCount >= 5, RGBA(34, 197, 94, 1), RGBA(75, 85, 99, 1))
+                  Height: =24
+                  RadiusBottomLeft: =6
+                  RadiusBottomRight: =6
+                  RadiusTopLeft: =6
+                  RadiusTopRight: =6
+                  Width: =24
+                  Y: =8
+                Children:
+                  - lblCheck5Mark:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =Parent.Height
+                        Size: =9
+                        Text: =If(varCheckCount >= 5, "✓", "")
+                        Width: =Parent.Width
+            - lblCheck5Text:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =If(varCheckCount >= 5, RGBA(156, 163, 175, 1), RGBA(243, 244, 246, 1))
+                  Font: =Font.'Open Sans'
+                  Height: =24
+                  Size: =10
+                  Text: ="Deploy to production"
+                  Width: =Parent.Width - 40
+                  X: =34
+                  Y: =8
+      - lblCheckStatus:
+          Control: Label@2.5.1
+          Properties:
+            Color: =If(varCheckCount >= 5, RGBA(34, 197, 94, 1), RGBA(156, 163, 175, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =If(varCheckCount >= 5, FontWeight.Semibold, FontWeight.Normal)
+            Height: =20
+            Size: =9
+            Text: |-
+              =If(varCheckCount >= 5, "🎉 All tasks completed!", Min(varCheckCount, 5) & " of 5 tasks done — " & (5 - Min(varCheckCount, 5)) & " remaining")
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =284
+      - btnCheckComplete:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(59, 130, 246, 1)
+            BorderThickness: =0
+            Color: =RGBA(255, 255, 255, 1)
+            DisplayMode: =If(varCheckCount >= 5, DisplayMode.Disabled, DisplayMode.Edit)
+            Fill: =RGBA(59, 130, 246, 1)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            Height: =36
+            HoverBorderColor: =RGBA(59, 130, 246, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(59, 130, 246, 1), -15%)
+            OnSelect: =Set(varCheckCount, Min(5, varCheckCount + 1))
+            PressedBorderColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =ColorFade(RGBA(59, 130, 246, 1), -30%)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =10
+            Text: ="Complete Task"
+            Width: =120
+            X: =20
+            Y: =316
+      - btnCheckUndo:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(75, 85, 99, 1)
+            BorderThickness: =1
+            Color: =RGBA(209, 213, 219, 1)
+            DisplayMode: =If(varCheckCount <= 0, DisplayMode.Disabled, DisplayMode.Edit)
+            Fill: =RGBA(30, 41, 56, 1)
+            FocusedBorderThickness: =1
+            Font: =Font.'Open Sans'
+            Height: =36
+            HoverBorderColor: =RGBA(107, 114, 128, 1)
+            HoverColor: =RGBA(243, 244, 246, 1)
+            HoverFill: =RGBA(55, 65, 81, 1)
+            OnSelect: =Set(varCheckCount, Max(0, varCheckCount - 1))
+            PressedBorderColor: =RGBA(107, 114, 128, 1)
+            PressedFill: =RGBA(30, 41, 56, 1)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =10
+            Text: ="Undo"
+            Width: =90
+            X: =150
+            Y: =316
+      - btnCheckReset:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(252, 165, 165, 1)
+            BorderThickness: =1
+            Color: =RGBA(248, 113, 113, 1)
+            Fill: =RGBA(30, 41, 56, 1)
+            FocusedBorderThickness: =1
+            Font: =Font.'Open Sans'
+            Height: =36
+            HoverBorderColor: =RGBA(248, 113, 113, 1)
+            HoverColor: =RGBA(252, 165, 165, 1)
+            HoverFill: =RGBA(69, 26, 26, 1)
+            OnSelect: =Set(varCheckCount, 0)
+            PressedBorderColor: =RGBA(248, 113, 113, 1)
+            PressedFill: =RGBA(30, 41, 56, 1)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =10
+            Text: ="Reset"
+            Width: =90
+            X: =250
+            Y: =316

@@ -1,0 +1,36 @@
+- txtInput:
+    Control: Classic/TextInput@2.3.2
+    Properties:
+      BorderColor: =RGBA(59, 130, 246, 1)
+      Default: =""
+      DisabledFill: =RGBA(255, 255, 255, 1)
+      FocusedBorderColor: =RGBA(59, 130, 246, 1)
+      FocusedBorderThickness: =1
+      Font: =Font.'Open Sans'
+      Height: =60
+      HintText: ="Text..."
+      HoverBorderColor: =Self.BorderColor
+      HoverFill: =RGBA(255, 255, 255, 1)
+      PaddingLeft: =15
+      PressedBorderColor: =Self.BorderColor
+      PressedFill: =RGBA(255, 255, 255, 1)
+      Size: =11
+      Width: =400
+      X: =246
+      Y: =158
+
+- lblInput:
+    Control: Label@2.5.1
+    Properties:
+      BorderColor: =RGBA(0, 18, 107, 1)
+      Color: =RGBA(59, 130, 246, 1)
+      Fill: =RGBA(255, 255, 255, 1)
+      Font: =Font.'Open Sans'
+      Height: =20
+      PaddingLeft: =3
+      PaddingRight: =3
+      Size: =9
+      Text: ="Label"
+      Width: =37
+      X: =txtInput.X + 10
+      Y: =txtInput.Y - Self.Height/2

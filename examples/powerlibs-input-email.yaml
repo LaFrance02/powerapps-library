@@ -1,0 +1,50 @@
+- lblEmailCaption:
+    Control: Label@2.5.1
+    Properties:
+      Color: =RGBA(209, 213, 219, 1)
+      Font: =Font.'Open Sans'
+      Height: =18
+      PaddingBottom: =0
+      PaddingTop: =0
+      Size: =10
+      Text: ="Email address *"
+      Width: =280
+      X: =40
+      Y: =58
+
+- txtEmail:
+    Control: Classic/TextInput@2.3.2
+    Properties:
+      BorderColor: =If(And(!IsBlank(txtEmail.Text), !IsMatch(txtEmail.Text, Match.Email)), RGBA(239, 68, 68, 1), RGBA(75, 85, 99, 1))
+      BorderThickness: =1
+      Color: =RGBA(255, 255, 255, 1)
+      Default: =""
+      DisabledFill: =RGBA(55, 65, 81, 1)
+      Fill: =RGBA(55, 65, 81, 1)
+      FocusedBorderColor: =If(And(!IsBlank(txtEmail.Text), !IsMatch(txtEmail.Text, Match.Email)), RGBA(239, 68, 68, 1), RGBA(59, 130, 246, 1))
+      FocusedBorderThickness: =1
+      Font: =Font.'Open Sans'
+      Height: =32
+      HintText: ="name@company.com"
+      HoverBorderColor: =Self.BorderColor
+      Mode: =TextMode.SingleLine
+      PaddingLeft: =10
+      PressedBorderColor: =Self.BorderColor
+      Size: =11
+      Width: =280
+      X: =40
+      Y: =80
+
+- lblEmailHelper:
+    Control: Label@2.5.1
+    Properties:
+      Color: =If(And(!IsBlank(txtEmail.Text), !IsMatch(txtEmail.Text, Match.Email)), RGBA(239, 68, 68, 1), RGBA(156, 163, 175, 1))
+      Font: =Font.'Open Sans'
+      Height: =16
+      PaddingBottom: =0
+      PaddingTop: =0
+      Size: =9
+      Text: =If(And(!IsBlank(txtEmail.Text), !IsMatch(txtEmail.Text, Match.Email)), "Enter a valid email address", "We'll only use this to contact you")
+      Width: =280
+      X: =40
+      Y: =txtEmail.Y + txtEmail.Height + 4

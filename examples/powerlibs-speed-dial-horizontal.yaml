@@ -1,0 +1,305 @@
+- btnHorizontalDialScrim:
+    Control: Classic/Button@2.2.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderStyle: =BorderStyle.None
+      BorderThickness: =0
+      Color: =RGBA(0, 0, 0, 0)
+      Fill: =RGBA(0, 0, 0, 0)
+      FocusedBorderThickness: =0
+      Height: =Parent.Height
+      HoverBorderColor: =RGBA(0, 0, 0, 0)
+      HoverColor: =RGBA(0, 0, 0, 0)
+      HoverFill: =RGBA(0, 0, 0, 0)
+      OnSelect: =Set(varHorizontalDialOpen, false); Set(varHorizontalDialRun, Text(Now(), "yyyymmddhhmmssfff"))
+      PressedBorderColor: =RGBA(0, 0, 0, 0)
+      PressedColor: =RGBA(0, 0, 0, 0)
+      PressedFill: =RGBA(0, 0, 0, 0)
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Text: =""
+      Visible: =varHorizontalDialOpen
+      Width: =Parent.Width
+      X: =0
+      Y: =0
+- conHorizontalDialAction1:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =44
+      RadiusBottomLeft: =22
+      RadiusBottomRight: =22
+      RadiusTopLeft: =22
+      RadiusTopRight: =22
+      Visible: =varHorizontalDialOpen
+      Width: =44
+      X: =Parent.Width - 80 - 56 + 6
+      Y: =Parent.Height - 80 + 6
+    Children:
+      - icoHorizontalDialAction1Icon:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =RGBA(230, 234, 242, 1)
+            Height: =22
+            Icon: =Icon.Document
+            PaddingBottom: =2
+            PaddingLeft: =2
+            PaddingRight: =2
+            PaddingTop: =2
+            Width: =22
+            X: =(Parent.Width - 22) / 2
+            Y: =(Parent.Height - 22) / 2
+      - btnHorizontalDialAction1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(255, 255, 255, 0.08)
+            OnSelect: |-
+              =// New request: put your action here, for example Navigate(NewRequestScreen)
+              Set(varHorizontalDialOpen, false); Set(varHorizontalDialRun, Text(Now(), "yyyymmddhhmmssfff"))
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(255, 255, 255, 0.14)
+            RadiusBottomLeft: =22
+            RadiusBottomRight: =22
+            RadiusTopLeft: =22
+            RadiusTopRight: =22
+            Text: =""
+            Tooltip: ="New request"
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+- conHorizontalDialAction2:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =44
+      RadiusBottomLeft: =22
+      RadiusBottomRight: =22
+      RadiusTopLeft: =22
+      RadiusTopRight: =22
+      Visible: =varHorizontalDialOpen
+      Width: =44
+      X: =Parent.Width - 80 - 112 + 6
+      Y: =Parent.Height - 80 + 6
+    Children:
+      - icoHorizontalDialAction2Icon:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =RGBA(230, 234, 242, 1)
+            Height: =22
+            Icon: =Icon.Clock
+            PaddingBottom: =2
+            PaddingLeft: =2
+            PaddingRight: =2
+            PaddingTop: =2
+            Width: =22
+            X: =(Parent.Width - 22) / 2
+            Y: =(Parent.Height - 22) / 2
+      - btnHorizontalDialAction2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(255, 255, 255, 0.08)
+            OnSelect: |-
+              =// Log hours: put your action here, for example Navigate(NewRequestScreen)
+              Set(varHorizontalDialOpen, false); Set(varHorizontalDialRun, Text(Now(), "yyyymmddhhmmssfff"))
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(255, 255, 255, 0.14)
+            RadiusBottomLeft: =22
+            RadiusBottomRight: =22
+            RadiusTopLeft: =22
+            RadiusTopRight: =22
+            Text: =""
+            Tooltip: ="Log hours"
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+- conHorizontalDialAction3:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =44
+      RadiusBottomLeft: =22
+      RadiusBottomRight: =22
+      RadiusTopLeft: =22
+      RadiusTopRight: =22
+      Visible: =varHorizontalDialOpen
+      Width: =44
+      X: =Parent.Width - 80 - 168 + 6
+      Y: =Parent.Height - 80 + 6
+    Children:
+      - icoHorizontalDialAction3Icon:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =RGBA(230, 234, 242, 1)
+            Height: =22
+            Icon: =Icon.Download
+            PaddingBottom: =2
+            PaddingLeft: =2
+            PaddingRight: =2
+            PaddingTop: =2
+            Width: =22
+            X: =(Parent.Width - 22) / 2
+            Y: =(Parent.Height - 22) / 2
+      - btnHorizontalDialAction3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(255, 255, 255, 0.08)
+            OnSelect: |-
+              =// Upload receipt: put your action here, for example Navigate(NewRequestScreen)
+              Set(varHorizontalDialOpen, false); Set(varHorizontalDialRun, Text(Now(), "yyyymmddhhmmssfff"))
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(255, 255, 255, 0.14)
+            RadiusBottomLeft: =22
+            RadiusBottomRight: =22
+            RadiusTopLeft: =22
+            RadiusTopRight: =22
+            Text: =""
+            Tooltip: ="Upload receipt"
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+- conHorizontalDialAction4:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =44
+      RadiusBottomLeft: =22
+      RadiusBottomRight: =22
+      RadiusTopLeft: =22
+      RadiusTopRight: =22
+      Visible: =varHorizontalDialOpen
+      Width: =44
+      X: =Parent.Width - 80 - 224 + 6
+      Y: =Parent.Height - 80 + 6
+    Children:
+      - icoHorizontalDialAction4Icon:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =RGBA(230, 234, 242, 1)
+            Height: =22
+            Icon: =Icon.Search
+            PaddingBottom: =2
+            PaddingLeft: =2
+            PaddingRight: =2
+            PaddingTop: =2
+            Width: =22
+            X: =(Parent.Width - 22) / 2
+            Y: =(Parent.Height - 22) / 2
+      - btnHorizontalDialAction4:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(255, 255, 255, 0.08)
+            OnSelect: |-
+              =// Scan asset: put your action here, for example Navigate(NewRequestScreen)
+              Set(varHorizontalDialOpen, false); Set(varHorizontalDialRun, Text(Now(), "yyyymmddhhmmssfff"))
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(255, 255, 255, 0.14)
+            RadiusBottomLeft: =22
+            RadiusBottomRight: =22
+            RadiusTopLeft: =22
+            RadiusTopRight: =22
+            Text: =""
+            Tooltip: ="Scan asset"
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+- conHorizontalDialMain:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(59, 130, 246, 1)
+      Height: =56
+      RadiusBottomLeft: =28
+      RadiusBottomRight: =28
+      RadiusTopLeft: =28
+      RadiusTopRight: =28
+      Width: =56
+      X: =Parent.Width - 80
+      Y: =Parent.Height - 80
+    Children:
+      - imgHorizontalDialIcon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =28
+            Image: ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='48' height='48'><g id='run" & Coalesce(varHorizontalDialRun, "0") & "'><path d='M12 5 V19 M5 12 H19' stroke='white' stroke-width='2.5' stroke-linecap='round' fill='none'/><animateTransform attributeName='transform' type='rotate' from='" & If(varHorizontalDialOpen, "0", "45") & " 12 12' to='" & If(varHorizontalDialOpen, "45", "0") & " 12 12' dur='" & If(IsBlank(varHorizontalDialRun), "1ms", "220ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></g></svg>")
+            Width: =28
+            X: =(Parent.Width - Self.Width) / 2
+            Y: =(Parent.Height - Self.Height) / 2
+      - btnHorizontalDialMain:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(255, 255, 255, 0.12)
+            OnSelect: =Set(varHorizontalDialOpen, !varHorizontalDialOpen); Set(varHorizontalDialRun, Text(Now(), "yyyymmddhhmmssfff"))
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(255, 255, 255, 0.22)
+            RadiusBottomLeft: =28
+            RadiusBottomRight: =28
+            RadiusTopLeft: =28
+            RadiusTopRight: =28
+            Text: =""
+            Tooltip: ="Actions"
+            Width: =Parent.Width
+            X: =0
+            Y: =0

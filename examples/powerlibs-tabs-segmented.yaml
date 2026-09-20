@@ -1,0 +1,170 @@
+- conSegmentedTabs:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =40
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Min(330, Parent.Width - 80)
+      X: =40
+      Y: =40
+    Children:
+      - conSegmentedTabsTrack:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =RGBA(60, 75, 105, 1)
+            BorderThickness: =1
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(21, 30, 48, 1)
+            Height: =40
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+          Children:
+            - conSegmentedTabsDivider1:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =24
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Visible: =!(Coalesce(varSegmentedTabs, 1) = 1 || Coalesce(varSegmentedTabs, 1) = 2)
+                  Width: =1
+                  X: =Parent.Width * 1 / 3
+                  Y: =8
+            - conSegmentedTabsDivider2:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =24
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Visible: =!(Coalesce(varSegmentedTabs, 1) = 2 || Coalesce(varSegmentedTabs, 1) = 3)
+                  Width: =1
+                  X: =Parent.Width * 2 / 3
+                  Y: =8
+      - imgSegmentedTabsIndicator:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =40
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40' preserveAspectRatio='none'><g id='r" & Coalesce(varSegmentedTabsRun, "0") & "'><rect y='2' width='94' height='36' rx='6' fill='#3B82F6'><animate attributeName='x' from='" & Text((Coalesce(varSegmentedTabsPrev, 1) - 1) * 100 + 3) & "' to='" & Text((Coalesce(varSegmentedTabs, 1) - 1) * 100 + 3) & "' dur='" & If(IsBlank(varSegmentedTabsRun), "1ms", "220ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></rect></g></svg>")
+            ImagePosition: =ImagePosition.Stretch
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+      - btnSegmentedTabsTab1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varSegmentedTabs, 1) = 1, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varSegmentedTabs, 1) = 1, RGBA(255, 255, 255, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varSegmentedTabsPrev: Coalesce(varSegmentedTabs, 1), varSegmentedTabs: 1, varSegmentedTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =4
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Day"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 0 / 3
+            Y: =0
+      - btnSegmentedTabsTab2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varSegmentedTabs, 1) = 2, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varSegmentedTabs, 1) = 2, RGBA(255, 255, 255, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varSegmentedTabsPrev: Coalesce(varSegmentedTabs, 1), varSegmentedTabs: 2, varSegmentedTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =4
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Week"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 1 / 3
+            Y: =0
+      - btnSegmentedTabsTab3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varSegmentedTabs, 1) = 3, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varSegmentedTabs, 1) = 3, RGBA(255, 255, 255, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varSegmentedTabsPrev: Coalesce(varSegmentedTabs, 1), varSegmentedTabs: 3, varSegmentedTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =4
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Month"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 2 / 3
+            Y: =0

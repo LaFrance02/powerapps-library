@@ -1,0 +1,67 @@
+- conToggleSquare:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =24
+      Width: =155
+      X: =40
+      Y: =40
+    Children:
+      - imgToggleSquareSwitch:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =24
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 24' width='88' height='48'><g id='r" & Coalesce(varToggleSquareRun, "0") & "'><rect width='44' height='24' rx='6' fill='" & If(varToggleSquare, "#3B82F6", "#3C4B69") & "'><animate attributeName='fill' from='" & If(varToggleSquare, "#3C4B69", "#3B82F6") & "' to='" & If(varToggleSquare, "#3B82F6", "#3C4B69") & "' dur='" & If(IsBlank(varToggleSquareRun), "1ms", "180ms") & "' fill='freeze'/></rect><rect y='2' width='20' height='20' rx='4' fill='white'><animate attributeName='x' from='" & If(varToggleSquare, "2", "22") & "' to='" & If(varToggleSquare, "22", "2") & "' dur='" & If(IsBlank(varToggleSquareRun), "1ms", "180ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></rect></g></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Width: =44
+            X: =0
+            Y: =0
+      - lblToggleSquareLabel:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =Parent.Height
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: ="Show archived"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =99
+            X: =56
+            Y: =0
+      - btnToggleSquare:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varToggleSquare: !varToggleSquare, varToggleSquareRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =12
+            RadiusBottomRight: =12
+            RadiusTopLeft: =12
+            RadiusTopRight: =12
+            Text: =""
+            Tooltip: ="Show archived"
+            Width: =Parent.Width
+            X: =0
+            Y: =0

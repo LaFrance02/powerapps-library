@@ -77,6 +77,35 @@ but have never been confirmed against a real Matt Studio paste. Do not treat the
 | `Classic/TextInput` | 2.3.2 | New — classic-family TextInput, seen once (Advanced Sidebar's `cmpSidebar` search box, `txtNavSearch`). Contradicts the modern-controls rule (TextInput has a modern option) but is Power_Libs' own choice in that component, not something I introduced. |
 | `GroupContainer` | 1.4.0 | Now also confirmed as a root container in the Card batch (Dynamic Form Card, Modern Form — both modal-shaped entries, `DropShadow.Regular`) and throughout most of the Sidebars/Navigation batch (Sidebar Wide, Narrow Sidebar, Collapsible Sidebar, Sidebar with Navbar, Dropdown Sidebar, Glass Floating Sidebar, Navigation Bar, Mega Menu Navbar, Minimal Mega Menu Navbar, NavBar with Scrollable Content) — this is now the single most common version across the whole library, not a rare third option. Updated tally across all examples so far: 1.5.0 (baseline + buttons/badges + sidebar shell + most Modal/Gallery/Dropdown/Drawer/8-of-10-Card entries), 1.3.0 (avatars + both calendars + KPI Tile + Bar Chart's bar/track + Empty State), 1.4.0 (Time Picker + most of Sidebars/Navigation + the 2 modal-shaped Card entries). Still no 4th distinct version seen. |
 
+**"Another big example drip" batch (2026-09-19) — new controls/versions:**
+
+| Control | Version | Note |
+|---|---|---|
+| `Classic/DropDown` | 2.3.1 | New, seen once (Basic Approvals App's Type field, `arqDdType`). First distinct DropDown version other than the already-confirmed modern `DropDown@0.0.45`. |
+| `AddMedia` | 2.2.1 | New control, Photo Upload's picker (Upload & Signature batch). |
+| `Attachments` | 2.3.0 | New control, all 4 Document Upload variants (Upload & Signature batch) — identical version across all four. |
+| `PenInput` | 2.3.0 | New control, Signature Pad (Upload & Signature batch), cleared via `Reset()`. |
+| `Rating` | (bare, no version) | New, unversioned control — Input Field batch (Rating, Rating Compact, Rating Feedback Card). No version number to fall back on if a paste fails. |
+| `Slider` | (bare, no version) | New, unversioned control — Input Field batch (Slider, Slider with Value Bubble, Slider Minimal). Same caveat as `Rating`. |
+| `GroupContainer` | 1.4.0, `Variant: AutoLayout` | New layout variant, seen once ("Toast Notification" entry's `conToast`) with `LayoutAlignItems`/`LayoutDirection`/`LayoutGap`/`PaddingX` properties — every other `GroupContainer` in the library so far uses `Variant: ManualLayout`. |
+| `Gallery` variant | `BrowseLayout_Flexible_SocialFeed_ver5.0` | Now confirmed a third time (Input Field batch's Radio Group and Checkbox Group), on top of the two prior sightings (Data Display's Bar Chart) — no longer a one-off pairing with `Gallery@2.15.0`. |
+
+**New architectural patterns from this batch:**
+
+- **Timer-driven X-position slide animation** ("Toast Notification" entry): `conToast.X` computed
+  live from a running `Timer@2.1.0`'s `.Value` (e.g. `Max(App.Width, App.MinScreenWidth) -
+  conToast.Width * timerAnimation.Value/300 - 20`), interpolating the container between off-screen
+  and resting position as the timer runs. Distinct from the SVG-`<animate>`-keyframe approach used
+  everywhere else in the library — no SVG involved at all, pure numeric position formula.
+- **Live shrinking progress bar keyed off a countdown Timer** ("Notification with Timer"): `Width:
+  =If(..., (1 - (AutoClose.Value / AutoClose.Duration)) * Parent.Width, 0)` — a bar that visually
+  empties as an auto-close timer counts down.
+- **Per-row `Timer` inside a `Gallery`** ("Queue Notifications"): a collection (`colNotifications`)
+  rendered through `Gallery@2.15.0`, with each row/template instantiating its own independent
+  `Timer@2.1.0` (`AutoStart`, its own `Duration`) whose `OnTimerEnd` does `Remove(colNotifications,
+  ThisItem)`. Because the Timer lives inside the gallery template, each row gets its own countdown —
+  a genuine multi-instance, independently-timed toast queue, not a single shared timer.
+
 **Recurring architectural pattern worth naming:** across the button batch, most custom-shaped buttons (icon+label combos, pill shapes, split buttons) are built as a `GroupContainer` + `Image`/`Text` for the visual, with a fully transparent `Classic/Button@2.2.0` layered on top purely as the tap target (`Fill`/`Color`/`BorderColor` all `RGBA(0,0,0,0)`, real styling lives in the container). Plain single-purpose buttons (Primary, Outline, Action Bar's two buttons, Raised) skip this and use bare modern `Button@0.0.45` directly. So "modern where available" in practice means: modern `Button` for anything a plain button can do, classic `Button` only as an invisible overlay when the visual needs a shape modern `Button` can't produce alone. The four bare `Classic/Button@2.2.0` **badge** components (Simple/Border/Pills/Outlined Pills Badge) are a different case — there the classic button *is* the visible badge, styled entirely through `Self.Color`/`Self.BorderColor` references so one control instance is fully parameterized (set `Color`, `BorderColor`, `Text`, `Width` and the Hover/Pressed states follow automatically). That self-referencing pattern is worth reusing elsewhere.
 
 **Modal shell pattern (confirmed across all 14 Modal-batch examples, identical every time):** modern `Button@0.0.45` trigger → `Classic/Button@2.2.0` full-bleed transparent scrim (`RGBA(11,18,32,0.45)`, dismisses via `UpdateContext({ varShowX: false })`, unless the modal is meant to be non-dismissible by tap-out, in which case the scrim's `OnSelect` is a deliberate `=false`) → a self-sizing `GroupContainer@1.5.0` panel, always centered (`X: =(Parent.Width - Self.Width)/2`, `Y: =(Parent.Height - Self.Height)/2`), with `Height: =<lastVisibleControl>.Y + <lastVisibleControl>.Height + 24` so the panel never needs a hardcoded height. The same shell (scrim + self-sizing centered panel) also appears, with `Rectangle@2.3.0` instead of `Classic/Button@2.2.0` as the scrim, on the Drawer batch's side-panel/bottom-sheet variants, plus a responsive corner-radius formula on the hinge-side corners of right-anchored drawers: `If(Self.Width >= Parent.Width, 0, 16)` (so the drawer loses its rounding when it goes full-width on a phone). Bottom-anchored sheets skip that responsive-radius formula since they're always full-width by design.

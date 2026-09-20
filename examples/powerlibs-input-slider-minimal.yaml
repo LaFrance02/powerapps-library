@@ -1,0 +1,101 @@
+- conSliderMinimal:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      BorderThickness: =0
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =100
+      Width: =360
+      X: =40
+      Y: =40
+    Children:
+      - lblSliderMinimalLabel:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Left
+            Color: =RGBA(209, 213, 219, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =22
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =10
+            Text: ="Quantity"
+            Width: =200
+            X: =0
+            Y: =0
+      - lblSliderMinimalValue:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Right
+            Color: =RGBA(59, 130, 246, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =22
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =10
+            Text: =sldSliderMinimal.Value & ""
+            Width: =120
+            X: =Parent.Width - 120
+            Y: =0
+      - sldSliderMinimal:
+          Control: Slider
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderThickness: =0
+            Default: =20
+            FocusedBorderThickness: =0
+            HandleActiveFill: =ColorFade(RGBA(59, 130, 246, 1), -20%)
+            HandleFill: =RGBA(59, 130, 246, 1)
+            HandleHoverFill: =ColorFade(RGBA(59, 130, 246, 1), -10%)
+            HandleSize: =16
+            Height: =40
+            Max: =50
+            Min: =0
+            RailFill: =RGBA(75, 85, 99, 1)
+            RailHoverFill: =RGBA(107, 114, 128, 1)
+            ShowValue: =false
+            ValueFill: =RGBA(59, 130, 246, 1)
+            ValueHoverFill: =ColorFade(RGBA(59, 130, 246, 1), -10%)
+            Width: =Parent.Width
+            X: =0
+            Y: =28
+      - lblSliderMinimalMin:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Left
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =16
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =8
+            Text: =sldSliderMinimal.Min & ""
+            Width: =100
+            X: =0
+            Y: =72
+      - lblSliderMinimalMax:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Right
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =16
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =8
+            Text: =sldSliderMinimal.Max & ""
+            Width: =100
+            X: =Parent.Width - 100
+            Y: =72

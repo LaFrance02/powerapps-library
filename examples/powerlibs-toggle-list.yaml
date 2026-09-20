@@ -1,0 +1,152 @@
+- conToggleList:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(34, 48, 74, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(21, 30, 48, 1)
+      Height: =300
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =12
+      RadiusTopRight: =12
+      Width: =Min(480, Parent.Width - 80)
+      X: =40
+      Y: =40
+    Children:
+      - lblToggleListHeading:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(230, 234, 242, 1)
+            Height: =26
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =16
+            Text: ="Notifications"
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Bold
+            Width: =Parent.Width - 32
+            X: =16
+            Y: =16
+      - galToggleListRows:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Height: =240
+            Items: |-
+              =Table(
+                  {id:1, title:"Email", subtitle:"A summary every morning"},
+                  {id:2, title:"Push", subtitle:"On your phone, right away"},
+                  {id:3, title:"Teams", subtitle:"A message in the Approvals channel"},
+                  {id:4, title:"Weekly report", subtitle:"Every Monday at 8:00"}
+              )
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =60
+            Width: =Parent.Width
+            X: =0
+            Y: =52
+          Children:
+            - conToggleListRowLine:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =RGBA(34, 48, 74, 1)
+                  Height: =1
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.TemplateWidth - 32
+                  X: =16
+                  Y: =0
+            - lblToggleListRowTitle:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(230, 234, 242, 1)
+                  Height: =If(IsBlank(ThisItem.subtitle), Parent.TemplateHeight, 20)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =15
+                  Text: =ThisItem.title
+                  VerticalAlign: =VerticalAlign.Middle
+                  Weight: ='TextCanvas.Weight'.Semibold
+                  Width: =Parent.TemplateWidth - 88
+                  X: =16
+                  Y: =If(IsBlank(ThisItem.subtitle), 0, 12)
+            - lblToggleListRowSub:
+                Control: Text@0.0.51
+                Properties:
+                  Align: ='TextCanvas.Align'.Start
+                  FontColor: =RGBA(139, 153, 176, 1)
+                  Height: =20
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: =ThisItem.subtitle
+                  VerticalAlign: =VerticalAlign.Middle
+                  Visible: =!IsBlank(ThisItem.subtitle)
+                  Weight: ='TextCanvas.Weight'.Regular
+                  Width: =Parent.TemplateWidth - 88
+                  X: =16
+                  Y: =31
+            - imgToggleListRowSwitch:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  Height: =24
+                  Image: |-
+                    ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 24' width='88' height='48'><g id='r" & Coalesce(varToggleListRun, "0") & "'><rect width='44' height='24' rx='12' fill='" & If(ThisItem.id in colToggleListOn.id, "#3B82F6", "#3C4B69") & "'><animate attributeName='fill' from='" & If(ThisItem.id in colToggleListOn.id, "#3C4B69", "#3B82F6") & "' to='" & If(ThisItem.id in colToggleListOn.id, "#3B82F6", "#3C4B69") & "' dur='" & If(IsBlank(varToggleListRun), "1ms", "180ms") & "' fill='freeze'/></rect><circle cy='12' r='10' fill='white'><animate attributeName='cx' from='" & If(ThisItem.id in colToggleListOn.id, "12", "32") & "' to='" & If(ThisItem.id in colToggleListOn.id, "32", "12") & "' dur='" & If(IsBlank(varToggleListRun), "1ms", "180ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></circle></g></svg>")
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =44
+                  X: =Parent.TemplateWidth - 60
+                  Y: =18
+            - btnToggleListRow:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =0
+                  Height: =Parent.TemplateHeight
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  OnSelect: |-
+                    =If(ThisItem.id in colToggleListOn.id, Remove(colToggleListOn, LookUp(colToggleListOn, id = ThisItem.id)), Collect(colToggleListOn, { id: ThisItem.id })); UpdateContext({ varToggleListRun: Text(Now(), "yyyymmddhhmmssfff") })
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedColor: =RGBA(0, 0, 0, 0)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Text: =""
+                  Width: =Parent.TemplateWidth
+                  X: =0
+                  Y: =0
+- btnToggleListSeed:
+    Control: Button@0.0.45
+    Properties:
+      Appearance: ='ButtonCanvas.Appearance'.Outline
+      Height: =36
+      OnSelect: |-
+        =ClearCollect(colToggleListOn, { id: 1 }, { id: 2 }); UpdateContext({ varToggleListRun: Text(Now(), "yyyymmddhhmmssfff") })
+      Text: ="Reset to defaults"
+      Width: =160
+      X: =40
+      Y: =conToggleList.Y + conToggleList.Height + 16

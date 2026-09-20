@@ -119,6 +119,69 @@ is preserved in this file's notes instead, not silently dropped.
 | Data Display | `powerlibs-data-display-kpi-tile.yaml` | PowerLibs, "KPI Tile" | Caption + big number + trend delta. Comment stripped, see notes below. | Not yet paste-tested |
 | Data Display | `powerlibs-data-display-bar-chart.yaml` | PowerLibs, "Bar Chart" | Real-control horizontal bar chart (`Gallery` + `GroupContainer` bars), theme-following. Comment stripped, see notes below. | Not yet paste-tested |
 | Data Display | `powerlibs-data-display-empty-state.yaml` | PowerLibs, "Empty State" | Icon + heading + body + CTA for an empty gallery. Comment stripped, see notes below. | Not yet paste-tested |
+| App Examples | `powerlibs-app-basic-approvals.yaml` | PowerLibs, "Basic Approvals App" | A dark-themed approvals dashboard screen (full `Screens:` block): request list, filterable by status, a detail panel, and a New Request modal. | Not yet paste-tested |
+| Upload & Signature | `powerlibs-upload-photo.yaml` | PowerLibs, "Photo Upload" | Styled upload card around the real `AddMedia` control, tap-to-pick with live preview. Bare-`=` defect, see notes below. | Not yet paste-tested |
+| Upload & Signature | `powerlibs-upload-document.yaml` | PowerLibs, "Document Upload" | Styled dropzone card around the real `Attachments` control, drag-and-drop with brand-colored chips. | Not yet paste-tested |
+| Upload & Signature | `powerlibs-upload-document-compact.yaml` | PowerLibs, "Document Upload Compact" | Form-field-sized variant of Document Upload for a column of input fields. | Not yet paste-tested |
+| Upload & Signature | `powerlibs-upload-document-tinted.yaml` | PowerLibs, "Document Upload Tinted" | Bold brand-tinted variant of Document Upload with solid chips. | Not yet paste-tested |
+| Upload & Signature | `powerlibs-upload-document-minimal.yaml` | PowerLibs, "Document Upload Minimal" | Icon-free, monochrome-chip variant of Document Upload. | Not yet paste-tested |
+| Upload & Signature | `powerlibs-upload-signature-pad.yaml` | PowerLibs, "Signature Pad" | Styled card around the real `PenInput` control, `Reset()`-clearable. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-clearable.yaml` | PowerLibs, "Clearable Input" | Text field with an X icon that empties it, shown only while it has content. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-rating.yaml` | PowerLibs, "Rating" | Card around the bare `Rating` control with a question label and live value readout. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-rating-compact.yaml` | PowerLibs, "Rating Compact" | Slim bordered form-row variant of the Rating card. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-rating-feedback-card.yaml` | PowerLibs, "Rating Feedback Card" | Brand-tinted card, large centered stars, sentiment line Poor→Excellent. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-slider.yaml` | PowerLibs, "Slider" | Card around the bare `Slider` control with a live value readout. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-slider-value-bubble.yaml` | PowerLibs, "Slider with Value Bubble" | Brand-colored value pill that floats above and follows the Slider handle live. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-slider-minimal.yaml` | PowerLibs, "Slider Minimal" | Surfaceless Slider variant with live value + min/max captions. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-basic.yaml` | PowerLibs, "Input" | Clean text input with placeholder and focus states. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-modern-label.yaml` | PowerLibs, "Modern Input Label" | Text input with an integrated label sitting on the top border. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-multiline.yaml` | PowerLibs, "Multiline Input" | Multi-line notes field with a live `Len()` character counter. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-number.yaml` | PowerLibs, "Number Input" | Numeric-only field with caption and helper text. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-currency.yaml` | PowerLibs, "Currency Input" | Numeric field with an inline currency symbol. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-email.yaml` | PowerLibs, "Email Input" | Live-validated email field (`IsMatch(..., Match.Email)`), turns red until valid. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-phone.yaml` | PowerLibs, "Phone Input" | Live length + pattern-validated phone field. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-password.yaml` | PowerLibs, "Password Input" | Masked password field with a show/hide toggle icon (`TextMode` swap). | Not yet paste-tested |
+| Input Fields | `powerlibs-input-radio-group.yaml` | PowerLibs, "Radio Group" | Single-select option list, selection held in a context variable. Comment stripped, see notes below. | Not yet paste-tested |
+| Input Fields | `powerlibs-input-checkbox-group.yaml` | PowerLibs, "Checkbox Group" | Multi-select option list, answers collected into a collection. Comment stripped, see notes below. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-settings-row.yaml` | PowerLibs, "Settings Row Toggle" | Title + description row with a switch on the right, whole row tappable. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-list.yaml` | PowerLibs, "Toggle List" | Card of settings rows, each with its own switch, state in a collection. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-favorite-heart.yaml` | PowerLibs, "Favorite Toggle - Heart" | Heart icon that fills red with a pop on tap. Naming collision, see notes below. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-favorite-star.yaml` | PowerLibs, "Favorite Toggle - Star" | Star icon that fills amber with a pop on tap. Naming collision, see notes below. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-favorite-bookmark.yaml` | PowerLibs, "Favorite Toggle - Bookmark" | Bookmark icon that fills blue with a pop on tap. Naming collision, see notes below. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle.yaml` | PowerLibs, "Toggle" | Standard on/off switch, sliding knob, SVG-keyframe animated. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-on-off.yaml` | PowerLibs, "Toggle On/Off" | Switch with ON/OFF text inside the track. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-square.yaml` | PowerLibs, "Toggle Square" | Squared track/knob variant of the standard switch. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-lock.yaml` | PowerLibs, "Toggle Lock" | Padlock icon inside the knob that visually locks when on. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-check-x.yaml` | PowerLibs, "Toggle Check/X" | Green check / red X switch for at-a-glance yes/no state. | Not yet paste-tested |
+| Toggles | `powerlibs-toggle-outline.yaml` | PowerLibs, "Toggle Outline" | Outlined track, filled knob, lighter-weight look. | Not yet paste-tested |
+| Tooltips | `powerlibs-tooltip-simple.yaml` | PowerLibs, "Simple Tooltip" | Dark tooltip bubble triggered by a button click. | Not yet paste-tested |
+| Tooltips | `powerlibs-tooltip-help-icon.yaml` | PowerLibs, "Help Icon Tooltip" | "?" icon revealing a dark tooltip bubble, with dismiss overlay. | Not yet paste-tested |
+| Tooltips | `powerlibs-tooltip-context-menu.yaml` | PowerLibs, "Context Menu Popover" | Kebab menu opening a popover of actions, with a divider row and danger-styled Delete. | Not yet paste-tested |
+| Tooltips | `powerlibs-tooltip-delete-confirmation.yaml` | PowerLibs, "Delete Confirmation" | Inline "Are you sure?" replacing a Delete button. | Not yet paste-tested |
+| Tooltips | `powerlibs-tooltip-rich-help.yaml` | PowerLibs, "Rich Help Popover" | Header bar + content + Learn More/Got It popover for inline form guidance. | Not yet paste-tested |
+| Toast Notifications | `powerlibs-toast-notification.yaml` | PowerLibs, "Toast Notification" | Slides in from bottom-right via `Timer.Value`-driven X position, Undo action, auto-close. | Not yet paste-tested |
+| Toast Notifications | `powerlibs-toast-simple.yaml` | PowerLibs, "Simple Notification" | Top-right card, primary/secondary text, manual close, no auto-dismiss. | Not yet paste-tested |
+| Toast Notifications | `powerlibs-toast-notification-timer.yaml` | PowerLibs, "Notification with Timer" | Auto-dismissing top-right notification with a live shrinking progress bar. | Not yet paste-tested |
+| Toast Notifications | `powerlibs-toast-status.yaml` | PowerLibs, "Status Notifications" | Circular color-coded icon background (e.g. success check) beside message text. | Not yet paste-tested |
+| Toast Notifications | `powerlibs-toast-queue.yaml` | PowerLibs, "Queue Notifications" | Stacking toast queue: collection + Gallery, each row with its own `Timer` for independent auto-dismiss. | Not yet paste-tested |
+| Steppers | `powerlibs-stepper-horizontal.yaml` | PowerLibs, "Horizontal Stepper" | 4-step numbered-circle progress bar with connecting lines and a swapping content panel. | Not yet paste-tested |
+| Steppers | `powerlibs-stepper-upload-progress.yaml` | PowerLibs, "Upload Progress" | Timer-driven simulated upload, Start/Pause/Reset, synthetic byte counter. | Not yet paste-tested |
+| Steppers | `powerlibs-stepper-vertical.yaml` | PowerLibs, "Vertical Stepper" | 4-step vertical approval-workflow stepper with descriptions. | Not yet paste-tested |
+| Steppers | `powerlibs-stepper-checklist.yaml` | PowerLibs, "Checklist Progress" | 5-task checklist, progress bar, Complete/Undo/Reset. | Not yet paste-tested |
+| Steppers | `powerlibs-stepper-timeline.yaml` | PowerLibs, "Timeline Progress" | 4-step vertical timeline/order-tracker with dots and lines. | Not yet paste-tested |
+| Speed Dials | `powerlibs-speed-dial-horizontal.yaml` | PowerLibs, "Horizontal Speed Dial" | 4 actions fan left of the main button instead of above it. | Not yet paste-tested |
+| Speed Dials | `powerlibs-speed-dial-fab.yaml` | PowerLibs, "Floating Action Button" | Single round/extended action, bottom-right corner, no menu state. | Not yet paste-tested |
+| Speed Dials | `powerlibs-speed-dial-animated.yaml` | PowerLibs, "Animated Speed Dial" | Round main FAB, up to 4 actions rise above it, plus-to-X icon rotation via SVG keyframe. | Not yet paste-tested |
+| Speed Dials | `powerlibs-speed-dial-square.yaml` | PowerLibs, "Square Speed Dial" | 12px-radius squared variant of the speed dial. | Not yet paste-tested |
+| Speed Dials | `powerlibs-speed-dial-labeled.yaml` | PowerLibs, "Labeled Speed Dial" | Adds a label pill beside every action. | Not yet paste-tested |
+| Tabs | `powerlibs-tabs-icon.yaml` | PowerLibs, "Icon Tabs" | Icon above a short label, underline slides; up to five, for a record page or phone toolbar. | Not yet paste-tested |
+| Tabs | `powerlibs-tabs-vertical.yaml` | PowerLibs, "Vertical Tabs" | List of tabs down the left with a sliding highlight, settings-screen layout. | Not yet paste-tested |
+| Tabs | `powerlibs-tabs-bar.yaml` | PowerLibs, "Tab Bar" | Grey track with a white segment that slides to the active tab, fits screen width. | Not yet paste-tested |
+| Tabs | `powerlibs-tabs-counts.yaml` | PowerLibs, "Tabs with Counts" | Underline tabs with a number badge on each, for queues/inboxes. | Not yet paste-tested |
+| Tabs | `powerlibs-tabs-chip.yaml` | PowerLibs, "Chip Tabs" | Separate outlined chips, active one fills with brand color; no sliding indicator. | Not yet paste-tested |
+| Tabs | `powerlibs-tabs-segmented.yaml` | PowerLibs, "Segmented Tabs" | Outlined track with dividers, brand block slides to the active segment (iOS-style). | Not yet paste-tested |
+| Tabs | `powerlibs-tabs-underline.yaml` | PowerLibs, "Underline Tabs" | Labels on a baseline, brand-colored line slides under the active one. | Not yet paste-tested |
+| Tabs | `powerlibs-tabs-pill.yaml` | PowerLibs, "Pill Tabs" | Grey track with a brand pill that slides to the active tab. | Not yet paste-tested |
 
 ## Notes on the sidebar shell (read before using)
 
@@ -462,3 +525,119 @@ break Studio's parser — stripped from the saved files, preserved here):
 - **Empty State**: `# Visible is =true so this pastes cleanly and you can see it. Wire it up by
   putting your gallery's name in Settings, or by editing Visible directly, for example
   =IsEmpty(galOrders.AllItems) or =IsEmpty(Filter(Orders, Status = "Open")).`
+
+## Notes on the "Another big example drip" batch (App Examples, Upload & Signature, Input Fields,
+## Toggles, Tooltips, Toast Notifications, Steppers, Speed Dials, Tabs — read before using)
+
+63 new files from 9 source `.txt` files (a 10th, "Basic Project Management App Example," came
+through as an empty 0-byte upload — Matt needs to re-upload it; not included in this batch).
+Processed via parallel subagents, one per source file, matching the established pipeline.
+
+**Basic Approvals App** is the second full `Screens:` block in the library (after the two Calendar
+files) — a two/three-pane approvals dashboard (`ApprovalsMyRequests` screen): icon rail, filterable
+request list, responsive detail panel, New Request modal. Notably clean: all 7 `GroupContainer`
+instances use a single consistent `1.5.0`, and every `var`-prefixed variable (`varFilter`,
+`varShowNew`, `varShowDetail`, `varSel`) is genuinely `UpdateContext()`-scoped — no Set()/var
+mismatch here. Introduces **`Classic/DropDown@2.3.1`** (new control+version, the Type field) and
+**`Classic/TextInput@2.3.2`** (matches the one prior sighting in Advanced Sidebar's search box).
+Responsive breakpoint formula (`If(width<640,1,width<1024,2,width<1600,3,4)`) driven off a hidden
+`Rectangle`-based width sensor, repeated ~9 times. Data seeded via `ClearCollect(gblApRequests, ...)`
+guarded by `IsEmpty()` in `OnVisible` (12 sample records), mutated later via `Collect` (submit) and
+`RemoveIf` (withdraw).
+
+**Upload & Signature** introduces three new real data-capture controls: **`AddMedia@2.2.1`** (Photo
+Upload), **`Attachments@2.3.0`** (all four Document Upload variants, identical version across all
+four), and **`PenInput@2.3.0`** (Signature Pad, cleared via `Reset()`). Classic/modern rule violated:
+`Classic/Icon@2.5.0` (3 of 6 entries) and `Classic/Button@2.2.0` (Signature Pad's Clear button) both
+have modern options Power_Libs didn't use. **Known defect, preserved as-is**: `powerlibs-upload-
+photo.yaml` fails strict YAML parsing — `btnPhotoUploadPicker` has four bare-`=` (empty formula)
+properties (`HoverBorderColor`, `HoverFill`, `PressedBorderColor`, `PressedFill`), the same defect
+class already documented in `syntax-gotchas.md` for the Mega Menu/Animated Sidebar files. No
+comments needed stripping in this file (none existed).
+
+**Input Fields** is the largest single-file batch yet — 17 entries. Introduces two new **bare,
+unversioned** controls never seen before in the library: **`Rating`** (3 entries: Rating, Rating
+Compact, Rating Feedback Card) and **`Slider`** (3 entries: Slider, Slider with Value Bubble, Slider
+Minimal) — no `@version` at all on either, worth testing carefully since there's no version number
+to fall back on if Studio rejects the bare name. Radio Group and Checkbox Group both reuse the
+`Gallery@2.15.0` / `BrowseLayout_Flexible_SocialFeed_ver5.0` variant already seen in the Data
+Display batch's Bar Chart — now confirmed a third time, no longer a one-off. Radio Group's
+`varRadioSelected` is genuinely `UpdateContext()`-scoped (correct var usage); Checkbox Group's
+`gblCheckboxSelected` is a `Collect()`/`Remove()`-managed collection, not a `Set()` global, but the
+`gbl` prefix is still directionally right (app-scoped, not context-scoped) — no real mismatch bug in
+this file. Live-validation patterns worth reusing: Email Input's `IsMatch(..., Match.Email)`,
+Phone Input's length+pattern check, Multiline Input's `Len()` counter, Password Input's
+`TextMode.Password`/`SingleLine` show/hide toggle.
+
+**Comments stripped and preserved** (both trailing, both about wiring the variable/collection on
+`OnVisible` — load-bearing, not in the pasteable YAML):
+- **Radio Group**: `# Set the starting selection on the screen's OnVisible: UpdateContext({
+  varRadioSelected: "Email" }) — Read the answer anywhere with varRadioSelected.`
+- **Checkbox Group**: `# Clear the answers on the screen's OnVisible so the group starts empty:
+  Clear(gblCheckboxSelected) — Read the answers with gblCheckboxSelected, for example
+  Concat(gblCheckboxSelected, Label, ", ").`
+
+**Toggles** (11 entries) — **naming collision flagged, not fixed**: the three "Favorite Toggle"
+variants (Heart/Star/Bookmark) share byte-for-byte identical internal control names across all three
+files (`conFavorite`, `imgFavoriteIcon`, `lblFavoriteCount`, `btnFavorite`) and identical variable
+names (`varFavorite`, `varFavoriteRun`) — differing only in SVG path/color. **Pasting more than one
+variant onto the same screen will collide on every name.** Preserved exactly as sourced in all three
+files per this library's no-silent-fixes policy; rename one set of controls yourself before pasting
+a second variant onto the same screen. Also: `btnToggleListSeed` (Toggle List's reset button) is a
+bare modern `Button@0.0.45` — the file's one inconsistent exception in an otherwise fully-classic
+batch (`Classic/Button@2.2.0` everywhere else, `Text@0.0.51` for labels, `Image@2.2.3` for the
+SVG switches). Every `var`-prefixed toggle-state variable in this file is genuinely
+`UpdateContext()`-scoped — no Set()/var mismatch here either.
+
+**Tooltips** (5 entries) — the clearest confirmation yet of the `Group:` property pattern: every
+single entry tags its top-level trigger/overlay/bubble siblings with a shared group name
+(`grpSimpleTooltip`, `grpHelpIconTooltip`, `grpMenuPopover`, `grpDelete`, `grpRichPopOver`) — nested
+children inside a container's `Children:` list are never separately tagged, only direct screen-root
+siblings are. `GroupContainer@1.4.0` used in 4 of 5 entries, `1.5.0` only in Context Menu Popover
+(both container instances there). All classic controls despite Button/Icon having modern options.
+
+**Toast Notifications** (5 entries) — three genuinely new architectural patterns: (1) **Timer-driven
+X-position slide** on "Toast Notification" (`conToast.X` computed live from `timerAnimation.Value/
+300`, distinct from the SVG-keyframe approach used elsewhere), paired with a `GroupContainer@1.4.0`
+`Variant: AutoLayout` (with `LayoutAlignItems`/`LayoutDirection`/`LayoutGap`/`PaddingX`) not used
+anywhere else in this file; (2) a live shrinking progress bar on "Notification with Timer"
+(`Width: =If(..., (1 - (AutoClose.Value/AutoClose.Duration)) * Parent.Width, 0)`); (3) a genuine
+**per-row `Timer` inside a `Gallery`** on "Queue Notifications" — `colNotifications` rendered through
+`Gallery@2.15.0`, each row instantiating its own independent `Timer@2.1.0` for auto-dismiss
+(`OnTimerEnd: =Remove(colNotifications, ThisItem)`), so each toast in the stack counts down on its
+own schedule. Also notable: this file's globals have **no `gbl` prefix at all** —
+`varPowerLibsNotification` (a real `Set()` global despite the `var` name) plus `ShowHideToast`/
+`StartTimer` (bare, no prefix, `UpdateContext()`-scoped) — diverges from the gbl-prefix convention
+used elsewhere in the library.
+
+**Steppers** (5 entries) — near-uniform on `GroupContainer@1.4.0` (all 30 instances, no exceptions)
+plus `Classic/Button@2.2.0` and `Label@2.5.1`, but **not** fully classic as initially assumed: also
+uses non-`Classic/`-prefixed `Rectangle@2.3.0` (connecting lines/tracks) and one `Timer@2.1.0`
+(Upload Progress's simulated-upload driver). Every step/progress variable in every entry
+(`varHStep`, `varAnimProg`, `varAnimRunning`, `varVStep`, `varCheckCount`, `varTimeStep`) is created
+via `Set()` with zero `UpdateContext()` calls anywhere in the file — a clean, total instance of the
+var/Set() scope mismatch, no exceptions this time.
+
+**Speed Dials** (5 entries) — fully classic (`Classic/Button@2.2.0`, `Classic/Icon@2.5.0`,
+`Image@2.2.3`, `GroupContainer@1.5.0`). Every stateful entry's open/close toggle plus its
+`varXRun`-style animation-retrigger variable are both created via `Set()` (`varHorizontalDialOpen`/
+`varHorizontalDialRun`, `varSpeedDialOpen`/`varSpeedDialRun`, `varSquareDialOpen`/
+`varSquareDialRun`, `varLabeledDialOpen`/`varLabeledDialRun`) — another clean var/Set() mismatch
+instance across the board. Several `OnSelect` handlers carry legitimate inline `// <Action>: put
+your action here, for example Navigate(...)` Power Fx comments — correctly preserved untouched
+(these are formula comments, not YAML structural comments).
+
+**Tabs** (8 entries, not the 5 originally expected — Segmented Tabs, Underline Tabs, and Pill Tabs
+extend the file past what was visible before this batch was processed) — a rare, clean **positive**
+counter-example to the var/Set() mismatch: every single tab-state variable across all 8 entries
+(`varIconTabs`, `varSideTabs`, `varTabBar`, `varCountTabs`, `varChipTabs`, `varSegmentedTabs`,
+`varUnderlineTabs`, `varPillTabs`, plus each one's `*Prev`/`*Run` companion) is genuinely
+`UpdateContext()`-scoped — zero `Set()` calls found anywhere in the file (confirmed via full-file
+grep). All entries but Chip Tabs use the same SVG-sliding-indicator pattern (`<g id='r<Run>'>` +
+`<animate>` from `*Prev` to current position); Chip Tabs is the one exception, using discrete
+`GroupContainer` fill/border toggles instead since its chips don't sit on a continuous track. Fully
+classic controls throughout (`GroupContainer@1.5.0`, `Image@2.2.3`, `Classic/Icon@2.5.0` [Icon Tabs
+only], `Classic/Button@2.2.0`, `Label@2.5.1`).
+
+No bare `#` YAML-structural comments needed stripping in Toggles, Tooltips, Toast Notifications,
+Steppers, Speed Dials, or Tabs — none existed in those source files.

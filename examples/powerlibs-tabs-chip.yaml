@@ -1,0 +1,259 @@
+- conChipTabs:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =40
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Min(296, Parent.Width - 80)
+      X: =40
+      Y: =40
+    Children:
+      - conChipTabsChip1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =If(Coalesce(varChipTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(60, 75, 105, 1))
+            BorderThickness: =1
+            DropShadow: =DropShadow.None
+            Fill: =If(Coalesce(varChipTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(21, 30, 48, 1))
+            Height: =36
+            RadiusBottomLeft: =18
+            RadiusBottomRight: =18
+            RadiusTopLeft: =18
+            RadiusTopRight: =18
+            Width: =56
+            X: =0
+            Y: =2
+          Children:
+            - lblChipTabsChip1Label:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(Coalesce(varChipTabs, 1) = 1, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="All"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+            - btnChipTabsChip1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =0
+                  Height: =Parent.Height
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  OnSelect: |-
+                    =UpdateContext({ varChipTabsPrev: Coalesce(varChipTabs, 1), varChipTabs: 1, varChipTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedColor: =RGBA(0, 0, 0, 0)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =18
+                  RadiusBottomRight: =18
+                  RadiusTopLeft: =18
+                  RadiusTopRight: =18
+                  Text: =""
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - conChipTabsChip2:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =If(Coalesce(varChipTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(60, 75, 105, 1))
+            BorderThickness: =1
+            DropShadow: =DropShadow.None
+            Fill: =If(Coalesce(varChipTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(21, 30, 48, 1))
+            Height: =36
+            RadiusBottomLeft: =18
+            RadiusBottomRight: =18
+            RadiusTopLeft: =18
+            RadiusTopRight: =18
+            Width: =64
+            X: =64
+            Y: =2
+          Children:
+            - lblChipTabsChip2Label:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(Coalesce(varChipTabs, 1) = 2, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Open"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+            - btnChipTabsChip2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =0
+                  Height: =Parent.Height
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  OnSelect: |-
+                    =UpdateContext({ varChipTabsPrev: Coalesce(varChipTabs, 1), varChipTabs: 2, varChipTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedColor: =RGBA(0, 0, 0, 0)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =18
+                  RadiusBottomRight: =18
+                  RadiusTopLeft: =18
+                  RadiusTopRight: =18
+                  Text: =""
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - conChipTabsChip3:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =If(Coalesce(varChipTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(60, 75, 105, 1))
+            BorderThickness: =1
+            DropShadow: =DropShadow.None
+            Fill: =If(Coalesce(varChipTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(21, 30, 48, 1))
+            Height: =36
+            RadiusBottomLeft: =18
+            RadiusBottomRight: =18
+            RadiusTopLeft: =18
+            RadiusTopRight: =18
+            Width: =88
+            X: =136
+            Y: =2
+          Children:
+            - lblChipTabsChip3Label:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(Coalesce(varChipTabs, 1) = 3, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Waiting"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+            - btnChipTabsChip3:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =0
+                  Height: =Parent.Height
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  OnSelect: |-
+                    =UpdateContext({ varChipTabsPrev: Coalesce(varChipTabs, 1), varChipTabs: 3, varChipTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedColor: =RGBA(0, 0, 0, 0)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =18
+                  RadiusBottomRight: =18
+                  RadiusTopLeft: =18
+                  RadiusTopRight: =18
+                  Text: =""
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - conChipTabsChip4:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =If(Coalesce(varChipTabs, 1) = 4, RGBA(59, 130, 246, 1), RGBA(60, 75, 105, 1))
+            BorderThickness: =1
+            DropShadow: =DropShadow.None
+            Fill: =If(Coalesce(varChipTabs, 1) = 4, RGBA(59, 130, 246, 1), RGBA(21, 30, 48, 1))
+            Height: =36
+            RadiusBottomLeft: =18
+            RadiusBottomRight: =18
+            RadiusTopLeft: =18
+            RadiusTopRight: =18
+            Width: =64
+            X: =232
+            Y: =2
+          Children:
+            - lblChipTabsChip4Label:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(Coalesce(varChipTabs, 1) = 4, RGBA(255, 255, 255, 1), RGBA(180, 190, 206, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =10
+                  Text: ="Done"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+            - btnChipTabsChip4:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =0
+                  Color: =RGBA(0, 0, 0, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =0
+                  Height: =Parent.Height
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  OnSelect: |-
+                    =UpdateContext({ varChipTabsPrev: Coalesce(varChipTabs, 1), varChipTabs: 4, varChipTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedColor: =RGBA(0, 0, 0, 0)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  RadiusBottomLeft: =18
+                  RadiusBottomRight: =18
+                  RadiusTopLeft: =18
+                  RadiusTopRight: =18
+                  Text: =""
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0

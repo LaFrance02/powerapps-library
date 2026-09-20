@@ -1,0 +1,50 @@
+- lblPhoneCaption:
+    Control: Label@2.5.1
+    Properties:
+      Color: =RGBA(209, 213, 219, 1)
+      Font: =Font.'Open Sans'
+      Height: =18
+      PaddingBottom: =0
+      PaddingTop: =0
+      Size: =10
+      Text: ="Phone number"
+      Width: =280
+      X: =40
+      Y: =58
+
+- txtPhone:
+    Control: Classic/TextInput@2.3.2
+    Properties:
+      BorderColor: =If(And(!IsBlank(txtPhone.Text), Or(Len(txtPhone.Text) < 7, !IsMatch(txtPhone.Text, "[0-9()+ -]+"))), RGBA(239, 68, 68, 1), RGBA(75, 85, 99, 1))
+      BorderThickness: =1
+      Color: =RGBA(255, 255, 255, 1)
+      Default: =""
+      DisabledFill: =RGBA(55, 65, 81, 1)
+      Fill: =RGBA(55, 65, 81, 1)
+      FocusedBorderColor: =If(And(!IsBlank(txtPhone.Text), Or(Len(txtPhone.Text) < 7, !IsMatch(txtPhone.Text, "[0-9()+ -]+"))), RGBA(239, 68, 68, 1), RGBA(59, 130, 246, 1))
+      FocusedBorderThickness: =1
+      Font: =Font.'Open Sans'
+      Height: =32
+      HintText: ="+1 555 0100"
+      HoverBorderColor: =Self.BorderColor
+      Mode: =TextMode.SingleLine
+      PaddingLeft: =10
+      PressedBorderColor: =Self.BorderColor
+      Size: =11
+      Width: =280
+      X: =40
+      Y: =80
+
+- lblPhoneHelper:
+    Control: Label@2.5.1
+    Properties:
+      Color: =If(And(!IsBlank(txtPhone.Text), Or(Len(txtPhone.Text) < 7, !IsMatch(txtPhone.Text, "[0-9()+ -]+"))), RGBA(239, 68, 68, 1), RGBA(156, 163, 175, 1))
+      Font: =Font.'Open Sans'
+      Height: =16
+      PaddingBottom: =0
+      PaddingTop: =0
+      Size: =9
+      Text: =If(And(!IsBlank(txtPhone.Text), Or(Len(txtPhone.Text) < 7, !IsMatch(txtPhone.Text, "[0-9()+ -]+"))), "Digits, spaces and + ( ) - only", "Include the country code")
+      Width: =280
+      X: =40
+      Y: =txtPhone.Y + txtPhone.Height + 4

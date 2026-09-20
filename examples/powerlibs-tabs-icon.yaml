@@ -1,0 +1,273 @@
+- conIconTabs:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =56
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Min(384, Parent.Width - 80)
+      X: =40
+      Y: =40
+    Children:
+      - conIconTabsBaseline:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =55
+      - imgIconTabsIndicator:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =56
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 56' preserveAspectRatio='none'><g id='r" & Coalesce(varIconTabsRun, "0") & "'><rect y='53' width='94' height='3' rx='1.5' fill='#3B82F6'><animate attributeName='x' from='" & Text((Coalesce(varIconTabsPrev, 1) - 1) * 100 + 3) & "' to='" & Text((Coalesce(varIconTabs, 1) - 1) * 100 + 3) & "' dur='" & If(IsBlank(varIconTabsRun), "1ms", "220ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></rect></g></svg>")
+            ImagePosition: =ImagePosition.Stretch
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+      - icoIconTabsIcon1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =If(Coalesce(varIconTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Height: =20
+            Icon: =Icon.Document
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: =20
+            X: =Parent.Width * 0 / 4 + Parent.Width / 8 - 10
+            Y: =8
+      - lblIconTabsLabel1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =If(Coalesce(varIconTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =9
+            Text: ="Details"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width / 4
+            X: =Parent.Width * 0 / 4
+            Y: =30
+      - btnIconTabsTab1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =56
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varIconTabsPrev: Coalesce(varIconTabs, 1), varIconTabs: 1, varIconTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Text: =""
+            Tooltip: ="Details"
+            Width: =Parent.Width / 4
+            X: =Parent.Width * 0 / 4
+            Y: =0
+      - icoIconTabsIcon2:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =If(Coalesce(varIconTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Height: =20
+            Icon: =Icon.Folder
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: =20
+            X: =Parent.Width * 1 / 4 + Parent.Width / 8 - 10
+            Y: =8
+      - lblIconTabsLabel2:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =If(Coalesce(varIconTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =9
+            Text: ="Files"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width / 4
+            X: =Parent.Width * 1 / 4
+            Y: =30
+      - btnIconTabsTab2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =56
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varIconTabsPrev: Coalesce(varIconTabs, 1), varIconTabs: 2, varIconTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Text: =""
+            Tooltip: ="Files"
+            Width: =Parent.Width / 4
+            X: =Parent.Width * 1 / 4
+            Y: =0
+      - icoIconTabsIcon3:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =If(Coalesce(varIconTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Height: =20
+            Icon: =Icon.People
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: =20
+            X: =Parent.Width * 2 / 4 + Parent.Width / 8 - 10
+            Y: =8
+      - lblIconTabsLabel3:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =If(Coalesce(varIconTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =9
+            Text: ="People"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width / 4
+            X: =Parent.Width * 2 / 4
+            Y: =30
+      - btnIconTabsTab3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =56
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varIconTabsPrev: Coalesce(varIconTabs, 1), varIconTabs: 3, varIconTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Text: =""
+            Tooltip: ="People"
+            Width: =Parent.Width / 4
+            X: =Parent.Width * 2 / 4
+            Y: =0
+      - icoIconTabsIcon4:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =If(Coalesce(varIconTabs, 1) = 4, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Height: =20
+            Icon: =Icon.Clock
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: =20
+            X: =Parent.Width * 3 / 4 + Parent.Width / 8 - 10
+            Y: =8
+      - lblIconTabsLabel4:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =If(Coalesce(varIconTabs, 1) = 4, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =9
+            Text: ="History"
+            VerticalAlign: =VerticalAlign.Middle
+            Width: =Parent.Width / 4
+            X: =Parent.Width * 3 / 4
+            Y: =30
+      - btnIconTabsTab4:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =56
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varIconTabsPrev: Coalesce(varIconTabs, 1), varIconTabs: 4, varIconTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Text: =""
+            Tooltip: ="History"
+            Width: =Parent.Width / 4
+            X: =Parent.Width * 3 / 4
+            Y: =0

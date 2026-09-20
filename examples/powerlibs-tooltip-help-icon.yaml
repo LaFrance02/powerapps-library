@@ -1,0 +1,73 @@
+- icoTooltipHelp:
+    Control: Classic/Icon@2.5.0
+    Group: grpHelpIconTooltip
+    Properties:
+      Color: =RGBA(156, 163, 175, 1)
+      Height: =20
+      HoverColor: =RGBA(96, 165, 250, 1)
+      Icon: =Icon.QuestionMark
+      Width: =20
+      X: =955
+      Y: =109
+- btnTooltipHelpTrigger:
+    Control: Classic/Button@2.2.0
+    Group: grpHelpIconTooltip
+    Properties:
+      FocusedBorderThickness: =0
+      BorderStyle: =BorderStyle.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =icoTooltipHelp.Height
+      HoverFill: =RGBA(0, 0, 0, 0)
+      OnSelect: |-
+        =UpdateContext({varTooltipHelpVisible: !varTooltipHelpVisible})
+      PressedFill: =RGBA(0, 0, 0, 0)
+      Text: =""
+      Width: =icoTooltipHelp.Width
+      X: =955
+      Y: =109
+- btnTooltipHelpOverlay:
+    Control: Classic/Button@2.2.0
+    Group: grpHelpIconTooltip
+    Properties:
+      FocusedBorderThickness: =0
+      BorderStyle: =BorderStyle.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =Parent.Height
+      HoverFill: =RGBA(0, 0, 0, 0)
+      OnSelect: |-
+        =UpdateContext({varTooltipHelpVisible: false})
+      PressedFill: =RGBA(0, 0, 0, 0)
+      Text: =""
+      Visible: =varTooltipHelpVisible
+      Width: =Parent.Width
+- conTooltipHelpBubble:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Group: grpHelpIconTooltip
+    Properties:
+      DropShadow: =DropShadow.Regular
+      Fill: =RGBA(17, 24, 39, 0.95)
+      Height: =lblTooltipHelpText.Y + lblTooltipHelpText.Height + 12
+      RadiusBottomLeft: =8
+      RadiusBottomRight: =8
+      RadiusTopLeft: =8
+      RadiusTopRight: =8
+      Visible: =varTooltipHelpVisible
+      Width: =200
+      X: =747
+      Y: =87
+    Children:
+      - lblTooltipHelpText:
+          Control: Label@2.5.1
+          Properties:
+            AutoHeight: =true
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            PaddingBottom: =0
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =0
+            Size: =9
+            Text: ="Click outside to dismiss. This tooltip appears to the left of the icon."
+            Width: =Parent.Width
+            Y: =12

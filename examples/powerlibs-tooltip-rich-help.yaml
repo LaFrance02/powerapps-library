@@ -1,0 +1,149 @@
+- btnRichTrigger:
+    Control: Classic/Button@2.2.0
+    Group: grpRichPopOver
+    Properties:
+      BorderColor: =RGBA(59, 130, 246, 0.7)
+      BorderThickness: =1
+      Color: =RGBA(59, 130, 246, 1)
+      Fill: =RGBA(31, 41, 55, 1)
+      FocusedBorderThickness: =1
+      Font: =Font.'Open Sans'
+      Height: =32
+      HoverBorderColor: =RGBA(59, 130, 246, 1)
+      HoverColor: =RGBA(59, 130, 246, 1)
+      HoverFill: =RGBA(55, 65, 81, 1)
+      OnSelect: |-
+        =UpdateContext({varRichVisible: !varRichVisible})
+      PressedBorderColor: =RGBA(59, 130, 246, 1)
+      PressedColor: =RGBA(59, 130, 246, 1)
+      PressedFill: =RGBA(31, 41, 55, 1)
+      RadiusBottomLeft: =8
+      RadiusBottomRight: =8
+      RadiusTopLeft: =8
+      RadiusTopRight: =8
+      Size: =11
+      Text: ="Field Help"
+      Width: =100
+      X: =84
+      Y: =308
+- conRichOverlay:
+    Control: Rectangle@2.3.0
+    Group: grpRichPopOver
+    Properties:
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =Parent.Height
+      OnSelect: |-
+        =UpdateContext({varRichVisible: false})
+      Visible: =varRichVisible
+      Width: =Parent.Width
+- conRichPopover:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Group: grpRichPopOver
+    Properties:
+      DropShadow: =DropShadow.Bold
+      Fill: =RGBA(31, 41, 55, 1)
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =12
+      RadiusTopRight: =12
+      Visible: =varRichVisible
+      Width: =320
+      X: =196
+      Y: =224
+    Children:
+      - conRichHeader:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(55, 65, 81, 1)
+            Height: =44
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =12
+            RadiusTopRight: =12
+            Width: =Parent.Width
+          Children:
+            - icoRichInfo:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  Color: =RGBA(59, 130, 246, 1)
+                  Height: =24
+                  Icon: =Icon.Information
+                  Width: =24
+                  X: =12
+                  Y: =10
+            - lblRichTitle:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(243, 244, 246, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Size: =11
+                  Text: ="Budget Field Guidelines"
+                  Width: =Parent.Width - 60
+                  X: =44
+                  Y: =4
+      - lblRichContent:
+          Control: Label@2.5.1
+          Properties:
+            AutoHeight: =true
+            Color: =RGBA(209, 213, 219, 1)
+            Font: =Font.'Open Sans'
+            PaddingLeft: =16
+            PaddingRight: =16
+            Size: =9
+            Text: ="Enter the total budget allocated for this project. Include all direct costs, overhead, and contingency funds. The amount should be in USD and cannot exceed $500,000 without director approval."
+            Width: =Parent.Width
+            Y: =56
+      - btnRichLearnMore:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(59, 130, 246, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(59, 130, 246, 1)
+            Fill: =RGBA(59, 130, 246, 0.15)
+            FocusedBorderThickness: =0
+            Height: =28
+            HoverBorderColor: =RGBA(59, 130, 246, 1)
+            HoverColor: =RGBA(59, 130, 246, 1)
+            HoverFill: =RGBA(59, 130, 246, 0.25)
+            PressedBorderColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(59, 130, 246, 0.15)
+            RadiusBottomLeft: =6
+            RadiusBottomRight: =6
+            RadiusTopLeft: =6
+            RadiusTopRight: =6
+            Size: =9
+            Text: ="Learn More"
+            Width: =90
+            X: =16
+            Y: =156
+      - btnRichGotIt:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(59, 130, 246, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(59, 130, 246, 1)
+            FocusedBorderThickness: =0
+            Height: =28
+            HoverBorderColor: =RGBA(59, 130, 246, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(39, 110, 226, 1)
+            OnSelect: |-
+              =UpdateContext({varRichVisible: false})
+            PressedBorderColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(19, 90, 206, 1)
+            RadiusBottomLeft: =6
+            RadiusBottomRight: =6
+            RadiusTopLeft: =6
+            RadiusTopRight: =6
+            Size: =9
+            Text: ="Got It"
+            Width: =70
+            X: =234
+            Y: =156

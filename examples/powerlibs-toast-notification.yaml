@@ -1,0 +1,152 @@
+- conToast:
+    Control: GroupContainer@1.4.0
+    Variant: AutoLayout
+    Group: grpAnimatedToast
+    Properties:
+      DropShadow: =DropShadow.Bold
+      Fill: =RGBA(255, 255, 255, 1)
+      Height: =150
+      LayoutAlignItems: =LayoutAlignItems.Stretch
+      LayoutDirection: =LayoutDirection.Vertical
+      LayoutGap: =10
+      PaddingBottom: =15
+      PaddingLeft: =20
+      PaddingRight: =20
+      PaddingTop: =15
+      RadiusBottomLeft: =10
+      RadiusBottomRight: =10
+      RadiusTopLeft: =10
+      RadiusTopRight: =10
+      Visible: =ShowHideToast
+      X: =If(ShowHideToast, Max(App.Width, App.MinScreenWidth) - conToast.Width * timerAnimation.Value/300 - 20, (Max(App.Width, App.MinScreenWidth) - conToast.Width) + conToast.Width * timerAnimation.Value/300 - 20)
+      Y: =20
+    Children:
+      - lblTitle:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =26
+            LayoutMinWidth: =0
+            Text: ="✅   Success!"
+            Width: =Parent.Width
+      - lblBody:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            LayoutMinHeight: =30
+            LayoutMinWidth: =100
+            Size: =12
+            Text: ="Your changes have been saved successfully."
+            Width: =Parent.Width
+      - btnUndo:
+          Control: Classic/Button@2.2.0
+          Properties:
+            FocusedBorderThickness: =0
+            AlignInContainer: =AlignInContainer.End
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(230, 230, 230, 1)
+            Font: =Font.'Open Sans'
+            Height: =27
+            HoverBorderColor: =ColorFade(Self.Fill, -20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+              =UpdateContext({ ShowHideToast: false })
+            PressedBorderColor: =ColorFade(Self.Fill, -40%)
+            PressedColor: =RGBA(0, 0, 0, 1)
+            PressedFill: =ColorFade(Self.Fill, -40%)
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =11
+            Text: ="Undo"
+            Width: =Parent.Width * 0.2
+- btnToast:
+    Control: Classic/Button@2.2.0
+    Group: grpAnimatedToast
+    Properties:
+      FocusedBorderThickness: =0
+      BorderStyle: =BorderStyle.None
+      Color: =RGBA(255, 255, 255, 1)
+      Fill: =RGBA(0, 0, 0, 1)
+      Height: =30
+      HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+      HoverColor: =Self.Color
+      HoverFill: =ColorFade(Self.Fill, -10%)
+      OnSelect: |-
+        =Reset(timerAnimation);
+        UpdateContext({StartTimer: false});
+        UpdateContext({StartTimer: true});
+        UpdateContext({ShowHideToast: !ShowHideToast});
+      PressedBorderColor: =ColorFade(Self.BorderColor, -40%)
+      PressedFill: =ColorFade(Self.Fill, -20%)
+      RadiusBottomLeft: =5
+      RadiusBottomRight: =5
+      RadiusTopLeft: =5
+      RadiusTopRight: =5
+      Size: =11
+      Text: ="Show Toast"
+      Width: =96
+      X: =526
+      Y: =171
+- timerAnimation:
+    Control: Timer@2.1.0
+    Group: grpAnimatedToast
+    Properties:
+      BorderColor: =ColorFade(Self.Fill, -15%)
+      Color: =RGBA(255, 255, 255, 1)
+      DisabledBorderColor: =ColorFade(Self.BorderColor, 70%)
+      DisabledColor: =ColorFade(Self.Fill, 90%)
+      DisabledFill: =ColorFade(Self.Fill, 70%)
+      Duration: =300
+      Fill: =RGBA(56, 96, 178, 1)
+      Font: =Font.'Open Sans'
+      HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+      OnTimerEnd: |-
+        =// This stops the animation timer when complete
+        UpdateContext({StartTimer: false})
+      PressedBorderColor: =Self.Fill
+      PressedColor: =Self.Fill
+      PressedFill: =Self.Color
+      Start: =StartTimer
+      Visible: =false
+      X: =462
+      Y: =116
+- timerCloseToast:
+    Control: Timer@2.1.0
+    Group: grpAnimatedToast
+    Properties:
+      BorderColor: =ColorFade(Self.Fill, -15%)
+      Color: =RGBA(255, 255, 255, 1)
+      DisabledBorderColor: =ColorFade(Self.BorderColor, 70%)
+      DisabledColor: =ColorFade(Self.Fill, 90%)
+      DisabledFill: =ColorFade(Self.Fill, 70%)
+      Duration: =3000
+      Fill: =RGBA(56, 96, 178, 1)
+      Font: =Font.'Open Sans'
+      HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+      OnTimerEnd: |-
+        =// This closes the toast after 3 seconds with smooth animation
+        Reset(timerAnimation);
+        UpdateContext({StartTimer: false});
+        UpdateContext({StartTimer: true});
+        UpdateContext({ShowHideToast: false});
+      PressedBorderColor: =Self.Fill
+      PressedColor: =Self.Fill
+      PressedFill: =Self.Color
+      Start: =If(ShowHideToast, true, false)
+      Visible: =false
+      X: =474
+      Y: =234

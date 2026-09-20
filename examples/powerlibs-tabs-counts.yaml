@@ -1,0 +1,236 @@
+- conCountTabs:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =40
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Min(360, Parent.Width - 80)
+      X: =40
+      Y: =40
+    Children:
+      - conCountTabsBaseline:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =39
+      - imgCountTabsIndicator:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =40
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40' preserveAspectRatio='none'><g id='r" & Coalesce(varCountTabsRun, "0") & "'><rect y='37' width='94' height='3' rx='1.5' fill='#3B82F6'><animate attributeName='x' from='" & Text((Coalesce(varCountTabsPrev, 1) - 1) * 100 + 3) & "' to='" & Text((Coalesce(varCountTabs, 1) - 1) * 100 + 3) & "' dur='" & If(IsBlank(varCountTabsRun), "1ms", "220ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></rect></g></svg>")
+            ImagePosition: =ImagePosition.Stretch
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+      - btnCountTabsTab1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varCountTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varCountTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varCountTabsPrev: Coalesce(varCountTabs, 1), varCountTabs: 1, varCountTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =Max(4, (Parent.Width / 3 - 76) / 2)
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Open"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 0 / 3
+            Y: =0
+      - btnCountTabsTab2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varCountTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varCountTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varCountTabsPrev: Coalesce(varCountTabs, 1), varCountTabs: 2, varCountTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =Max(4, (Parent.Width / 3 - 95) / 2)
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Waiting"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 1 / 3
+            Y: =0
+      - btnCountTabsTab3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varCountTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varCountTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varCountTabsPrev: Coalesce(varCountTabs, 1), varCountTabs: 3, varCountTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =Max(4, (Parent.Width / 3 - 76) / 2)
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Done"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 2 / 3
+            Y: =0
+      - conCountTabsBadge1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(Coalesce(varCountTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(11, 18, 32, 1))
+            Height: =20
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =34
+            X: =Parent.Width * 0 / 3 + Max(4, (Parent.Width / 3 - 76) / 2) + 42
+            Y: =10
+          Children:
+            - lblCountTabsBadge1Text:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(Coalesce(varCountTabs, 1) = 1, RGBA(255, 255, 255, 1), RGBA(139, 153, 176, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: ="12"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - conCountTabsBadge2:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(Coalesce(varCountTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(11, 18, 32, 1))
+            Height: =20
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =27
+            X: =Parent.Width * 1 / 3 + Max(4, (Parent.Width / 3 - 95) / 2) + 68
+            Y: =10
+          Children:
+            - lblCountTabsBadge2Text:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(Coalesce(varCountTabs, 1) = 2, RGBA(255, 255, 255, 1), RGBA(139, 153, 176, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: ="3"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0
+      - conCountTabsBadge3:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(Coalesce(varCountTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(11, 18, 32, 1))
+            Height: =20
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =34
+            X: =Parent.Width * 2 / 3 + Max(4, (Parent.Width / 3 - 76) / 2) + 42
+            Y: =10
+          Children:
+            - lblCountTabsBadge3Text:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(Coalesce(varCountTabs, 1) = 3, RGBA(255, 255, 255, 1), RGBA(139, 153, 176, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =8
+                  Text: ="48"
+                  VerticalAlign: =VerticalAlign.Middle
+                  Width: =Parent.Width
+                  X: =0
+                  Y: =0

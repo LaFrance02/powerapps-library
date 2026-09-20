@@ -1,0 +1,137 @@
+- conUnderlineTabs:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =40
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =Min(330, Parent.Width - 80)
+      X: =40
+      Y: =40
+    Children:
+      - conUnderlineTabsBaseline:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(34, 48, 74, 1)
+            Height: =1
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            X: =0
+            Y: =39
+      - imgUnderlineTabsIndicator:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =40
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40' preserveAspectRatio='none'><g id='r" & Coalesce(varUnderlineTabsRun, "0") & "'><rect y='37' width='94' height='3' rx='1.5' fill='#3B82F6'><animate attributeName='x' from='" & Text((Coalesce(varUnderlineTabsPrev, 1) - 1) * 100 + 3) & "' to='" & Text((Coalesce(varUnderlineTabs, 1) - 1) * 100 + 3) & "' dur='" & If(IsBlank(varUnderlineTabsRun), "1ms", "220ms") & "' fill='freeze' calcMode='spline' keySplines='0.2 0 0 1'/></rect></g></svg>")
+            ImagePosition: =ImagePosition.Stretch
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+      - btnUnderlineTabsTab1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varUnderlineTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varUnderlineTabs, 1) = 1, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varUnderlineTabsPrev: Coalesce(varUnderlineTabs, 1), varUnderlineTabs: 1, varUnderlineTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =4
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Overview"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 0 / 3
+            Y: =0
+      - btnUnderlineTabsTab2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varUnderlineTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varUnderlineTabs, 1) = 2, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varUnderlineTabsPrev: Coalesce(varUnderlineTabs, 1), varUnderlineTabs: 2, varUnderlineTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =4
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Tasks"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 1 / 3
+            Y: =0
+      - btnUnderlineTabsTab3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =If(Coalesce(varUnderlineTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(139, 153, 176, 1))
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =If(Coalesce(varUnderlineTabs, 1) = 3, RGBA(59, 130, 246, 1), RGBA(230, 234, 242, 1))
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varUnderlineTabsPrev: Coalesce(varUnderlineTabs, 1), varUnderlineTabs: 3, varUnderlineTabsRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PaddingLeft: =4
+            PaddingRight: =4
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =11
+            Text: ="Files"
+            Width: =Parent.Width / 3
+            X: =Parent.Width * 2 / 3
+            Y: =0

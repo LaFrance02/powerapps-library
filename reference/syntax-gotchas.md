@@ -82,6 +82,17 @@ Relevant any time a modern control replaces what used to be classic in a given s
   group-name values (`Group: NavBar`, `Group: MinimalMegaNavBar`) in the Mega Menu Navbar / Minimal
   Mega Menu Navbar examples specifically for this reason — still not confirmed against a real
   paste, but the "just a Tree View label, no runtime effect" theory is looking more solid.
+  **Clearest confirmation yet, from the Tooltip batch** ("Another big example drip," 2026-09-19):
+  every one of its 5 entries tags its top-level trigger/overlay/bubble siblings with a shared
+  `Group:` value (`grpSimpleTooltip`, `grpHelpIconTooltip`, `grpMenuPopover`, `grpDelete`,
+  `grpRichPopOver`) — and in every case it's applied only to controls sitting directly on the
+  screen root, never to controls nested inside a container's own `Children:` list. This lines up
+  exactly with the "ties structural siblings that need to render outside their parent's clip
+  bounds" theory. Also seen once in the Toast Notification batch (`Group: grpAnimatedToast`, tying
+  together `conToast`/`btnToast`/`timerAnimation`/`timerCloseToast`). Still unconfirmed against a
+  real Studio paste, but the pattern (screen-root siblings only, shared label, no nesting) is now
+  consistent across four separate source files (Navigation, Tooltip, Toast Notification, plus the
+  original Time Picker sighting).
 - `Screens:` can appear as the top-level key of a captured example (a full screen definition:
   `Screens: / <ScreenName>: / Properties: / Children:`) rather than the usual flat `- control:`
   children list meant to paste into an existing screen. These are structurally different pastes —
@@ -105,7 +116,10 @@ Relevant any time a modern control replaces what used to be classic in a given s
   YAML importer tolerates this or rejects it the same way — don't assume either way without a real
   paste test. If it turns out to be a real defect, the fix is straightforward: fill in the omitted
   value explicitly (e.g. `=RGBA(0,0,0,0)`, matching every other Border/Fill property on the same
-  control) rather than leaving the property blank.
+  control) rather than leaving the property blank. **A third occurrence** was found in
+  `powerlibs-upload-photo.yaml` ("Another big example drip" batch, 2026-09-19): `btnPhotoUploadPicker`
+  has four bare-`=` properties (`HoverBorderColor`, `HoverFill`, `PressedBorderColor`,
+  `PressedFill`) — same defect class, same "preserve as-is, don't silently fix" treatment.
 - **`var`/`gbl` variable-name prefixes do not reliably indicate actual Power Fx scope.** Multiple
   examples across the Navigation, Gallery, and Dropdown batches use a `var`-prefixed name (which,
   by convention elsewhere in this library, signals a screen-local context variable created via
@@ -115,7 +129,33 @@ Relevant any time a modern control replaces what used to be classic in a given s
   backing the same `Set()` call) — see `examples/README.md`'s Navigation/Gallery/Dropdown batch
   notes for the specific file-by-file breakdown. **Do not infer a variable's actual scope from its
   name prefix when generating or reviewing Power Fx — check whether the initializing call is
-  `Set()` (global) or `UpdateContext()` (context/local) directly.**
+  `Set()` (global) or `UpdateContext()` (context/local) directly.** **Update from the "Another big
+  example drip" batch:** the entire Steppers batch (`varHStep`, `varAnimProg`, `varAnimRunning`,
+  `varVStep`, `varCheckCount`, `varTimeStep`) and the entire Speed Dials batch
+  (`varHorizontalDialOpen`/`Run`, `varSpeedDialOpen`/`Run`, `varSquareDialOpen`/`Run`,
+  `varLabeledDialOpen`/`Run`) are clean, total instances of this mismatch — every single state
+  variable in both files is `Set()`-backed with zero `UpdateContext()` calls anywhere. Conversely,
+  the **Tabs batch (8 entries) and Basic Approvals App are clean positive counter-examples** — every
+  tab-state variable (`varIconTabs`, `varSideTabs`, `varTabBar`, `varCountTabs`, `varChipTabs`,
+  `varSegmentedTabs`, `varUnderlineTabs`, `varPillTabs`, each with `*Prev`/`*Run` companions) and
+  every Approvals App variable (`varFilter`, `varShowNew`, `varShowDetail`, `varSel`) is genuinely
+  `UpdateContext()`-scoped with zero `Set()` calls found — proof this convention CAN be followed
+  correctly, it just isn't consistently. Toggles (11 entries) and Tooltips (5 entries) are also
+  clean on this front — every state variable in both is `UpdateContext()`-scoped. The Toast
+  Notification batch is a third, different variant of the problem: its globals use **no `gbl`
+  prefix at all** — `varPowerLibsNotification` is `Set()`-backed despite the `var` name, while
+  `ShowHideToast`/`StartTimer` are bare (no prefix) but correctly `UpdateContext()`-scoped.
+
+- **Duplicate/colliding control names across sibling example files, not just within one file.**
+  New pattern, distinct from the earlier cross-file `cmpSidebar` duplicate (which was the *same*
+  component pasted into two source files by mistake): the three "Favorite Toggle" variants (Heart /
+  Star / Bookmark, `powerlibs-toggle-favorite-*.yaml`) are three *intentionally different* examples
+  that nonetheless share byte-for-byte identical internal control names (`conFavorite`,
+  `imgFavoriteIcon`, `lblFavoriteCount`, `btnFavorite`) and variable names (`varFavorite`,
+  `varFavoriteRun`) — they differ only in SVG path/fill color. Pasting more than one variant onto
+  the same screen will collide on every one of those names. Preserved as-sourced in all three files
+  (no silent renaming) per this library's policy — rename one set of controls before pasting a
+  second variant alongside the first on the same screen.
 
 ## Workflow rule (not syntax, but load-bearing)
 

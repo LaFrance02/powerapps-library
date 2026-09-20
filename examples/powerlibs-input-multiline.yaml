@@ -1,0 +1,51 @@
+- lblNotesCaption:
+    Control: Label@2.5.1
+    Properties:
+      Color: =RGBA(209, 213, 219, 1)
+      Font: =Font.'Open Sans'
+      Height: =18
+      PaddingBottom: =0
+      PaddingTop: =0
+      Size: =10
+      Text: ="Notes"
+      Width: =280
+      X: =40
+      Y: =58
+
+- txtNotes:
+    Control: Classic/TextInput@2.3.2
+    Properties:
+      BorderColor: =RGBA(75, 85, 99, 1)
+      BorderThickness: =1
+      Color: =RGBA(255, 255, 255, 1)
+      Default: =""
+      DisabledFill: =RGBA(55, 65, 81, 1)
+      Fill: =RGBA(55, 65, 81, 1)
+      FocusedBorderColor: =RGBA(59, 130, 246, 1)
+      FocusedBorderThickness: =1
+      Font: =Font.'Open Sans'
+      Height: =96
+      HintText: ="Add your notes..."
+      HoverBorderColor: =Self.BorderColor
+      MaxLength: =500
+      Mode: =TextMode.MultiLine
+      PaddingLeft: =10
+      PressedBorderColor: =Self.BorderColor
+      Size: =11
+      Width: =280
+      X: =40
+      Y: =80
+
+- lblNotesHelper:
+    Control: Label@2.5.1
+    Properties:
+      Color: =RGBA(156, 163, 175, 1)
+      Font: =Font.'Open Sans'
+      Height: =16
+      PaddingBottom: =0
+      PaddingTop: =0
+      Size: =9
+      Text: =Len(txtNotes.Text) & " / 500 characters"
+      Width: =280
+      X: =40
+      Y: =txtNotes.Y + txtNotes.Height + 4

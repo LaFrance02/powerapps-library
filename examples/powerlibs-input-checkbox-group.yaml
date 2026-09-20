@@ -1,0 +1,79 @@
+- lblCheckboxCaption:
+    Control: Label@2.5.1
+    Properties:
+      Color: =RGBA(209, 213, 219, 1)
+      Font: =Font.'Open Sans'
+      Height: =18
+      PaddingBottom: =0
+      PaddingTop: =0
+      Size: =10
+      Text: ="Which updates do you want?"
+      Width: =280
+      X: =40
+      Y: =58
+
+- galCheckboxOptions:
+    Control: Gallery@2.15.0
+    Variant: BrowseLayout_Flexible_SocialFeed_ver5.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      Height: =115
+      Items: |-
+        =Table({ Label: "Product news" }, { Label: "Release notes" }, { Label: "Event invites" })
+      ShowScrollbar: =false
+      TemplatePadding: =2
+      TemplateSize: =35
+      Width: =280
+      X: =40
+      Y: =80
+    Children:
+      - conCheckboxBox:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =If(!IsEmpty(Filter(gblCheckboxSelected, Label = ThisItem.Label)), RGBA(59, 130, 246, 1), RGBA(107, 114, 128, 1))
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =2
+            Fill: =If(!IsEmpty(Filter(gblCheckboxSelected, Label = ThisItem.Label)), RGBA(59, 130, 246, 1), RGBA(31, 41, 55, 1))
+            FocusedBorderThickness: =2
+            Height: =18
+            HoverBorderColor: =Self.BorderColor
+            HoverFill: =Self.Fill
+            OnSelect: |-
+              =If(!IsEmpty(Filter(gblCheckboxSelected, Label = ThisItem.Label)), Remove(gblCheckboxSelected, LookUp(gblCheckboxSelected, Label = ThisItem.Label)), Collect(gblCheckboxSelected, { Label: ThisItem.Label }))
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Text: =""
+            Width: =18
+            X: =0
+            Y: =8
+      - icoCheckboxTick:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            FocusedBorderThickness: =0
+            Height: =12
+            Icon: =Icon.Check
+            OnSelect: |-
+              =If(!IsEmpty(Filter(gblCheckboxSelected, Label = ThisItem.Label)), Remove(gblCheckboxSelected, LookUp(gblCheckboxSelected, Label = ThisItem.Label)), Collect(gblCheckboxSelected, { Label: ThisItem.Label }))
+            Visible: =!IsEmpty(Filter(gblCheckboxSelected, Label = ThisItem.Label))
+            Width: =12
+            X: =3
+            Y: =11
+      - lblCheckboxOption:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =35
+            OnSelect: |-
+              =If(!IsEmpty(Filter(gblCheckboxSelected, Label = ThisItem.Label)), Remove(gblCheckboxSelected, LookUp(gblCheckboxSelected, Label = ThisItem.Label)), Collect(gblCheckboxSelected, { Label: ThisItem.Label }))
+            PaddingLeft: =0
+            Size: =11
+            Text: =ThisItem.Label
+            Width: =250
+            X: =26
+            Y: =0

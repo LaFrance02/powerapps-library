@@ -1,0 +1,68 @@
+- lblRadioCaption:
+    Control: Label@2.5.1
+    Properties:
+      Color: =RGBA(209, 213, 219, 1)
+      Font: =Font.'Open Sans'
+      Height: =18
+      PaddingBottom: =0
+      PaddingTop: =0
+      Size: =10
+      Text: ="How should we contact you?"
+      Width: =280
+      X: =40
+      Y: =58
+
+- galRadioOptions:
+    Control: Gallery@2.15.0
+    Variant: BrowseLayout_Flexible_SocialFeed_ver5.0
+    Properties:
+      BorderColor: =RGBA(0, 0, 0, 0)
+      Height: =115
+      Items: |-
+        =Table({ Label: "Email" }, { Label: "Phone" }, { Label: "Post" })
+      ShowScrollbar: =false
+      TemplatePadding: =2
+      TemplateSize: =35
+      Width: =280
+      X: =40
+      Y: =80
+    Children:
+      - conRadioRing:
+          Control: Circle@2.3.0
+          Properties:
+            BorderColor: =If(varRadioSelected = ThisItem.Label, RGBA(59, 130, 246, 1), RGBA(107, 114, 128, 1))
+            BorderThickness: =2
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =18
+            OnSelect: |-
+              =UpdateContext({ varRadioSelected: ThisItem.Label })
+            Width: =18
+            X: =0
+            Y: =8
+      - conRadioDot:
+          Control: Circle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderThickness: =0
+            Fill: =RGBA(59, 130, 246, 1)
+            Height: =8
+            OnSelect: |-
+              =UpdateContext({ varRadioSelected: ThisItem.Label })
+            Visible: =varRadioSelected = ThisItem.Label
+            Width: =8
+            X: =5
+            Y: =13
+      - lblRadioOption:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =35
+            OnSelect: |-
+              =UpdateContext({ varRadioSelected: ThisItem.Label })
+            PaddingLeft: =0
+            Size: =11
+            Text: =ThisItem.Label
+            Width: =250
+            X: =26
+            Y: =0

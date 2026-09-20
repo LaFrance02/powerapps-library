@@ -1,0 +1,21 @@
+- txtInput:
+    Control: Classic/TextInput@2.3.2
+    Properties:
+      BorderColor: =RGBA(75, 85, 99, 1)
+      BorderThickness: =1
+      Color: =RGBA(255, 255, 255, 1)
+      Default: =""
+      DisabledFill: =RGBA(55, 65, 81, 1)
+      Fill: =RGBA(55, 65, 81, 1)
+      FocusedBorderColor: =RGBA(59, 130, 246, 1)
+      FocusedBorderThickness: =1
+      Font: =Font.'Open Sans'
+      Height: =32
+      HintText: ="Email"
+      HoverBorderColor: =Self.BorderColor
+      HoverFill: =RGBA(75, 85, 99, 1)
+      PressedBorderColor: =RGBA(75, 85, 99, 1)
+      PressedFill: =RGBA(55, 65, 81, 1)
+      Size: =11
+      X: =35
+      Y: =74

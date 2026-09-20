@@ -1,0 +1,89 @@
+- conSignaturePadCard:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      BorderColor: =RGBA(75, 85, 99, 1)
+      BorderThickness: =1
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(31, 41, 55, 1)
+      Height: =280
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =12
+      RadiusTopRight: =12
+      Width: =400
+      X: =40
+      Y: =40
+    Children:
+      - lblSignatureCaption:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Left
+            Color: =RGBA(209, 213, 219, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =22
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =10
+            Text: ="Sign here"
+            Width: =Parent.Width - 32
+            X: =16
+            Y: =14
+      - lblSignatureHint:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Left
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =18
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =8
+            Text: ="Use your mouse, finger or stylus"
+            Width: =Parent.Width - 32
+            X: =16
+            Y: =36
+      - penSignaturePad:
+          Control: PenInput@2.3.0
+          Properties:
+            BorderColor: =RGBA(75, 85, 99, 1)
+            BorderThickness: =1
+            Color: =RGBA(17, 24, 39, 1)
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(255, 255, 255, 1)
+            FocusedBorderThickness: =1
+            Height: =Parent.Height - 124
+            ShowControls: =false
+            Width: =Parent.Width - 32
+            X: =16
+            Y: =60
+      - btnSignatureClear:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(75, 85, 99, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =1
+            Color: =RGBA(209, 213, 219, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =1
+            Font: =Font.'Open Sans'
+            Height: =30
+            HoverColor: =RGBA(59, 130, 246, 1)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: =Reset(penSignaturePad)
+            PressedColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =9
+            Text: ="Clear"
+            Width: =84
+            X: =16
+            Y: =Parent.Height - 46

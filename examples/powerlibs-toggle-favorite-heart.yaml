@@ -1,0 +1,71 @@
+- conFavorite:
+    Control: GroupContainer@1.5.0
+    Variant: ManualLayout
+    Properties:
+      DropShadow: =DropShadow.None
+      Fill: =RGBA(0, 0, 0, 0)
+      Height: =32
+      RadiusBottomLeft: =0
+      RadiusBottomRight: =0
+      RadiusTopLeft: =0
+      RadiusTopRight: =0
+      Width: =98
+      X: =40
+      Y: =40
+    Children:
+      - imgFavoriteIcon:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Height: =32
+            Image: |-
+              ="data:image/svg+xml," & EncodeUrl("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='64' height='64'><g id='r" & Coalesce(varFavoriteRun, "0") & "'><path d='M12 21s-7-4.6-9.3-9.1C1 8.4 3 5 6.4 5c2 0 3.4 1.1 4.1 2.3h1C12.2 6.1 13.6 5 15.6 5 19 5 21 8.4 19.3 11.9 17 16.4 12 21 12 21z' fill='" & If(varFavorite, "#EF4444", "none") & "' stroke='" & If(varFavorite, "#EF4444", "#8B99B0") & "' stroke-width='1.8' stroke-linejoin='round' transform-origin='12 12'><animateTransform attributeName='transform' type='scale' values='" & If(varFavorite, "1;1.3;1", "1;0.85;1") & "' dur='" & If(IsBlank(varFavoriteRun), "1ms", "260ms") & "' calcMode='spline' keySplines='0.2 0 0 1;0.2 0 0 1' keyTimes='0;0.5;1'/></path></g></svg>")
+            ImagePosition: =ImagePosition.Fit
+            Width: =32
+            X: =0
+            Y: =0
+      - lblFavoriteCount:
+          Control: Text@0.0.51
+          Properties:
+            Align: ='TextCanvas.Align'.Start
+            FontColor: =RGBA(139, 153, 176, 1)
+            Height: =Parent.Height
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: =Text(12 + If(varFavorite, 1, 0))
+            VerticalAlign: =VerticalAlign.Middle
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =60
+            X: =38
+            Y: =0
+      - btnFavorite:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: |-
+              =UpdateContext({ varFavorite: !varFavorite, varFavoriteRun: Text(Now(), "yyyymmddhhmmssfff") })
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Text: =""
+            Tooltip: ="Add to favorites"
+            Width: =Parent.Width
+            X: =0
+            Y: =0

@@ -1,0 +1,318 @@
+- conVerticalStepper:
+    Control: GroupContainer@1.4.0
+    Variant: ManualLayout
+    Properties:
+      Fill: =RGBA(30, 41, 56, 1)
+      FillPortions: =0
+      Height: =460
+      LayoutMinHeight: =0
+      LayoutMinWidth: =0
+      RadiusBottomLeft: =12
+      RadiusBottomRight: =12
+      RadiusTopLeft: =12
+      RadiusTopRight: =12
+      Width: =Parent.Width - 80
+    Children:
+      - lblVertTitle:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(243, 244, 246, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =28
+            Size: =12
+            Text: ="Vertical Stepper — Approval Workflow"
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =16
+      - conVStep1Circle:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(varVStep > 1, RGBA(34, 197, 94, 1), If(varVStep = 1, RGBA(59, 130, 246, 1), RGBA(75, 85, 99, 1)))
+            Height: =32
+            RadiusBottomLeft: =16
+            RadiusBottomRight: =16
+            RadiusTopLeft: =16
+            RadiusTopRight: =16
+            Width: =32
+            X: =30
+            Y: =60
+          Children:
+            - lblV1Num:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(varVStep >= 1, RGBA(255, 255, 255, 1), RGBA(156, 163, 175, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  Size: =9
+                  Text: =If(varVStep > 1, "✓", "1")
+                  Width: =Parent.Width
+      - lblV1Title:
+          Control: Label@2.5.1
+          Properties:
+            Color: =If(varVStep >= 1, RGBA(243, 244, 246, 1), RGBA(156, 163, 175, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =If(varVStep = 1, FontWeight.Semibold, FontWeight.Normal)
+            Height: =20
+            Size: =10
+            Text: ="Submit Request"
+            Width: =300
+            X: =76
+            Y: =conVStep1Circle.Y + 1
+      - lblV1Desc:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =18
+            Size: =8
+            Text: ="Fill out the request form and attach supporting documents."
+            Visible: =varVStep >= 1
+            Width: =400
+            X: =76
+            Y: =lblV1Title.Y + lblV1Title.Height
+      - conVLine1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Fill: =If(varVStep > 1, RGBA(34, 197, 94, 1), RGBA(75, 85, 99, 1))
+            Height: =conVStep2Circle.Y - conVStep1Circle.Y - conVStep1Circle.Height
+            Width: =3
+            X: =conVStep1Circle.X + conVStep1Circle.Width / 2 - 1
+            Y: =conVStep1Circle.Y + conVStep1Circle.Height
+      - conVStep2Circle:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(varVStep > 2, RGBA(34, 197, 94, 1), If(varVStep = 2, RGBA(59, 130, 246, 1), RGBA(75, 85, 99, 1)))
+            Height: =32
+            RadiusBottomLeft: =16
+            RadiusBottomRight: =16
+            RadiusTopLeft: =16
+            RadiusTopRight: =16
+            Width: =32
+            X: =30
+            Y: =150
+          Children:
+            - lblV2Num:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(varVStep >= 2, RGBA(255, 255, 255, 1), RGBA(156, 163, 175, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  Size: =9
+                  Text: =If(varVStep > 2, "✓", "2")
+                  Width: =Parent.Width
+      - lblV2Title:
+          Control: Label@2.5.1
+          Properties:
+            Color: =If(varVStep >= 2, RGBA(243, 244, 246, 1), RGBA(156, 163, 175, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =If(varVStep = 2, FontWeight.Semibold, FontWeight.Normal)
+            Height: =20
+            Size: =10
+            Text: ="Manager Review"
+            Width: =300
+            X: =76
+            Y: =conVStep2Circle.Y + 1
+      - lblV2Desc:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =18
+            Size: =8
+            Text: ="Your direct manager reviews and approves the request."
+            Visible: =varVStep >= 2
+            Width: =400
+            X: =76
+            Y: =lblV2Title.Y + lblV2Title.Height
+      - conVLine2:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Fill: =If(varVStep > 2, RGBA(34, 197, 94, 1), RGBA(75, 85, 99, 1))
+            Height: =conVStep3Circle.Y - conVStep2Circle.Y - conVStep2Circle.Height
+            Width: =3
+            X: =conVStep2Circle.X + conVStep2Circle.Width / 2 - 1
+            Y: =conVStep2Circle.Y + conVStep2Circle.Height
+      - conVStep3Circle:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(varVStep > 3, RGBA(34, 197, 94, 1), If(varVStep = 3, RGBA(59, 130, 246, 1), RGBA(75, 85, 99, 1)))
+            Height: =32
+            RadiusBottomLeft: =16
+            RadiusBottomRight: =16
+            RadiusTopLeft: =16
+            RadiusTopRight: =16
+            Width: =32
+            X: =30
+            Y: =240
+          Children:
+            - lblV3Num:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(varVStep >= 3, RGBA(255, 255, 255, 1), RGBA(156, 163, 175, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  Size: =9
+                  Text: =If(varVStep > 3, "✓", "3")
+                  Width: =Parent.Width
+      - lblV3Title:
+          Control: Label@2.5.1
+          Properties:
+            Color: =If(varVStep >= 3, RGBA(243, 244, 246, 1), RGBA(156, 163, 175, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =If(varVStep = 3, FontWeight.Semibold, FontWeight.Normal)
+            Height: =20
+            Size: =10
+            Text: ="Finance Approval"
+            Width: =300
+            X: =76
+            Y: =conVStep3Circle.Y + 1
+      - lblV3Desc:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =18
+            Size: =8
+            Text: ="Finance team validates budget allocation and compliance."
+            Visible: =varVStep >= 3
+            Width: =400
+            X: =76
+            Y: =lblV3Title.Y + lblV3Title.Height
+      - conVLine3:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Fill: =If(varVStep > 3, RGBA(34, 197, 94, 1), RGBA(75, 85, 99, 1))
+            Height: =conVStep4Circle.Y - conVStep3Circle.Y - conVStep3Circle.Height
+            Width: =3
+            X: =conVStep3Circle.X + conVStep3Circle.Width / 2 - 1
+            Y: =conVStep3Circle.Y + conVStep3Circle.Height
+      - conVStep4Circle:
+          Control: GroupContainer@1.4.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =If(varVStep > 4, RGBA(34, 197, 94, 1), If(varVStep = 4, RGBA(59, 130, 246, 1), RGBA(75, 85, 99, 1)))
+            Height: =32
+            RadiusBottomLeft: =16
+            RadiusBottomRight: =16
+            RadiusTopLeft: =16
+            RadiusTopRight: =16
+            Width: =32
+            X: =30
+            Y: =330
+          Children:
+            - lblV4Num:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =If(varVStep >= 4, RGBA(255, 255, 255, 1), RGBA(156, 163, 175, 1))
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  Size: =9
+                  Text: =If(varVStep > 4, "✓", "4")
+                  Width: =Parent.Width
+      - lblV4Title:
+          Control: Label@2.5.1
+          Properties:
+            Color: =If(varVStep >= 4, RGBA(243, 244, 246, 1), RGBA(156, 163, 175, 1))
+            Font: =Font.'Open Sans'
+            FontWeight: =If(varVStep = 4, FontWeight.Semibold, FontWeight.Normal)
+            Height: =20
+            Size: =10
+            Text: ="Completed"
+            Width: =300
+            X: =76
+            Y: =conVStep4Circle.Y + 1
+      - lblV4Desc:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(156, 163, 175, 1)
+            Font: =Font.'Open Sans'
+            Height: =18
+            Size: =8
+            Text: ="Request has been processed and fulfilled successfully."
+            Visible: =varVStep >= 4
+            Width: =400
+            X: =76
+            Y: =lblV4Title.Y + lblV4Title.Height
+      - btnVBack:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(75, 85, 99, 1)
+            BorderThickness: =1
+            Color: =RGBA(209, 213, 219, 1)
+            DisplayMode: =If(varVStep <= 1, DisplayMode.Disabled, DisplayMode.Edit)
+            Fill: =RGBA(30, 41, 56, 1)
+            FocusedBorderThickness: =1
+            Font: =Font.'Open Sans'
+            Height: =36
+            HoverBorderColor: =RGBA(107, 114, 128, 1)
+            HoverColor: =RGBA(243, 244, 246, 1)
+            HoverFill: =RGBA(55, 65, 81, 1)
+            OnSelect: =Set(varVStep, Max(1, varVStep - 1))
+            PressedBorderColor: =RGBA(107, 114, 128, 1)
+            PressedFill: =RGBA(30, 41, 56, 1)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =10
+            Text: ="Back"
+            Width: =100
+            X: =30
+            Y: =400
+      - btnVNext:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(59, 130, 246, 1)
+            BorderThickness: =0
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(59, 130, 246, 1)
+            FocusedBorderThickness: =0
+            Font: =Font.'Open Sans'
+            Height: =36
+            HoverBorderColor: =RGBA(59, 130, 246, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(59, 130, 246, 1), -15%)
+            OnSelect: =Set(varVStep, Min(5, varVStep + 1))
+            PressedBorderColor: =RGBA(59, 130, 246, 1)
+            PressedFill: =ColorFade(RGBA(59, 130, 246, 1), -30%)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Size: =10
+            Text: =If(varVStep = 4, "Finish", "Approve")
+            Width: =100
+            X: =140
+            Y: =400
+      - lblVComplete:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(34, 197, 94, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =24
+            Size: =9
+            Text: ="✓  Workflow completed — request approved and fulfilled!"
+            Visible: =varVStep > 4
+            Width: =400
+            X: =260
+            Y: =406
