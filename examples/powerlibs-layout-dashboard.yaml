@@ -36,38 +36,18 @@ Screens:
                   PaddingRight: =If(App.Width < 640, 12, 24)
                   PaddingTop: =8
                 Children:
-                  - cntTitleGroup:
-                      Control: GroupContainer@1.5.0
-                      Variant: ManualLayout
+                  - lblPageTitle:
+                      Control: Text@0.0.51
                       Properties:
-                        AlignInContainer: =AlignInContainer.Center
-                        BorderStyle: =BorderStyle.None
-                        DropShadow: =DropShadow.None
-                        FillPortions: =0
-                        Height: =If(App.Width < 640, 48, 56)
-                        Width: =Parent.Width - 2 * If(App.Width < 640, 12, 24) - If(App.Width >= 1024, 188, 0)
-                      Children:
-                        - lblPageTitle:
-                            Control: ModernText@1.0.0
-                            Properties:
-                              AutoHeight: =true
-                              Color: =RGBA(17, 24, 39, 1)
-                              FontWeight: =FontWeight.Semibold
-                              Size: =If(App.Width < 640, 16, 20)
-                              Text: ="Dashboard"
-                              Width: =Parent.Width
-                              X: =0
-                              Y: =0
-                        - lblLastUpdated:
-                            Control: ModernText@1.0.0
-                            Properties:
-                              AutoHeight: =true
-                              Color: =RGBA(107, 114, 128, 1)
-                              Size: =11
-                              Text: ="[last updated · refresh]"
-                              Width: =Parent.Width
-                              X: =0
-                              Y: =lblPageTitle.Height + 2
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        FontColor: =RGBA(17, 24, 39, 1)
+                        Height: =42
+                        Size: =If(App.Width < 640, 20, 28)
+                        Text: ="Dashboard"
+                        VerticalAlign: =VerticalAlign.Top
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Wrap: =false
                   - cntTopBarActions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
@@ -117,6 +97,17 @@ Screens:
                   PaddingTop: =If(App.Width < 640, 12, 24)
                   Width: =Parent.Width
                 Children:
+                  - lblLastUpdated:
+                      Control: Text@0.0.51
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =22
+                        Size: =12
+                        Text: ="[last updated · refresh]"
+                        VerticalAlign: =VerticalAlign.Top
+                        Width: =Min(Parent.Width - If(App.Width < 640, 24, 48), 1200)
+                        Wrap: =false
                   - lblSectionTitle:
                       Control: ModernText@1.0.0
                       Properties:
