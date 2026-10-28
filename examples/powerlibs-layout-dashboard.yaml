@@ -40,6 +40,7 @@ Screens:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
+                        AlignInContainer: =AlignInContainer.Center
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         FillPortions: =0
