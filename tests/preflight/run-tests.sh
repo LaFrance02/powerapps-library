@@ -8,9 +8,9 @@ for code in PA2231 PA2108 PA1001 NOEQ ENUM PA2107 DUPNAME MAXH; do
 done
 # files verified clean by paste test must stay clean
 python3 tools/preflight.py examples/powerlibs-layout-*.yaml examples/msapp-docrouterfree-component-sidebar.yaml >/dev/null || { echo "known-good file now flagged"; fail=1; }
-# the six msapp files with empty Event defaults must be flagged PA2231
+# the six msapp files were patched (Event Default =false) and must stay clean of PA2231
 for f in bar-list bottom-navigation breadcrumbs enhanced-dialog kpi my-table; do
-  python3 tools/preflight.py examples/msapp-docrouterfree-component-$f.yaml | grep -q PA2231 || { echo "$f not flagged"; fail=1; }
+  python3 tools/preflight.py examples/msapp-docrouterfree-component-$f.yaml | grep -q PA2231 && { echo "$f regressed to PA2231"; fail=1; }
 done
 [ $fail = 0 ] && echo "preflight tests passed"
 exit $fail

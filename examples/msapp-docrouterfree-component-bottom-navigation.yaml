@@ -50,7 +50,7 @@ ComponentDefinitions:
         DisplayName: OnSelect
         Description: Action when tab is selected
         ReturnType: None
-        Default: =
+        Default: =false
       SelectedIndex:
         PropertyKind: Input
         DisplayName: SelectedIndex

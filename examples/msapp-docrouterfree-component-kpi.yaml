@@ -126,7 +126,7 @@ ComponentDefinitions:
         DisplayName: On Card Click
         Description: Fires when a KPI card is clicked
         ReturnType: None
-        Default: =
+        Default: =false
         Parameters:
           - ClickedItem:
               Description: The KPI item that was clicked

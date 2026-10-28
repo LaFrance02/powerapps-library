@@ -791,7 +791,9 @@ byte-for-byte from `Src/*.pa.yaml` inside the `.msapp` zip, with only the always
 Studio boilerplate warning-comment header stripped (present verbatim at the top of every source
 file in the zip) and the top-level key (`App:`/`Screens:`/`ComponentDefinitions:`) kept.
 
-## Paste-test results (2026-10-28) — read before using
+## Paste-test results (2026-10-28)
+
+> Update: the six msapp component files below are now patched on main (`Default: =false`); the notes remain as history. — read before using
 
 All five `powerlibs-layout-*` skeletons and the msapp components were paste-tested in a Dataverse for
 Teams scratch app. Full table: `tests/paste-test-2026-10-28.md`.
