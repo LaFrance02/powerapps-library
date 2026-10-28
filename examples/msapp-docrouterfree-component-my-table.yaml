@@ -47,19 +47,19 @@ ComponentDefinitions:
         DisplayName: OnMenuItemSelect
         Description: Action when menu item is selected
         ReturnType: None
-        Default: =
+        Default: =false
       OnRowSelect:
         PropertyKind: Event
         DisplayName: OnRowSelect
         Description: Action when row is selected
         ReturnType: None
-        Default: =
+        Default: =false
       OnViewChange:
         PropertyKind: Event
         DisplayName: OnViewChange
         Description: Action when view mode changes
         ReturnType: None
-        Default: =
+        Default: =false
       PriorityConfig:
         PropertyKind: Input
         DisplayName: PriorityConfig
