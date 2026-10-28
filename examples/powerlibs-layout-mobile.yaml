@@ -39,7 +39,7 @@ Screens:
                         FontColor: =RGBA(37, 99, 235, 1)
                         Size: =14
                         Text: ="[icon]"
-                        Width: =32
+                        Width: =56
                   - lblMobileTitle:
                       Control: Text@0.0.51
                       Properties:
@@ -58,7 +58,7 @@ Screens:
                         FontColor: =RGBA(107, 114, 128, 1)
                         Size: =14
                         Text: ="[action]"
-                        Width: =40
+                        Width: =64
             - cntMobileContent:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
@@ -154,6 +154,7 @@ Screens:
                       Variant: ManualLayout
                       Properties:
                         Fill: =RGBA(0, 0, 0, 0)
+                        FillPortions: =0
                         Height: =0
                         Width: =0
                       Children:

@@ -37,39 +37,33 @@ Screens:
                   PaddingRight: =If(App.Width < 640, 12, 20)
                   PaddingTop: =8
                 Children:
-                  - cntTitleGroup:
-                      Control: GroupContainer@1.5.0
-                      Variant: AutoLayout
+                  - lblPageTitle:
+                      Control: Text@0.0.51
                       Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
                         FillPortions: =1
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGap: =2
-                      Children:
-                        - lblPageTitle:
-                            Control: Text@0.0.51
-                            Properties:
-                              FontColor: =RGBA(17, 24, 39, 1)
-                              Size: =If(App.Width < 640, 18, 22)
-                              Text: ="All Items"
-                              Weight: ='TextCanvas.Weight'.Semibold
-                              Wrap: =false
-                        - lblPageSubtitle:
-                            Control: Text@0.0.51
-                            Properties:
-                              FontColor: =RGBA(107, 114, 128, 1)
-                              Size: =11
-                              Text: ="[record count · subtitle]"
-                              Wrap: =false
+                        FontColor: =RGBA(17, 24, 39, 1)
+                        Height: =42
+                        Size: =If(App.Width < 640, 20, 28)
+                        Text: ="All Items"
+                        VerticalAlign: =VerticalAlign.Top
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Wrap: =false
                   - cntTopBarActions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(0, 0, 0, 0)
                         FillPortions: =0
+                        Height: =40
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =8
                         LayoutMinWidth: =40
                         Visible: =App.Width >= 1024
+                        Width: =176
                       Children:
                         - lblActionPlaceholder_Top:
                             Control: Text@0.0.51
@@ -84,9 +78,10 @@ Screens:
                 Properties:
                   BorderColor: =RGBA(229, 231, 235, 1)
                   BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
                   Fill: =RGBA(255, 255, 255, 1)
                   FillPortions: =0
-                  Height: =If(App.Width < 640, 52, 44)
+                  Height: =If(App.Width < 640, 92, 44)
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
@@ -104,21 +99,27 @@ Screens:
                         Height: =30
                         Size: =11
                         Text: ="[search input]"
+                        VerticalAlign: =VerticalAlign.Middle
                         Width: =If(App.Width < 640, 150, 220)
                   - lblChipsPlaceholder:
                       Control: Text@0.0.51
                       Properties:
                         FillPortions: =1
                         FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =30
+                        LayoutMinWidth: =140
                         Size: =11
                         Text: ="[category filter chips]"
+                        VerticalAlign: =VerticalAlign.Middle
                   - lblCountPlaceholder:
                       Control: Text@0.0.51
                       Properties:
                         FillPortions: =0
                         FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =30
                         Size: =11
                         Text: ="[count]"
+                        VerticalAlign: =VerticalAlign.Middle
                         Visible: =App.Width >= 640
                         Width: =60
                   - lblViewTogglePlaceholder:
@@ -126,8 +127,10 @@ Screens:
                       Properties:
                         FillPortions: =0
                         FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =30
                         Size: =11
                         Text: ="[grid / list / table]"
+                        VerticalAlign: =VerticalAlign.Middle
                         Width: =116
             - rctDivider:
                 Control: Rectangle@2.3.0
@@ -181,6 +184,8 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(0, 0, 0, 0)
                               FillPortions: =0
                               Height: =52
                               LayoutAlignItems: =LayoutAlignItems.Center
@@ -212,6 +217,8 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(0, 0, 0, 0)
                               FillPortions: =1
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =12

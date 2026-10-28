@@ -813,3 +813,9 @@ Teams scratch app. Full table: `tests/paste-test-2026-10-28.md`.
   `cntFabSlot` fills leftover space; scrDashboard `cntKpiRow` phone height 200 clips the wrapped KPI
   cards (needs about 204+).
 
+## Layout skeletons v2 (2026-10-28)
+
+All five `powerlibs-layout-*.yaml` files were re-pasted after cosmetic fixes: flattened/explicit-size action
+containers, no shadows on layout-only containers, dashboard KPI row phone height 216, mobile placeholder widths,
+and a single-label top-bar title everywhere (dashboard's "last updated" line now sits in the page body). See the
+"Top-bar titles" and "Nested vertical AutoLayout" entries in `reference/syntax-gotchas.md`.

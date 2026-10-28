@@ -25,3 +25,9 @@ ComponentDefinitions:
           Control: GroupContainer@1.3.0
           Properties:
             Fill: RGBA(0, 0, 0, 1)
+      - cntMaxH:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Height: =72
+            LayoutMaxHeight: =40

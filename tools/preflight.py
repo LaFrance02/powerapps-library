@@ -134,6 +134,28 @@ def check(path):
         if len(ls) > 1:
             issues.append((ls[1], "ERROR", "DUPNAME",
                            f"control name '{n}' used {len(ls)} times (lines {', '.join(map(str, ls))})"))
+    # MAXH: LayoutMaxHeight that differs from Height clamps the control (paste-tested 2026-10-28)
+    for i, raw in enumerate(lines, 1):
+        if raw.strip() != "Properties:":
+            continue
+        pind = len(raw) - len(raw.lstrip())
+        h = mh = None
+        for j in range(i, len(lines)):
+            ln = lines[j]
+            if ln.strip() == "":
+                continue
+            ind = len(ln) - len(ln.lstrip())
+            if ind <= pind:
+                break
+            m = re.match(r"\s*(Height|LayoutMaxHeight):\s*(.*)$", ln)
+            if m and ind == pind + 2:
+                if m.group(1) == "Height":
+                    h = m.group(2).strip()
+                else:
+                    mh = (j + 1, m.group(2).strip())
+        if h and mh and h != mh[1]:
+            issues.append((mh[0], "WARN", "MAXH",
+                           "LayoutMaxHeight differs from Height; a smaller max clamps the control and overflows its content"))
     return sorted(issues)
 
 

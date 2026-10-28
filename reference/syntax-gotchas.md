@@ -273,6 +273,18 @@ Relevant any time a modern control replaces what used to be classic in a given s
 - **User() in Named Formulas works:** `nfUserEmail = Lower(User().Email); nfUserName = Proper(User().FullName);`.
 - **Open item:** a cmpKPI instance's `Data` shows the yellow warning "Expected a different collection
   record structure". Harmless in testing, cause not found.
+- **Nested vertical AutoLayout group inside a horizontal row ignores `Height`/`FillPortions`** (rendered ~145px).
+  For a fixed-size block in a row use `Variant: ManualLayout` with explicit `Height`/`Width` (precedent: `cntLogoMark`).
+- **Top-bar titles: use one `Text@0.0.51` label** (`Height: =42`, `FillPortions: =1`, `Wrap: =false`,
+  `VerticalAlign: =VerticalAlign.Top`). Two-line title+subtitle blocks inside a 56-72px bar failed in every variant tried
+  (ModernText `AutoHeight` or fixed heights showed grey per-label scroll pills). Put the subtitle in the page body.
+- **ModernText/Text with `AutoHeight` off overflows its box** and shows a grey scrollbar pill; size boxes generously or avoid.
+- **`LayoutMaxHeight` smaller than `Height` clamps the control** and its content overflows (preflight rule MAXH).
+- **Default `GroupContainer` draws a shadow/box.** Set `DropShadow: =DropShadow.None` and a transparent `Fill`
+  (`=RGBA(0, 0, 0, 0)`) on layout-only containers.
+- **Never reference sibling controls by name** (e.g. `Y: =lblPageTitle.Height + 2`): pasted controls are renamed
+  (`lblPageTitle_2`) when the name exists, which silently rewrites or breaks the reference. Use fixed values.
+- **Right-side action containers in a row** need `AlignInContainer: =AlignInContainer.Center`, `FillPortions: =0`, explicit `Height` and `Width`.
 
 ## Workflow rule (not syntax, but load-bearing)
 
