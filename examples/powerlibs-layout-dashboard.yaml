@@ -50,10 +50,9 @@ Screens:
                         - lblPageTitle:
                             Control: ModernText@1.0.0
                             Properties:
-                              AutoHeight: =false
+                              AutoHeight: =true
                               Color: =RGBA(17, 24, 39, 1)
                               FontWeight: =FontWeight.Semibold
-                              Height: =If(App.Width < 640, 28, 34)
                               Size: =If(App.Width < 640, 16, 20)
                               Text: ="Dashboard"
                               Width: =Parent.Width
@@ -62,14 +61,13 @@ Screens:
                         - lblLastUpdated:
                             Control: ModernText@1.0.0
                             Properties:
-                              AutoHeight: =false
+                              AutoHeight: =true
                               Color: =RGBA(107, 114, 128, 1)
-                              Height: =If(App.Width < 640, 20, 22)
                               Size: =11
                               Text: ="[last updated · refresh]"
                               Width: =Parent.Width
                               X: =0
-                              Y: =If(App.Width < 640, 28, 34)
+                              Y: =lblPageTitle.Height + 2
                   - cntTopBarActions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
