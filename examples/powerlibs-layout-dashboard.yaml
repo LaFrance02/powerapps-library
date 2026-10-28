@@ -29,7 +29,7 @@ Screens:
                   LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =If(App.Width < 640, 8, 12)
                   LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
-                  LayoutMaxHeight: =If(App.Width < 640, 52, 60)
+                  LayoutMaxHeight: =If(App.Width < 640, 56, 72)
                   LayoutMinHeight: =If(App.Width < 640, 52, 60)
                   PaddingBottom: =8
                   PaddingLeft: =If(App.Width < 640, 12, 24)
@@ -38,34 +38,37 @@ Screens:
                 Children:
                   - cntTitleGroup:
                       Control: GroupContainer@1.5.0
-                      Variant: AutoLayout
+                      Variant: ManualLayout
                       Properties:
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         FillPortions: =0
                         Height: =If(App.Width < 640, 40, 56)
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGap: =2
-                        LayoutJustifyContent: =LayoutJustifyContent.Center
                         Width: =Parent.Width - 2 * If(App.Width < 640, 12, 24) - If(App.Width >= 1024, 188, 0)
                       Children:
                         - lblPageTitle:
                             Control: ModernText@1.0.0
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
-                              AutoHeight: =true
+                              AutoHeight: =false
                               Color: =RGBA(17, 24, 39, 1)
                               FontWeight: =FontWeight.Semibold
+                              Height: =If(App.Width < 640, 22, 30)
                               Size: =If(App.Width < 640, 18, 22)
                               Text: ="Dashboard"
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =0
                         - lblLastUpdated:
                             Control: ModernText@1.0.0
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
-                              AutoHeight: =true
+                              AutoHeight: =false
                               Color: =RGBA(107, 114, 128, 1)
+                              Height: =If(App.Width < 640, 16, 18)
                               Size: =11
                               Text: ="[last updated · refresh]"
+                              Width: =Parent.Width
+                              X: =0
+                              Y: =If(App.Width < 640, 24, 32)
                   - cntTopBarActions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout

@@ -39,36 +39,37 @@ Screens:
                 Children:
                   - cntTitleGroup:
                       Control: GroupContainer@1.5.0
-                      Variant: AutoLayout
+                      Variant: ManualLayout
                       Properties:
                         DropShadow: =DropShadow.None
                         Fill: =RGBA(0, 0, 0, 0)
                         FillPortions: =0
                         Height: =If(App.Width < 640, 40, 56)
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGap: =2
-                        LayoutJustifyContent: =LayoutJustifyContent.Center
                         Width: =Parent.Width - 2 * If(App.Width < 640, 12, 20) - If(App.Width >= 1024, 188, 0)
                       Children:
                         - lblPageTitle:
                             Control: Text@0.0.51
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               FontColor: =RGBA(17, 24, 39, 1)
                               Height: =If(App.Width < 640, 22, 30)
                               Size: =If(App.Width < 640, 18, 22)
                               Text: ="All Items"
                               Weight: ='TextCanvas.Weight'.Semibold
+                              Width: =Parent.Width
                               Wrap: =false
+                              X: =0
+                              Y: =0
                         - lblPageSubtitle:
                             Control: Text@0.0.51
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               FontColor: =RGBA(107, 114, 128, 1)
                               Height: =If(App.Width < 640, 16, 18)
                               Size: =11
                               Text: ="[record count · subtitle]"
+                              Width: =Parent.Width
                               Wrap: =false
+                              X: =0
+                              Y: =If(App.Width < 640, 24, 32)
                   - cntTopBarActions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
