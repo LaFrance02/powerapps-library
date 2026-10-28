@@ -126,7 +126,7 @@ Browse/Form/Master-Detail/Mobile, whether the scroll region scrolls with the whe
 | C5 dashboard | Pass | none | ModernText@1.0.0 with `AutoHeight`, `FontWeight`, `Color`; GroupContainer `LayoutMaxHeight`. Page scroll works. |
 | C1+C5 together | Pass | none | Text@0.0.51 + ModernText@1.0.0 + Label@2.5.1 in one app, no PA2107/PA2105. App checker: only the known cmpKPI Data warning. |
 
-Not answered by the tester: Rating and Slider paste results from the earlier session remain unrecorded.
+Rating and Slider (earlier session): both pasted clean and function correctly, reported afterward.
 
 ## Findings
 

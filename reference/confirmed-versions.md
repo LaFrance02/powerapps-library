@@ -68,8 +68,8 @@ Confirmed in **Cryo Dewar Tracking Suite** (Dataverse, full) as of mid-2026:
 | `Label` 2.5.1 | Clean | Pasted together with `Text@0.0.51` and `ModernText@1.0.0` with no error. |
 | `Text` 0.0.51 | Clean | Mixes freely with other control types. |
 | `ModernText` 1.0.0 | Clean | Mixes freely with `Label`/`Text`. |
-| `Rating` | Not recorded | Result not in the repo — add when reported. |
-| `Slider` | Not recorded | Result not in the repo — add when reported. |
+| `Rating` | Clean | Pasted with no error and functions correctly (reported 2026-10-28). |
+| `Slider` | Clean | Pasted with no error and functions correctly (reported 2026-10-28). |
 | `Classic/Button` 2.2.0 | Clean | With `HoverBorderColor: =`, `HoverFill: =`, `PressedBorderColor: =`, `PressedFill: =` (bare `=`), screen level only. |
 | `GroupContainer` 1.3.0 (alone) | Pastes | Warning PA2105: uses the current version, may produce errors. |
 | `GroupContainer` 1.4.0 (alone) | Pastes | Same PA2105 warning. |
