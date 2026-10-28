@@ -78,9 +78,10 @@ Screens:
                 Properties:
                   BorderColor: =RGBA(229, 231, 235, 1)
                   BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
                   Fill: =RGBA(255, 255, 255, 1)
                   FillPortions: =0
-                  Height: =If(App.Width < 640, 52, 44)
+                  Height: =If(App.Width < 640, 92, 44)
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
@@ -98,21 +99,27 @@ Screens:
                         Height: =30
                         Size: =11
                         Text: ="[search input]"
+                        VerticalAlign: =VerticalAlign.Middle
                         Width: =If(App.Width < 640, 150, 220)
                   - lblChipsPlaceholder:
                       Control: Text@0.0.51
                       Properties:
                         FillPortions: =1
                         FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =30
+                        LayoutMinWidth: =140
                         Size: =11
                         Text: ="[category filter chips]"
+                        VerticalAlign: =VerticalAlign.Middle
                   - lblCountPlaceholder:
                       Control: Text@0.0.51
                       Properties:
                         FillPortions: =0
                         FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =30
                         Size: =11
                         Text: ="[count]"
+                        VerticalAlign: =VerticalAlign.Middle
                         Visible: =App.Width >= 640
                         Width: =60
                   - lblViewTogglePlaceholder:
@@ -120,8 +127,10 @@ Screens:
                       Properties:
                         FillPortions: =0
                         FontColor: =RGBA(107, 114, 128, 1)
+                        Height: =30
                         Size: =11
                         Text: ="[grid / list / table]"
+                        VerticalAlign: =VerticalAlign.Middle
                         Width: =116
             - rctDivider:
                 Control: Rectangle@2.3.0
