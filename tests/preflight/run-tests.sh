@@ -3,7 +3,7 @@
 set -u
 fail=0
 out=$(python3 tools/preflight.py tests/preflight/bad-fixture.yaml)
-for code in PA2231 PA2108 PA1001 NOEQ ENUM PA2107 DUPNAME; do
+for code in PA2231 PA2108 PA1001 NOEQ ENUM PA2107 DUPNAME MAXH; do
   echo "$out" | grep -q " $code" || { echo "MISSING expected $code on bad-fixture"; fail=1; }
 done
 # files verified clean by paste test must stay clean
