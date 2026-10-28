@@ -25,6 +25,11 @@ push after writing.
   captured verbatim from him once. Never regenerated from a guess.
 - `examples/` — real working YAML snippets Matt has pasted in from PowerLibs or elsewhere that he
   likes and wants used as a template.
+- `tools/preflight.py` — line-based pre-paste checker for `pa.yaml` files (PA2231 empty Event default,
+  PA2108 `TextAlign` on `Text@0.0.51`, PA1001 `: ` in plain scalars, PA2107 mixed control versions,
+  missing `=` prefixes, duplicate control names, invalid layout enum values). Run
+  `python3 tools/preflight.py FILE...` before pasting; regression tests are in `tests/preflight/`
+  (`bash tests/preflight/run-tests.sh`). Add a rule here whenever a new paste failure is learned.
 - `projects/` — one living-architecture handoff doc per active app (mission, architecture,
   constraints, decisions, unresolved issues, next actions — the P-HAND-001 format), plus any
   per-app deltas from the cross-project baseline in `reference/`.

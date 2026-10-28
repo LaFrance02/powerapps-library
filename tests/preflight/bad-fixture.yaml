@@ -1,0 +1,27 @@
+ComponentDefinitions:
+  cmpBad:
+    DefinitionType: CanvasComponent
+    CustomProperties:
+      OnPick:
+        PropertyKind: Event
+        DisplayName: OnPick
+        ReturnType: None
+        Default: =
+    Properties:
+      Height: =64
+    Children:
+      - lblA:
+          Control: Text@0.0.51
+          Properties:
+            Text: ="Result - ok"
+            TextAlign: =TextAlign.Center
+      - lblA:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            LayoutJustifyContent: =LayoutJustifyContent.SpaceEvenly
+            Text: ="Total: " & Sum(Items, Qty)
+      - cntB:
+          Control: GroupContainer@1.3.0
+          Properties:
+            Fill: RGBA(0, 0, 0, 1)
