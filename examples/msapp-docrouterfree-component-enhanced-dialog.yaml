@@ -81,13 +81,13 @@ ComponentDefinitions:
         DisplayName: OnButtonSelect
         Description: Fired when any button is selected
         ReturnType: None
-        Default: =
+        Default: =false
       OnCloseSelect:
         PropertyKind: Event
         DisplayName: OnCloseSelect
         Description: Fired when close icon is clicked
         ReturnType: None
-        Default: =
+        Default: =false
       OverlayBlurColor:
         PropertyKind: Input
         DisplayName: OverlayBlurColor

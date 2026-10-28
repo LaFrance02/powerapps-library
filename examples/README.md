@@ -819,3 +819,18 @@ All five `powerlibs-layout-*.yaml` files were re-pasted after cosmetic fixes: fl
 containers, no shadows on layout-only containers, dashboard KPI row phone height 216, mobile placeholder widths,
 and a single-label top-bar title everywhere (dashboard's "last updated" line now sits in the page body). See the
 "Top-bar titles" and "Nested vertical AutoLayout" entries in `reference/syntax-gotchas.md`.
+
+## Test D - msapp components (2026-10-28)
+
+With the Event `Default: =false` patch, `bar-list`, `enhanced-dialog` and `my-table` all paste clean (bottom-navigation,
+kpi, breadcrumbs and sidebar were verified earlier). The patched files are on main.
+
+`my-table` is wired to the full DocRouterFree app and shows red errors (272) until the app-level pieces exist:
+- `colRequests` with columns RequestKey, Title, PrimaryPocEmail, PrimaryPocName, StatusKey, CategoryKey, IsDeleted,
+  RequestDueDate, PhaseCount, CurrentPhaseOrder
+- `colPhases` with RequestKey, PhaseOrder, Title, PhaseStatusKey (the Tooltip formulas read Title and PhaseStatusKey)
+- named function `nfDay(d: DateTime): Text = Text(d, "mmm d, yyyy");` in App.Formulas
+
+With stand-in rows in App.OnStart for those two collections and `nfDay` added, the checker is clean and the component
+renders Table / Card / List views with three sample rows. Errors without the stand-ins are missing context, not paste problems.
+

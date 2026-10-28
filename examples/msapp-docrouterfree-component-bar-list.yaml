@@ -35,7 +35,7 @@ ComponentDefinitions:
         DisplayName: On Bar Click
         Description: Fires when a bar row is tapped
         ReturnType: None
-        Default: =
+        Default: =false
         Parameters:
           - ClickedItem:
               Description: The row record that was clicked
