@@ -1,0 +1,1153 @@
+// =============================================================================
+//  DocRouter — App.Formulas
+//  Paste into App > Formulas. Not OnStart.
+//
+//  Named formulas are DECLARATIVE. They take no parameters and cannot contain
+//  Patch, Collect, ClearCollect, Set, Navigate, Notify, or any other behavior
+//  function. Every entry below obeys that.
+//
+//  Identical in both product versions. Nothing here reads a list or a
+//  collection that differs between the collections demo and the SharePoint
+//  version, except where marked.
+// =============================================================================
+
+
+// -----------------------------------------------------------------------------
+//  IDENTITY
+//  Building blocks for permission checks. See the note on canManageRequest at
+//  the bottom of this file — it cannot live here.
+// -----------------------------------------------------------------------------
+
+nfIsFullVersion = false;
+nfFullVersionNote = "Available in the full version";
+nfUpgradeUrl = "powerappsui.com/apps";
+nfGatedMode = If(nfIsFullVersion, DisplayMode.Edit, DisplayMode.Disabled);
+nfGateSuffix = nfFullVersionNote & ". See " & nfUpgradeUrl;
+nfAppVersion = "1.0";
+nfCompanyName = "PowerApps UI";
+nfMoney(n: Number): Text = "$" & Text(n, "[$-en-US]#,##0");
+nfDay(d: DateTime): Text = Text(d, "mmm d, yyyy");
+
+nfDirectory = Table(
+        { DisplayName: "Alicia Moreau",  Mail: "alicia.moreau@contoso.com",  JobTitle: "Contracts Lead",     Department: "Legal" },
+        { DisplayName: "Ben Okafor",     Mail: "ben.okafor@contoso.com",     JobTitle: "Finance Analyst",    Department: "Finance" },
+        { DisplayName: "Carla Jensen",   Mail: "carla.jensen@contoso.com",   JobTitle: "Programme Manager",  Department: "PMO" },
+        { DisplayName: "Devin Aluko",    Mail: "devin.aluko@contoso.com",    JobTitle: "Records Officer",    Department: "Records" },
+        { DisplayName: "Elena Petrova",  Mail: "elena.petrova@contoso.com",  JobTitle: "Compliance Officer", Department: "Compliance" },
+        { DisplayName: "Farid Haddad",   Mail: "farid.haddad@contoso.com",   JobTitle: "Procurement Lead",   Department: "Procurement" },
+        { DisplayName: "Grace Lin",      Mail: "grace.lin@contoso.com",      JobTitle: "Director",           Department: "Executive" },
+        { DisplayName: "Hugo Marsh",     Mail: "hugo.marsh@contoso.com",     JobTitle: "IT Systems Lead",    Department: "IT" }
+    );
+
+nfConfig = Table(
+// Departments
+    { ConfigType: "Department", ConfigKey: "OPS",  Title: "Operations",             SortOrder: 1, Active: true, SlaDays: Blank(), DefaultTemplateKey: Blank() },
+    { ConfigType: "Department", ConfigKey: "FIN",  Title: "Finance",                SortOrder: 2, Active: true, SlaDays: Blank(), DefaultTemplateKey: Blank() },
+    { ConfigType: "Department", ConfigKey: "LEG",  Title: "Legal",                  SortOrder: 3, Active: true, SlaDays: Blank(), DefaultTemplateKey: Blank() },
+    { ConfigType: "Department", ConfigKey: "IT",   Title: "Information Technology", SortOrder: 4, Active: true, SlaDays: Blank(), DefaultTemplateKey: Blank() },
+    { ConfigType: "Department", ConfigKey: "HR",   Title: "Human Resources",        SortOrder: 5, Active: true, SlaDays: Blank(), DefaultTemplateKey: Blank() },
+    { ConfigType: "Department", ConfigKey: "PROC", Title: "Procurement",            SortOrder: 6, Active: true, SlaDays: Blank(), DefaultTemplateKey: Blank() },
+    // Categories — DefaultTemplateKey must match a real TemplateKey in colTemplates
+    { ConfigType: "Category", ConfigKey: "StandardApproval", Title: "Standard Approval", SortOrder: 1, Active: true, SlaDays: Blank(), DefaultTemplateKey: "tpl-standard" },
+    { ConfigType: "Category", ConfigKey: "ExpeditedReview",  Title: "Expedited Review",  SortOrder: 2, Active: true, SlaDays: Blank(), DefaultTemplateKey: "tpl-quick" },
+    { ConfigType: "Category", ConfigKey: "DocumentReview",   Title: "Document Review",   SortOrder: 3, Active: true, SlaDays: Blank(), DefaultTemplateKey: "tpl-document" },
+    { ConfigType: "Category", ConfigKey: "ChangeRequest",    Title: "Change Request",    SortOrder: 4, Active: true, SlaDays: Blank(), DefaultTemplateKey: "tpl-procurement" },
+    // Processing types — SlaDays is a real number Flow adds to the start date
+    { ConfigType: "ProcessingType", ConfigKey: "Standard",  Title: "Standard (3 business days)",  SortOrder: 1, Active: true, SlaDays: 3, DefaultTemplateKey: Blank() },
+    { ConfigType: "ProcessingType", ConfigKey: "Expedited", Title: "Expedited (same day)",        SortOrder: 2, Active: true, SlaDays: 0, DefaultTemplateKey: Blank() },
+    { ConfigType: "ProcessingType", ConfigKey: "Extended",  Title: "Extended (5+ business days)", SortOrder: 3, Active: true, SlaDays: 5, DefaultTemplateKey: Blank() }
+);
+
+nfDepartments     = Sort(Filter(nfConfig, ConfigType = "Department"),     SortOrder);
+nfProcessingTypes = Sort(Filter(nfConfig, ConfigType = "ProcessingType"), SortOrder);
+nfCategories      = AddColumns(
+    Sort(Filter(nfConfig, ConfigType = "Category"), SortOrder) As c,
+    Admins, nfUserEmail
+);
+
+nfUserEmail = Lower(User().Email);
+nfUserName  = Proper(User().FullName);
+
+
+// -----------------------------------------------------------------------------
+//  APP IDENTITY
+//  CLAUDE.md: gblAppName and gblAppNameAccent hold the app name, not
+//  environment variables. They are constants, so they are named formulas here
+//  rather than OnStart globals — always available, cannot be clobbered.
+//  The gbl* names in CLAUDE.md are kept as aliases in OnStart for any screen
+//  already written against them.
+//
+//  RENDERING: the name is ONE word and renders in ONE label. The accent is
+//  deliberately empty.
+//
+//  It used to be split, "Doc" plus "Router" in two adjacent labels with the
+//  accent in nfColor.Primary. It read as two words, because it is two labels
+//  with a gap between them and no way to close it. cmpSidebar hides its accent
+//  label on blank and widens the base label from a clamped 120 to
+//  Parent.Width - 106, so a blank accent is a supported configuration rather
+//  than a workaround.
+//
+//  Keep nfAppNameAccent as an empty string rather than deleting it. It is a
+//  required input on cmpSidebar, and a two tone name is a plausible future
+//  brand decision that should be one edit here.
+// -----------------------------------------------------------------------------
+
+nfAppName       = "DocRouter";
+nfAppNameAccent = "";
+
+
+// -----------------------------------------------------------------------------
+//  THEME — COLOR
+//  Two complete palettes with identical keys, plus a switch. Controls read
+//  nfColor and never a palette directly, so a theme change is one formula.
+//
+//  BOTH RECORDS MUST CARRY THE SAME 37 KEYS. If one is missing a key, every
+//  nfColor.<thatKey> reference fails on that theme only, which is the kind of
+//  defect that ships.
+//
+//  Never hardcode RGBA in a control property. Read from here.
+// -----------------------------------------------------------------------------
+
+nfColorLight = {
+
+    // Brand and interaction
+    Primary:        RGBA(37,  99, 235, 1),   // blue-600  — buttons, active nav, links
+    PrimaryHover:   RGBA(29,  78, 216, 1),   // blue-700
+    PrimarySoft:    RGBA(239, 246, 255, 1),  // blue-50   — selected row, info panel
+    PrimaryBorder:  RGBA(191, 219, 254, 1),  // blue-200
+
+    // Surfaces
+    Canvas:         RGBA(248, 250, 252, 1),  // slate-50  — page background
+    Surface:        RGBA(255, 255, 255, 1),  // white     — cards, header, table
+    SurfaceAlt:     RGBA(241, 245, 249, 1),  // slate-100 — table head, card footer
+    Sidebar:        RGBA(15,  23,  42, 1),   // slate-900
+    SidebarHover:   RGBA(30,  41,  59, 1),   // slate-800
+    Overlay:        RGBA(0,    0,   0, 0.5), // modal scrim
+
+    // Text
+    TextStrong:     RGBA(30,  41,  59, 1),   // slate-800 — headings, primary text
+    TextBody:       RGBA(71,  85, 105, 1),   // slate-600
+    TextMuted:      RGBA(100, 116, 139, 1),  // slate-500 — labels, secondary
+    TextFaint:      RGBA(148, 163, 184, 1),  // slate-400 — timestamps, hints
+    TextOnDark:     RGBA(255, 255, 255, 1),
+    TextOnPrimary:  RGBA(255, 255, 255, 1),
+
+    // Lines
+    Border:         RGBA(226, 232, 240, 1),  // slate-200
+    BorderStrong:   RGBA(203, 213, 225, 1),  // slate-300
+    Divider:        RGBA(241, 245, 249, 1),  // slate-100
+
+    // Semantic — paired fill/text/border per status badge in the mockup
+    SuccessFill:    RGBA(220, 252, 231, 1),  // green-100
+    SuccessText:    RGBA(21,  128,  61, 1),  // green-700
+    SuccessBorder:  RGBA(187, 247, 208, 1),  // green-200
+    SuccessSolid:   RGBA(34,  197,  94, 1),  // green-500 — progress fill, dots
+
+    WarnFill:       RGBA(254, 243, 199, 1),  // amber-100
+    WarnText:       RGBA(180,  83,   9, 1),  // amber-700
+    WarnBorder:     RGBA(253, 230, 138, 1),  // amber-200
+    WarnSolid:      RGBA(245, 158,  11, 1),  // amber-500
+
+    DangerFill:     RGBA(254, 226, 226, 1),  // red-100
+    DangerText:     RGBA(185,  28,  28, 1),  // red-700
+    DangerBorder:   RGBA(254, 202, 202, 1),  // red-200
+    DangerSolid:    RGBA(239,  68,  68, 1),  // red-500 — unread dot, overdue
+
+    NeutralFill:    RGBA(241, 245, 249, 1),  // slate-100
+    NeutralText:    RGBA(71,  85, 105, 1),   // slate-600
+    NeutralBorder:  RGBA(226, 232, 240, 1),  // slate-200
+
+    // Group marker (mockup uses purple only for group assignees)
+    GroupFill:      RGBA(243, 232, 255, 1),  // purple-100
+    GroupText:      RGBA(147,  51, 234, 1),  // purple-600
+
+    Transparent:    RGBA(0, 0, 0, 0)
+};
+
+nfColorDark = {
+
+    // Brand. Lifted and desaturated. blue-600 on near-black is muddy, so the
+    // primary moves up and hover BRIGHTENS rather than darkens: on dark, a
+    // darker hover reads as disabled.
+    Primary:        RGBA(59, 130, 246, 1),
+    PrimaryHover:   RGBA(96, 165, 250, 1),
+    PrimarySoft:    RGBA(30,  58, 138, 0.28),
+    PrimaryBorder:  RGBA(59, 130, 246, 0.45),
+
+    // Surfaces. Elevation reads by getting LIGHTER, the opposite of light mode.
+    // Sidebar drops below Canvas or the nav disappears into the page.
+    Canvas:         RGBA(15,  23,  42, 1),
+    Surface:        RGBA(30,  41,  59, 1),
+    SurfaceAlt:     RGBA(51,  65,  85, 1),
+    Sidebar:        RGBA(2,    6,  23, 1),
+    SidebarHover:   RGBA(30,  41,  59, 1),
+    Overlay:        RGBA(0,    0,   0, 0.7),
+
+    // Text. Never pure white on dark; slate-100 avoids halation.
+    TextStrong:     RGBA(241, 245, 249, 1),
+    TextBody:       RGBA(203, 213, 225, 1),
+    TextMuted:      RGBA(148, 163, 184, 1),
+    TextFaint:      RGBA(100, 116, 139, 1),
+    TextOnDark:     RGBA(241, 245, 249, 1),
+    TextOnPrimary:  RGBA(255, 255, 255, 1),
+
+    // Lines. Borders LIGHTEN against the surface instead of darkening.
+    Border:         RGBA(51,  65,  85, 1),
+    BorderStrong:   RGBA(71,  85, 105, 1),
+    Divider:        RGBA(51,  65,  85, 1),
+
+    // Semantic. Fills are translucent tints of their own solid, not pale
+    // pastels: a light pastel on a dark surface glows and swamps its own text.
+    // The tint borrows the surface underneath, so a badge on a card and the
+    // same badge on the canvas both read without a second variant.
+    SuccessFill:    RGBA(34, 197,  94, 0.18),
+    SuccessText:    RGBA(134, 239, 172, 1),
+    SuccessBorder:  RGBA(34, 197,  94, 0.40),
+    SuccessSolid:   RGBA(34, 197,  94, 1),
+
+    WarnFill:       RGBA(245, 158,  11, 0.18),
+    WarnText:       RGBA(252, 211,  77, 1),
+    WarnBorder:     RGBA(245, 158,  11, 0.40),
+    WarnSolid:      RGBA(245, 158,  11, 1),
+
+    DangerFill:     RGBA(239,  68,  68, 0.18),
+    DangerText:     RGBA(252, 165, 165, 1),
+    DangerBorder:   RGBA(239,  68,  68, 0.40),
+    DangerSolid:    RGBA(248, 113, 113, 1),
+
+    // NeutralFill stays OPAQUE while every other fill went translucent: it is
+    // the default badge, and a tint of grey on grey is invisible.
+    NeutralFill:    RGBA(51,  65,  85, 1),
+    NeutralText:    RGBA(203, 213, 225, 1),
+    NeutralBorder:  RGBA(71,  85, 105, 1),
+
+    GroupFill:      RGBA(168,  85, 247, 0.20),
+    GroupText:      RGBA(216, 180, 254, 1),
+
+    Transparent:    RGBA(0, 0, 0, 0)
+};
+
+
+// -----------------------------------------------------------------------------
+//  THEME — THE SWITCH
+//  Reads colUserPrefs, not a global. One source of truth, and it is reactive:
+//  when Settings patches the preference the whole app recolours with no Set.
+//
+//  Coalesce covers the window before App.OnStart has loaded the collection, so
+//  the app renders Light rather than erroring. A user whose saved preference is
+//  Dark sees a brief light flash on launch. Accepted; fighting it is not worth
+//  the complexity.
+// -----------------------------------------------------------------------------
+
+nfThemeName = Coalesce(First(colUserPrefs).ThemeName, "Light");
+nfIsDark    = nfThemeName = "Dark";
+
+nfColor = If(nfIsDark, nfColorDark, nfColorLight);
+
+
+// -----------------------------------------------------------------------------
+//  THEME — TYPE SCALE
+//  PIXELS. Modern controls size text in pixels; classic controls size in points.
+//  Never carry a value across families unconverted — see layout-sizing.md s11.
+// -----------------------------------------------------------------------------
+
+nfType = {
+    PageTitle:   28,   // "Good morning, Jordan", "All Requests"
+    SectionHead: 20,   // modal titles
+    CardTitle:   18,   // "Current Tasks", request title on Details
+    Subhead:     16,
+    ChromeTitle: 15,   // breadcrumb, top bar labels, tab labels
+    Body:        14,   // default control text
+    Small:       13,   // task card meta, buttons
+    Initials:    13,   // avatar glyph, sized to the circle not to the scale
+    Caption:     12,   // badges, table headers, field labels
+    Micro:       11    // timestamps, "Assigned by"
+};
+
+// ChromeTitle is the rung between Body and Subhead. Chrome needs to sit above
+// body text and below any content heading, and without this rung it falls off
+// the bottom of the scale to Caption, which is what happened to the top bar
+// breadcrumb. At 16 it would be indistinguishable from Subhead and the top bar
+// would compete with the first heading in the gutter.
+//
+// Initials is not a rung in the reading hierarchy. It is a glyph sized to fit
+// the avatar circle, so it is deliberately independent of Caption even though
+// the two are close today. Changing Caption must not resize the avatar.
+//
+// SectionHead, CardTitle and Micro have no consumers yet. They are named for
+// screens not built (modals, Details, audit timestamps) and are kept rather
+// than re-derived later. Expect unused notices from the app checker.
+
+
+
+// -----------------------------------------------------------------------------
+//  THEME — SPACING AND RADIUS
+//  4px base grid, matching the mockup's Tailwind scale.
+// -----------------------------------------------------------------------------
+
+nfSpace = {
+    Xxs: 2,
+    Tight: 3,
+    Xs:  4,
+    Sm:  8,
+    Md:  12,
+    Lg:  16,   // default gap between cards
+    Xl:  20,
+    Xxl: 24,   // page padding
+    Section: 32
+};
+
+nfSize = {
+    Border:    1,   // every BorderThickness on every screen
+    FocusRing: 2,   // house-rules s4 caps this at 2 on every control, no exceptions
+
+    IconSm:   16,
+    Icon:     20,
+    IconLg:   24,
+
+    HitTarget: 36,  // icon only control wells. Minimum comfortable tap area
+    RowSm:    32,   // inputs, small buttons, icon wells
+    Row:      40,   // primary buttons, avatar wells, filter bar rows
+    RowLg:    56,
+
+    Rail:      8,   // progress rail tick height. NOT a spacing value: a
+                    // horizontal gallery's Height is its VIEWPORT, so this is
+                    // what the whole rail gets. See house-rules section 7
+
+    IconTile: 40    // square icon plate on a card, for example the My Tasks
+                    // department badge. Merged in from a second nfSize that
+                    // shadowed this one until August 2026. The other five keys
+                    // it carried were superseded and unreferenced:
+                    // SidebarExpanded and SidebarCollapsed by cmpSidebar owning
+                    // its own width, HeaderHeight and AvatarMd by the responsive
+                    // nfHeights.topBar and nfHeights.avatar, and RowHeight by
+                    // RowLg above, which is the same 56.
+};
+
+// There are deliberately NO button width rungs here, and none should be added.
+// The seven button widths across the two screens are 72, 96, 100, 104, 110,
+// 120 and 150. They do not cluster: forcing them into three rungs would resize
+// four buttons to make the token table look tidy, which is the token tail
+// wagging the layout dog. A button's width is a function of its label, so it
+// belongs to the control, not to a scale. Where a fixed width is genuinely
+// needed, write the number and let it be visibly a decision.
+//
+// Line box heights are also absent on purpose. A label's height is a function
+// of its font size, not a rung: use AutoHeight, or RoundUp(nfType.X * 1.4, 0)
+// where a parent height formula needs a fixed reference.
+
+
+// -----------------------------------------------------------------------------
+//  TABLE COMPONENT CONFIG  (cmpMyTable)
+//
+//  cmpMyTable types its colours as "R,G,B,A" STRINGS, not Color, and parses
+//  them internally with Split and Value. A Color token cannot be passed: Power
+//  Fx has no channel extraction function, so nfColor cannot be converted.
+//
+//  These three blocks are therefore the palette written a second time, in
+//  string form. They live here rather than on a screen so the duplication
+//  happens once for the app instead of once per screen, and so a theme change
+//  is one edit. Three screens will consume them.
+//
+//  Recorded as a catalog defect in the tools repo NOTES.md. The upstream fix
+//  is a Color-typed config; until then this is the containment.
+//
+//  KEEP THESE VALUES IN STEP WITH nfColorLight AND nfColorDark BY HAND.
+// -----------------------------------------------------------------------------
+
+nfTableTheme = {
+    container: {
+        background: If(nfIsDark, "30,41,59,1", "255,255,255,1"),
+        border: If(nfIsDark, "51,65,85,1", "226,232,240,1"),
+        borderThickness: 1,
+        radius: 12
+    },
+    header: {
+        background: If(nfIsDark, "51,65,85,1", "241,245,249,1"),
+        border: If(nfIsDark, "51,65,85,1", "226,232,240,1"),
+        borderThickness: 1,
+        textColor: If(nfIsDark, "148,163,184,1", "100,116,139,1"),
+        fontSize: 12,
+        fontWeight: "Semibold",
+        height: 44
+    },
+    row: {
+        background: "0,0,0,0",
+        hoverBackground: If(nfIsDark, "51,65,85,0.5", "239,246,255,1"),
+        borderColor: If(nfIsDark, "51,65,85,1", "241,245,249,1"),
+        borderThickness: 1,
+        height: 71
+    },
+    card: {
+        background: If(nfIsDark, "30,41,59,1", "255,255,255,1"),
+        border: If(nfIsDark, "51,65,85,1", "226,232,240,1"),
+        borderThickness: 1,
+        radius: 12,
+        height: 184,
+        gap: 16
+    },
+    list: {
+        background: If(nfIsDark, "30,41,59,1", "255,255,255,1"),
+        border: If(nfIsDark, "51,65,85,1", "226,232,240,1"),
+        divider: If(nfIsDark, "51,65,85,1", "241,245,249,1"),
+        text: If(nfIsDark, "241,245,249,1", "30,41,59,1"),
+        textMuted: If(nfIsDark, "148,163,184,1", "100,116,139,1"),
+        radius: 12
+    },
+    text: {
+        primary: If(nfIsDark, "241,245,249,1", "30,41,59,1"),
+        secondary: If(nfIsDark, "148,163,184,1", "100,116,139,1"),
+        accent: If(nfIsDark, "59,130,246,1", "37,99,235,1"),
+        fontFamily: "Segoe UI",
+        fontSizeNormal: 13,
+        fontSizeSmall: 12
+    },
+    spacing: { paddingLeft: 16, columnGap: 12 }
+};
+
+// These key off the nfStatusTable Title, not the StatusKey. That is the whole point of
+// the comment. Case is irrelevant: the component matches
+// Lower(StatusKey) = Lower(Text(ThisItem.Status)), lowercasing both sides, so writing
+// the keys here in any case works. Keying off the wrong field does not.
+//
+// The failure is silent. StatusKey "InProgress" lowercases to "inprogress", matches
+// no row, and the component falls through to its "default" row, which paints a grey
+// pill. Every row renders grey, nothing errors, and it reads as a deliberate neutral
+// style rather than a broken lookup.
+//
+// The Items formula on scrAllRequests resolves the key to the label before passing it,
+// LookUp(nfStatusTable, StatusKey = r.StatusKey).Title, so the label is what arrives and
+// the label is what these rows must carry.
+//  KEYED ON THE REAL StatusKey, AND CARRYING THE LABEL.
+//  This was keyed on lowercased display labels ("in progress"), which is why the
+//  screen had to resolve a label before passing it in. cmpMyTable now receives
+//  StatusKey straight off the row, so the key is what must match here. Label is
+//  new: it lets the component render the human text from the same table it uses
+//  for colour, instead of reaching into nfStatusTable.
+//
+//  A key that matches no row falls through to "default" and paints grey with no
+//  error, so this list must stay in step with nfStatusTable.
+nfTableStatus = Table(
+    { StatusKey: "NotStarted", Label: "Not Started", Background: If(nfIsDark, "51,65,85,1",   "241,245,249,1"), TextColor: If(nfIsDark, "203,213,225,1", "71,85,105,1")  },
+    { StatusKey: "InProgress", Label: "In Progress", Background: If(nfIsDark, "69,45,7,1",    "254,243,199,1"), TextColor: If(nfIsDark, "252,211,77,1",  "180,83,9,1")   },
+    { StatusKey: "OnHold",     Label: "On Hold",     Background: If(nfIsDark, "69,10,10,1",   "254,226,226,1"), TextColor: If(nfIsDark, "252,165,165,1", "185,28,28,1")  },
+    { StatusKey: "Completed",  Label: "Completed",   Background: If(nfIsDark, "5,46,22,1",    "220,252,231,1"), TextColor: If(nfIsDark, "134,239,172,1", "21,128,61,1")  },
+    { StatusKey: "Suspended",  Label: "Suspended",   Background: If(nfIsDark, "69,45,7,1",    "254,243,199,1"), TextColor: If(nfIsDark, "252,211,77,1",  "180,83,9,1")   },
+    { StatusKey: "Cancelled",  Label: "Cancelled",   Background: If(nfIsDark, "51,65,85,1",   "241,245,249,1"), TextColor: If(nfIsDark, "203,213,225,1", "71,85,105,1")  },
+    { StatusKey: "default",    Label: "",            Background: If(nfIsDark, "51,65,85,1",   "241,245,249,1"), TextColor: If(nfIsDark, "203,213,225,1", "71,85,105,1")  }
+);
+
+// My Tasks lists, projected so the gallery template reads flat fields rather
+// than three lookups per row per property.
+//
+// THE PROJECTION IS DUPLICATED ON PURPOSE. It was a UDF, nfTskProject(rows:
+// Table): Table, and Studio rejected it: "Unknown type Table" and
+// "'nfTskProject' is an unknown or unsupported function". UDF parameter and
+// return types are scalars only. Named formulas take no parameters, so there is
+// no shared-projection route at all, and writing the fifteen lines twice is the
+// correct answer rather than a workaround. See house-rules section 7.
+//
+// DELEGATION. These filter colAssignments, an in-memory collection, so nothing
+// here is subject to a delegation limit. The limit is at the seed, in
+// App.OnStart, where colAssignments is filled from the list on the indexed
+// AssigneeEmail and StatusKey columns. A truncated seed gives a silently short
+// task list and wrong counts everywhere downstream. See CLAUDE.md Delegation.
+//
+// The joins to colRequests and colDepartments are LookUps against collections
+// and are local by the same reasoning.
+nfTskPending =
+    SortByColumns(
+        ForAll(
+            Filter(
+                nfMyAllLive,
+                // NOT "<> Completed": <> DOES NOT DELEGATE ON SHAREPOINT, and the
+                // warning it raises is real rather than cosmetic, because delegation
+                // composes through a named formula: this filter and nfMyAllLive fold
+                // into ONE server query, so one non-delegable operator drops the whole
+                // thing to the client. An OR of equalities delegates.
+                //
+                // Safe because StatusKey is a CLOSED SET of four, fixed by the data
+                // contract precisely so flow logic can depend on it. If a fifth open
+                // status is ever added, this line has to be extended with it.
+                StatusKey = "NotStarted" || StatusKey = "InProgress" || StatusKey = "OnHold"
+            ) As a,
+            //  ONE request fetch per row, from the LIST. It was two LookUps into
+            //  colRequests, a global load capped by the data row limit, so a task
+            //  whose request fell outside the fetched head rendered a BLANK title
+            //  and a blank priority. Raising the limit hid that rather than fixing
+            //  it: the cap moved, it did not go away.
+            //
+            //  RequestKey is indexed, so each fetch delegates. The cost is one
+            //  server call per assignment row, which is bounded because this set is
+            //  ONE user's work. If it ever needs to be cheaper, denormalise Title
+            //  onto RequestAssignments the way PhaseCount is denormalised onto
+            //  Requests, and drop the per-row fetch entirely.
+            With(
+            { r: LookUp(colRequests, RequestKey = a.RequestKey) },
+            {
+                AssignmentKey:  a.AssignmentKey,
+                RequestKey:     a.RequestKey,
+                RequestTitle:   r.Title,
+                DepartmentCode: a.DepartmentCode,
+                DepartmentName: LookUp(nfDepartments, ConfigKey = a.DepartmentCode).Title,
+                Goal:           a.Goal,
+                AssigneeName:   a.AssigneeName,
+                DueDate:        a.DueDate,
+                CompletedDate:  a.CompletedDate,
+                PriorityKey:    r.PriorityKey,
+                IsOverdue:      !IsBlank(a.DueDate) && a.DueDate < Today(),
+                DueLabel:
+                    If(
+                        IsBlank(a.DueDate),
+                        "No due date",
+                        a.DueDate = Today(),
+                        "Today",
+                        a.DueDate = DateAdd(Today(), 1, TimeUnit.Days),
+                        "Tomorrow",
+                        nfDay(a.DueDate)
+                    )
+            }
+            )
+        ),
+        "DueDate",
+        SortOrder.Ascending
+    );
+
+nfTskCompleted =
+    SortByColumns(
+        ForAll(
+            Filter(
+                nfMyAllLive,
+                StatusKey = "Completed"
+            ) As a,
+            //  ONE request fetch per row, from the LIST. It was two LookUps into
+            //  colRequests, a global load capped by the data row limit, so a task
+            //  whose request fell outside the fetched head rendered a BLANK title
+            //  and a blank priority. Raising the limit hid that rather than fixing
+            //  it: the cap moved, it did not go away.
+            //
+            //  RequestKey is indexed, so each fetch delegates. The cost is one
+            //  server call per assignment row, which is bounded because this set is
+            //  ONE user's work. If it ever needs to be cheaper, denormalise Title
+            //  onto RequestAssignments the way PhaseCount is denormalised onto
+            //  Requests, and drop the per-row fetch entirely.
+            With(
+            { r: LookUp(colRequests, RequestKey = a.RequestKey) },
+            {
+                AssignmentKey:  a.AssignmentKey,
+                RequestKey:     a.RequestKey,
+                RequestTitle:   r.Title,
+                DepartmentCode: a.DepartmentCode,
+                DepartmentName: LookUp(nfDepartments, ConfigKey = a.DepartmentCode).Title,
+                Goal:           a.Goal,
+                AssigneeName:   a.AssigneeName,
+                DueDate:        a.DueDate,
+                CompletedDate:  a.CompletedDate,
+                PriorityKey:    r.PriorityKey,
+                IsOverdue:      !IsBlank(a.DueDate) && a.DueDate < Today(),
+                DueLabel:
+                    If(
+                        IsBlank(a.DueDate),
+                        "No due date",
+                        a.DueDate = Today(),
+                        "Today",
+                        a.DueDate = DateAdd(Today(), 1, TimeUnit.Days),
+                        "Tomorrow",
+                        nfDay(a.DueDate)
+                    )
+            }
+            )
+        ),
+        "CompletedDate",
+        SortOrder.Descending
+    );
+
+// Category pill styling for the cmpMyTable Category column, which the component's
+// own contract calls Priority. That is why the rows are keyed PriorityKey while the
+// values are category names.
+//
+// These key off the colCategories Title, not the CategoryKey. Case is irrelevant:
+// the component matches Lower(PriorityKey) = Lower(Text(ThisItem.Priority)) and
+// lowercases both sides, so any case works here. Keying off the wrong field does not.
+//
+// The failure is silent, as with nfTableStatus. A CategoryKey that lowercases to
+// something no row carries matches nothing, falls through to the "default" row, and
+// paints a grey pill on every row with no error. It reads as a deliberate neutral
+// style rather than a broken lookup. See house-rules section 5.
+//
+// The Items formula on scrAllRequests resolves the key to the label before passing
+// it, so the label is what arrives and the label is what these rows must carry.
+//  KEYED ON THE REAL CategoryKey, AND CARRYING THE LABEL. Same reasoning as
+//  nfTableStatus. This feeds the component's PriorityConfig because that column
+//  carries categories, which is the recorded catalog defect; passing the key and
+//  a label is what finally makes the column honest.
+nfTableCategory = Table(
+    { PriorityKey: "StandardApproval", Label: "Standard Approval", Background: If(nfIsDark, "30,58,138,1", "219,234,254,1"), TextColor: If(nfIsDark, "147,197,253,1", "29,78,216,1") },
+    { PriorityKey: "ExpeditedReview",  Label: "Expedited Review",  Background: If(nfIsDark, "69,45,7,1",   "254,243,199,1"), TextColor: If(nfIsDark, "252,211,77,1",  "180,83,9,1")   },
+    { PriorityKey: "DocumentReview",   Label: "Document Review",   Background: If(nfIsDark, "20,83,45,1",  "220,252,231,1"), TextColor: If(nfIsDark, "134,239,172,1", "21,128,61,1")  },
+    { PriorityKey: "ChangeRequest",    Label: "Change Request",    Background: If(nfIsDark, "76,29,149,1", "237,233,254,1"), TextColor: If(nfIsDark, "196,181,253,1", "109,40,217,1") },
+    { PriorityKey: "default",          Label: "",                 Background: If(nfIsDark, "51,65,85,1",  "241,245,249,1"), TextColor: If(nfIsDark, "203,213,225,1", "71,85,105,1")  }
+);
+
+// UNUSED as of this commit. scrAllRequests passes nfTableCategory into
+// PriorityConfig, because the column it feeds carries category names. Kept for the
+// screens that will show a real priority pill; delete it if none does.
+//
+// Same contract and same silent fallback as nfTableStatus and nfTableCategory.
+// Priority is the one case where the key and the label are the same word, so keying
+// off PriorityKey happens to match, but that is a coincidence of the vocabulary and
+// not a reason to rely on it. Pass the resolved label, as the other two do.
+
+
+// Segoe UI Semibold character width table, 94 records, used by cmpBreadcrumbs and
+// cmpChips to measure label width. Held here so it is written once rather than
+// pasted into every instance.
+//
+// PASSED EXPLICITLY, NOT OMITTED. The component carries this same table as its
+// Default, so omitting the property does inherit it, but the omission is not
+// durable. Studio materializes component input properties onto the instance: three
+// exports across two shipped apps all carry CharWidths on the instance and none
+// omit it. When Studio writes it back it returns as an EMPTY value, which overrides
+// the Default with nothing. The component then reads
+// Coalesce(LookUp(CharWidths, ...).Size, 0.7), so every character measures 0.7 and
+// every computed width is wrong with no error anywhere. An explicit value survives
+// the round trip. See house-rules sections 2 and 5.
+//
+// One correction against the component Default: its backtick record reads
+// Char:"\`", a two character string that can never match a single character. The
+// bare backtick below is correct and matches the two shipped exports.
+// Icon sets passed explicitly to cmpSidebar and cmpBreadcrumbs.
+//
+// Both components carry these as large Defaults, and Studio materializes
+// component inputs onto the instance, so an omitted one returns as EMPTY and
+// overrides the Default with nothing. Held here so the value is written once
+// and both screens read the same set. See house-rules sections 2 and 5.
+//
+// nfSidebarIcons is DocRouter's own set, not the cmpSidebar Default. It was
+// already inline on scrHome and is now shared with scrAllRequests.
+nfBreadcrumbIcons = {Home:"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'><path fill-rule='evenodd' d='M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z' clip-rule='evenodd'/></svg>",Chevron:"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'><path fill-rule='evenodd' d='M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z' clip-rule='evenodd'/></svg>",Slash:"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'><path stroke='currentColor' stroke-width='1.5' stroke-linecap='round' d='M7 16L13 4'/></svg>",Dot:"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'><circle cx='10' cy='10' r='2'/></svg>",Back:"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'><path fill-rule='evenodd' d='M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z' clip-rule='evenodd'/></svg>",ChevronDown:"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'><path fill-rule='evenodd' d='M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z' clip-rule='evenodd'/></svg>"};
+
+nfSidebarIcons = Table(
+    {Name:"Grid", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='7' height='7' rx='1'/><rect x='14' y='3' width='7' height='7' rx='1'/><rect x='3' y='14' width='7' height='7' rx='1'/><rect x='14' y='14' width='7' height='7' rx='1'/></svg>"},
+    {Name:"Layers", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2L2 7l10 5 10-5-10-5z'/><path d='M2 17l10 5 10-5'/><path d='M2 12l10 5 10-5'/></svg>"},
+    {Name:"File", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><polyline points='14 2 14 8 20 8'/><line x1='16' y1='13' x2='8' y2='13'/><line x1='16' y1='17' x2='8' y2='17'/></svg>"},
+    {Name:"User", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/><circle cx='12' cy='7' r='4'/></svg>"},
+    {Name:"Settings", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z'/></svg>"},
+    {Name:"Home", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>"},
+    {Name:"Tiles", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='7' height='7'/><rect x='14' y='3' width='7' height='7'/><rect x='14' y='14' width='7' height='7'/><rect x='3' y='14' width='7' height='7'/></svg>"},
+    {Name:"Bell", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9'/><path d='M13.73 21a2 2 0 0 1-3.46 0'/></svg>"},
+    {Name:"Chart", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='20' x2='18' y2='10'/><line x1='12' y1='20' x2='12' y2='4'/><line x1='6' y1='20' x2='6' y2='14'/></svg>"},
+    {Name:"Users", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'/><circle cx='9' cy='7' r='4'/><path d='M23 21v-2a4 4 0 0 0-3-3.87'/><path d='M16 3.13a4 4 0 0 1 0 7.75'/></svg>"},
+    {Name:"Database", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><ellipse cx='12' cy='5' rx='9' ry='3'/><path d='M21 12c0 1.66-4 3-9 3s-9-1.34-9-3'/><path d='M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5'/></svg>"},
+    {Name:"Box", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/><polyline points='3.29 7 12 12 20.71 7'/><line x1='12' y1='22' x2='12' y2='12'/></svg>"},
+    {Name:"Shield", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>"},
+    {Name:"Code", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'/><polyline points='8 6 2 12 8 18'/></svg>"},
+    {Name:"Help", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><line x1='12' y1='17' x2='12.01' y2='17'/></svg>"},
+    {Name:"CheckSquare", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 11 12 14 22 4'/><path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'/></svg>"},
+    {Name:"Folder", SVG:"<svg viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'/></svg>"}
+);
+
+nfCharWidths = Table(
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:" ",Size:0.369},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"!",Size:0.408},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"""",Size:0.585},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"#",Size:0.788},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"$",Size:0.742},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"%",Size:1.123},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"&",Size:0.954},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"'",Size:0.346},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"(",Size:0.446},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:")",Size:0.446},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"*",Size:0.581},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"+",Size:0.927},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:",",Size:0.323},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"-",Size:0.538},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:".",Size:0.323},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"/",Size:0.554},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"0",Size:0.742},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"1",Size:0.538},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"2",Size:0.742},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"3",Size:0.742},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"4",Size:0.769},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"5",Size:0.742},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"6",Size:0.746},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"7",Size:0.715},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"8",Size:0.742},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"9",Size:0.746},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:":",Size:0.323},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:";",Size:0.323},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"<",Size:0.927},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"=",Size:0.927},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:">",Size:0.927},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"?",Size:0.592},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"@",Size:1.273},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"A",Size:0.892},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"B",Size:0.808},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"C",Size:0.792},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"D",Size:0.958},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"E",Size:0.692},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"F",Size:0.673},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"G",Size:0.931},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"H",Size:0.981},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"I",Size:0.392},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"J",Size:0.492},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"K",Size:0.815},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"L",Size:0.654},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"M",Size:1.235},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"N",Size:1.023},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"O",Size:1.008},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"P",Size:0.781},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"Q",Size:1.008},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"R",Size:0.831},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"S",Size:0.727},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"T",Size:0.762},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"U",Size:0.938},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"V",Size:0.858},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"W",Size:1.288},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"X",Size:0.823},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"Y",Size:0.773},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"Z",Size:0.785},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"[",Size:0.446},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"]",Size:0.446},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"^",Size:0.927},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"_",Size:0.55},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"`",Size:0.388},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"a",Size:0.696},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"b",Size:0.804},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"c",Size:0.627},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"d",Size:0.804},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"e",Size:0.712},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"f",Size:0.462},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"g",Size:0.804},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"h",Size:0.777},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"i",Size:0.35},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"j",Size:0.369},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"k",Size:0.7},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"l",Size:0.35},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"m",Size:1.181},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"n",Size:0.781},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"o",Size:0.796},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"p",Size:0.804},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"q",Size:0.804},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"r",Size:0.496},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"s",Size:0.573},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"t",Size:0.485},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"u",Size:0.781},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"v",Size:0.677},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"w",Size:1.012},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"x",Size:0.669},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"y",Size:0.681},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"z",Size:0.619},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"{",Size:0.446},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"|",Size:0.369},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"}",Size:0.446},
+    {CharFont:Font.'Segoe UI',CharWeight:FontWeight.Semibold,Char:"~",Size:0.927}
+);
+
+nfRadius = {
+    Sm:   6,
+    Md:   8,    // buttons, inputs, nav items
+    MdLg: 10,   // pills, row cards. Between Md and Lg, and neither substitutes
+    Lg:   12,   // cards, panels
+    Xl:   16,   // modals, hero
+    Pill: 999
+};
+
+
+
+// -----------------------------------------------------------------------------
+//  SHELL — BREAKPOINTS AND FIXED CHROME HEIGHTS
+//  Screens read these instead of comparing App.Width inline, so a breakpoint
+//  moves in one place.
+//
+//  640 and 1024 are the CATALOG STANDARD, not the ScreenSize enum's 600/900.
+//  Surveyed August 2026: 640 appears 165 times across the catalog and every
+//  template and layout uses it; 1024 appears 37 times in six of nine. Two
+//  files add 768 as a third tier alongside both. DocRouter previously used
+//  600/900, which made it the only outlier in the library, so it was changed
+//  to match. Screens copied from a catalog template now behave identically
+//  without translating thresholds.
+//
+//  App.Width is used rather than a named screen's .Size because these are
+//  app-level and cannot reference a screen. A screen that needs the enum can
+//  still read scrX.Size directly.
+// -----------------------------------------------------------------------------
+
+nfIsMobile  = App.Width < 640;
+nfIsDesktop = App.Width >= 1024;
+
+// Content column cap. The gutter centres within this, so a 4K monitor does not
+// stretch a text line to 3000px.
+nfPageMaxW = 1200;
+
+
+
+
+// Fixed chrome. These are absolute per layout-sizing s15: row and control
+// heights do not scale with viewport.
+nfHeights = {
+    topBar:     If(nfIsMobile, 56, 72),
+    toolbar:    48,
+    fab:        56,
+    bottomNav:  64,   // cmpBottomNavigation root Height is fixed at 64
+    breadcrumb: 40,   // cmpBreadcrumbs root Height is fixed at 40
+    avatar:     If(nfIsMobile, 36, 40)
+};
+
+// topBar is a responsive pair, not a constant. 56 on mobile, 72 above, matching
+// the shipped reference app. It stays one token so every screen inherits the
+// change and no screen carries the breakpoint itself.
+//
+// breadcrumb and bottomNav are the components' OWN root heights, restated here
+// so an instance can reproduce them rather than guess. house-rules s5: a
+// component that computes its own size may still require the consumer to
+// supply it.
+
+
+// -----------------------------------------------------------------------------
+//  USER INITIALS
+//  Two letters from nfUserName for the top bar avatar. Split() returns a
+//  single-column table whose column is Value, not Result (house-rules s7).
+// -----------------------------------------------------------------------------
+
+nfInitials = Upper(
+    Concat(
+        FirstN(Split(nfUserName, " "), 2),
+        Left(Value, 1)
+    )
+);
+
+
+// -----------------------------------------------------------------------------
+//  STATUS — the fixed set flow logic depends on
+//  Contract s4: a named formula, never a list, so a buyer cannot edit it.
+//  nfStatusTable is ClearCollected from this in OnStart so screens have one
+//  binding style across all reference data. Both are the same four rows.
+// -----------------------------------------------------------------------------
+
+//  ONE definition, six statuses. This was declared TWICE, the second time with
+//  only Suspended and Cancelled, which reads as an attempt to extend the table
+//  written as a redefinition. It was the source of both standing App.Formulas
+//  errors: "NamedFormula 'nfStatusTable' already exists" and, as a knock-on,
+//  "'Table' is an unknown or unsupported function".
+//
+//  SortOrder skips 5 deliberately, as specified. It orders display only; nothing
+//  indexes into it.
+//
+//  ANY PREDICATE THAT ENUMERATES OPEN STATUSES MUST BE CHECKED AGAINST THIS LIST.
+//  nfMyOpenLive and nfTskPending list NotStarted, InProgress and OnHold because <>
+//  does not delegate on SharePoint, so a status added here does NOT automatically
+//  appear in My Tasks. Suspended and Cancelled are deliberately absent from those
+//  predicates: neither is actionable, so neither belongs in a Pending tab.
+nfStatusTable = Table(
+    { StatusKey: "NotStarted", Title: "Not Started", BadgeColor: "slate", SortOrder: 1 },
+    { StatusKey: "InProgress", Title: "In Progress", BadgeColor: "amber", SortOrder: 2 },
+    { StatusKey: "OnHold",     Title: "On Hold",     BadgeColor: "red",   SortOrder: 3 },
+    { StatusKey: "Completed",  Title: "Completed",   BadgeColor: "green", SortOrder: 4 },
+    { StatusKey: "Suspended",  Title: "Suspended",   BadgeColor: "amber", SortOrder: 6 },
+    { StatusKey: "Cancelled",  Title: "Cancelled",   BadgeColor: "slate", SortOrder: 7 }
+);
+
+// Resolves a BadgeColor token to the paired fill/text/border above.
+// Screens: With({s: nfStatusBadge("amber")}, ...) is NOT possible — named
+// formulas take no parameters. Screens read nfBadgeSlate / nfBadgeAmber /
+// nfBadgeRed / nfBadgeGreen directly, or Switch on BadgeColor inline.
+nfBadgeSlate = { Fill: nfColor.NeutralFill, Text: nfColor.NeutralText, Border: nfColor.NeutralBorder };
+nfBadgeAmber = { Fill: nfColor.WarnFill,    Text: nfColor.WarnText,    Border: nfColor.WarnBorder };
+nfBadgeRed   = { Fill: nfColor.DangerFill,  Text: nfColor.DangerText,  Border: nfColor.DangerBorder };
+nfBadgeGreen = { Fill: nfColor.SuccessFill, Text: nfColor.SuccessText, Border: nfColor.SuccessBorder };
+
+
+// -----------------------------------------------------------------------------
+//  PRIORITY — the other fixed set
+//  Contract s4. BadgeColor is on the SAME palette as Status, so nfBadgeRed /
+//  nfBadgeAmber / nfBadgeSlate serve both and a badge control needs only one
+//  colour mapping.
+// -----------------------------------------------------------------------------
+
+nfPriorityTable = Table(
+    { PriorityKey: "High",   Title: "High",   BadgeColor: "red",   SortOrder: 1 },
+    { PriorityKey: "Medium", Title: "Medium", BadgeColor: "amber", SortOrder: 2 },
+    { PriorityKey: "Low",    Title: "Low",    BadgeColor: "slate", SortOrder: 3 }
+);
+
+
+// -----------------------------------------------------------------------------
+//  OUTCOMES — reference only, set by the engine, never by Canvas
+//  Contract s6. Skipped is engine-only and deliberately absent from the UI;
+//  the Complete Task modal offers the first three.
+// -----------------------------------------------------------------------------
+
+
+
+// -----------------------------------------------------------------------------
+//  DATE BOUNDARIES
+//  Contract s6 + CLAUDE.md: SharePoint stores UTC, Canvas displays local. Due
+//  Today and Overdue drive the dashboard hero, so day boundaries must be
+//  computed in the user's timezone or counts read a day off for some users.
+//  Today() is already local, so these are correct for the collections version.
+//  SHAREPOINT VERSION: values arriving from SharePoint are UTC. Convert on load
+//  in the init (DateAdd with TimeZoneOffset) so everything downstream compares
+//  local-to-local. Do not convert here, per-screen, or per-row.
+// -----------------------------------------------------------------------------
+
+nfToday        = Today();
+nfNow          = Now();
+
+
+// -----------------------------------------------------------------------------
+//  SHARED DERIVED READS
+//  CLAUDE.md: every read filters IsDeleted = false. Use nfActiveRequests as the
+//  base for any request query rather than repeating the filter.
+//
+//  DELEGATION: these read the LISTS. IsDeleted is indexed and the comparison is a
+//  plain equality, so the base filter delegates, and delegation COMPOSES THROUGH
+//  A NAMED FORMULA: a derived filter folds into the same server query rather than
+//  running over a fetched page. That is the whole reason these are worth having as
+//  named formulas instead of collections.
+//
+//  It also means one non-delegable operator anywhere in a derived chain drops the
+//  ENTIRE chain to the client, silently and with no error. Check each addition.
+// -----------------------------------------------------------------------------
+
+nfMyTemplateCategories =
+    Filter(
+        nfCategories,
+        !IsBlank(DefaultTemplateKey),
+        nfUserEmail in Lower(Coalesce(Admins, "|none|"))
+    );
+// THE REQUEST TYPES THIS USER MAY EDIT THE BLUEPRINT FOR. Settings shows a
+// workflow editor per row of this and hides the whole section when it is empty.
+//
+// SUBSTRING TEST ON A SEMICOLON LIST, the same idiom canManageRequest uses on
+// RequestAdmins, and sufficient for the same reason: this is UX GATING, NOT
+// SECURITY. It hides the editor. Anyone with list access can edit
+// WorkflowTemplates directly in SharePoint. Do not describe it as a control.
+//
+// COALESCE TO A SENTINEL, NOT TO "". A blank Admins with Coalesce(Admins, "")
+// becomes `nfUserEmail in ""`, and `in` against an empty string is TRUE for
+// every user, which would open the editor on exactly the categories nobody
+// administers. That is the precise inversion of what a blank permission column
+// must mean. "|none|" cannot occur in an email address, so it matches nobody.
+//
+// DefaultTemplateKey MUST BE PRESENT TOO. A category with an admin but no
+// template has no blueprint to edit.
+//
+// ORDER OF OPERATIONS, LEARNED THE EXPENSIVE WAY. Referencing Admins in the
+// ShowColumns above BEFORE the column existed made colConfig an ERROR rather
+// than a table, and colCategories, colDepartments and colProcessingTypes all
+// derive from it, so every label lookup in the app failed at once. Creating the
+// column in SharePoint is not enough either: the app caches the list schema
+// inside the msapp, so the data source must be REFRESHED and republished in
+// Studio before the name resolves. Column, then refresh, then this reference.
+
+nfActiveRequests = Filter(colRequests, IsDeleted = false);
+
+// ---------------------------------------------------------------------------
+//  LIVE PER-USER SETS. These read the LIST, not a collection, so My Tasks is
+//  always current and does not depend on the App.OnStart snapshot.
+//
+//  AssigneeEmail and StatusKey are both indexed, so the fetch delegates.
+//  NOTE THE ABSENCE OF Lower(): a function on the COLUMN is not delegable and
+//  would silently drop the query to the client. Emails are written lower-cased
+//  at the source, which is what makes the plain comparison safe.
+//
+//  The date buckets below are counted IN MEMORY off nfMyOpenLive rather than
+//  filtered server side. That is deliberate: one user's open work is tens of
+//  rows, so the counts are exact, and it avoids depending on date delegation.
+//
+//  These are per-user counts ONLY. Global aggregates stay in colMetrics because
+//  CountRows does not delegate on SharePoint, so a tenant-wide count would
+//  silently total just the fetched page.
+// ---------------------------------------------------------------------------
+
+//  ONE delegable query serves the whole screen. AssigneeEmail is indexed and the
+//  comparison is a plain equality, which is the least ambiguous thing to delegate.
+//  CORRECTION, measured in Studio: there is no "in memory" split here. DELEGATION
+//  COMPOSES THROUGH A NAMED FORMULA, so this filter and the one below fold into a
+//  SINGLE server query. That is why a non-delegable operator in the derived formula
+//  raises a real warning rather than a cosmetic one.
+//
+//  <> IS NOT DELEGABLE ON SHAREPOINT. It was assumed to be, and it is not: changing
+//  it to = made the warning disappear, which is what proved both facts at once. The
+//  open set is therefore written as an OR of equalities over the closed status set.
+nfMyAllLive = Filter(colAssignments, AssigneeEmail = nfUserEmail);
+
+nfMyOpenLive = Filter(nfMyAllLive, StatusKey = "NotStarted" || StatusKey = "InProgress" || StatusKey = "OnHold");
+nfMyDoneLive = Filter(nfMyAllLive, StatusKey = "Completed");
+
+nfMyOpenCount     = CountRows(nfMyOpenLive);
+nfMyDoneCount     = CountRows(nfMyDoneLive);
+nfMyOverdueCount  = CountRows(Filter(nfMyOpenLive, !IsBlank(DueDate), DueDate < Today()));
+nfMyDueTodayCount = CountRows(Filter(nfMyOpenLive, !IsBlank(DueDate), DueDate = Today()));
+nfMyUpcomingCount = CountRows(Filter(nfMyOpenLive, !IsBlank(DueDate), DueDate > Today()));
+
+//  nfMyAssignments and nfMyOpenAssignments are GONE. They read colAssignments and
+//  applied Lower() TO THE COLUMN, which is not delegable, and they duplicated
+//  nfMyOpenLive above. The dashboard now shares My Tasks' set, so the two screens
+//  cannot disagree about what the user's open work is.
+
+//  Requests this user owns. No Lower() on the column, for the reason given above;
+//  SharePoint text comparison is case insensitive, so the plain equality is both
+//  correct and delegable. PrimaryPocEmail is NOT an indexed column: that does not
+//  affect delegation, it only means SharePoint has no index to serve it from.
+nfMyRequests = Filter(colRequests, IsDeleted = false, PrimaryPocEmail = nfUserEmail);
+
+//  CountRows does not delegate, so this totals the fetched page rather than the
+//  list. Safe here ONLY because it is scoped to one person's requests, which is
+//  the same reasoning as the per-user counts above. It is NOT safe for a
+//  tenant-wide total, which is what Metrics is for.
+nfMyRequestsCount = CountRows(nfMyRequests);
+
+//  Sentinel floor for "has a due date". !IsBlank() compiles to Not(), which does
+//  NOT delegate and would drop a whole chain to the client. A date comparison
+//  does delegate, and a blank date cannot be greater than the floor, so this
+//  excludes blanks server side and expresses the same intent.
+nfDateFloor = Date(2000, 1, 1);
+
+// scrHome, urgent hero. Due today OR already overdue.
+// The mockup's hero says "due today" and filters to exactly today, which hides
+// overdue work on the landing screen. Overdue is strictly more urgent than due
+// today, so it is included here and the heading reads "need your attention"
+// rather than "due today". Deliberate deviation from the mockup wording.
+//  Fully delegable: both predicates are date comparisons and the base set is one
+//  indexed equality. nfDateFloor replaces !IsBlank(DueDate) because Not() does not
+//  delegate, and a non-delegable operator here would have folded back into
+//  nfMyOpenLive and capped the hero at the data row limit. A user with more open
+//  assignments than the limit would then have seen an INCOMPLETE urgent list with
+//  no error anywhere, which is the failure mode worth engineering against.
+nfDashUrgent = SortByColumns(
+    Filter(nfMyOpenLive, DueDate > nfDateFloor, DueDate <= nfToday),
+    "DueDate",
+    SortOrder.Ascending
+);
+
+//  Counted ONCE here rather than three times on the screen. The hero container's
+//  Visible, its heading, and the caught-up empty state all need the same number,
+//  and each CountRows on a screen control is its own round trip. A named formula
+//  also guarantees the three cannot disagree.
+//
+//  NOT galDashUrgent.AllItemsCount, which would be cheaper but circular: the
+//  gallery lives INSIDE the container whose Visible this drives, and a hidden
+//  container's gallery has nothing loaded, so the hero could never appear.
+//  DEFAULT VIEW, read from the LIST rather than from colUserPrefs.
+//
+//  StartScreen is evaluated BEFORE App.OnStart runs, so it cannot see any
+//  collection. A named formula can be read there, and this one reads the list
+//  directly, so the preference is honoured on the very first paint rather than
+//  one navigation later.
+//
+//  UserEmail is indexed, so the LookUp delegates. It costs one single-row query
+//  at startup, which is the price of the setting working at all.
+nfDefaultView = Coalesce(
+    LookUp(colUserPrefs, UserEmail = Lower(nfUserEmail)).DefaultView,
+    "Home"
+);
+
+nfDashUrgentCount = CountRows(nfDashUrgent);
+
+// scrHome, recent requests. Newest five.
+//
+//  FirstN is not delegable, and it does not need to be. The SORT delegates, so the
+//  server returns the newest rows first and the first page already contains the
+//  five newest in the whole list. Taking five off the front of a server-sorted
+//  page is exact, not approximate.
+//
+//  Sort on "Created", the built-in column. It was "CreatedDate" once, which is not
+//  a column on this list, and the mistake silently emptied this gallery rather
+//  than erroring.
+nfDashRecent = FirstN(
+    SortByColumns(nfActiveRequests, "Created", SortOrder.Descending),
+    5
+);
+
+// =============================================================================
+//  FLAGS — things the contract does not settle. Do not resolve by guessing.
+// =============================================================================
+//
+//  1. canManageRequest CANNOT live in this file.
+//     CLAUDE.md defines it as PrimaryPocEmail plus the semicolon RequestAdmins
+//     list, which is per-request. Named formulas take no parameters and cannot
+//     read a context variable, so there is no app-level form of it. It is a
+//     SCREEN-LEVEL formula on scrDetails, computed once against locRequestKey:
+//
+//       With({ r: LookUp(colRequests, RequestKey = locRequestKey) },
+//           Lower(r.PrimaryPocEmail) = nfUserEmail
+//           || nfUserEmail in Lower(r.RequestAdmins)
+//       )
+//
+//     The `in` operator does a substring test on the semicolon list. That is
+//     sufficient for UX gating and matches CLAUDE.md's statement that this
+//     hides buttons and is not a security control. Do not describe it as one.
+//
+//  2. Dark mode is not designed.
+//     house-rules.md s8 asks for light and dark variants on any surface. The
+//     mockup is light only, and Settings offers Light/Dark/System with nowhere
+//     to persist the choice (open question 3 in CLAUDE.md, BLOCKING). nfColor
+//     is therefore a single light set. When dark is designed, add nfColorDark
+//     and switch on a persisted preference — do not add per-control If().
+//
+//  RESOLVED, kept for the record:
+//
+//  - Priority BadgeColor. Now on the same palette as Status (High red, Medium
+//    amber, Low slate), in nfPriorityTable above and in the contract.
+//  - tpl-standard phase count. The contract's 3 phases wins over the mockup's
+//    4. The mockup carries a note saying so at the top of the file.
+//  - App name split. Doc + Router confirmed, accent renders in nfColor.Primary.
+// =============================================================================
+
+
+// -----------------------------------------------------------------------------
+//  NAVIGATION
+//
+//  Two nav components with incompatible identity models. cmpSidebar identifies
+//  by stable ID; cmpBottomNavigation identifies by 1-based POSITION in its own
+//  Items table and has no ID field at all. Feeding one into the other selects
+//  the wrong tab as soon as the two tables differ in length, which they do by
+//  design: the sidebar carries six items plus a divider, the bottom bar four.
+//
+//  nfNavMobile is the mapping between them. It is the only place the two
+//  identity models meet.
+//
+//  Icon names here are cmpBottomNavigation's OWN lowercase vocabulary
+//  (home, search, bell, user, heart, settings, menu, folder, mail, calendar,
+//  dashboard, analytics, plus, layers, file). They are NOT cmpSidebar's
+//  TitleCase names and the two sets are not interchangeable. This component
+//  has no Icons input, so the vocabulary cannot be extended per instance.
+// -----------------------------------------------------------------------------
+
+nfNavMobile = Table(
+    { Idx: 1, ID: 1, Icon: "home",      Label: "Home" },
+    { Idx: 2, ID: 2, Icon: "folder",    Label: "Tasks" },
+    { Idx: 3, ID: 3, Icon: "file",      Label: "Requests" },
+    { Idx: 4, ID: 4, Icon: "analytics", Label: "Reports" }
+);
+
+// Settings (5) and Help (6) are deliberately absent from the bottom bar and
+// reachable only through the drawer. Four tabs keep the rhythm and the drawer
+// already exists.
+
+
+// -----------------------------------------------------------------------------
+//  ROUTING
+//  One routing table for the whole app. Both navs call this rather than each
+//  carrying its own Switch, so a new screen is one line in one place.
+//
+//  This is a BEHAVIOUR user defined function: it takes a parameter and wraps
+//  its body in braces, per house-rules s7. Named formulas cannot contain
+//  Navigate; behaviour UDFs can. First use of the construct in this project,
+//  so confirm it binds in Studio before relying on it elsewhere.
+// -----------------------------------------------------------------------------
+
+nfRoute(navID: Number): Void = {
+    Switch(
+        navID,
+        1, Navigate(scrHome,   ScreenTransition.None),
+        2, Navigate(scrMyTasks,     ScreenTransition.None),
+        3, Navigate(scrAllRequests, ScreenTransition.None, { locMyRequestsOnly: false }),
+        7, Navigate(scrAllRequests, ScreenTransition.None, { locMyRequestsOnly: true }),
+        4, Navigate(scrReports,     ScreenTransition.None),
+        5, Navigate(scrSettings,    ScreenTransition.None),
+        6, Navigate(scrHelp,        ScreenTransition.None)
+    )
+};
