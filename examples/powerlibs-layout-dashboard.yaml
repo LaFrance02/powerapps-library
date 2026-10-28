@@ -42,10 +42,12 @@ Screens:
                       Properties:
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
-                        FillPortions: =1
+                        FillPortions: =0
+                        Height: =If(App.Width < 640, 40, 56)
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =2
                         LayoutJustifyContent: =LayoutJustifyContent.Center
+                        Width: =Parent.Width - 2 * If(App.Width < 640, 12, 24) - If(App.Width >= 1024, 188, 0)
                       Children:
                         - lblPageTitle:
                             Control: ModernText@1.0.0
@@ -68,14 +70,17 @@ Screens:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        AlignInContainer: =AlignInContainer.Center
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         FillPortions: =0
+                        Height: =40
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =8
                         LayoutMinWidth: =40
                         Visible: =App.Width >= 1024
+                        Width: =176
                       Children:
                         - lblPlaceholder_TopBarAction:
                             Control: ModernText@1.0.0
@@ -129,7 +134,7 @@ Screens:
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         FillPortions: =0
-                        Height: =If(App.Width < 640, 200, 120)
+                        Height: =If(App.Width < 640, 216, 120)
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =12
                         LayoutWrap: =true
