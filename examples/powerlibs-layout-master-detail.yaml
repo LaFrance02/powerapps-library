@@ -37,40 +37,18 @@ Screens:
                   PaddingRight: =If(App.Width < 640, 12, 20)
                   PaddingTop: =8
                 Children:
-                  - cntTitleGroup:
-                      Control: GroupContainer@1.5.0
-                      Variant: ManualLayout
+                  - lblPageTitle:
+                      Control: Text@0.0.51
                       Properties:
-                        AlignInContainer: =AlignInContainer.Center
-                        DropShadow: =DropShadow.None
-                        Fill: =RGBA(0, 0, 0, 0)
-                        FillPortions: =0
-                        Height: =If(App.Width < 640, 48, 56)
-                        Width: =Parent.Width - 2 * If(App.Width < 640, 12, 20) - If(App.Width >= 1024, 188, 0)
-                      Children:
-                        - lblPageTitle:
-                            Control: Text@0.0.51
-                            Properties:
-                              FontColor: =RGBA(17, 24, 39, 1)
-                              Height: =If(App.Width < 640, 28, 34)
-                              Size: =If(App.Width < 640, 16, 20)
-                              Text: ="All Items"
-                              Weight: ='TextCanvas.Weight'.Semibold
-                              Width: =Parent.Width
-                              Wrap: =false
-                              X: =0
-                              Y: =0
-                        - lblPageSubtitle:
-                            Control: Text@0.0.51
-                            Properties:
-                              FontColor: =RGBA(107, 114, 128, 1)
-                              Height: =If(App.Width < 640, 20, 22)
-                              Size: =11
-                              Text: ="[record count · subtitle]"
-                              Width: =Parent.Width
-                              Wrap: =false
-                              X: =0
-                              Y: =If(App.Width < 640, 28, 34)
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =1
+                        FontColor: =RGBA(17, 24, 39, 1)
+                        Height: =42
+                        Size: =If(App.Width < 640, 20, 28)
+                        Text: ="All Items"
+                        VerticalAlign: =VerticalAlign.Top
+                        Weight: ='TextCanvas.Weight'.Semibold
+                        Wrap: =false
                   - cntTopBarActions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
