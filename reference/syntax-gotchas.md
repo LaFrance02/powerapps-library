@@ -221,6 +221,27 @@ Relevant any time a modern control replaces what used to be classic in a given s
   When generating new controls or reviewing existing ones for the paired Skill, default to setting
   all three on anything clickable/focusable rather than leaving them at Studio's bare defaults.
 
+## Confirmed by paste test (2026-10-28, Dataverse for Teams scratch app)
+
+- **One version per control type — PA2107 / PA2105.** Pasting a single `GroupContainer@1.3.0` or
+  `@1.4.0` alone works: Studio treats it as older than the current `1.5.0` (warning PA2105, "using
+  the current version, which may produce errors"). Pasting `1.3.0`, `1.4.0` and `1.5.0` containers
+  together in one paste fails with `PA2107: Another instance of control type 'GroupContainer' has
+  already been referenced using a different version '1.3.0'. All control instances for the same type
+  must currently reference the same version.` Rule for generated YAML: rewrite every
+  `GroupContainer@x.y.z` to `@1.5.0` before pasting. The error says "control type", not just
+  GroupContainer, so the same likely applies to other controls (e.g. `TextInput` 0.0.52 vs 0.0.54) —
+  inferred from the message, not tested. Different controls can mix freely (`Label@2.5.1`,
+  `Text@0.0.51`, `ModernText@1.0.0` pasted together cleanly).
+- **Bare `=` (empty formula) pastes cleanly.** A `Classic/Button@2.2.0` with `HoverBorderColor: =`,
+  `HoverFill: =`, `PressedBorderColor: =`, `PressedFill: =` pasted with no error. This supersedes the
+  earlier "unconfirmed whether Studio tolerates this" note: it's only a defect for strict YAML
+  parsers (PyYAML), not for Studio. Tested on one control at screen level only — not yet inside a
+  `ComponentDefinitions:` paste or on the real msapp files.
+- **Named Formulas work.** `nfBrand = RGBA(0, 120, 212, 1);`, `nfIsDesktop = App.Width >= 768;`,
+  `nfSpace = If(nfIsDesktop, 16, 8);` entered under App > Formulas were accepted, and `Fill: =nfBrand`
+  on a control resolved.
+
 ## Workflow rule (not syntax, but load-bearing)
 
 Always deliver the **complete corrected file**, never an isolated snippet to "insert." Matt works
