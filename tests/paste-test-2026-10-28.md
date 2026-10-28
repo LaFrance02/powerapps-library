@@ -107,18 +107,36 @@ After each paste, in play mode, resize the preview width across ~600 / ~900 / ~1
 breakpoints in these use `App.Width < 640` and similar. Record whether the layout reflows and, for
 Browse/Form/Master-Detail/Mobile, whether the scroll region scrolls with the wheel.
 
-## Results (fill in)
+## Results (run 2026-10-28, Dataverse for Teams scratch app, Studio paste)
 
 | Test | Pass/fail | Error code + line | Notes |
 |---|---|---|---|
-| A1 | | | |
-| A2 | | | |
-| A3 | | | |
-| B component | | | |
-| B host | | | |
-| C1 mobile | | | |
-| C2 browse | | | |
-| C3 form | | | |
-| C4 master-detail | | | |
-| C5 dashboard | | | |
-| C1+C5 together | | | |
+| A1 cmpBottomNavigation | Pass after patch | PA2231 at (48,7) on first paste | Custom `Event` property with `Default: =` rejected. Patched to `Default: =false`, then clean and renders. Control-level bare `=` (e.g. Gallery `OnSelect: =`) fine. |
+| A2 cmpKPI | Pass after patch | PA2231 (same cause, prevented by pre-patching `OnCardClick`) | Bare `=` on Gallery `LayoutMaxHeight`/`LayoutMaxWidth` and Classic/Button `Text` inside a component all fine. |
+| A3 cmpBreadcrumbs | Pass after patch | PA2231 (same cause, prevented by pre-patching `OnBack`/`OnSelect`) | 56 other bare `=` on Image/Label/GroupContainer properties fine. |
+| A4 host screen (extra) | Pass after 2 fixes | PA1001 at (39,42), my error | `: ` inside a plain-scalar formula. Fixed with ` - `. Omitted custom props resolved empty, so pass all explicitly. |
+| A5 scroll container (extra) | Pass | none | `LayoutOverflowY: =LayoutOverflow.Scroll` on AutoLayout GroupContainer@1.5.0 scrolls component children. |
+| B1 named formulas | Pass | none | `nfUserEmail = Lower(User().Email); nfUserName = Proper(User().FullName);` accepted. |
+| B component cmpSidebar | Pass | none, no warnings | Verbatim 1225-line msapp component. Undeclared globals did not raise warnings. |
+| B host scrSidebarTest | Pass (2nd attempt) | 1st attempt: "Pasting the YAML code for screen isn't supported yet" | Wrong paste location, not a YAML problem. Render, taps and outputs all work. |
+| C1 mobile | Pass after 2 fixes | PA2108 x4 `TextAlign` on Text@0.0.51; red formula error `LayoutJustifyContent.SpaceEvenly` | Fixes: `Align: ='TextCanvas.Align'.Center` and `SpaceBetween`. File patched in examples/. |
+| C2 browse | Pass | none | `BorderStyle` on Rectangle fine. |
+| C3 form | Pass | none | `LayoutWrap: =true` on GroupContainer@1.5.0 works and fields reflow. |
+| C4 master-detail | Pass | none | `BorderStyle` on GroupContainer, `If()` on `LayoutDirection`, `Visible` by `App.Width` all fine. |
+| C5 dashboard | Pass | none | ModernText@1.0.0 with `AutoHeight`, `FontWeight`, `Color`; GroupContainer `LayoutMaxHeight`. Page scroll works. |
+| C1+C5 together | Pass | none | Text@0.0.51 + ModernText@1.0.0 + Label@2.5.1 in one app, no PA2107/PA2105. App checker: only the known cmpKPI Data warning. |
+
+Not answered by the tester: Rating and Slider paste results from the earlier session remain unrecorded.
+
+## Findings
+
+- **PA2231.** A custom `Event` property in `ComponentDefinitions` needs a non-empty `Default`. Bare `Default: =` fails. `=false` works. Six msapp component files carry this (see examples/README.md).
+- **Omitted custom properties resolve empty on a pasted instance** (cmpKPI, cmpBottomNavigation). Pass every property explicitly. An instance's `Height` is not inherited from the definition, so set it.
+- **Component instances work as AutoLayout children** with `FillPortions: =0`.
+- **Text@0.0.51 uses `Align: ='TextCanvas.Align'.Center`.** `TextAlign` is PA2108.
+- **`SpaceEvenly` is not a `LayoutJustifyContent` value.** Paste does not validate enum values, so it shows up as a red formula error afterward.
+- **Pasting a `Screens:` block** into the wrong place gives "Pasting the YAML code for screen isn't supported yet". Component definitions need the Components tab (error "You cannot paste a component definition here" elsewhere).
+- **`: ` inside a plain-scalar formula** gives PA1001. Use ` - ` or a `|-` block.
+- **Classic/TextInput@2.3.2 without `Default`** shows "Text input". Set `Default: =""`.
+- **Open item:** cmpKPI `Data` shows "Expected a different collection record structure" (harmless, cause unresolved).
+- **Skeleton cosmetics** (not paste failures): placeholder `[icon]`/`[action]` wrap in scrMobile; `cntFabSlot` fills leftover space; action containers without `Fill`/`DropShadow` draw a default box; scrDashboard `cntKpiRow` phone height 200 clips the wrapped KPI cards (needs about 204+).

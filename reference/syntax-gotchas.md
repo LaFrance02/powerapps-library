@@ -48,6 +48,12 @@ Apply all of these on every generation pass, regardless of app.
   gotcha. Worth a real paste test to see whether AutoLayout containers specifically behave
   differently than whatever context this gotcha was originally confirmed in, before assuming either
   the gotcha or these five examples are correct.
+- **Resolved 2026-10-28 (paste test): `LayoutOverflowY: =LayoutOverflow.Scroll` scrolls** on an
+  `AutoLayout` `GroupContainer@1.5.0` (fixed Height 300, vertical, four 120px `Label@2.5.1`
+  children): mouse-wheel scrolling worked in play mode and the overflowing children were reachable.
+  The "avoid" gotcha above was about the bare `Scroll` form and/or other configurations; do not
+  apply it to AutoLayout containers using the enum value. Still untested: ManualLayout and nested
+  scroll containers. Full note in `confirmed-versions.md`.
 - Inside AutoLayout containers, set `FillPortions: =0` explicitly on any child that must not
   stretch.
 - Inside gallery templates: formula-based X position (e.g. `(Parent.Width - Self.Width) - 20`)
@@ -236,11 +242,37 @@ Relevant any time a modern control replaces what used to be classic in a given s
 - **Bare `=` (empty formula) pastes cleanly.** A `Classic/Button@2.2.0` with `HoverBorderColor: =`,
   `HoverFill: =`, `PressedBorderColor: =`, `PressedFill: =` pasted with no error. This supersedes the
   earlier "unconfirmed whether Studio tolerates this" note: it's only a defect for strict YAML
-  parsers (PyYAML), not for Studio. Tested on one control at screen level only — not yet inside a
-  `ComponentDefinitions:` paste or on the real msapp files.
+  parsers (PyYAML), not for Studio. Also confirmed inside `ComponentDefinitions:` on real msapp files
+  (cmpKPI, cmpBreadcrumbs, cmpBottomNavigation) for control properties. **The one exception is a custom
+  `Event` property's `Default:`, which needs a value (PA2231, see below).**
 - **Named Formulas work.** `nfBrand = RGBA(0, 120, 212, 1);`, `nfIsDesktop = App.Width >= 768;`,
   `nfSpace = If(nfIsDesktop, 16, 8);` entered under App > Formulas were accepted, and `Fill: =nfBrand`
   on a control resolved.
+- **PA2231: custom `Event` property needs a non-empty `Default`.** `Default: =` fails with
+  `Custom input property of kind 'Event' requires a non-empty 'Default' formula.` Use `Default: =false`.
+  Six msapp component files carry the empty form (bar-list, bottom-navigation, breadcrumbs,
+  enhanced-dialog, kpi, my-table); patch them before pasting.
+- **Where to paste.** `ComponentDefinitions:` goes on the Components tab (New component route).
+  Pasting it anywhere else gives "You cannot paste a component definition here". A `Screens:` block
+  pasted in the wrong place gives "Pasting the YAML code for screen isn't supported yet". Pasting a
+  component leaves a blank `Component1` behind that you can delete.
+- **Pasted component instances (`Control: CanvasComponent`, `ComponentName:`).** Omitted custom
+  properties resolve empty (cmpKPI, cmpBottomNavigation), so pass every one explicitly. `Height` and
+  `Width` are not inherited from the definition, so set them. `FillPortions: =0` works on an instance
+  inside an AutoLayout container.
+- **`: ` (colon + space) inside a plain-scalar formula gives PA1001 YamlInvalidSyntax.** Re-confirmed
+  by mistake on a label text. Use ` - ` or a `|-` block scalar.
+- **`Text@0.0.51` has no `TextAlign` (PA2108).** Use `Align: ='TextCanvas.Align'.Center` (or `.Start` /
+  `.End`).
+- **`LayoutJustifyContent.SpaceEvenly` does not exist.** Valid values are `Start`, `Center`, `End`,
+  `SpaceBetween`. Paste does not validate enum values: the YAML pastes and the property just turns red.
+- **`Classic/TextInput@2.3.2` with no `Default`** renders the text "Text input". Set `Default: =""`.
+- **AutoLayout labels with no `Size`/`Width`** render oversized and narrow. Set both.
+- **`LayoutWrap: =true`** on `GroupContainer@1.5.0` pastes and reflows children. A fixed `Height` on a
+  wrapping container clips the wrapped rows, so size it for the narrowest layout.
+- **User() in Named Formulas works:** `nfUserEmail = Lower(User().Email); nfUserName = Proper(User().FullName);`.
+- **Open item:** a cmpKPI instance's `Data` shows the yellow warning "Expected a different collection
+  record structure". Harmless in testing, cause not found.
 
 ## Workflow rule (not syntax, but load-bearing)
 

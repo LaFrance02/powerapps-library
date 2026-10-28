@@ -177,7 +177,7 @@ Screens:
                   Height: =72
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Horizontal
-                  LayoutJustifyContent: =LayoutJustifyContent.SpaceEvenly
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                   LayoutMinHeight: =72
                   PaddingBottom: =8
                   PaddingLeft: =8
@@ -192,7 +192,7 @@ Screens:
                         Height: =40
                         Size: =10
                         Text: ="[Home]"
-                        TextAlign: =TextAlign.Center
+                        Align: ='TextCanvas.Align'.Center
                         VerticalAlign: =VerticalAlign.Middle
                         Width: =56
                   - lblNavIcon2:
@@ -203,7 +203,7 @@ Screens:
                         Height: =40
                         Size: =10
                         Text: ="[Search]"
-                        TextAlign: =TextAlign.Center
+                        Align: ='TextCanvas.Align'.Center
                         VerticalAlign: =VerticalAlign.Middle
                         Width: =56
                   - lblNavIcon3:
@@ -214,7 +214,7 @@ Screens:
                         Height: =40
                         Size: =10
                         Text: ="[Inbox]"
-                        TextAlign: =TextAlign.Center
+                        Align: ='TextCanvas.Align'.Center
                         VerticalAlign: =VerticalAlign.Middle
                         Width: =56
                   - lblNavIcon4:
@@ -225,6 +225,6 @@ Screens:
                         Height: =40
                         Size: =10
                         Text: ="[Profile]"
-                        TextAlign: =TextAlign.Center
+                        Align: ='TextCanvas.Align'.Center
                         VerticalAlign: =VerticalAlign.Middle
                         Width: =56

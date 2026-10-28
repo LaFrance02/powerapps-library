@@ -790,3 +790,26 @@ No components were modified, renamed, or "fixed" during extraction — all 29 fi
 byte-for-byte from `Src/*.pa.yaml` inside the `.msapp` zip, with only the always-identical 8-line
 Studio boilerplate warning-comment header stripped (present verbatim at the top of every source
 file in the zip) and the top-level key (`App:`/`Screens:`/`ComponentDefinitions:`) kept.
+
+## Paste-test results (2026-10-28) — read before using
+
+All five `powerlibs-layout-*` skeletons and the msapp components were paste-tested in a Dataverse for
+Teams scratch app. Full table: `tests/paste-test-2026-10-28.md`.
+
+- **`powerlibs-layout-mobile.yaml` was patched** after testing: `TextAlign: =TextAlign.Center` (invalid on
+  `Text@0.0.51`, PA2108) became `Align: ='TextCanvas.Align'.Center`, and
+  `LayoutJustifyContent.SpaceEvenly` (not a real value) became `SpaceBetween`. The other four layouts
+  pasted clean as written.
+- **Six msapp component files need an edit before pasting.** Their custom `Event` properties have
+  `Default: =`, which Studio rejects (PA2231). Change those lines to `Default: =false`:
+  `msapp-docrouterfree-component-bar-list.yaml` (line 38), `-bottom-navigation.yaml` (53),
+  `-breadcrumbs.yaml` (49, 54), `-enhanced-dialog.yaml` (84, 90), `-kpi.yaml` (129),
+  `-my-table.yaml` (50, 56, 62). They are otherwise verbatim exports. Only bottom-navigation, kpi and
+  breadcrumbs were actually pasted (all clean after the patch).
+- **`msapp-docrouterfree-component-sidebar.yaml` pastes verbatim, no patch** (it has no empty Event
+  defaults). It needs the two named formulas `nfUserEmail` and `nfUserName`. One quirk: the
+  search box shows "Text input" because `txtNavSearch` has no `Default`, so set `Default: =""`.
+- **Skeleton cosmetics** (not paste failures): scrMobile `[icon]`/`[action]` placeholders wrap, and
+  `cntFabSlot` fills leftover space; scrDashboard `cntKpiRow` phone height 200 clips the wrapped KPI
+  cards (needs about 204+).
+

@@ -61,6 +61,32 @@ Confirmed in **Cryo Dewar Tracking Suite** (Dataverse, full) as of mid-2026:
   other configurations (e.g. ManualLayout or nested containers) but should no longer be treated as a
   blanket rule.
 
+## Paste-tested 2026-10-28 (Dataverse for Teams scratch app)
+
+| Item | Result | Notes |
+|---|---|---|
+| `Label` 2.5.1 | Clean | Pasted together with `Text@0.0.51` and `ModernText@1.0.0` with no error. |
+| `Text` 0.0.51 | Clean | Mixes freely with other control types. |
+| `ModernText` 1.0.0 | Clean | Mixes freely with `Label`/`Text`. |
+| `Rating` | Not recorded | Result not in the repo — add when reported. |
+| `Slider` | Not recorded | Result not in the repo — add when reported. |
+| `Classic/Button` 2.2.0 | Clean | With `HoverBorderColor: =`, `HoverFill: =`, `PressedBorderColor: =`, `PressedFill: =` (bare `=`), screen level only. |
+| `GroupContainer` 1.3.0 (alone) | Pastes | Warning PA2105: uses the current version, may produce errors. |
+| `GroupContainer` 1.4.0 (alone) | Pastes | Same PA2105 warning. |
+| `GroupContainer` 1.5.0 | Pastes | Current version. |
+| `GroupContainer` 1.3.0 + 1.4.0 + 1.5.0 in one paste | **Fails PA2107** | "All control instances for the same type must currently reference the same version." Rewrite all to `@1.5.0` before pasting. |
+| Named Formulas | Work | `nfBrand = RGBA(0, 120, 212, 1);`, `nfIsDesktop = App.Width >= 768;`, `nfSpace = If(nfIsDesktop, 16, 8);` accepted under App > Formulas; `Fill: =nfBrand` resolved. |
+| `Gallery` 2.15.0, `Image` 2.2.3, `Rectangle` 2.3.0, `Classic/Icon` 2.5.0, `Classic/TextInput` 2.3.2 | Clean | Inside the msapp `cmpSidebar` component (1225 lines, verbatim) and `cmpKPI`/`cmpBottomNavigation`/`cmpBreadcrumbs`. |
+| `Text` 0.0.51 properties | Clean | `FontColor`, `Size`, `Text`, `Width`, `Height`, `Wrap`, `VerticalAlign`, `Weight: ='TextCanvas.Weight'.Semibold`, `AlignInContainer`, `FillPortions`, `LayoutMinWidth`, `Align: ='TextCanvas.Align'.Center`. **`TextAlign` is not valid (PA2108).** |
+| `ModernText` 1.0.0 properties | Clean | `AutoHeight`, `FontWeight`, `Color`, `Size`, `FillPortions`, `LayoutMinWidth`, `AlignInContainer`, `Width`. |
+| `GroupContainer` 1.5.0 layout properties | Clean | `LayoutWrap`, `LayoutMaxHeight`, `LayoutMinHeight`, `LayoutMinWidth`, `BorderStyle`, `FillPortions`, `LayoutOverflowY: =LayoutOverflow.Scroll`, `LayoutDirection: =If(..., Vertical, Horizontal)`. `LayoutWrap` reflows fields as expected. |
+| `Rectangle` 2.3.0 properties | Clean | `BorderStyle`, `BorderColor`, `Fill`, `Height`, `Width`, `LayoutMinHeight`, `AlignInContainer` (no radius, which is the known PA2108 trap). |
+| `LayoutJustifyContent` values | Valid | `Start`, `Center`, `End`, `SpaceBetween`. **`SpaceEvenly` is not valid** (red formula error, paste still succeeds). |
+| `CanvasComponent` instance in a `Screens:` paste | Works | `Control: CanvasComponent` + `ComponentName:`. Pass all custom properties and `Height`/`Width`. Omitted props resolve empty. |
+| Text@0.0.51 + ModernText@1.0.0 + Label@2.5.1 in one app | Clean | No PA2107/PA2105. |
+| Custom `Event` property `Default: =` in `ComponentDefinitions` | **Fails PA2231** | Use `Default: =false`. |
+| Bare `=` on control properties inside `ComponentDefinitions` | Clean | Gallery `LayoutMaxHeight`/`LayoutMaxWidth`, Image/Label/GroupContainer, Classic/Button `Text`, control `OnSelect: =` (about 70 in total across cmpKPI and cmpBreadcrumbs). |
+
 ## Seen in examples, not yet paste-tested
 
 Controls that showed up in a PowerLibs example (`examples/powerlibs-collapsible-sidebar-shell.yaml`)
