@@ -54,6 +54,13 @@ Confirmed in **Cryo Dewar Tracking Suite** (Dataverse, full) as of mid-2026:
 | `Rectangle` | 2.3.0 | No corner-radius support — `BorderRadius`, `RadiusTopLeft`, etc. all → PA2108. |
 | `Label` | 2.5.1 | Matches Transfer Log. |
 
+- **`LayoutOverflowY: =LayoutOverflow.Scroll` scrolls.** On an `AutoLayout` `GroupContainer@1.5.0`
+  (fixed Height 300, vertical, four 120px `Label@2.5.1` children), the container scrolled with the
+  mouse wheel in play mode and the overflowing children were reachable. This contradicts the older
+  "does not reliably produce visible scrolling — avoid" gotcha above, which can stay as a note for
+  other configurations (e.g. ManualLayout or nested containers) but should no longer be treated as a
+  blanket rule.
+
 ## Seen in examples, not yet paste-tested
 
 Controls that showed up in a PowerLibs example (`examples/powerlibs-collapsible-sidebar-shell.yaml`)
